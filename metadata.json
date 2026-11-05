@@ -1,6 +1,6 @@
 {
-  "name": "Pure HTML Showcase",
-  "description": "A clean, structured single HTML page built without CSS or JavaScript.",
+  "name": "Talky V2",
+  "description": "A modern, minimalist communication platform featuring voice channels, text messaging, and server communities.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
