@@ -22,6 +22,18 @@ export default defineConfig(() => {
             next();
           });
         },
+        configurePreviewServer(server) {
+          server.middlewares.use((req, res, next) => {
+            const url = req.url?.split('?')[0];
+            const search = req.url && req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+            if (url === '/authentication' || url === '/authentication/') {
+              req.url = '/authentication.html' + search;
+            } else if (url === '/app' || url === '/app/') {
+              req.url = '/app.html' + search;
+            }
+            next();
+          });
+        },
       },
     ],
     resolve: {

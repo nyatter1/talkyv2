@@ -1727,15 +1727,19 @@
 
         /* Classic Discord Profile Settings Modal - Solid non-transparent background */
         .settings-overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
             background: #111214;
             z-index: 100;
             display: none;
             grid-template-columns: 240px 1fr;
+            overflow: hidden;
+            box-sizing: border-box;
         }
 
         .settings-overlay.open {
@@ -1749,6 +1753,7 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
+            box-sizing: border-box;
         }
 
         .settings-header-title {
@@ -1784,16 +1789,19 @@
             background: #111214;
             padding: 60px 40px 40px 60px;
             position: relative;
-            max-width: 1100px;
+            max-width: 100%;
             overflow-y: auto;
+            overflow-x: hidden;
             display: flex;
             gap: 50px;
+            box-sizing: border-box;
+            width: 100%;
         }
 
         .close-settings-btn {
             position: absolute;
-            top: 60px;
-            right: 60px;
+            top: 36px;
+            right: 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1838,7 +1846,8 @@
         }
 
         .profile-form-column {
-            flex: 1;
+            flex: 1 1 320px;
+            min-width: 0;
             max-width: 520px;
         }
 
@@ -2098,6 +2107,8 @@
         /* Right side live preview column matching the screenshot */
         .profile-preview-column {
             width: 340px;
+            flex-shrink: 0;
+            min-width: 0;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -2115,10 +2126,39 @@
             background: linear-gradient(135deg, #5865f2 0%, #eb459e 100%);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: none;
+            border: none;
             position: relative;
+            width: 100%;
+            box-sizing: border-box;
             transition: background 0.3s ease;
+        }
+
+        /* Profile Gradient Border - Concentric Double-Layer Precision Frame */
+        .profile-card-border-wrap {
+            padding: 3px;
+            border-radius: 15px; /* Concentric radius: 12px inner + 3px padding = 15px */
+            background: linear-gradient(135deg, var(--profile-border-start, #00f2fe) 0%, var(--profile-border-end, #4facfe) 100%);
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.65), 0 0 18px rgba(0, 242, 254, 0.35);
+            display: block;
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            transition: background 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .profile-card-border-wrap.modal-card {
+            padding: 3.5px;
+            border-radius: 19.5px; /* Concentric radius: 16px inner + 3.5px padding = 19.5px */
+            width: 366px;
+            max-width: 94vw;
+            background: linear-gradient(135deg, var(--profile-border-start, #00f2fe) 0%, var(--profile-border-end, #4facfe) 100%);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85), 0 0 26px rgba(0, 242, 254, 0.4);
+            animation: profileCardPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 2;
+            box-sizing: border-box;
+            transition: background 0.25s ease, box-shadow 0.25s ease;
         }
 
         .preview-banner {
@@ -2889,15 +2929,15 @@
 
         .user-profile-card-container {
             position: relative;
-            width: 360px;
-            max-width: 92vw;
+            width: 100%;
+            max-width: 100%;
             background: linear-gradient(135deg, #5865f2 0%, #eb459e 100%);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.15);
-            z-index: 2;
-            animation: profileCardPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: none;
+            border: none;
+            box-sizing: border-box;
+            transition: background 0.3s ease;
         }
 
         @keyframes profileCardPop {
@@ -4231,6 +4271,627 @@
         .channel-name-input-wrapper .modal-text-input {
             padding-left: 30px;
         }
+
+        /* ------------------------------------------------------------
+           TABLET RESPONSIVE ADAPTATIONS
+           "Make the whole site smaller so everything isn't cramped together,
+           matching desktop layout but scaled down so everything fits on screen."
+        ------------------------------------------------------------ */
+        @media (max-width: 1180px) {
+            /* Server Sidebar */
+            .server-sidebar {
+                width: 62px;
+                padding: 10px 0;
+                gap: 8px;
+            }
+            .dms-btn {
+                width: 42px;
+                height: 42px;
+                border-radius: 14px;
+            }
+            .dms-btn img {
+                width: 24px;
+                height: 24px;
+            }
+            .server-item {
+                width: 42px;
+                height: 42px;
+                border-radius: 14px;
+                font-size: 0.95rem;
+            }
+            .add-server-btn {
+                width: 42px;
+                height: 42px;
+                border-radius: 14px;
+            }
+            .sidebar-divider {
+                width: 28px;
+            }
+
+            /* DMs & Channels Sidebar */
+            .dms-sidebar, .server-channels-sidebar {
+                width: 205px;
+            }
+            .search-bar-container {
+                height: 44px;
+                padding: 8px;
+            }
+            .wireframe-search {
+                font-size: 0.8rem;
+                padding: 0 8px;
+            }
+            .dms-header, .channels-category-header {
+                font-size: 0.7rem;
+                padding: 6px 8px 3px 8px;
+            }
+            .dm-item {
+                padding: 7px 8px;
+                gap: 10px;
+                font-size: 0.88rem;
+            }
+            .dm-avatar-wrapper {
+                width: 30px;
+                height: 30px;
+            }
+            .dm-name {
+                font-size: 0.85rem;
+            }
+            .channel-item {
+                padding: 6px 8px;
+                font-size: 0.85rem;
+                gap: 8px;
+            }
+            .channel-hash-icon {
+                font-size: 1rem;
+            }
+            .user-controls-bar {
+                height: 48px;
+                padding: 0 6px;
+            }
+            .user-avatar-placeholder {
+                width: 30px;
+                height: 30px;
+            }
+            .user-name {
+                font-size: 0.82rem;
+            }
+            .user-handle {
+                font-size: 0.72rem;
+            }
+            .settings-btn {
+                width: 30px;
+                height: 30px;
+            }
+            .settings-btn svg {
+                width: 16px;
+                height: 16px;
+            }
+            .server-header-btn {
+                height: 44px;
+                padding: 0 12px;
+                font-size: 0.9rem;
+            }
+
+            /* Members Sidebar */
+            .server-members-sidebar {
+                width: 195px;
+            }
+            .members-category-header {
+                font-size: 0.7rem;
+                padding: 12px 10px 4px 10px;
+            }
+            .member-item {
+                padding: 6px 8px;
+                gap: 8px;
+            }
+            .member-avatar-wrapper {
+                width: 30px;
+                height: 30px;
+            }
+            .member-name {
+                font-size: 0.82rem;
+            }
+            .member-subtitle {
+                font-size: 0.7rem;
+            }
+
+            /* Main Header & Chat */
+            .top-header {
+                height: 44px;
+                padding: 0 12px;
+                gap: 12px;
+            }
+            .header-title {
+                font-size: 0.88rem;
+                padding-right: 12px;
+            }
+            .friends-tab {
+                padding: 3px 8px;
+                font-size: 0.82rem;
+            }
+            .chat-messages-container {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+            .chat-message {
+                gap: 10px;
+                padding: 4px 6px;
+            }
+            .chat-avatar {
+                width: 34px;
+                height: 34px;
+            }
+            .chat-author {
+                font-size: 0.88rem;
+            }
+            .chat-timestamp {
+                font-size: 0.7rem;
+            }
+            .chat-text {
+                font-size: 0.88rem;
+                line-height: 1.35;
+            }
+            .chat-input-wrapper {
+                padding: 0 12px 14px 12px;
+            }
+            .chat-input-container {
+                padding: 8px 12px;
+                border-radius: 8px;
+            }
+            .chat-input {
+                font-size: 0.88rem;
+            }
+            .chat-action-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            /* Settings Overlays (User Settings & Server Settings) */
+            .settings-overlay {
+                grid-template-columns: 195px 1fr;
+            }
+            .settings-nav {
+                padding: 36px 14px 20px 24px;
+                gap: 4px;
+            }
+            .settings-header-title {
+                font-size: 0.7rem;
+                margin-bottom: 4px;
+            }
+            .settings-item {
+                padding: 7px 8px;
+                font-size: 0.86rem;
+                border-radius: 5px;
+            }
+            .settings-content-container {
+                padding: 36px 24px 24px 32px;
+                gap: 28px;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            .close-settings-btn {
+                top: 24px;
+                right: 28px;
+            }
+            .close-settings-icon {
+                width: 32px;
+                height: 32px;
+            }
+            .close-settings-icon svg {
+                width: 16px;
+                height: 16px;
+            }
+            .close-label {
+                font-size: 0.72rem;
+            }
+            .profile-form-column {
+                flex: 1 1 280px;
+                min-width: 0;
+                max-width: 440px;
+            }
+            .settings-section-title {
+                font-size: 1.15rem;
+                margin-bottom: 1.1rem;
+            }
+            .profile-field-group {
+                margin-bottom: 1.1rem;
+            }
+            .profile-field-label {
+                font-size: 0.7rem;
+                margin-bottom: 0.4rem;
+            }
+            .profile-input {
+                padding: 0.65rem 0.85rem;
+                font-size: 0.88rem;
+            }
+            textarea.profile-input {
+                min-height: 72px;
+            }
+            .shiny-glass-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.84rem;
+            }
+            .btn-remove {
+                padding: 0.5rem 0.6rem;
+                font-size: 0.84rem;
+            }
+            .handle-input {
+                padding: 0.65rem 0;
+                font-size: 0.88rem;
+            }
+            .profile-theme-row {
+                gap: 10px;
+            }
+            .theme-color-box {
+                padding: 8px 10px;
+                gap: 6px;
+                border-radius: 6px;
+            }
+            .theme-color-title {
+                font-size: 0.7rem;
+            }
+            .theme-color-swatch-wrapper {
+                width: 28px;
+                height: 28px;
+                border-radius: 6px;
+            }
+            .theme-color-hex {
+                font-size: 0.78rem;
+            }
+            .profile-preview-column {
+                width: 290px;
+                flex-shrink: 0;
+                min-width: 240px;
+            }
+            .preview-heading {
+                font-size: 0.7rem;
+                margin-bottom: 6px;
+            }
+            .preview-banner {
+                height: 85px;
+            }
+            .preview-avatar-wrapper {
+                top: -34px;
+                left: 14px;
+                width: 62px;
+                height: 62px;
+            }
+            .preview-body {
+                padding: 10px 14px 14px 14px;
+            }
+            .preview-user-name {
+                font-size: 1.05rem;
+            }
+            .preview-user-handle {
+                font-size: 0.82rem;
+            }
+            .preview-bio-text {
+                font-size: 0.8rem;
+            }
+            .discord-save-notice-bar {
+                left: 50%;
+                transform: translateX(-50%) translateY(120px);
+                width: min(540px, 90%);
+                bottom: 18px;
+            }
+            .discord-save-notice-bar.show {
+                transform: translateX(-50%) translateY(0);
+            }
+            .settings-form-section {
+                max-width: 440px !important;
+            }
+        }
+
+        @media (max-width: 900px) {
+            /* Compact Tablet & Small Screens */
+            .server-sidebar {
+                width: 52px;
+                padding: 8px 0;
+                gap: 6px;
+            }
+            .dms-btn {
+                width: 38px;
+                height: 38px;
+                border-radius: 12px;
+            }
+            .dms-btn img {
+                width: 20px;
+                height: 20px;
+            }
+            .server-item {
+                width: 38px;
+                height: 38px;
+                border-radius: 12px;
+                font-size: 0.9rem;
+            }
+            .add-server-btn {
+                width: 38px;
+                height: 38px;
+                border-radius: 12px;
+            }
+            .sidebar-divider {
+                width: 22px;
+            }
+
+            .dms-sidebar, .server-channels-sidebar {
+                width: 175px;
+            }
+            .search-bar-container {
+                height: 40px;
+                padding: 6px;
+            }
+            .wireframe-search {
+                font-size: 0.75rem;
+                padding: 0 6px;
+            }
+            .dms-header, .channels-category-header {
+                font-size: 0.65rem;
+                padding: 5px 6px 2px 6px;
+            }
+            .dm-item {
+                padding: 6px;
+                gap: 8px;
+                font-size: 0.82rem;
+            }
+            .dm-avatar-wrapper {
+                width: 26px;
+                height: 26px;
+            }
+            .dm-name {
+                font-size: 0.8rem;
+            }
+            .channel-item {
+                padding: 5px 6px;
+                font-size: 0.8rem;
+                gap: 6px;
+            }
+            .channel-hash-icon {
+                font-size: 0.9rem;
+            }
+            .user-controls-bar {
+                height: 44px;
+                padding: 0 5px;
+            }
+            .user-avatar-placeholder {
+                width: 26px;
+                height: 26px;
+            }
+            .user-name {
+                font-size: 0.78rem;
+            }
+            .user-handle {
+                font-size: 0.68rem;
+            }
+            .settings-btn {
+                width: 26px;
+                height: 26px;
+            }
+            .settings-btn svg {
+                width: 14px;
+                height: 14px;
+            }
+            .server-header-btn {
+                height: 40px;
+                padding: 0 8px;
+                font-size: 0.84rem;
+            }
+
+            .server-members-sidebar {
+                width: 165px;
+            }
+            .members-category-header {
+                font-size: 0.65rem;
+                padding: 10px 8px 3px 8px;
+            }
+            .member-item {
+                padding: 5px 6px;
+                gap: 6px;
+            }
+            .member-avatar-wrapper {
+                width: 26px;
+                height: 26px;
+            }
+            .member-name {
+                font-size: 0.78rem;
+            }
+            .member-subtitle {
+                font-size: 0.65rem;
+            }
+
+            .top-header {
+                height: 40px;
+                padding: 0 10px;
+                gap: 8px;
+            }
+            .header-title {
+                font-size: 0.82rem;
+                padding-right: 8px;
+            }
+            .friends-tab {
+                padding: 2px 6px;
+                font-size: 0.78rem;
+            }
+            .chat-messages-container {
+                padding: 10px 10px;
+                gap: 8px;
+            }
+            .chat-message {
+                gap: 8px;
+                padding: 3px 4px;
+            }
+            .chat-avatar {
+                width: 30px;
+                height: 30px;
+            }
+            .chat-author {
+                font-size: 0.82rem;
+            }
+            .chat-timestamp {
+                font-size: 0.65rem;
+            }
+            .chat-text {
+                font-size: 0.82rem;
+            }
+            .chat-input-wrapper {
+                padding: 0 10px 10px 10px;
+            }
+            .chat-input-container {
+                padding: 6px 10px;
+            }
+            .chat-input {
+                font-size: 0.82rem;
+            }
+
+            /* Settings Overlays on Compact Tablet */
+            .settings-overlay {
+                grid-template-columns: 155px 1fr;
+            }
+            .settings-nav {
+                padding: 24px 8px 16px 16px;
+                gap: 3px;
+            }
+            .settings-header-title {
+                font-size: 0.65rem;
+                margin-bottom: 3px;
+            }
+            .settings-item {
+                padding: 6px 7px;
+                font-size: 0.8rem;
+            }
+            .settings-content-container {
+                padding: 24px 16px 20px 20px;
+                gap: 18px;
+                overflow-x: hidden;
+            }
+            .close-settings-btn {
+                top: 14px;
+                right: 16px;
+            }
+            .close-settings-icon {
+                width: 28px;
+                height: 28px;
+                border-width: 1.5px;
+            }
+            .close-settings-icon svg {
+                width: 14px;
+                height: 14px;
+            }
+            .close-label {
+                font-size: 0.65rem;
+            }
+            .profile-form-column {
+                flex: 1 1 230px;
+                min-width: 0;
+                max-width: 360px;
+            }
+            .settings-section-title {
+                font-size: 1.05rem;
+                margin-bottom: 0.85rem;
+            }
+            .profile-field-group {
+                margin-bottom: 0.85rem;
+            }
+            .profile-field-label {
+                font-size: 0.65rem;
+                margin-bottom: 0.3rem;
+            }
+            .profile-input {
+                padding: 0.55rem 0.75rem;
+                font-size: 0.82rem;
+                border-radius: 5px;
+            }
+            textarea.profile-input {
+                min-height: 60px;
+            }
+            .shiny-glass-btn {
+                padding: 0.45rem 0.8rem;
+                font-size: 0.78rem;
+            }
+            .btn-remove {
+                padding: 0.45rem 0.5rem;
+                font-size: 0.78rem;
+            }
+            .handle-input {
+                padding: 0.55rem 0;
+                font-size: 0.82rem;
+            }
+            .handle-prefix {
+                font-size: 0.82rem;
+            }
+            .theme-color-box {
+                padding: 6px 8px;
+                gap: 4px;
+            }
+            .theme-color-title {
+                font-size: 0.65rem;
+            }
+            .theme-color-swatch-wrapper {
+                width: 24px;
+                height: 24px;
+                border-radius: 5px;
+            }
+            .theme-color-hex {
+                font-size: 0.72rem;
+            }
+            .profile-preview-column {
+                width: 235px;
+                flex-shrink: 0;
+                min-width: 200px;
+            }
+            .preview-heading {
+                font-size: 0.65rem;
+                margin-bottom: 4px;
+            }
+            .preview-banner {
+                height: 70px;
+            }
+            .preview-avatar-wrapper {
+                top: -26px;
+                left: 12px;
+                width: 50px;
+                height: 50px;
+            }
+            .preview-body {
+                padding: 8px 10px 10px 10px;
+            }
+            .preview-user-name {
+                font-size: 0.92rem;
+            }
+            .preview-user-handle {
+                font-size: 0.75rem;
+            }
+            .preview-bio-text {
+                font-size: 0.75rem;
+            }
+            .discord-save-notice-bar {
+                left: 50%;
+                transform: translateX(-50%) translateY(120px);
+                width: min(460px, 92%);
+                bottom: 12px;
+                padding: 8px 12px;
+            }
+            .discord-save-notice-bar.show {
+                transform: translateX(-50%) translateY(0);
+            }
+            .discord-save-notice-text {
+                font-size: 0.8rem;
+            }
+            .discord-notice-btn {
+                padding: 5px 10px;
+                font-size: 0.78rem;
+            }
+            .settings-form-section {
+                max-width: 360px !important;
+            }
+            .server-settings-icon-preview {
+                width: 56px !important;
+                height: 56px !important;
+                font-size: 1.1rem !important;
+            }
+            .server-settings-banner-preview {
+                height: 68px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -4746,6 +5407,31 @@
                     </div>
                 </div>
 
+                <!-- Profile Border Section under Profile Theme -->
+                <div class="profile-field-group">
+                    <label class="profile-field-label">Profile Border</label>
+                    <div class="profile-theme-row">
+                        <div class="theme-color-box" id="borderStartBox" title="Click to pick Border Gradient Start Color">
+                            <span class="theme-color-title">Border Start</span>
+                            <div class="theme-color-control">
+                                <div class="theme-color-swatch-wrapper" id="borderStartSwatchWrapper">
+                                    <input type="color" id="borderStartColorInput" class="theme-color-input" value="#00f2fe">
+                                </div>
+                                <span class="theme-color-hex" id="borderStartHex">#00f2fe</span>
+                            </div>
+                        </div>
+                        <div class="theme-color-box" id="borderEndBox" title="Click to pick Border Gradient End Color">
+                            <span class="theme-color-title">Border End</span>
+                            <div class="theme-color-control">
+                                <div class="theme-color-swatch-wrapper" id="borderEndSwatchWrapper">
+                                    <input type="color" id="borderEndColorInput" class="theme-color-input" value="#4facfe">
+                                </div>
+                                <span class="theme-color-hex" id="borderEndHex">#4facfe</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="profile-field-group">
                     <label class="profile-field-label">About Me (Bio)</label>
                     <textarea class="profile-input" id="bioInput" placeholder="Tell us about yourself..."></textarea>
@@ -4771,24 +5457,26 @@
             <!-- Right: Live Preview Card matching requested screenshot layout -->
             <div class="profile-preview-column">
                 <div class="preview-heading">Preview</div>
-                <div class="discord-preview-card" id="previewCard">
-                    <div class="preview-banner" id="previewBanner"></div>
-                    <div class="preview-body">
-                        <div class="preview-avatar-wrapper">
-                            <div class="preview-avatar" id="previewAvatar"></div>
-                        </div>
-                        <div class="preview-user-info">
-                            <div class="preview-display-name" id="previewName">User</div>
-                            <div class="preview-pronouns" id="previewHandle" style="color: #949ba4; font-weight: 500; margin-top: 2px;">@user</div>
-                            <div class="preview-pronouns" id="previewPronouns" style="display: none;"></div>
-                            <div class="preview-divider" id="previewDivider" style="display: none;"></div>
-                            <div id="previewAboutSection" style="display: none;">
-                                <div class="preview-about-title">About Me</div>
-                                <div class="preview-about-text" id="previewBio"></div>
+                <div class="profile-card-border-wrap" id="previewCardBorderWrap">
+                    <div class="discord-preview-card" id="previewCard">
+                        <div class="preview-banner" id="previewBanner"></div>
+                        <div class="preview-body">
+                            <div class="preview-avatar-wrapper">
+                                <div class="preview-avatar" id="previewAvatar"></div>
                             </div>
-                            <div id="previewLinksSection" style="display: none; margin-top: 8px;">
-                                <div class="preview-about-title">Links</div>
-                                <div class="preview-links-grid" id="previewLinksGrid"></div>
+                            <div class="preview-user-info">
+                                <div class="preview-display-name" id="previewName">User</div>
+                                <div class="preview-pronouns" id="previewHandle" style="color: #949ba4; font-weight: 500; margin-top: 2px;">@user</div>
+                                <div class="preview-pronouns" id="previewPronouns" style="display: none;"></div>
+                                <div class="preview-divider" id="previewDivider" style="display: none;"></div>
+                                <div id="previewAboutSection" style="display: none;">
+                                    <div class="preview-about-title">About Me</div>
+                                    <div class="preview-about-text" id="previewBio"></div>
+                                </div>
+                                <div id="previewLinksSection" style="display: none; margin-top: 8px;">
+                                    <div class="preview-about-title">Links</div>
+                                    <div class="preview-links-grid" id="previewLinksGrid"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -4940,50 +5628,52 @@
     <!-- Centered User Profile Card Modal (Discord Style) -->
     <div class="user-profile-modal-overlay" id="userProfileCardModal" style="display: none;">
         <div class="user-profile-modal-backdrop" id="userProfileModalBackdrop"></div>
-        <div class="user-profile-card-container" id="userProfileCardContainer">
-            <!-- Close Button -->
-            <button type="button" class="profile-card-close-btn" id="userProfileModalCloseBtn" title="Close (ESC)">
-                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-            </button>
+        <div class="profile-card-border-wrap modal-card" id="userProfileCardBorderWrap">
+            <div class="user-profile-card-container" id="userProfileCardContainer">
+                <!-- Close Button -->
+                <button type="button" class="profile-card-close-btn" id="userProfileModalCloseBtn" title="Close (ESC)">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
 
-            <!-- Card Banner -->
-            <div class="profile-card-banner" id="userProfileCardBanner"></div>
+                <!-- Card Banner -->
+                <div class="profile-card-banner" id="userProfileCardBanner"></div>
 
-            <!-- Card Body with Avatar & Details -->
-            <div class="profile-card-body">
-                <!-- Avatar with status badge -->
-                <div class="profile-card-avatar-wrapper">
-                    <div class="profile-card-avatar" id="userProfileCardAvatar"></div>
-                    <span class="profile-card-status online" title="Online"></span>
-                </div>
-
-                <!-- Inner Content Container -->
-                <div class="profile-card-inner-box">
-                    <!-- Names & Crown Row -->
-                    <div class="profile-card-name-row">
-                        <span class="profile-card-display-name" id="userProfileCardDisplayName">User</span>
-                        <span id="userProfileCardCrownHolder"></span>
-                        <span id="userProfileCardBotTag" class="bot-tag" style="display: none;">BOT</span>
-                    </div>
-                    <div class="profile-card-handle" id="userProfileCardHandle">@user</div>
-
-                    <!-- Pronouns Badge (if present) -->
-                    <div class="profile-card-pronouns" id="userProfileCardPronouns" style="display: none;"></div>
-
-                    <div class="profile-card-divider"></div>
-
-                    <!-- About Me / Bio -->
-                    <div class="profile-card-section" id="userProfileCardBioSection">
-                        <div class="profile-card-section-title">ABOUT ME</div>
-                        <div class="profile-card-bio" id="userProfileCardBio">No bio written yet.</div>
+                <!-- Card Body with Avatar & Details -->
+                <div class="profile-card-body">
+                    <!-- Avatar with status badge -->
+                    <div class="profile-card-avatar-wrapper">
+                        <div class="profile-card-avatar" id="userProfileCardAvatar"></div>
+                        <span class="profile-card-status online" title="Online"></span>
                     </div>
 
-                    <div class="profile-card-divider" id="userProfileCardLinksDivider" style="display: none;"></div>
+                    <!-- Inner Content Container -->
+                    <div class="profile-card-inner-box">
+                        <!-- Names & Crown Row -->
+                        <div class="profile-card-name-row">
+                            <span class="profile-card-display-name" id="userProfileCardDisplayName">User</span>
+                            <span id="userProfileCardCrownHolder"></span>
+                            <span id="userProfileCardBotTag" class="bot-tag" style="display: none;">BOT</span>
+                        </div>
+                        <div class="profile-card-handle" id="userProfileCardHandle">@user</div>
 
-                    <!-- Links Section under Bio -->
-                    <div class="profile-card-section" id="userProfileCardLinksSection" style="display: none;">
-                        <div class="profile-card-section-title">LINKS</div>
-                        <div class="profile-card-links-grid" id="userProfileCardLinksGrid"></div>
+                        <!-- Pronouns Badge (if present) -->
+                        <div class="profile-card-pronouns" id="userProfileCardPronouns" style="display: none;"></div>
+
+                        <div class="profile-card-divider"></div>
+
+                        <!-- About Me / Bio -->
+                        <div class="profile-card-section" id="userProfileCardBioSection">
+                            <div class="profile-card-section-title">ABOUT ME</div>
+                            <div class="profile-card-bio" id="userProfileCardBio">No bio written yet.</div>
+                        </div>
+
+                        <div class="profile-card-divider" id="userProfileCardLinksDivider" style="display: none;"></div>
+
+                        <!-- Links Section under Bio -->
+                        <div class="profile-card-section" id="userProfileCardLinksSection" style="display: none;">
+                            <div class="profile-card-section-title">LINKS</div>
+                            <div class="profile-card-links-grid" id="userProfileCardLinksGrid"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -5207,6 +5897,127 @@
         let pendingServerImages = [];
         let currentServerMessages = [];
 
+        // In-memory Canvas Image Compression Utility
+        function compressImage(source, maxWidth, maxHeight, quality = 0.82) {
+            return new Promise((resolve) => {
+                if (!source) return resolve('');
+
+                const processImg = (img) => {
+                    let width = img.naturalWidth || img.width;
+                    let height = img.naturalHeight || img.height;
+                    if (!width || !height) return resolve(typeof source === 'string' ? source : '');
+
+                    if (width > maxWidth || height > maxHeight) {
+                        const ratio = Math.min(maxWidth / width, maxHeight / height);
+                        width = Math.max(1, Math.round(width * ratio));
+                        height = Math.max(1, Math.round(height * ratio));
+                    }
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        const compressed = canvas.toDataURL('image/jpeg', quality);
+                        resolve(compressed);
+                    } catch (err) {
+                        console.warn('Canvas compression fallback:', err);
+                        resolve(typeof source === 'string' ? source : '');
+                    }
+                };
+
+                if (typeof source === 'string') {
+                    if (!source.startsWith('data:image')) {
+                        return resolve(source);
+                    }
+                    const img = new Image();
+                    img.onload = () => processImg(img);
+                    img.onerror = () => resolve(source);
+                    img.src = source;
+                } else if (source instanceof File || source instanceof Blob) {
+                    const url = URL.createObjectURL(source);
+                    const img = new Image();
+                    img.onload = () => {
+                        URL.revokeObjectURL(url);
+                        processImg(img);
+                    };
+                    img.onerror = () => {
+                        URL.revokeObjectURL(url);
+                        resolve('');
+                    };
+                    img.src = url;
+                } else {
+                    resolve('');
+                }
+            });
+        }
+
+        // Safe Storage Helper with automatic quota pruning
+        function safeStorageSet(key, value) {
+            try {
+                localStorage.setItem(key, value);
+                return true;
+            } catch (err) {
+                console.warn('localStorage quota warning on key "' + key + '", initiating auto-prune:', err);
+                try {
+                    // 1. Prune temporary attachment and message caches
+                    const keysToRemove = [];
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const k = localStorage.key(i);
+                        if (k && (k.startsWith('talky_server_messages_') || k.startsWith('talky_dm_attachments_') || k.startsWith('talky_temp_'))) {
+                            keysToRemove.push(k);
+                        }
+                    }
+                    keysToRemove.forEach(k => localStorage.removeItem(k));
+
+                    // 2. In talky_users list, keep essential profile fields and trim large duplicate banners
+                    const usersRaw = localStorage.getItem('talky_users');
+                    if (usersRaw) {
+                        try {
+                            const uList = JSON.parse(usersRaw);
+                            if (Array.isArray(uList)) {
+                                const trimmedUsers = uList.slice(-20).map(u => ({
+                                    id: u.id,
+                                    username: u.username,
+                                    email: u.email,
+                                    displayName: u.displayName,
+                                    handle: u.handle,
+                                    pronouns: u.pronouns,
+                                    bio: u.bio,
+                                    links: u.links,
+                                    avatar: (u.avatar && u.avatar.length < 50000) ? u.avatar : '',
+                                    banner: (u.banner && u.banner.length < 80000) ? u.banner : '',
+                                    accentColor: u.accentColor,
+                                    secondaryColor: u.secondaryColor,
+                                    borderStartColor: u.borderStartColor,
+                                    borderEndColor: u.borderEndColor
+                                }));
+                                localStorage.setItem('talky_users', JSON.stringify(trimmedUsers));
+                            }
+                        } catch (pe) {}
+                    }
+
+                    // 3. Retry saving
+                    localStorage.setItem(key, value);
+                    return true;
+                } catch (retryErr) {
+                    console.error('Safe storage recovery failed for key:', key, retryErr);
+                    // If key is talky_current_user and still failing, strip heavy banner as last resort
+                    if (key === 'talky_current_user') {
+                        try {
+                            const obj = JSON.parse(value);
+                            if (obj.banner && obj.banner.length > 50000) {
+                                obj.banner = '';
+                                localStorage.setItem(key, JSON.stringify(obj));
+                                return true;
+                            }
+                        } catch (e) {}
+                    }
+                    return false;
+                }
+            }
+        }
+
         function loadUserData() {
             const stored = localStorage.getItem('talky_current_user');
             if (stored) {
@@ -5221,7 +6032,7 @@
                 const usersList = JSON.parse(localStorage.getItem('talky_users') || '[]');
                 if (usersList.length > 0) {
                     currentUser = usersList[usersList.length - 1];
-                    localStorage.setItem('talky_current_user', JSON.stringify(currentUser));
+                    safeStorageSet('talky_current_user', JSON.stringify(currentUser));
                 } else {
                     currentUser = {
                         id: 'user_default',
@@ -5236,7 +6047,9 @@
                         avatar: '',
                         banner: '',
                         accentColor: '#5865f2',
-                        secondaryColor: '#eb459e'
+                        secondaryColor: '#eb459e',
+                        borderStartColor: '#00f2fe',
+                        borderEndColor: '#4facfe'
                     };
                     saveUserData();
                 }
@@ -5246,21 +6059,45 @@
                 currentUser.links = [];
             }
 
+            // Downscale any legacy oversized avatar or banner in the background
+            if (currentUser) {
+                if (currentUser.avatar && currentUser.avatar.startsWith('data:image') && currentUser.avatar.length > 60000) {
+                    compressImage(currentUser.avatar, 180, 180, 0.82).then(compressed => {
+                        if (compressed && compressed.length < currentUser.avatar.length) {
+                            currentUser.avatar = compressed;
+                            safeStorageSet('talky_current_user', JSON.stringify(currentUser));
+                        }
+                    });
+                }
+                if (currentUser.banner && currentUser.banner.startsWith('data:image') && currentUser.banner.length > 120000) {
+                    compressImage(currentUser.banner, 640, 220, 0.80).then(compressed => {
+                        if (compressed && compressed.length < currentUser.banner.length) {
+                            currentUser.banner = compressed;
+                            safeStorageSet('talky_current_user', JSON.stringify(currentUser));
+                        }
+                    });
+                }
+            }
+
             applyUserDataToUI();
         }
 
         function saveUserData() {
             if (!currentUser) return;
-            localStorage.setItem('talky_current_user', JSON.stringify(currentUser));
+            safeStorageSet('talky_current_user', JSON.stringify(currentUser));
 
-            let users = JSON.parse(localStorage.getItem('talky_users') || '[]');
-            const idx = users.findIndex(u => u.id === currentUser.id || (u.email && u.email === currentUser.email));
-            if (idx >= 0) {
-                users[idx] = currentUser;
-            } else {
-                users.push(currentUser);
+            try {
+                let users = JSON.parse(localStorage.getItem('talky_users') || '[]');
+                const idx = users.findIndex(u => u.id === currentUser.id || (u.email && u.email === currentUser.email));
+                if (idx >= 0) {
+                    users[idx] = currentUser;
+                } else {
+                    users.push(currentUser);
+                }
+                safeStorageSet('talky_users', JSON.stringify(users));
+            } catch (e) {
+                console.warn('Error saving talky_users list:', e);
             }
-            localStorage.setItem('talky_users', JSON.stringify(users));
         }
 
         // Settings Modal Controls
@@ -5313,6 +6150,15 @@
         const accentHex = document.getElementById('accentHex');
         const secondaryHex = document.getElementById('secondaryHex');
 
+        const borderStartBox = document.getElementById('borderStartBox');
+        const borderEndBox = document.getElementById('borderEndBox');
+        const borderStartColorInput = document.getElementById('borderStartColorInput');
+        const borderEndColorInput = document.getElementById('borderEndColorInput');
+        const borderStartSwatchWrapper = document.getElementById('borderStartSwatchWrapper');
+        const borderEndSwatchWrapper = document.getElementById('borderEndSwatchWrapper');
+        const borderStartHex = document.getElementById('borderStartHex');
+        const borderEndHex = document.getElementById('borderEndHex');
+
         const previewCard = document.getElementById('previewCard');
         const previewName = document.getElementById('previewName');
         const previewHandle = document.getElementById('previewHandle');
@@ -5340,7 +6186,18 @@
             if (secondaryHex) secondaryHex.textContent = secondary;
         }
 
-        // Profile Unsaved Changes State & Logic
+        function updateProfileBorderGradient(borderStart, borderEnd) {
+            const previewCardBorderWrap = document.getElementById('previewCardBorderWrap');
+            if (previewCardBorderWrap) {
+                previewCardBorderWrap.style.background = `linear-gradient(135deg, ${borderStart} 0%, ${borderEnd} 100%)`;
+                previewCardBorderWrap.style.boxShadow = `0 10px 32px rgba(0, 0, 0, 0.65), 0 0 18px ${borderStart}45`;
+            }
+            if (borderStartSwatchWrapper) borderStartSwatchWrapper.style.backgroundColor = borderStart;
+            if (borderEndSwatchWrapper) borderEndSwatchWrapper.style.backgroundColor = borderEnd;
+            if (borderStartHex) borderStartHex.textContent = borderStart;
+            if (borderEndHex) borderEndHex.textContent = borderEnd;
+        }
+
         // Profile Unsaved Changes State & Logic
         let profileSavedState = {
             displayName: 'User',
@@ -5349,6 +6206,8 @@
             links: [],
             accentColor: '#5865f2',
             secondaryColor: '#eb459e',
+            borderStartColor: '#00f2fe',
+            borderEndColor: '#4facfe',
             avatar: '',
             banner: ''
         };
@@ -5501,6 +6360,8 @@
                 links: userLinks,
                 accentColor: currentUser.accentColor || '#5865f2',
                 secondaryColor: currentUser.secondaryColor || '#eb459e',
+                borderStartColor: currentUser.borderStartColor || '#00f2fe',
+                borderEndColor: currentUser.borderEndColor || '#4facfe',
                 avatar: currentUser.avatar || '',
                 banner: currentUser.banner || ''
             };
@@ -5526,6 +6387,8 @@
                 profileDraftState.bio !== profileSavedState.bio ||
                 profileDraftState.accentColor !== profileSavedState.accentColor ||
                 profileDraftState.secondaryColor !== profileSavedState.secondaryColor ||
+                profileDraftState.borderStartColor !== profileSavedState.borderStartColor ||
+                profileDraftState.borderEndColor !== profileSavedState.borderEndColor ||
                 profileDraftState.avatar !== profileSavedState.avatar ||
                 profileDraftState.banner !== profileSavedState.banner ||
                 !areLinksEqual(profileDraftState.links, profileSavedState.links);
@@ -5545,16 +6408,21 @@
             const handle = currentUser ? (currentUser.handle || 'user') : 'user';
             const accent = profileDraftState.accentColor || '#5865f2';
             const secondary = profileDraftState.secondaryColor || '#eb459e';
+            const borderStart = profileDraftState.borderStartColor || '#00f2fe';
+            const borderEnd = profileDraftState.borderEndColor || '#4facfe';
 
             displayNameInput.value = profileDraftState.displayName;
             pronounsInput.value = profileDraftState.pronouns;
             bioInput.value = profileDraftState.bio;
             accentColorInput.value = accent;
             secondaryColorInput.value = secondary;
+            if (borderStartColorInput) borderStartColorInput.value = borderStart;
+            if (borderEndColorInput) borderEndColorInput.value = borderEnd;
 
             previewName.textContent = name;
             previewHandle.textContent = '@' + handle;
             updateProfileThemeGradient(accent, secondary);
+            updateProfileBorderGradient(borderStart, borderEnd);
 
             if (profileDraftState.pronouns) {
                 previewPronouns.textContent = profileDraftState.pronouns;
@@ -5595,6 +6463,8 @@
             const handle = currentUser.handle || 'user';
             const accent = currentUser.accentColor || '#5865f2';
             const secondary = currentUser.secondaryColor || '#eb459e';
+            const borderStart = currentUser.borderStartColor || '#00f2fe';
+            const borderEnd = currentUser.borderEndColor || '#4facfe';
 
             displayNameInput.value = name;
             handleInput.value = handle;
@@ -5621,7 +6491,10 @@
 
             accentColorInput.value = accent;
             secondaryColorInput.value = secondary;
+            if (borderStartColorInput) borderStartColorInput.value = borderStart;
+            if (borderEndColorInput) borderEndColorInput.value = borderEnd;
             updateProfileThemeGradient(accent, secondary);
+            updateProfileBorderGradient(borderStart, borderEnd);
 
             if (currentUser.pronouns) {
                 previewPronouns.textContent = currentUser.pronouns;
@@ -5693,6 +6566,35 @@
         secondaryBox.addEventListener('click', (e) => {
             if (e.target !== secondaryColorInput) secondaryColorInput.click();
         });
+
+        // Profile Border Pickers
+        if (borderStartColorInput) {
+            borderStartColorInput.addEventListener('input', (e) => {
+                profileDraftState.borderStartColor = e.target.value;
+                updateProfileBorderGradient(profileDraftState.borderStartColor, profileDraftState.borderEndColor);
+                checkProfileUnsavedChanges();
+            });
+        }
+
+        if (borderEndColorInput) {
+            borderEndColorInput.addEventListener('input', (e) => {
+                profileDraftState.borderEndColor = e.target.value;
+                updateProfileBorderGradient(profileDraftState.borderStartColor, profileDraftState.borderEndColor);
+                checkProfileUnsavedChanges();
+            });
+        }
+
+        if (borderStartBox && borderStartColorInput) {
+            borderStartBox.addEventListener('click', (e) => {
+                if (e.target !== borderStartColorInput) borderStartColorInput.click();
+            });
+        }
+
+        if (borderEndBox && borderEndColorInput) {
+            borderEndBox.addEventListener('click', (e) => {
+                if (e.target !== borderEndColorInput) borderEndColorInput.click();
+            });
+        }
 
         // Display Name Handler
         displayNameInput.addEventListener('input', (e) => {
@@ -5790,18 +6692,14 @@
             checkProfileUnsavedChanges();
         });
 
-        // Avatar Upload Handler
-        avatarInput.addEventListener('change', (e) => {
+        // Avatar Upload Handler with Automatic In-Memory Compression
+        avatarInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = function(evt) {
-                    const dataUrl = evt.target.result;
-                    profileDraftState.avatar = dataUrl;
-                    previewAvatar.style.backgroundImage = `url('${dataUrl}')`;
-                    checkProfileUnsavedChanges();
-                };
-                reader.readAsDataURL(file);
+                const compressed = await compressImage(file, 180, 180, 0.82);
+                profileDraftState.avatar = compressed;
+                previewAvatar.style.backgroundImage = `url('${compressed}')`;
+                checkProfileUnsavedChanges();
             }
         });
 
@@ -5812,18 +6710,14 @@
             checkProfileUnsavedChanges();
         });
 
-        // Banner Upload Handler
-        bannerInput.addEventListener('change', (e) => {
+        // Banner Upload Handler with Automatic In-Memory Compression
+        bannerInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = function(evt) {
-                    const dataUrl = evt.target.result;
-                    profileDraftState.banner = dataUrl;
-                    previewBanner.style.backgroundImage = `url('${dataUrl}')`;
-                    checkProfileUnsavedChanges();
-                };
-                reader.readAsDataURL(file);
+                const compressed = await compressImage(file, 640, 220, 0.80);
+                profileDraftState.banner = compressed;
+                previewBanner.style.backgroundImage = `url('${compressed}')`;
+                checkProfileUnsavedChanges();
             }
         });
 
@@ -5876,36 +6770,59 @@
         }
 
         if (profileSaveNoticeBtn) {
-            profileSaveNoticeBtn.addEventListener('click', () => {
-                currentUser.displayName = profileDraftState.displayName.trim() || 'User';
-                currentUser.pronouns = profileDraftState.pronouns;
-                currentUser.bio = profileDraftState.bio;
-                currentUser.accentColor = profileDraftState.accentColor;
-                currentUser.secondaryColor = profileDraftState.secondaryColor;
-                currentUser.avatar = profileDraftState.avatar;
-                currentUser.banner = profileDraftState.banner;
+            profileSaveNoticeBtn.addEventListener('click', async () => {
+                profileSaveNoticeBtn.disabled = true;
+                const origText = profileSaveNoticeBtn.textContent;
+                profileSaveNoticeBtn.textContent = 'Saving...';
 
-                // Process up to 4 links with non-empty URLs
-                const processedLinks = (profileDraftState.links || [])
-                    .filter(l => l && l.url && l.url.trim())
-                    .slice(0, 4)
-                    .map(l => {
-                        let u = l.url.trim();
-                        if (!/^https?:\/\//i.test(u)) {
-                            u = 'https://' + u;
-                        }
-                        let t = (l.title || '').trim();
-                        if (!t) {
-                            t = getDomainFromUrl(u);
-                        }
-                        return { title: t, url: u };
-                    });
+                try {
+                    // Pre-compression check on draft avatar & banner if they are large
+                    if (profileDraftState.avatar && profileDraftState.avatar.length > 70000) {
+                        profileDraftState.avatar = await compressImage(profileDraftState.avatar, 180, 180, 0.82);
+                    }
+                    if (profileDraftState.banner && profileDraftState.banner.length > 120000) {
+                        profileDraftState.banner = await compressImage(profileDraftState.banner, 640, 220, 0.80);
+                    }
 
-                currentUser.links = processedLinks;
-                profileSavedState.links = JSON.parse(JSON.stringify(processedLinks));
+                    currentUser.displayName = profileDraftState.displayName.trim() || 'User';
+                    currentUser.pronouns = profileDraftState.pronouns;
+                    currentUser.bio = profileDraftState.bio;
+                    currentUser.accentColor = profileDraftState.accentColor;
+                    currentUser.secondaryColor = profileDraftState.secondaryColor;
+                    currentUser.borderStartColor = profileDraftState.borderStartColor || '#00f2fe';
+                    currentUser.borderEndColor = profileDraftState.borderEndColor || '#4facfe';
+                    currentUser.avatar = profileDraftState.avatar;
+                    currentUser.banner = profileDraftState.banner;
 
-                saveUserData();
-                applyUserDataToUI();
+                    // Process up to 4 links with non-empty URLs
+                    const processedLinks = (profileDraftState.links || [])
+                        .filter(l => l && l.url && l.url.trim())
+                        .slice(0, 4)
+                        .map(l => {
+                            let u = l.url.trim();
+                            if (!/^https?:\/\//i.test(u)) {
+                                u = 'https://' + u;
+                            }
+                            let t = (l.title || '').trim();
+                            if (!t) {
+                                t = getDomainFromUrl(u);
+                            }
+                            return { title: t, url: u };
+                        });
+
+                    currentUser.links = processedLinks;
+                    profileSavedState = JSON.parse(JSON.stringify(profileDraftState));
+                    profileSavedState.links = JSON.parse(JSON.stringify(processedLinks));
+
+                    saveUserData();
+                    applyUserDataToUI();
+                    checkProfileUnsavedChanges();
+                } catch (err) {
+                    console.error('Error during profile save:', err);
+                } finally {
+                    profileSaveNoticeBtn.disabled = false;
+                    profileSaveNoticeBtn.textContent = origText;
+                }
             });
         }
 
@@ -6027,7 +6944,7 @@
         }
 
         function saveDmMessages() {
-            localStorage.setItem('talky_bot_messages', JSON.stringify(dmMessagesList));
+            safeStorageSet('talky_bot_messages', JSON.stringify(dmMessagesList));
         }
 
         function renderChatMessage(msg) {
@@ -6247,26 +7164,17 @@
                 chatImageInput.click();
             });
 
-            chatImageInput.addEventListener('change', (e) => {
+            chatImageInput.addEventListener('change', async (e) => {
                 const files = Array.from(e.target.files);
                 if (!files.length) return;
 
-                let loadedCount = 0;
-                files.forEach(file => {
+                for (const file of files) {
                     if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = (evt) => {
-                            pendingImages.push(evt.target.result);
-                            loadedCount++;
-                            if (loadedCount === files.length) {
-                                renderAttachmentTray();
-                            }
-                        };
-                        reader.readAsDataURL(file);
-                    } else {
-                        loadedCount++;
+                        const compressed = await compressImage(file, 960, 960, 0.80);
+                        if (compressed) pendingImages.push(compressed);
                     }
-                });
+                }
+                renderAttachmentTray();
                 chatImageInput.value = '';
             });
         }
@@ -7521,7 +8429,7 @@
         }
 
         function saveServers() {
-            localStorage.setItem('talky_servers', JSON.stringify(serversList));
+            safeStorageSet('talky_servers', JSON.stringify(serversList));
         }
 
         // Update Server Ambient Background for every channel
@@ -7948,7 +8856,9 @@
             avatar: 'https://i.ibb.co/n8wmbW1N/image-removebg-preview.png',
             banner: '',
             accentColor: '#5865f2',
-            secondaryColor: '#23a55a'
+            secondaryColor: '#23a55a',
+            borderStartColor: '#5865f2',
+            borderEndColor: '#23a55a'
         };
 
         function getMinimalisticCrownSvg() {
@@ -8084,10 +8994,17 @@
                 }
             }
 
-            // Apply Profile Theme directly to the card container
+            // Apply Profile Border to outer wrapper and Profile Theme to inner card container
+            const borderStart = user.borderStartColor || '#00f2fe';
+            const borderEnd = user.borderEndColor || '#4facfe';
+            const userProfileCardBorderWrap = document.getElementById('userProfileCardBorderWrap');
+            if (userProfileCardBorderWrap) {
+                userProfileCardBorderWrap.style.background = `linear-gradient(135deg, ${borderStart} 0%, ${borderEnd} 100%)`;
+                userProfileCardBorderWrap.style.boxShadow = `0 24px 64px rgba(0, 0, 0, 0.85), 0 0 26px ${borderStart}55`;
+            }
+
             if (cardContainer) {
                 cardContainer.style.background = `linear-gradient(135deg, ${accent} 0%, ${secondary} 100%)`;
-                cardContainer.style.boxShadow = `0 24px 64px rgba(0, 0, 0, 0.85), 0 0 30px ${accent}45, 0 0 0 1px rgba(255, 255, 255, 0.18)`;
             }
 
             modal.style.display = 'flex';
@@ -8522,19 +9439,16 @@
         const serverSettingsIconPreview = document.getElementById('serverSettingsIconPreview');
         if (serverSettingsUploadIconBtn && serverSettingsIconInput) {
             serverSettingsUploadIconBtn.addEventListener('click', () => serverSettingsIconInput.click());
-            serverSettingsIconInput.addEventListener('change', (e) => {
+            serverSettingsIconInput.addEventListener('change', async (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    serverDraftState.icon = event.target.result;
-                    if (serverSettingsIconPreview) {
-                        serverSettingsIconPreview.style.backgroundImage = `url('${serverDraftState.icon}')`;
-                        serverSettingsIconPreview.textContent = '';
-                    }
-                    checkServerUnsavedChanges();
-                };
-                reader.readAsDataURL(file);
+                const compressed = await compressImage(file, 160, 160, 0.82);
+                serverDraftState.icon = compressed;
+                if (serverSettingsIconPreview) {
+                    serverSettingsIconPreview.style.backgroundImage = `url('${compressed}')`;
+                    serverSettingsIconPreview.textContent = '';
+                }
+                checkServerUnsavedChanges();
             });
         }
 
@@ -8543,18 +9457,15 @@
         const serverSettingsBannerInput = document.getElementById('serverSettingsBannerInput');
         if (serverSettingsBannerPreview && serverSettingsBannerInput) {
             serverSettingsBannerPreview.addEventListener('click', () => serverSettingsBannerInput.click());
-            serverSettingsBannerInput.addEventListener('change', (e) => {
+            serverSettingsBannerInput.addEventListener('change', async (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    serverDraftState.banner = event.target.result;
-                    if (serverSettingsBannerPreview) {
-                        serverSettingsBannerPreview.style.backgroundImage = `url('${serverDraftState.banner}')`;
-                    }
-                    checkServerUnsavedChanges();
-                };
-                reader.readAsDataURL(file);
+                const compressed = await compressImage(file, 640, 220, 0.80);
+                serverDraftState.banner = compressed;
+                if (serverSettingsBannerPreview) {
+                    serverSettingsBannerPreview.style.backgroundImage = `url('${compressed}')`;
+                }
+                checkServerUnsavedChanges();
             });
         }
 
@@ -8564,15 +9475,12 @@
         const serverSettingsUploadBackgroundBtn = document.getElementById('serverSettingsUploadBackgroundBtn');
         const serverSettingsRemoveBackgroundBtn = document.getElementById('serverSettingsRemoveBackgroundBtn');
 
-        function handleServerBackgroundFile(file) {
+        async function handleServerBackgroundFile(file) {
             if (!file || !file.type.startsWith('image/')) return;
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                serverDraftState.backgroundImage = event.target.result;
-                renderServerSettingsPreviewFromDraft();
-                checkServerUnsavedChanges();
-            };
-            reader.readAsDataURL(file);
+            const compressed = await compressImage(file, 960, 540, 0.80);
+            serverDraftState.backgroundImage = compressed;
+            renderServerSettingsPreviewFromDraft();
+            checkServerUnsavedChanges();
         }
 
         if (serverSettingsUploadBackgroundBtn && serverSettingsBackgroundInput) {
@@ -8835,20 +9743,17 @@
         }
 
         if (serverIconFileInput) {
-            serverIconFileInput.addEventListener('change', (e) => {
+            serverIconFileInput.addEventListener('change', async (e) => {
                 const file = e.target.files && e.target.files[0];
                 if (file && file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = (evt) => {
-                        tempServerIcon = evt.target.result;
-                        if (serverIconPreviewImg) {
-                            serverIconPreviewImg.src = tempServerIcon;
-                            serverIconPreviewImg.style.display = 'block';
-                        }
-                        if (serverIconPlaceholder) serverIconPlaceholder.style.display = 'none';
-                        if (removeIconBtn) removeIconBtn.style.display = 'inline-block';
-                    };
-                    reader.readAsDataURL(file);
+                    const compressed = await compressImage(file, 160, 160, 0.82);
+                    tempServerIcon = compressed;
+                    if (serverIconPreviewImg) {
+                        serverIconPreviewImg.src = tempServerIcon;
+                        serverIconPreviewImg.style.display = 'block';
+                    }
+                    if (serverIconPlaceholder) serverIconPlaceholder.style.display = 'none';
+                    if (removeIconBtn) removeIconBtn.style.display = 'inline-block';
                 }
             });
         }
@@ -8873,20 +9778,17 @@
         }
 
         if (serverBannerFileInput) {
-            serverBannerFileInput.addEventListener('change', (e) => {
+            serverBannerFileInput.addEventListener('change', async (e) => {
                 const file = e.target.files && e.target.files[0];
                 if (file && file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = (evt) => {
-                        tempServerBanner = evt.target.result;
-                        if (serverBannerPreviewImg) {
-                            serverBannerPreviewImg.src = tempServerBanner;
-                            serverBannerPreviewImg.style.display = 'block';
-                        }
-                        if (serverBannerPlaceholder) serverBannerPlaceholder.style.display = 'none';
-                        if (serverRemoveBannerBtn) serverRemoveBannerBtn.style.display = 'inline-block';
-                    };
-                    reader.readAsDataURL(file);
+                    const compressed = await compressImage(file, 640, 220, 0.80);
+                    tempServerBanner = compressed;
+                    if (serverBannerPreviewImg) {
+                        serverBannerPreviewImg.src = tempServerBanner;
+                        serverBannerPreviewImg.style.display = 'block';
+                    }
+                    if (serverBannerPlaceholder) serverBannerPlaceholder.style.display = 'none';
+                    if (serverRemoveBannerBtn) serverRemoveBannerBtn.style.display = 'inline-block';
                 }
             });
         }
@@ -9010,7 +9912,7 @@
         function saveServerChannelMessages() {
             if (!activeServerId || !activeChannelId) return;
             const key = getChannelStorageKey();
-            localStorage.setItem(key, JSON.stringify(currentServerMessages));
+            safeStorageSet(key, JSON.stringify(currentServerMessages));
         }
 
         function scrollServerChatToBottom() {
@@ -9252,26 +10154,17 @@
         if (serverAttachBtn && serverImageInput) {
             serverAttachBtn.addEventListener('click', () => serverImageInput.click());
 
-            serverImageInput.addEventListener('change', (e) => {
+            serverImageInput.addEventListener('change', async (e) => {
                 const files = Array.from(e.target.files);
                 if (!files.length) return;
 
-                let loadedCount = 0;
-                files.forEach(file => {
+                for (const file of files) {
                     if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = (evt) => {
-                            pendingServerImages.push(evt.target.result);
-                            loadedCount++;
-                            if (loadedCount === files.length) {
-                                renderServerAttachmentTray();
-                            }
-                        };
-                        reader.readAsDataURL(file);
-                    } else {
-                        loadedCount++;
+                        const compressed = await compressImage(file, 960, 960, 0.80);
+                        if (compressed) pendingServerImages.push(compressed);
                     }
-                });
+                }
+                renderServerAttachmentTray();
                 serverImageInput.value = '';
             });
         }

@@ -289,6 +289,20 @@
             display: block;
         }
 
+        @media (max-width: 1080px) and (min-width: 521px) {
+            .auth-card {
+                max-width: 440px;
+                padding: 2rem;
+            }
+            .auth-header h2 {
+                font-size: 1.45rem;
+            }
+            .glass-input, .dropdown-select {
+                padding: 0.7rem 0.85rem;
+                font-size: 0.9rem;
+            }
+        }
+
         @media (max-width: 520px) {
             .dob-group {
                 flex-direction: column;
@@ -499,13 +513,20 @@
                 avatar: '',
                 banner: '',
                 accentColor: '#5865f2',
-                secondaryColor: '#eb459e'
+                secondaryColor: '#eb459e',
+                borderStartColor: '#00f2fe',
+                borderEndColor: '#4facfe'
             };
 
-            let users = JSON.parse(localStorage.getItem('talky_users') || '[]');
-            users.push(userObj);
-            localStorage.setItem('talky_users', JSON.stringify(users));
-            localStorage.setItem('talky_current_user', JSON.stringify(userObj));
+            try {
+                let users = JSON.parse(localStorage.getItem('talky_users') || '[]');
+                users.push(userObj);
+                localStorage.setItem('talky_users', JSON.stringify(users));
+                localStorage.setItem('talky_current_user', JSON.stringify(userObj));
+            } catch (err) {
+                console.warn('Quota warning in signup, trying current_user only:', err);
+                try { localStorage.setItem('talky_current_user', JSON.stringify(userObj)); } catch(e) {}
+            }
 
             window.location.href = 'app.html';
         });
@@ -514,8 +535,13 @@
             e.preventDefault();
             const identifier = document.getElementById('loginIdentifier').value.trim();
 
-            let users = JSON.parse(localStorage.getItem('talky_users') || '[]');
-            let match = users.find(u => u.email.toLowerCase() === identifier.toLowerCase() || u.username.toLowerCase() === identifier.toLowerCase());
+            let users = [];
+            try {
+                users = JSON.parse(localStorage.getItem('talky_users') || '[]');
+            } catch(e) {
+                users = [];
+            }
+            let match = users.find(u => (u.email && u.email.toLowerCase() === identifier.toLowerCase()) || (u.username && u.username.toLowerCase() === identifier.toLowerCase()));
 
             if (!match) {
                 // If account doesn't exist, automatically create one so login is frictionless
@@ -533,13 +559,19 @@
                     avatar: '',
                     banner: '',
                     accentColor: '#5865f2',
-                    secondaryColor: '#eb459e'
+                    secondaryColor: '#eb459e',
+                    borderStartColor: '#00f2fe',
+                    borderEndColor: '#4facfe'
                 };
                 users.push(match);
-                localStorage.setItem('talky_users', JSON.stringify(users));
+                try { localStorage.setItem('talky_users', JSON.stringify(users)); } catch(e) {}
             }
 
-            localStorage.setItem('talky_current_user', JSON.stringify(match));
+            try {
+                localStorage.setItem('talky_current_user', JSON.stringify(match));
+            } catch (err) {
+                console.warn('Quota error in login:', err);
+            }
             window.location.href = 'app.html';
         });
     </script>
