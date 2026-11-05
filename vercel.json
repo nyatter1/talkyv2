@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/authentication", "destination": "/authentication.html" },
+    { "source": "/app", "destination": "/app.html" }
+  ]
+}
