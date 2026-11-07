@@ -38,15 +38,15 @@ export default defineConfig(() => {
     ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(import.meta.dirname, '.'),
       },
     },
     build: {
       rollupOptions: {
         input: {
-          main: path.resolve(__dirname, 'index.html'),
-          authentication: path.resolve(__dirname, 'authentication.html'),
-          app: path.resolve(__dirname, 'app.html'),
+          main: path.resolve(import.meta.dirname, 'index.html'),
+          authentication: path.resolve(import.meta.dirname, 'authentication.html'),
+          app: path.resolve(import.meta.dirname, 'app.html'),
         },
       },
     },

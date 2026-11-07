@@ -3270,6 +3270,7 @@
             if (display) display.textContent = target;
             if (modal) modal.style.display = 'flex';
         }
+        window.openTrustSiteModal = openTrustSiteModal;
 
         function closeTrustSiteModal() {
             const modal = document.getElementById('trustSiteModal');
