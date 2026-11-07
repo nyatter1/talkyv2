@@ -2403,8 +2403,9 @@
             flex-shrink: 0;
         }
 
-        .server-header-bar:hover {
-            background: rgba(255, 255, 255, 0.05);
+        .server-header-bar:hover,
+        .server-header-bar.active {
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .server-header-name {
@@ -2414,6 +2415,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            letter-spacing: -0.01em;
         }
 
         .server-header-chevron {
@@ -2421,6 +2423,12 @@
             height: 18px;
             fill: #949ba4;
             flex-shrink: 0;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), fill 0.15s ease;
+        }
+
+        .server-header-bar:hover .server-header-chevron,
+        .server-header-bar.active .server-header-chevron {
+            fill: #ffffff;
         }
 
         /* Server Banner (directly under server name header) */
@@ -2465,22 +2473,41 @@
             justify-content: space-between;
             padding: 10px 8px 4px 8px;
             user-select: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.15s ease, opacity 0.15s ease;
+        }
+
+        .channels-category-header:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .channels-category-title {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             font-size: 0.72rem;
             font-weight: 700;
             color: #949ba4;
             letter-spacing: 0.04em;
+            transition: color 0.15s ease;
+        }
+
+        .channels-category-header:hover .channels-category-title {
+            color: #dbdee1;
         }
 
         .category-chevron {
             width: 12px;
             height: 12px;
             fill: currentColor;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+            flex-shrink: 0;
+        }
+
+        .channels-category-header.collapsed .category-chevron {
+            transform: rotate(-90deg);
         }
 
         .add-channel-btn {
@@ -2620,10 +2647,44 @@
         .channel-divider-item {
             user-select: none;
             margin: 14px 6px 6px 6px;
-            padding: 2px 0;
+            padding: 3px 4px;
             display: flex;
             align-items: center;
             position: relative;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border-radius: 4px;
+        }
+
+        .channel-divider-item:hover {
+            filter: brightness(1.15);
+        }
+
+        .divider-collapse-chevron {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
+            color: #949ba4;
+            flex-shrink: 0;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.15s ease;
+            transform-origin: center;
+        }
+
+        .channel-divider-item:hover .divider-collapse-chevron {
+            color: #ffffff;
+        }
+
+        .channel-divider-item.collapsed .divider-collapse-chevron {
+            transform: rotate(-90deg);
+        }
+
+        .channel-divider-item.collapsed {
+            opacity: 0.85;
+            margin-bottom: 8px;
+        }
+
+        .channel-item.collapsed-hidden {
+            display: none !important;
         }
 
         .channel-divider-item.minimal {
@@ -3602,23 +3663,28 @@
             position: absolute;
             top: 52px;
             left: 8px;
-            width: 224px;
+            right: 8px;
+            width: auto;
+            max-width: calc(100% - 16px);
+            box-sizing: border-box;
             background: #111214;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
             padding: 6px;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.5);
             z-index: 1000;
             display: flex;
             flex-direction: column;
             gap: 2px;
             animation: serverDropdownFade 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
 
         @keyframes serverDropdownFade {
             from {
                 opacity: 0;
-                transform: translateY(-6px) scale(0.97);
+                transform: translateY(-5px) scale(0.97);
             }
             to {
                 opacity: 1;
@@ -3630,41 +3696,68 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 10px;
+            padding: 7px 10px;
             border-radius: 4px;
-            color: #b5bac1;
-            font-size: 0.88rem;
+            color: #949ba4;
+            font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
-            transition: background 0.12s, color 0.12s;
+            transition: background 0.12s ease, color 0.12s ease;
             user-select: none;
+            min-height: 32px;
+            box-sizing: border-box;
+        }
+
+        .server-dropdown-item span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-right: 8px;
         }
 
         .server-dropdown-item svg {
             width: 16px;
             height: 16px;
             fill: currentColor;
-            opacity: 0.8;
+            opacity: 0.85;
+            flex-shrink: 0;
+            transition: opacity 0.12s ease, transform 0.12s ease;
         }
 
         .server-dropdown-item:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: #5865F2;
             color: #ffffff;
         }
 
         .server-dropdown-item:hover svg {
             opacity: 1;
+            transform: scale(1.06);
+        }
+
+        .server-dropdown-item.accent {
+            color: #5865F2;
+            font-weight: 600;
+        }
+
+        .server-dropdown-item.accent:hover {
+            background: #5865F2;
+            color: #ffffff;
         }
 
         .server-dropdown-item.primary {
             color: #dbdee1;
-            font-weight: 600;
+            font-weight: 500;
+        }
+
+        .server-dropdown-item.primary:hover {
+            background: #5865F2;
+            color: #ffffff;
         }
 
         .server-dropdown-divider {
             height: 1px;
-            background: rgba(255, 255, 255, 0.08);
-            margin: 4px 0;
+            background: rgba(255, 255, 255, 0.07);
+            margin: 4px 2px;
         }
 
         /* Centered User Profile Card Modal (Discord Style) */
@@ -6620,6 +6713,11 @@
 
         <!-- Discord Server Dropdown Menu -->
         <div class="server-dropdown-menu" id="serverDropdownMenu" style="display: none;">
+            <div class="server-dropdown-item accent" id="serverDropdownInviteBtn">
+                <span>Invite People</span>
+                <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+            <div class="server-dropdown-divider"></div>
             <div class="server-dropdown-item primary" id="serverDropdownSettingsBtn">
                 <span>Server Settings</span>
                 <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
@@ -6627,6 +6725,19 @@
             <div class="server-dropdown-item" id="serverDropdownCreateChannelBtn">
                 <span>Create Channel</span>
                 <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+            </div>
+            <div class="server-dropdown-item" id="serverDropdownCreateDividerBtn">
+                <span>Create Divider</span>
+                <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z M12 3l1.8 3.8 4.2.6-3 3 .7 4.2-3.7-2-3.7 2 .7-4.2-3-3 4.2-.6z"/></svg>
+            </div>
+            <div class="server-dropdown-item" id="serverDropdownCategoryDividerBtn">
+                <span>Category Styling</span>
+                <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.22 19.58 10.57 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-1.15 0-2.22-.32-3.14-.88l1.43-1.43c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0l-1.43 1.43C7.88 14.79 7.5 13.94 7.5 13c0-2.48 2.02-4.5 4.5-4.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z"/></svg>
+            </div>
+            <div class="server-dropdown-divider"></div>
+            <div class="server-dropdown-item" id="serverDropdownCopyIdBtn">
+                <span>Copy Server ID</span>
+                <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
             </div>
         </div>
 
@@ -7330,7 +7441,7 @@
                             <div class="server-settings-background-preview" id="serverSettingsBackgroundPreview" style="width: 100%; height: 124px; border-radius: 6px; background: #2b2d31; background-size: cover; background-position: center; border: 1px dashed rgba(255,255,255,0.22); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; cursor: pointer; transition: border-color 0.2s;">
                                 <div id="serverSettingsBackgroundPlaceholder" style="display: flex; flex-direction: column; align-items: center; gap: 6px; color: #949ba4; text-align: center; pointer-events: none;">
                                     <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                                    <span style="font-size: 0.82rem; font-weight: 600; color: #dbdee1;">Click or drag an image to set server background</span>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: #dbdee1;">Click or drag an image/GIF to set server background</span>
                                     <span style="font-size: 0.72rem; color: #80848e;">Shows in the background of every channel for everyone</span>
                                 </div>
                                 <div id="serverSettingsBackgroundOverlay" style="display: none; position: absolute; inset: 0; background: rgba(0,0,0,0.48); align-items: center; justify-content: center; color: #ffffff; font-size: 0.84rem; font-weight: 600;">
@@ -7339,11 +7450,11 @@
                             </div>
                             <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
                                 <div style="font-size: 0.76rem; color: #949ba4;">
-                                    Recommended: 1920x1080 or higher (JPG, PNG, WebP)
+                                    Recommended: 1920x1080 or animated GIF
                                 </div>
                                 <div style="display: flex; gap: 8px;">
                                     <button type="button" class="modal-btn small outline" id="serverSettingsRemoveBackgroundBtn" style="display: none; color: #f23f43; border-color: rgba(242,63,67,0.4);">Remove</button>
-                                    <button type="button" class="modal-btn small outline" id="serverSettingsUploadBackgroundBtn">Upload Image</button>
+                                    <button type="button" class="modal-btn small outline" id="serverSettingsUploadBackgroundBtn">Upload Image/GIF</button>
                                 </div>
                             </div>
                             <input type="file" id="serverSettingsBackgroundInput" accept="image/*" style="display: none;">
@@ -7934,7 +8045,10 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { rtdb, ref, set, get, onValue, push, update, remove, child, onDisconnect, serverTimestamp } from './firebase.ts';
+        import { IMAGEKIT_ID, IMAGEKIT_ENDPOINT, GIF_PRESETS, normalizeImageKitUrl, isGifMedia, processImageUpload } from './imagekit.ts';
+
         // Global Application & Server State
         let currentUser = null;
         let serversList = [];
@@ -7944,59 +8058,9 @@
         let pendingServerImages = [];
         let currentServerMessages = [];
 
-        // In-memory Canvas Image Compression Utility
+        // Image & Animated GIF Processor (preserves raw binary frames for GIFs, compresses static images)
         function compressImage(source, maxWidth, maxHeight, quality = 0.82) {
-            return new Promise((resolve) => {
-                if (!source) return resolve('');
-
-                const processImg = (img) => {
-                    let width = img.naturalWidth || img.width;
-                    let height = img.naturalHeight || img.height;
-                    if (!width || !height) return resolve(typeof source === 'string' ? source : '');
-
-                    if (width > maxWidth || height > maxHeight) {
-                        const ratio = Math.min(maxWidth / width, maxHeight / height);
-                        width = Math.max(1, Math.round(width * ratio));
-                        height = Math.max(1, Math.round(height * ratio));
-                    }
-                    try {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-                        const compressed = canvas.toDataURL('image/jpeg', quality);
-                        resolve(compressed);
-                    } catch (err) {
-                        console.warn('Canvas compression fallback:', err);
-                        resolve(typeof source === 'string' ? source : '');
-                    }
-                };
-
-                if (typeof source === 'string') {
-                    if (!source.startsWith('data:image')) {
-                        return resolve(source);
-                    }
-                    const img = new Image();
-                    img.onload = () => processImg(img);
-                    img.onerror = () => resolve(source);
-                    img.src = source;
-                } else if (source instanceof File || source instanceof Blob) {
-                    const url = URL.createObjectURL(source);
-                    const img = new Image();
-                    img.onload = () => {
-                        URL.revokeObjectURL(url);
-                        processImg(img);
-                    };
-                    img.onerror = () => {
-                        URL.revokeObjectURL(url);
-                        resolve('');
-                    };
-                    img.src = url;
-                } else {
-                    resolve('');
-                }
-            });
+            return processImageUpload(source, maxWidth, maxHeight, quality);
         }
 
         // Safe Storage Helper with automatic quota pruning
@@ -8109,9 +8173,9 @@
                 currentUser.links = [];
             }
 
-            // Downscale any legacy oversized avatar or banner in the background
+            // Downscale any legacy oversized static avatar or banner in the background (GIFs are never touched)
             if (currentUser) {
-                if (currentUser.avatar && currentUser.avatar.startsWith('data:image') && currentUser.avatar.length > 60000) {
+                if (currentUser.avatar && currentUser.avatar.startsWith('data:image') && !isGifMedia(currentUser.avatar) && currentUser.avatar.length > 60000) {
                     compressImage(currentUser.avatar, 180, 180, 0.82).then(compressed => {
                         if (compressed && compressed.length < currentUser.avatar.length) {
                             currentUser.avatar = compressed;
@@ -8119,7 +8183,7 @@
                         }
                     });
                 }
-                if (currentUser.banner && currentUser.banner.startsWith('data:image') && currentUser.banner.length > 120000) {
+                if (currentUser.banner && currentUser.banner.startsWith('data:image') && !isGifMedia(currentUser.banner) && currentUser.banner.length > 120000) {
                     compressImage(currentUser.banner, 640, 220, 0.80).then(compressed => {
                         if (compressed && compressed.length < currentUser.banner.length) {
                             currentUser.banner = compressed;
@@ -8130,6 +8194,7 @@
             }
 
             applyUserDataToUI();
+            initUserPresence();
         }
 
         function saveUserData() {
@@ -8147,6 +8212,122 @@
                 safeStorageSet('talky_users', JSON.stringify(users));
             } catch (e) {
                 console.warn('Error saving talky_users list:', e);
+            }
+
+            // Sync user profile & presence live to Firebase Realtime Database
+            try {
+                if (currentUser.id) {
+                    set(ref(rtdb, 'users/' + currentUser.id), currentUser);
+                    set(ref(rtdb, 'presence/' + currentUser.id), {
+                        id: currentUser.id,
+                        name: currentUser.displayName || currentUser.username || 'User',
+                        handle: currentUser.handle || 'user',
+                        avatar: currentUser.avatar || '',
+                        online: true,
+                        lastActive: Date.now()
+                    });
+                }
+            } catch (fbErr) {
+                console.warn('Firebase RTDB user profile sync error:', fbErr);
+            }
+        }
+
+        // Live Global Users Store Sync via Firebase RTDB
+        window.globalUsersMap = window.globalUsersMap || {};
+        let isGlobalUsersSyncInitialized = false;
+
+        function initGlobalUsersSync() {
+            if (isGlobalUsersSyncInitialized) return;
+            isGlobalUsersSyncInitialized = true;
+            try {
+                onValue(ref(rtdb, 'users'), (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        Object.keys(data).forEach(uid => {
+                            if (data[uid]) {
+                                window.globalUsersMap[uid] = data[uid];
+                            }
+                        });
+                        if (activeServerId) {
+                            const server = serversList.find(s => s.id === activeServerId);
+                            if (server && typeof renderServerMembersList === 'function') {
+                                renderServerMembersList(server);
+                            }
+                            if (typeof renderAllServerMessages === 'function') {
+                                renderAllServerMessages();
+                            }
+                        }
+                    }
+                });
+            } catch (err) {
+                console.warn('Global users sync error:', err);
+            }
+        }
+
+        // Live User Online Presence Sync via Firebase RTDB
+        function initUserPresence() {
+            initGlobalUsersSync();
+            if (!currentUser || !currentUser.id) return;
+            try {
+                const myPresenceRef = ref(rtdb, 'presence/' + currentUser.id);
+                set(myPresenceRef, {
+                    id: currentUser.id,
+                    name: currentUser.displayName || currentUser.username || 'User',
+                    handle: currentUser.handle || 'user',
+                    avatar: currentUser.avatar || '',
+                    online: true,
+                    lastActive: Date.now()
+                });
+                onDisconnect(myPresenceRef).remove();
+
+                // Listen to live presence updates to keep member list updated
+                onValue(ref(rtdb, 'presence'), (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        const onlineList = Object.values(data);
+                        onlineList.forEach(ou => {
+                            if (ou && ou.id) {
+                                if (!window.globalUsersMap[ou.id]) {
+                                    window.globalUsersMap[ou.id] = {
+                                        id: ou.id,
+                                        displayName: ou.name || 'User',
+                                        handle: ou.handle || 'user',
+                                        avatar: ou.avatar || ''
+                                    };
+                                } else {
+                                    if (ou.avatar) window.globalUsersMap[ou.id].avatar = ou.avatar;
+                                    if (ou.name) window.globalUsersMap[ou.id].displayName = ou.name;
+                                }
+                            }
+                        });
+                        if (activeServerId) {
+                            const server = serversList.find(s => s.id === activeServerId);
+                            if (server && Array.isArray(server.members)) {
+                                onlineList.forEach(ou => {
+                                    if (ou && ou.id) {
+                                        const existing = server.members.find(m => String(m.id) === String(ou.id));
+                                        if (existing) {
+                                            existing.avatar = ou.avatar || existing.avatar;
+                                            existing.name = ou.name || existing.name;
+                                        } else {
+                                            server.members.push({
+                                                id: ou.id,
+                                                name: ou.name || 'User',
+                                                handle: ou.handle || 'user',
+                                                avatar: ou.avatar || '',
+                                                isOwner: false,
+                                                isBot: false
+                                            });
+                                        }
+                                    }
+                                });
+                                renderServerMembersList(server);
+                            }
+                        }
+                    }
+                });
+            } catch (err) {
+                console.warn('Presence sync error:', err);
             }
         }
 
@@ -9805,6 +9986,13 @@
 
             saveDmMessages();
             updateMessageReactionsUI(msgId);
+
+            // Sync reaction live to Firebase Realtime Database
+            try {
+                set(ref(rtdb, `talky_bot_messages/${msgId}/reactions`), msg.reactions || {});
+            } catch (err) {
+                console.warn('Firebase RTDB DM reaction sync error:', err);
+            }
         }
 
         // Update Reactions DOM without full message re-render
@@ -9831,7 +10019,7 @@
             }
         }
 
-        // Load Persisted Chat Messages
+        // Load Persisted Chat Messages with Firebase RTDB Live Sync
         function loadDmMessages() {
             const storedMsgs = localStorage.getItem('talky_bot_messages');
             if (storedMsgs) {
@@ -9853,12 +10041,30 @@
                         chatMessagesList.innerHTML = '';
                         dmMessagesList.forEach(m => renderChatMessage(m));
                         scrollToBottom();
-                        saveDmMessages();
                     }
                 } catch(e) {
-                    console.error(e);
                     dmMessagesList = [];
                 }
+            }
+
+            // Realtime Firebase RTDB listener for DMs
+            try {
+                onValue(ref(rtdb, 'talky_bot_messages'), (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
+                        list.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+                        dmMessagesList = list;
+                        safeStorageSet('talky_bot_messages', JSON.stringify(dmMessagesList));
+                        if (chatMessagesList) {
+                            chatMessagesList.innerHTML = '';
+                            dmMessagesList.forEach(m => renderChatMessage(m));
+                            scrollToBottom();
+                        }
+                    }
+                });
+            } catch (err) {
+                console.warn('Firebase RTDB DM listener error:', err);
             }
         }
 
@@ -9947,6 +10153,7 @@
                     avatar: authorAvatar,
                     isBot: false,
                     time: time,
+                    createdAt: Date.now(),
                     text: text,
                     images: imagesToSend,
                     replyTo: activeReply ? { ...activeReply } : null,
@@ -9963,6 +10170,13 @@
                 closeEmojiBoard();
                 scrollToBottom();
                 saveDmMessages();
+
+                // Live Sync DM to Firebase Realtime Database
+                try {
+                    set(ref(rtdb, `talky_bot_messages/${newMsg.id}`), newMsg);
+                } catch (fbErr) {
+                    console.warn('Firebase RTDB DM send error:', fbErr);
+                }
 
                 // Bot does not talk or do anything
             });
@@ -11146,7 +11360,9 @@
         const createChannelForm = document.getElementById('createChannelForm');
         const newChannelNameInput = document.getElementById('newChannelNameInput');
 
-        // Load & Save Servers in LocalStorage
+        // Load & Save Servers with Firebase Realtime Database & Local Storage Fallback
+        let isInitialServerSyncDone = false;
+
         function loadServers() {
             const stored = localStorage.getItem('talky_servers');
             if (stored) {
@@ -11195,14 +11411,67 @@
                     createdAt: Date.now()
                 };
                 serversList.push(defaultServer);
-                saveServers();
+                safeStorageSet('talky_servers', JSON.stringify(serversList));
             }
 
             renderServerSidebarIcons();
+            initRealtimeServersSync();
+        }
+
+        // Live Realtime synchronization of all servers via Firebase RTDB
+        function initRealtimeServersSync() {
+            try {
+                const serversRef = ref(rtdb, 'servers');
+                onValue(serversRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
+                        if (list.length > 0) {
+                            serversList = list;
+                            safeStorageSet('talky_servers', JSON.stringify(serversList));
+                            renderServerSidebarIcons();
+
+                            if (activeServerId) {
+                                const current = serversList.find(s => s.id === activeServerId);
+                                if (current) {
+                                    renderChannelsList(current);
+                                    renderServerMembersList(current);
+                                    updateActiveServerBackground();
+                                }
+                            }
+                        }
+                    } else if (!isInitialServerSyncDone) {
+                        // Seed RTDB if database is currently empty
+                        if (Array.isArray(serversList) && serversList.length > 0) {
+                            serversList.forEach(s => {
+                                if (s && s.id) {
+                                    set(ref(rtdb, 'servers/' + s.id), s);
+                                }
+                            });
+                        }
+                    }
+                    isInitialServerSyncDone = true;
+                });
+            } catch (err) {
+                console.warn('Firebase RTDB servers sync error:', err);
+            }
         }
 
         function saveServers() {
             safeStorageSet('talky_servers', JSON.stringify(serversList));
+
+            // Sync all servers to Firebase Realtime Database
+            try {
+                if (Array.isArray(serversList)) {
+                    serversList.forEach(s => {
+                        if (s && s.id) {
+                            set(ref(rtdb, 'servers/' + s.id), s);
+                        }
+                    });
+                }
+            } catch (fbErr) {
+                console.warn('Firebase saveServers sync error:', fbErr);
+            }
         }
 
         // Update Server Ambient Background for every channel
@@ -11320,6 +11589,36 @@
             renderServerMembersList(server);
         }
 
+        // Helper: get which section / divider a channel belongs to
+        function getChannelSectionId(server, channelId) {
+            if (!server || !Array.isArray(server.channels)) return 'main';
+            let currentSec = 'main';
+            for (const c of server.channels) {
+                if (c.type === 'divider') {
+                    currentSec = c.id;
+                } else if (c.id === channelId) {
+                    return currentSec;
+                }
+            }
+            return 'main';
+        }
+
+        // Toggle collapse state for a divider or primary category
+        function toggleDividerCollapse(server, dividerId) {
+            if (!server) return;
+            if (!Array.isArray(server.collapsedDividers)) {
+                server.collapsedDividers = [];
+            }
+            const idx = server.collapsedDividers.indexOf(dividerId);
+            if (idx >= 0) {
+                server.collapsedDividers.splice(idx, 1);
+            } else {
+                server.collapsedDividers.push(dividerId);
+            }
+            saveServers();
+            renderChannelsList(server);
+        }
+
         // Render Channels for Current Server (Including Section Dividers)
         function renderChannelsList(server) {
             if (!channelsItemsList) return;
@@ -11328,6 +11627,10 @@
             if (!server.channels || server.channels.length === 0) {
                 server.channels = [{ id: 'chan_general', name: 'general', type: 'text' }];
                 saveServers();
+            }
+
+            if (!Array.isArray(server.collapsedDividers)) {
+                server.collapsedDividers = [];
             }
 
             // Apply custom category divider styling to primary category header
@@ -11348,6 +11651,8 @@
                 titleEl.textContent = catDiv.title || 'TEXT CHANNELS';
             }
 
+            const isMainCollapsed = server.collapsedDividers.includes('main');
+
             if (headerEl) {
                 headerEl.classList.remove('custom-gradient', 'custom-ribbon', 'custom-banner');
                 if (bannerBg) bannerBg.style.display = 'none';
@@ -11367,28 +11672,53 @@
                     }
                     if (bannerOverlay) bannerOverlay.style.display = 'block';
                 }
+
+                headerEl.classList.toggle('collapsed', isMainCollapsed);
+                headerEl.title = isMainCollapsed ? 'Click to expand channels' : 'Click to collapse channels';
+                headerEl.onclick = (e) => {
+                    if (e.target.closest('#openAddChannelBtn')) return;
+                    toggleDividerCollapse(server, 'main');
+                };
+
+                const addChanBtn = document.getElementById('openAddChannelBtn');
+                const isServerOwner = isUserServerOwner(currentUser, server);
+                if (addChanBtn) {
+                    addChanBtn.style.display = isServerOwner ? 'block' : 'none';
+                }
             }
 
             // Render items in order: text channels and visual dividers
+            let currentSectionId = 'main';
+
             server.channels.forEach(chan => {
                 if (chan.type === 'divider') {
+                    currentSectionId = chan.id;
+                    const isDividerCollapsed = server.collapsedDividers.includes(chan.id);
+
                     const divEl = document.createElement('div');
                     const divStyle = chan.style || 'minimal';
-                    divEl.className = `channel-divider-item ${divStyle}`;
+                    divEl.className = `channel-divider-item ${divStyle} ${isDividerCollapsed ? 'collapsed' : ''}`;
                     divEl.dataset.dividerId = chan.id;
+                    divEl.title = isDividerCollapsed ? 'Click to expand section' : 'Click to collapse section';
 
                     if (divStyle === 'gradient') {
                         divEl.innerHTML = `
                             <div class="channel-divider-gradient-row">
-                                <span class="channel-divider-gradient-text" style="background: linear-gradient(135deg, ${chan.color1 || catDiv.color1 || '#5865F2'}, ${chan.color2 || catDiv.color2 || '#eb459e'}); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                                    ${escapeHtml(chan.name)}
-                                </span>
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <svg class="divider-collapse-chevron" style="color: ${chan.color1 || catDiv.color1 || '#5865F2'};" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                                    <span class="channel-divider-gradient-text" style="background: linear-gradient(135deg, ${chan.color1 || catDiv.color1 || '#5865F2'}, ${chan.color2 || catDiv.color2 || '#eb459e'}); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                        ${escapeHtml(chan.name)}
+                                    </span>
+                                </div>
                             </div>
                             <div class="channel-divider-gradient-bar" style="background: linear-gradient(90deg, ${chan.color1 || catDiv.color1 || '#5865F2'}, ${chan.color2 || catDiv.color2 || '#eb459e'}, transparent);"></div>
                         `;
                     } else if (divStyle === 'ribbon') {
                         divEl.innerHTML = `
-                            <span class="channel-divider-ribbon-text">${escapeHtml(chan.name)}</span>
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <svg class="divider-collapse-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                                <span class="channel-divider-ribbon-text">${escapeHtml(chan.name)}</span>
+                            </div>
                             <span class="channel-divider-ribbon-badge">SECTION</span>
                         `;
                     } else if (divStyle === 'banner') {
@@ -11396,24 +11726,36 @@
                         divEl.innerHTML = `
                             <div class="channel-divider-banner-bg" style="${bgImg ? `background-image: url('${escapeHtml(bgImg)}');` : 'background: #2b2d31;'}"></div>
                             <div class="channel-divider-banner-overlay"></div>
-                            <span class="channel-divider-banner-text">${escapeHtml(chan.name)}</span>
+                            <div style="position: relative; z-index: 1; display: flex; align-items: center; gap: 6px;">
+                                <svg class="divider-collapse-chevron" style="color: #ffffff;" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                                <span class="channel-divider-banner-text">${escapeHtml(chan.name)}</span>
+                            </div>
                         `;
                     } else {
                         // Minimal Line
                         divEl.innerHTML = `
+                            <svg class="divider-collapse-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
                             <span class="channel-divider-minimal-text">${escapeHtml(chan.name)}</span>
                             <div class="channel-divider-minimal-line"></div>
                         `;
                     }
+
+                    divEl.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        toggleDividerCollapse(server, chan.id);
+                    });
 
                     channelsItemsList.appendChild(divEl);
                     return;
                 }
 
                 // Regular Text Channel
+                const isSectionHidden = server.collapsedDividers.includes(currentSectionId);
+
                 const chanEl = document.createElement('div');
-                chanEl.className = `channel-item ${chan.id === activeChannelId ? 'active' : ''}`;
+                chanEl.className = `channel-item ${chan.id === activeChannelId ? 'active' : ''} ${isSectionHidden ? 'collapsed-hidden' : ''}`;
                 chanEl.dataset.chanId = chan.id;
+                chanEl.dataset.sectionId = currentSectionId;
 
                 let iconMarkup = '<span class="channel-hash">#</span>';
                 if (chan.icon) {
@@ -11440,6 +11782,14 @@
 
             const chan = server.channels.find(c => c.id === channelId);
             if (!chan || chan.type === 'divider') return;
+
+            // If channel belongs to a collapsed section, expand it so it is visible
+            const secId = getChannelSectionId(server, channelId);
+            if (secId && Array.isArray(server.collapsedDividers) && server.collapsedDividers.includes(secId)) {
+                server.collapsedDividers = server.collapsedDividers.filter(id => id !== secId);
+                saveServers();
+                renderChannelsList(server);
+            }
 
             activeChannelId = channelId;
 
@@ -11744,10 +12094,17 @@
         }
 
         function isUserServerOwner(user, server) {
-            if (!server) return true;
-            if (!user) return false;
-            if (!server.ownerId) return true; // By default creator owns the server
-            return server.ownerId === user.id;
+            if (!server || !user) return false;
+            if (server.ownerId) {
+                return String(server.ownerId) === String(user.id);
+            }
+            if (Array.isArray(server.members) && server.members.length > 0) {
+                const ownerMem = server.members.find(m => m && m.isOwner);
+                if (ownerMem) return String(ownerMem.id) === String(user.id);
+                const firstMem = server.members[0];
+                if (firstMem) return String(firstMem.id) === String(user.id);
+            }
+            return false;
         }
 
         // Open Centered User Profile Card (no extra buttons, just pure profile info)
@@ -11773,7 +12130,8 @@
 
             if (displayNameEl) {
                 displayNameEl.textContent = name;
-                if (isCurrentUserAuthor(user.id, name)) applyNameStyleToElement(displayNameEl, user.nameStyle || (currentUser && currentUser.nameStyle));
+                if (user && user.nameStyle) applyNameStyleToElement(displayNameEl, user.nameStyle);
+                else if (isCurrentUserAuthor(user.id, name) && currentUser && currentUser.nameStyle) applyNameStyleToElement(displayNameEl, currentUser.nameStyle);
                 else clearNameStyleFromElement(displayNameEl);
             }
             if (handleEl) handleEl.textContent = '@' + handle;
@@ -12042,20 +12400,21 @@
         // Helper to render individual member item HTML for sidebar
         function renderMemberItemHtml(m, isServerOwner) {
             const isCurrentUser = currentUser && (String(m.id) === String(currentUser.id) || String(m.id) === 'user_default');
-            const displayName = isCurrentUser ? (currentUser.displayName || currentUser.username || m.name) : m.name;
-            const handle = isCurrentUser ? (currentUser.handle || m.handle) : m.handle;
-            const avatar = isCurrentUser ? (currentUser.avatar || m.avatar) : m.avatar;
+            const liveUser = (window.globalUsersMap && window.globalUsersMap[m.id]) || null;
+            const displayName = isCurrentUser ? (currentUser.displayName || currentUser.username || m.name) : (liveUser?.displayName || liveUser?.username || m.name);
+            const handle = isCurrentUser ? (currentUser.handle || m.handle) : (liveUser?.handle || m.handle);
+            const avatar = isCurrentUser ? (currentUser.avatar || m.avatar) : (liveUser?.avatar || m.avatar);
             const authorAttr = isCurrentUser ? ' data-name-owner="true"' : '';
             const crownHtml = ((isCurrentUser && isServerOwner) || m.isOwner) ? getMinimalisticCrownSvg() : '';
             const botTagHtml = m.isBot ? '<span class="bot-tag">BOT</span>' : '';
 
             let avatarMarkup = '';
             if (avatar) {
-                avatarMarkup = `<div class="member-avatar" style="background-image: url('${escapeHtml(avatar)}');"></div>`;
+                avatarMarkup = `<div class="member-avatar" style="background-image: url('${escapeHtml(avatar)}'); background-size: cover; background-position: center;"></div>`;
             } else {
                 const initial = (displayName || 'U').charAt(0).toUpperCase();
-                const accent = (isCurrentUser && currentUser.accentColor) ? currentUser.accentColor : 'rgba(255, 255, 255, 0.15)';
-                avatarMarkup = `<div class="member-avatar" style="background-color: ${accent};">${escapeHtml(initial)}</div>`;
+                const accent = (isCurrentUser && currentUser.accentColor) ? currentUser.accentColor : (liveUser?.accentColor || 'rgba(255, 255, 255, 0.15)');
+                avatarMarkup = `<div class="member-avatar" style="background-color: ${accent}; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#fff;">${escapeHtml(initial)}</div>`;
             }
 
             return `
@@ -12066,7 +12425,7 @@
                     </div>
                     <div class="member-info">
                         <div class="member-name-row">
-                            <span class="member-name"${authorAttr}>${escapeHtml(displayName)}</span>
+                            <span class="member-name"${authorAttr} data-member-name-id="${escapeHtml(String(m.id))}">${escapeHtml(displayName)}</span>
                             ${crownHtml}
                             ${botTagHtml}
                         </div>
@@ -12077,6 +12436,11 @@
         }
 
         // Render Server Members in right-side sidebar with Role Hierarchy
+        function renderServerMembers(server) {
+            return renderServerMembersList(server);
+        }
+        window.renderServerMembers = renderServerMembers;
+
         function renderServerMembersList(server) {
             if (!server && activeServerId && Array.isArray(serversList)) {
                 server = serversList.find(s => s.id === activeServerId);
@@ -12156,13 +12520,14 @@
 
             membersListEl.innerHTML = fullHtml;
 
-            // Apply active custom display name styling to current user if present
-            if (currentUser && currentUser.nameStyle) {
-                const currentUserEl = membersListEl.querySelector('.member-name[data-name-owner="true"]');
-                if (currentUserEl) {
-                    applyNameStyleToElement(currentUserEl, currentUser.nameStyle);
+            // Apply custom display name styling for members
+            membersListEl.querySelectorAll('.member-name').forEach(el => {
+                const memId = el.getAttribute('data-member-name-id');
+                const liveUser = (window.globalUsersMap && window.globalUsersMap[memId]) || (currentUser && String(currentUser.id) === String(memId) ? currentUser : null);
+                if (liveUser && liveUser.nameStyle) {
+                    applyNameStyleToElement(el, liveUser.nameStyle);
                 }
-            }
+            });
 
             // Bind click handlers to member items to open User Profile Card
             membersListEl.querySelectorAll('.member-item').forEach(el => {
@@ -12172,10 +12537,10 @@
                     el.onclick = () => {
                         if (memObj.isBot) {
                             openUserProfileCard(talkyBotProfile, false);
-                        } else if (currentUser && (String(memObj.id) === String(currentUser.id) || String(memObj.id) === 'user_default')) {
-                            openUserProfileCard(currentUser, isOwner);
                         } else {
-                            openUserProfileCard(memObj, memObj.isOwner || false);
+                            const liveUser = (window.globalUsersMap && window.globalUsersMap[memObj.id]) || null;
+                            const userToOpen = liveUser || (currentUser && (String(currentUser.id) === String(memObj.id) || String(memObj.id) === 'user_default') ? currentUser : memObj);
+                            openUserProfileCard(userToOpen, memObj.isOwner || false);
                         }
                     };
                 }
@@ -12779,6 +13144,7 @@
         function openServerSettings(initialTab = 'overview') {
             const server = serversList.find(s => s.id === activeServerId);
             if (!server) return;
+            if (!isUserServerOwner(currentUser, server)) return;
 
             const modal = document.getElementById('serverSettingsOverlay');
             if (!modal) return;
@@ -13126,20 +13492,45 @@
         const serverDropdownMenu = document.getElementById('serverDropdownMenu');
         const serverDropdownSettingsBtn = document.getElementById('serverDropdownSettingsBtn');
         const serverDropdownCreateChannelBtn = document.getElementById('serverDropdownCreateChannelBtn');
+        const serverDropdownCreateDividerBtn = document.getElementById('serverDropdownCreateDividerBtn');
+        const serverDropdownCategoryDividerBtn = document.getElementById('serverDropdownCategoryDividerBtn');
+        const serverDropdownInviteBtn = document.getElementById('serverDropdownInviteBtn');
+        const serverDropdownCopyIdBtn = document.getElementById('serverDropdownCopyIdBtn');
 
         function toggleServerDropdown(e) {
             if (e) e.stopPropagation();
             if (!serverDropdownMenu) return;
             const isOpen = serverDropdownMenu.style.display === 'flex';
+            if (!isOpen) {
+                const server = serversList.find(s => s.id === activeServerId);
+                const isOwner = isUserServerOwner(currentUser, server);
+
+                if (serverDropdownInviteBtn) serverDropdownInviteBtn.style.display = isOwner ? 'flex' : 'none';
+                if (serverDropdownSettingsBtn) serverDropdownSettingsBtn.style.display = isOwner ? 'flex' : 'none';
+                if (serverDropdownCreateChannelBtn) serverDropdownCreateChannelBtn.style.display = isOwner ? 'flex' : 'none';
+                if (serverDropdownCreateDividerBtn) serverDropdownCreateDividerBtn.style.display = isOwner ? 'flex' : 'none';
+                if (serverDropdownCategoryDividerBtn) serverDropdownCategoryDividerBtn.style.display = isOwner ? 'flex' : 'none';
+
+                const dividers = serverDropdownMenu.querySelectorAll('.server-dropdown-divider');
+                dividers.forEach(div => {
+                    div.style.display = isOwner ? 'block' : 'none';
+                });
+
+                if (serverDropdownCopyIdBtn) serverDropdownCopyIdBtn.style.display = 'flex';
+            }
             serverDropdownMenu.style.display = isOpen ? 'none' : 'flex';
+            if (serverHeaderBar) {
+                serverHeaderBar.classList.toggle('active', !isOpen);
+            }
             if (serverHeaderChevron) {
                 serverHeaderChevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
-                serverHeaderChevron.style.transition = 'transform 0.15s ease';
+                serverHeaderChevron.style.transition = 'transform 0.18s cubic-bezier(0.4, 0, 0.2, 1)';
             }
         }
 
         function closeServerDropdown() {
             if (serverDropdownMenu) serverDropdownMenu.style.display = 'none';
+            if (serverHeaderBar) serverHeaderBar.classList.remove('active');
             if (serverHeaderChevron) serverHeaderChevron.style.transform = 'rotate(0deg)';
         }
 
@@ -13155,6 +13546,24 @@
             }
         });
 
+        if (serverDropdownInviteBtn) {
+            serverDropdownInviteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const server = serversList.find(s => s.id === activeServerId);
+                const inviteUrl = window.location.origin + '/app' + (server ? `?server=${server.id}` : '');
+                const label = serverDropdownInviteBtn.querySelector('span');
+                const orig = label ? label.textContent : 'Invite People';
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(inviteUrl);
+                }
+                if (label) label.textContent = 'Invite Link Copied!';
+                setTimeout(() => {
+                    closeServerDropdown();
+                    setTimeout(() => { if (label) label.textContent = orig; }, 300);
+                }, 750);
+            });
+        }
+
         if (serverDropdownSettingsBtn) {
             serverDropdownSettingsBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -13167,9 +13576,47 @@
             serverDropdownCreateChannelBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 closeServerDropdown();
+                setChannelModalType('text');
                 if (newChannelNameInput) newChannelNameInput.value = '';
                 if (addChannelModal) addChannelModal.style.display = 'flex';
                 if (newChannelNameInput) setTimeout(() => newChannelNameInput.focus(), 60);
+            });
+        }
+
+        if (serverDropdownCreateDividerBtn) {
+            serverDropdownCreateDividerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeServerDropdown();
+                setChannelModalType('divider');
+                if (newChannelNameInput) newChannelNameInput.value = '';
+                if (addChannelModal) addChannelModal.style.display = 'flex';
+                if (newChannelNameInput) setTimeout(() => newChannelNameInput.focus(), 60);
+            });
+        }
+
+        if (serverDropdownCategoryDividerBtn) {
+            serverDropdownCategoryDividerBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeServerDropdown();
+                openServerSettings('channels');
+            });
+        }
+
+        if (serverDropdownCopyIdBtn) {
+            serverDropdownCopyIdBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const server = serversList.find(s => s.id === activeServerId);
+                const serverId = server ? server.id : (activeServerId || '');
+                const label = serverDropdownCopyIdBtn.querySelector('span');
+                const orig = label ? label.textContent : 'Copy Server ID';
+                if (navigator.clipboard && serverId) {
+                    navigator.clipboard.writeText(serverId);
+                }
+                if (label) label.textContent = 'Copied ID!';
+                setTimeout(() => {
+                    closeServerDropdown();
+                    setTimeout(() => { if (label) label.textContent = orig; }, 300);
+                }, 750);
             });
         }
 
@@ -13829,7 +14276,8 @@
         });
 
         if (openAddChannelBtn) {
-            openAddChannelBtn.addEventListener('click', () => {
+            openAddChannelBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 setChannelModalType('text');
                 if (newChannelNameInput) newChannelNameInput.value = '';
                 if (addChannelModal) addChannelModal.style.display = 'flex';
@@ -13917,6 +14365,24 @@
 
             renderAllServerMessages();
             scrollServerChatToBottom();
+
+            // Real-time Firebase Realtime Database Listener for this channel
+            try {
+                const msgsRef = ref(rtdb, `server_messages/${activeServerId}/${activeChannelId}`);
+                onValue(msgsRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
+                        list.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+                        currentServerMessages = list;
+                        safeStorageSet(getChannelStorageKey(), JSON.stringify(currentServerMessages));
+                        renderAllServerMessages();
+                        scrollServerChatToBottom();
+                    }
+                });
+            } catch (err) {
+                console.warn('Firebase channel messages listener error:', err);
+            }
         }
 
         function saveServerChannelMessages() {
@@ -13940,11 +14406,15 @@
         }
 
         function renderServerMessage(msg) {
+            const liveAuthor = (msg.authorId && window.globalUsersMap && window.globalUsersMap[msg.authorId]) ? window.globalUsersMap[msg.authorId] : null;
+            const authorAvatar = liveAuthor?.avatar || msg.avatar;
+            const authorName = liveAuthor?.displayName || liveAuthor?.username || msg.author;
+
             let avatarMarkup = '';
-            if (msg.avatar) {
-                avatarMarkup = `<img src="${msg.avatar}" class="msg-avatar" alt="${escapeHtml(msg.author)}">`;
+            if (authorAvatar) {
+                avatarMarkup = `<img src="${authorAvatar}" class="msg-avatar" alt="${escapeHtml(authorName)}">`;
             } else {
-                const initial = msg.author ? msg.author.charAt(0).toUpperCase() : 'U';
+                const initial = authorName ? authorName.charAt(0).toUpperCase() : 'U';
                 avatarMarkup = `<div class="msg-avatar" style="background:rgba(255, 255, 255, 0.12); border:1px solid rgba(255, 255, 255, 0.22); display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; font-size:0.9rem;">${initial}</div>`;
             }
 
@@ -13956,19 +14426,23 @@
             let replyMarkup = '';
             if (msg.replyTo) {
                 let rAvatar = '';
-                if (msg.replyTo.avatar) {
-                    rAvatar = `<img src="${msg.replyTo.avatar}" class="reply-avatar" alt="${escapeHtml(msg.replyTo.author)}">`;
+                const liveReplyAuthor = (msg.replyTo.authorId && window.globalUsersMap && window.globalUsersMap[msg.replyTo.authorId]) ? window.globalUsersMap[msg.replyTo.authorId] : null;
+                const replyAuthorAvatar = liveReplyAuthor?.avatar || msg.replyTo.avatar;
+                const replyAuthorName = liveReplyAuthor?.displayName || liveReplyAuthor?.username || msg.replyTo.author;
+
+                if (replyAuthorAvatar) {
+                    rAvatar = `<img src="${replyAuthorAvatar}" class="reply-avatar" alt="${escapeHtml(replyAuthorName)}">`;
                 } else {
-                    const rInitial = msg.replyTo.author ? msg.replyTo.author.charAt(0).toUpperCase() : 'U';
+                    const rInitial = replyAuthorName ? replyAuthorName.charAt(0).toUpperCase() : 'U';
                     rAvatar = `<div class="reply-avatar" style="background:rgba(255, 255, 255, 0.12); border:1px solid rgba(255, 255, 255, 0.22); display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:bold; color:#fff;">${rInitial}</div>`;
                 }
                 const rSnippet = msg.replyTo.text || '[Image]';
-                const replyAuthorOwner = isCurrentUserAuthor(msg.replyTo.authorId, msg.replyTo.author);
+                const replyAuthorOwner = isCurrentUserAuthor(msg.replyTo.authorId, replyAuthorName);
                 replyMarkup = `
                     <div class="msg-reply-bar" data-reply-target="${escapeHtml(msg.replyTo.id)}" title="Click to jump to message">
                         <div class="reply-spine"></div>
                         ${rAvatar}
-                        <span class="reply-author"${replyAuthorOwner ? ' data-name-owner="true"' : ''}>@${escapeHtml(msg.replyTo.author)}</span>
+                        <span class="reply-author"${replyAuthorOwner ? ' data-name-owner="true"' : ''}>@${escapeHtml(replyAuthorName)}</span>
                         <span class="reply-snippet">${escapeHtml(rSnippet)}</span>
                     </div>
                 `;
@@ -14000,7 +14474,7 @@
             const authorOwnerAttr = isCurrentUserChatMessage(msg) ? ' data-name-owner="true"' : '';
 
             const msgHtml = `
-                <div class="chat-message-row" id="server-msg-${msg.id}" data-msg-id="${msg.id}">
+                <div class="chat-message-row" id="server-msg-${msg.id}" data-msg-id="${msg.id}" data-author-id="${msg.authorId || ''}" data-author="${escapeHtml(authorName || '')}">
                     ${replyMarkup}
                     <div class="chat-message">
                         <div class="chat-message-actions">
@@ -14014,7 +14488,7 @@
                         ${avatarMarkup}
                         <div class="msg-content-wrapper">
                             <div class="msg-meta">
-                                <span class="msg-author"${authorOwnerAttr}>${escapeHtml(msg.author)}</span>
+                                <span class="msg-author"${authorOwnerAttr}>${escapeHtml(authorName)}</span>
                                 ${botTagMarkup}
                                 <span class="msg-time">${escapeHtml(msg.time)}</span>
                             </div>
@@ -14027,7 +14501,16 @@
             `;
             serverMessagesList.insertAdjacentHTML('beforeend', msgHtml);
             const renderedRow = document.getElementById(`server-msg-${msg.id}`);
-            if (renderedRow) renderedRow.querySelectorAll('[data-name-owner="true"]').forEach(element => applyNameStyleToElement(element, currentUser && currentUser.nameStyle));
+            if (renderedRow) {
+                const authorEl = renderedRow.querySelector('.msg-author');
+                if (authorEl) {
+                    if (liveAuthor && liveAuthor.nameStyle) {
+                        applyNameStyleToElement(authorEl, liveAuthor.nameStyle);
+                    } else if (isCurrentUserChatMessage(msg) && currentUser && currentUser.nameStyle) {
+                        applyNameStyleToElement(authorEl, currentUser.nameStyle);
+                    }
+                }
+            }
         }
 
         // Render Reaction Badges for Server Message
@@ -14087,6 +14570,15 @@
 
             saveServerChannelMessages();
             updateServerMessageReactionsUI(msgId);
+
+            // Sync reaction live to Firebase Realtime Database
+            try {
+                if (activeServerId && activeChannelId) {
+                    set(ref(rtdb, `server_messages/${activeServerId}/${activeChannelId}/${msgId}/reactions`), msg.reactions || {});
+                }
+            } catch (err) {
+                console.warn('Firebase RTDB reaction sync error:', err);
+            }
         }
 
         function updateServerMessageReactionsUI(msgId) {
@@ -14244,6 +14736,7 @@
                     avatar: authorAvatar,
                     isBot: false,
                     time: time,
+                    createdAt: Date.now(),
                     text: text,
                     images: imagesToSend,
                     replyTo: activeServerReply ? { ...activeServerReply } : null,
@@ -14260,6 +14753,15 @@
                 closeEmojiBoard();
                 scrollServerChatToBottom();
                 saveServerChannelMessages();
+
+                // Live Sync to Firebase Realtime Database
+                try {
+                    if (activeServerId && activeChannelId) {
+                        set(ref(rtdb, `server_messages/${activeServerId}/${activeChannelId}/${newMsg.id}`), newMsg);
+                    }
+                } catch (fbErr) {
+                    console.warn('Firebase RTDB message send error:', fbErr);
+                }
             });
         }
 
@@ -14351,18 +14853,41 @@
                 const authorEl = e.target.closest('.msg-author') || e.target.closest('.msg-avatar');
                 if (authorEl) {
                     const row = e.target.closest('.chat-message-row');
+                    const authorId = row ? row.dataset.authorId : null;
+                    const authorName = row ? row.dataset.author : null;
                     const isBot = row && row.querySelector('.bot-tag');
                     const server = serversList.find(s => s.id === activeServerId);
                     if (isBot) {
                         openUserProfileCard(talkyBotProfile, false);
                     } else {
-                        const isOwner = isUserServerOwner(currentUser, server);
-                        openUserProfileCard(currentUser, isOwner);
+                        let targetUser = (authorId && window.globalUsersMap && window.globalUsersMap[authorId]) || null;
+                        if (!targetUser && server && Array.isArray(server.members)) {
+                            const mem = server.members.find(m => String(m.id) === String(authorId) || m.name === authorName);
+                            if (mem) {
+                                targetUser = (window.globalUsersMap && window.globalUsersMap[mem.id]) || mem;
+                            }
+                        }
+                        if (!targetUser && currentUser && (String(currentUser.id) === String(authorId) || currentUser.username === authorName || currentUser.displayName === authorName)) {
+                            targetUser = currentUser;
+                        }
+                        if (!targetUser) {
+                            targetUser = {
+                                id: authorId || 'user_' + Date.now(),
+                                displayName: authorName || 'User',
+                                handle: authorName ? authorName.toLowerCase().replace(/\s+/g, '') : 'user',
+                                avatar: row ? (row.querySelector('.msg-avatar')?.src || '') : ''
+                            };
+                        }
+                        const isOwner = isUserServerOwner(targetUser, server);
+                        openUserProfileCard(targetUser, isOwner);
                     }
                     return;
                 }
             });
         }
+
+        // Expose functions to window for any inline handlers
+        window.openTrustSiteModal = openTrustSiteModal;
 
         // Initialize Servers on Page Load
         loadServers();

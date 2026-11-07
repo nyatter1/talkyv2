@@ -426,7 +426,9 @@
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { rtdb, ref, set, get, child } from './firebase.ts';
+
         // Auto-login check if already logged in (unless URL has ?logout=true)
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('logout') === 'true') {
@@ -485,6 +487,12 @@
             });
         }
 
+        // Expose to window for inline HTML onclick attributes
+        window.switchTab = switchTab;
+        window.toggleDropdown = toggleDropdown;
+        window.selectOption = selectOption;
+        window.filterDropdown = filterDropdown;
+
         window.addEventListener('click', (e) => {
             if (!e.target.closest('.custom-dropdown')) {
                 document.querySelectorAll('.dropdown-content').forEach(el => el.classList.remove('open'));
@@ -492,7 +500,7 @@
         });
 
         // Form Submission Handlers
-        document.getElementById('signupForm').addEventListener('submit', (e) => {
+        document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('signupEmail').value.trim();
             const username = document.getElementById('signupUsername').value.trim();
@@ -506,7 +514,7 @@
                 username: username,
                 displayName: username,
                 handle: cleanHandle,
-                handleLastChanged: null, // null means handle hasn't been changed yet
+                handleLastChanged: null,
                 pronouns: '',
                 bio: '',
                 links: [],
@@ -515,7 +523,8 @@
                 accentColor: '#ffffff',
                 secondaryColor: '#2b2d31',
                 borderStartColor: '#ffffff',
-                borderEndColor: '#80848e'
+                borderEndColor: '#80848e',
+                createdAt: Date.now()
             };
 
             try {
@@ -528,10 +537,17 @@
                 try { localStorage.setItem('talky_current_user', JSON.stringify(userObj)); } catch(e) {}
             }
 
+            // Sync user account directly to Firebase Realtime Database
+            try {
+                await set(ref(rtdb, 'users/' + userObj.id), userObj);
+            } catch (fbErr) {
+                console.warn('Firebase RTDB user signup sync error:', fbErr);
+            }
+
             window.location.href = 'app.html';
         });
 
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const identifier = document.getElementById('loginIdentifier').value.trim();
 
@@ -541,10 +557,25 @@
             } catch(e) {
                 users = [];
             }
+
             let match = users.find(u => (u.email && u.email.toLowerCase() === identifier.toLowerCase()) || (u.username && u.username.toLowerCase() === identifier.toLowerCase()));
 
+            // Also check Firebase RTDB for registered users across devices
             if (!match) {
-                // If account doesn't exist, automatically create one so login is frictionless
+                try {
+                    const snap = await get(ref(rtdb, 'users'));
+                    if (snap.exists()) {
+                        const fbUsers = snap.val();
+                        const list = Object.values(fbUsers);
+                        match = list.find(u => (u.email && u.email.toLowerCase() === identifier.toLowerCase()) || (u.username && u.username.toLowerCase() === identifier.toLowerCase()) || (u.handle && u.handle.toLowerCase() === identifier.toLowerCase()));
+                    }
+                } catch (fbErr) {
+                    console.warn('Could not query Firebase users:', fbErr);
+                }
+            }
+
+            if (!match) {
+                // If account doesn't exist, create one so login is frictionless
                 const cleanHandle = identifier.toLowerCase().replace(/[^a-z0-9_]/g, '') || 'user';
                 match = {
                     id: 'user_' + Date.now(),
@@ -561,11 +592,17 @@
                     accentColor: '#ffffff',
                     secondaryColor: '#2b2d31',
                     borderStartColor: '#ffffff',
-                    borderEndColor: '#80848e'
+                    borderEndColor: '#80848e',
+                    createdAt: Date.now()
                 };
                 users.push(match);
                 try { localStorage.setItem('talky_users', JSON.stringify(users)); } catch(e) {}
             }
+
+            // Save in Firebase RTDB
+            try {
+                await set(ref(rtdb, 'users/' + match.id), match);
+            } catch (e) {}
 
             try {
                 localStorage.setItem('talky_current_user', JSON.stringify(match));
