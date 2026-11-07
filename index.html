@@ -392,6 +392,11 @@
                 item.style.setProperty('--mouse-y', `${y}%`);
             });
         });
+
+        // Disable right clicking globally
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
     </script>
 
 </body>

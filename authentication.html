@@ -611,6 +611,11 @@
             }
             window.location.href = 'app.html';
         });
+
+        // Disable right clicking globally
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
     </script>
 </body>
 </html>

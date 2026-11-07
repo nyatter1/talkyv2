@@ -2858,6 +2858,211 @@
             color: #ffffff;
         }
 
+        /* Smooth Channel & Divider Drag & Drop Reordering */
+        .channel-item[draggable="true"],
+        .channel-divider-item[draggable="true"] {
+            cursor: grab;
+            transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+        }
+        .channel-item[draggable="true"]:active,
+        .channel-divider-item[draggable="true"]:active {
+            cursor: grabbing;
+        }
+        .channel-item[draggable="false"],
+        .channel-divider-item[draggable="false"] {
+            cursor: pointer !important;
+            -webkit-user-drag: none;
+            user-select: none;
+        }
+        .channel-item.is-dragging,
+        .channel-divider-item.is-dragging {
+            opacity: 0.35 !important;
+            transform: scale(0.97);
+            background: rgba(88, 101, 242, 0.15) !important;
+            border: 1px dashed rgba(88, 101, 242, 0.6) !important;
+        }
+        .channel-drag-over-top {
+            position: relative;
+        }
+        .channel-drag-over-top::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            right: 2px;
+            height: 3px;
+            background: #5865f2;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(88, 101, 242, 0.95), 0 0 4px #ffffff;
+            z-index: 50;
+            pointer-events: none;
+        }
+        .channel-drag-over-top::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -2px;
+            width: 9px;
+            height: 9px;
+            background: #5865f2;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            z-index: 51;
+            pointer-events: none;
+        }
+        .channel-drag-over-bottom {
+            position: relative;
+        }
+        .channel-drag-over-bottom::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 2px;
+            right: 2px;
+            height: 3px;
+            background: #5865f2;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(88, 101, 242, 0.95), 0 0 4px #ffffff;
+            z-index: 50;
+            pointer-events: none;
+        }
+        .channel-drag-over-bottom::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -2px;
+            width: 9px;
+            height: 9px;
+            background: #5865f2;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            z-index: 51;
+            pointer-events: none;
+        }
+        .flash-reorder-drop {
+            animation: dropFlashAnim 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes dropFlashAnim {
+            0% {
+                background: rgba(88, 101, 242, 0.4);
+                transform: translateX(4px);
+            }
+            100% {
+                background: transparent;
+                transform: translateX(0);
+            }
+        }
+
+        /* Glassmorphic Context Menu for Channels & Dividers */
+        .custom-context-menu {
+            position: fixed;
+            z-index: 100000;
+            background: rgba(17, 18, 20, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 10px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+            min-width: 220px;
+            padding: 6px;
+            display: none;
+            flex-direction: column;
+            gap: 2px;
+            animation: ctxMenuPop 0.14s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+        }
+        @keyframes ctxMenuPop {
+            0% { opacity: 0; transform: scale(0.96) translateY(-4px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .ctx-menu-header {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #949ba4;
+            padding: 6px 10px 6px 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .ctx-menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #dbdee1;
+            cursor: pointer;
+            transition: all 0.12s ease;
+            background: transparent;
+            border: none;
+            text-align: left;
+            width: 100%;
+        }
+        .ctx-menu-item:hover {
+            background: #5865f2;
+            color: #ffffff;
+            transform: translateX(2px);
+        }
+        .ctx-menu-item.danger {
+            color: #f23f43;
+        }
+        .ctx-menu-item.danger:hover {
+            background: #da373c;
+            color: #ffffff;
+        }
+        .ctx-menu-item svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+        .ctx-menu-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 4px 6px;
+        }
+
+        /* Preset Icon Picker in Channel & Divider Settings */
+        .icon-preset-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 6px;
+            margin-top: 8px;
+        }
+        .icon-preset-btn {
+            height: 36px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+        .icon-preset-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.35);
+            transform: scale(1.08);
+        }
+        .icon-preset-btn.active {
+            background: rgba(88, 101, 242, 0.35);
+            border-color: #5865f2;
+            box-shadow: 0 0 10px rgba(88, 101, 242, 0.5);
+        }
+
         /* Text Input Styling matching site theme */
         .role-text-input {
             width: 100%;
@@ -2902,6 +3107,222 @@
             text-align: center;
             transition: all 0.18s ease;
             white-space: nowrap;
+        }
+        .divider-style-pill-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .divider-style-pill-btn.active {
+            background: rgba(88, 101, 242, 0.28);
+            border-color: rgba(88, 101, 242, 0.6);
+            color: #ffffff;
+            box-shadow: 0 0 12px rgba(88, 101, 242, 0.3);
+        }
+
+        /* Multi-Stop Gradient Customizer & Controls */
+        .gradient-stops-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .gradient-stop-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(18, 19, 23, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 8px 12px;
+            transition: border-color 0.15s ease;
+        }
+        .gradient-stop-row:hover {
+            border-color: rgba(255, 255, 255, 0.24);
+        }
+        .gradient-stop-index {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #949ba4;
+            min-width: 52px;
+            text-transform: uppercase;
+        }
+        .gradient-stop-swatch {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            overflow: hidden;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+        }
+        .gradient-stop-swatch input[type="color"] {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 52px;
+            height: 52px;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .gradient-stop-hex {
+            font-family: monospace;
+            font-size: 0.82rem;
+            color: #dbdee1;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 4px;
+            padding: 5px 8px;
+            width: 86px;
+            text-transform: uppercase;
+            outline: none;
+        }
+        .gradient-stop-hex:focus {
+            border-color: #5865f2;
+            color: #ffffff;
+        }
+        .gradient-stop-delete-btn {
+            margin-left: auto;
+            width: 26px;
+            height: 26px;
+            border-radius: 4px;
+            background: rgba(242, 63, 67, 0.12);
+            border: 1px solid rgba(242, 63, 67, 0.3);
+            color: #f23f43;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            transition: all 0.15s ease;
+        }
+        .gradient-stop-delete-btn:hover {
+            background: #f23f43;
+            color: #ffffff;
+        }
+        .angle-slider-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+        }
+        .angle-slider-control input[type="range"] {
+            flex: 1;
+            accent-color: #5865f2;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+        .angle-degree-badge {
+            font-family: monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(88, 101, 242, 0.2);
+            border: 1px solid rgba(88, 101, 242, 0.4);
+            min-width: 48px;
+            text-align: center;
+        }
+        .angle-presets-row {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .angle-preset-btn {
+            padding: 4px 9px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #949ba4;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .angle-preset-btn:hover {
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+        .angle-preset-btn.active {
+            background: rgba(88, 101, 242, 0.3);
+            border-color: #5865f2;
+            color: #fff;
+            box-shadow: 0 0 8px rgba(88, 101, 242, 0.4);
+        }
+        .font-style-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .font-style-btn {
+            padding: 8px 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: #949ba4;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .font-style-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+        .font-style-btn.active {
+            background: rgba(88, 101, 242, 0.25);
+            border-color: #5865f2;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(88, 101, 242, 0.35);
+        }
+        .hierarchy-list-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(18, 19, 23, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 10px 14px;
+            transition: all 0.15s ease;
+            user-select: none;
+        }
+        .hierarchy-list-item[draggable="true"] {
+            cursor: grab;
+        }
+        .hierarchy-list-item[draggable="true"]:active {
+            cursor: grabbing;
+        }
+        .hierarchy-list-item.is-dragging {
+            opacity: 0.35 !important;
+            border-style: dashed !important;
+            border-color: #5865f2 !important;
+        }
+        .hierarchy-drag-handle {
+            color: #6d737b;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+        .hierarchy-drag-handle:hover {
+            color: #dbdee1;
         }
 
         .divider-style-pill-btn:hover {
@@ -7620,11 +8041,11 @@
             </div>
 
             <!-- Server Channels & Dividers Content -->
-            <div class="settings-tab-panel" id="serverSettingsPanelChannels" style="display: none; max-width: 600px;">
+            <div class="settings-tab-panel" id="serverSettingsPanelChannels" style="display: none; max-width: 640px;">
                 <!-- Main Header -->
                 <div style="margin-bottom: 24px;">
-                    <h2 class="settings-content-heading" style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Category Dividers & Channels</h2>
-                    <p style="font-size: 0.82rem; color: #949ba4; margin: 0;">Customize the sidebar category divider style and manage channel icons.</p>
+                    <h2 class="settings-content-heading" style="font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Category Dividers & Channels</h2>
+                    <p style="font-size: 0.84rem; color: #949ba4; margin: 0;">Customize multi-color gradients, fonts, and reorder server hierarchy with drag-and-drop.</p>
                 </div>
 
                 <!-- Section 1: Category Header & Divider Customization Card -->
@@ -7646,38 +8067,79 @@
                         </div>
                     </div>
 
-                    <!-- Gradient Controls (matching Role Editor theme boxes) -->
+                    <!-- Enhanced Gradient Controls (2 to 5 colors + Rotation Angle) -->
                     <div id="catGradientControls" style="display: none; margin-bottom: 22px;">
-                        <label class="profile-field-label">GRADIENT COLORS</label>
-                        <div class="role-theme-boxes-row" style="max-width: 480px;">
-                            <div class="role-theme-color-box" id="catColorBox1">
-                                <div class="role-theme-color-title">Start Color</div>
-                                <div class="role-theme-color-control">
-                                    <div class="role-theme-swatch-wrapper" id="catColorSwatch1" style="background-color: #5865F2;">
-                                        <input type="color" id="catColor1Input" class="role-theme-input" value="#5865F2">
-                                    </div>
-                                    <span class="role-theme-hex" id="catColor1Hex">#5865F2</span>
-                                </div>
-                            </div>
-                            <div class="role-theme-color-box" id="catColorBox2">
-                                <div class="role-theme-color-title">End Color</div>
-                                <div class="role-theme-color-control">
-                                    <div class="role-theme-swatch-wrapper" id="catColorSwatch2" style="background-color: #EB459E;">
-                                        <input type="color" id="catColor2Input" class="role-theme-input" value="#EB459E">
-                                    </div>
-                                    <span class="role-theme-hex" id="catColor2Hex">#EB459E</span>
-                                </div>
-                            </div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                            <label class="profile-field-label" style="margin-bottom: 0;">GRADIENT COLORS (2 TO 5)</label>
+                            <span id="catColorsCountBadge" style="font-size: 0.72rem; color: #949ba4;">2 / 5 colors</span>
+                        </div>
+                        <div class="gradient-stops-container" id="catGradientStopsList">
+                            <!-- Populated with color stop rows -->
+                        </div>
+                        <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between;">
+                            <button type="button" class="role-btn-secondary small" id="catAddColorStopBtn" style="font-size: 0.75rem; padding: 5px 12px;">
+                                + Add Color Stop
+                            </button>
+                            <span style="font-size: 0.7rem; color: #80848e;">Max 5 color stops</span>
                         </div>
 
                         <!-- Gradient Presets -->
                         <div style="margin-top: 14px;">
-                            <span style="font-size: 0.74rem; font-weight: 600; color: #949ba4; text-transform: uppercase; letter-spacing: 0.04em;">Preset Gradients</span>
-                            <div class="role-gradient-presets-row" id="catGradientPresetsRow" style="margin-top: 8px;">
-                                <button type="button" class="role-gradient-preset-btn cat-preset-btn" data-c1="#5865f2" data-c2="#eb459e" style="background: linear-gradient(90deg, #5865f2, #eb459e); color: #fff;">Talky Glow</button>
-                                <button type="button" class="role-gradient-preset-btn cat-preset-btn" data-c1="#ff416c" data-c2="#8a2387" style="background: linear-gradient(90deg, #ff416c, #8a2387); color: #fff;">Sunset</button>
-                                <button type="button" class="role-gradient-preset-btn cat-preset-btn" data-c1="#00f2fe" data-c2="#4facfe" style="background: linear-gradient(90deg, #00f2fe, #4facfe); color: #fff;">Cyber Cyan</button>
-                                <button type="button" class="role-gradient-preset-btn cat-preset-btn" data-c1="#11998e" data-c2="#38ef7d" style="background: linear-gradient(90deg, #11998e, #38ef7d); color: #fff;">Emerald</button>
+                            <span style="font-size: 0.72rem; font-weight: 600; color: #949ba4; text-transform: uppercase; letter-spacing: 0.04em;">Gradient Presets</span>
+                            <div class="role-gradient-presets-row" id="catGradientPresetsRow" style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+                                <button type="button" class="angle-preset-btn" data-preset="talky" style="background: linear-gradient(90deg, #5865F2, #EB459E); color: #fff; border: none;">Talky Glow</button>
+                                <button type="button" class="angle-preset-btn" data-preset="cyber" style="background: linear-gradient(90deg, #00F2FE, #4FACFE, #9D00FF); color: #fff; border: none;">Cyberpunk</button>
+                                <button type="button" class="angle-preset-btn" data-preset="sunset" style="background: linear-gradient(90deg, #FF416C, #8A2387, #FFAA00); color: #fff; border: none;">Sunset</button>
+                                <button type="button" class="angle-preset-btn" data-preset="emerald" style="background: linear-gradient(90deg, #11998E, #38EF7D); color: #fff; border: none;">Emerald</button>
+                                <button type="button" class="angle-preset-btn" data-preset="prism" style="background: linear-gradient(90deg, #FF0055, #FFAA00, #00FF88, #00BFFF, #9D00FF); color: #fff; border: none;">Prism Rainbow (5)</button>
+                            </div>
+                        </div>
+
+                        <!-- Gradient Rotation / Angle Control -->
+                        <div style="margin-top: 16px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <label class="profile-field-label" style="margin-bottom: 0;">ROTATION ANGLE</label>
+                                <span class="angle-degree-badge" id="catGradientAngleBadge">135°</span>
+                            </div>
+                            <div class="angle-slider-control">
+                                <input type="range" id="catGradientAngleSlider" min="0" max="360" step="5" value="135">
+                            </div>
+                            <div class="angle-presets-row" id="catAnglePresetsRow">
+                                <button type="button" class="angle-preset-btn" data-angle="0">0° ↑</button>
+                                <button type="button" class="angle-preset-btn" data-angle="45">45° ↗</button>
+                                <button type="button" class="angle-preset-btn" data-angle="90">90° →</button>
+                                <button type="button" class="angle-preset-btn active" data-angle="135">135° ↘</button>
+                                <button type="button" class="angle-preset-btn" data-angle="180">180° ↓</button>
+                                <button type="button" class="angle-preset-btn" data-angle="270">270° ←</button>
+                            </div>
+                        </div>
+
+                        <!-- Font Family Grid for Category Divider -->
+                        <div style="margin-top: 16px;">
+                            <label class="profile-field-label">CATEGORY FONT FAMILY</label>
+                            <div class="font-style-grid" id="catFontGrid">
+                                <button type="button" class="font-style-btn active" data-font="default">Default</button>
+                                <button type="button" class="font-style-btn" data-font="orbitron" style="font-family: 'Orbitron', sans-serif;">Orbitron</button>
+                                <button type="button" class="font-style-btn" data-font="mono" style="font-family: monospace;">Mono</button>
+                                <button type="button" class="font-style-btn" data-font="silkscreen" style="font-family: 'Silkscreen', cursive;">Pixel</button>
+                                <button type="button" class="font-style-btn" data-font="cinzel" style="font-family: 'Cinzel', serif;">Cinzel</button>
+                                <button type="button" class="font-style-btn" data-font="audiowide" style="font-family: 'Audiowide', sans-serif;">Audiowide</button>
+                            </div>
+                        </div>
+
+                        <!-- Text Color Mode -->
+                        <div style="margin-top: 16px;">
+                            <label class="profile-field-label">TEXT COLOR MODE</label>
+                            <div style="display: flex; gap: 8px; margin-top: 4px;">
+                                <button type="button" class="divider-style-pill-btn active" id="catTextColorModeGrad" style="flex: 1;">Use Gradient</button>
+                                <button type="button" class="divider-style-pill-btn" id="catTextColorModeSolid" style="flex: 1;">Custom Solid</button>
+                            </div>
+                            <div id="catSolidColorWrap" style="display: none; align-items: center; gap: 10px; margin-top: 8px;">
+                                <div class="gradient-stop-swatch" id="catSolidColorSwatch" style="background-color: #FFFFFF;">
+                                    <input type="color" id="catSolidColorInput" value="#FFFFFF">
+                                </div>
+                                <input type="text" id="catSolidColorHex" class="gradient-stop-hex" value="#FFFFFF" maxlength="7">
+                                <span style="font-size: 0.74rem; color: #949ba4;">Solid text color with gradient bar</span>
                             </div>
                         </div>
                     </div>
@@ -7700,7 +8162,7 @@
                     <!-- Live Sidebar Preview -->
                     <div style="margin-bottom: 20px;">
                         <label class="profile-field-label">SIDEBAR PREVIEW</label>
-                        <div style="background: #111214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px 10px; max-width: 270px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);">
+                        <div style="background: #111214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px 10px; max-width: 280px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);">
                             <div id="categoryLivePreviewWrap" style="transition: all 0.2s ease;">
                                 <!-- Live Category Preview Rendered Here -->
                             </div>
@@ -7728,23 +8190,28 @@
                     </div>
                 </div>
 
-                <!-- Section 2: Channels List & Custom Icons & Dividers -->
+                <!-- Section 2: Channels & Dividers Hierarchy Manager -->
                 <div style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
                     <div>
-                        <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff; margin: 0 0 4px 0;">Channel Icons & Dividers</h3>
-                        <p style="font-size: 0.8rem; color: #949ba4; margin: 0;">Customize channel icons (replace # with images) or insert section separators.</p>
+                        <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff; margin: 0 0 4px 0;">Channel Hierarchy & Customization</h3>
+                        <p style="font-size: 0.8rem; color: #949ba4; margin: 0;">Drag rows to reorder server structure. Click Customize to edit fonts, gradients, and icons.</p>
                     </div>
-                    <button type="button" class="role-btn-shiny small" id="addSectionDividerBtn" style="white-space: nowrap;">
-                        + Add Section Divider
-                    </button>
+                    <div style="display: flex; gap: 8px;">
+                        <button type="button" class="role-btn-secondary small" id="serverSettingsAddChannelBtn" style="white-space: nowrap;">
+                            + Channel
+                        </button>
+                        <button type="button" class="role-btn-shiny small" id="addSectionDividerBtn" style="white-space: nowrap;">
+                            + Section Divider
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Hidden file input for uploading channel icon -->
                 <input type="file" id="channelCustomIconFileInput" accept="image/*" style="display: none;">
 
-                <!-- Channel List -->
+                <!-- Channel List with Drag & Drop Hierarchy -->
                 <div id="serverSettingsChannelsList" style="display: flex; flex-direction: column; gap: 8px;">
-                    <!-- Dynamically populated -->
+                    <!-- Dynamically populated with draggable rows -->
                 </div>
             </div>
 
@@ -8040,6 +8507,318 @@
                 <div class="modal-footer split" style="margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
                     <button type="button" class="role-btn-secondary" id="closeAddChannelBtn">Cancel</button>
                     <button type="submit" class="role-btn-shiny" id="submitCreateChannelBtn">Create Channel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Floating Custom Context Menu for Channels & Dividers -->
+    <div class="custom-context-menu" id="customItemContextMenu">
+        <div class="ctx-menu-header" id="ctxMenuHeader">
+            <span id="ctxMenuIcon">#</span>
+            <span id="ctxMenuTitle">channel-name</span>
+        </div>
+        <button type="button" class="ctx-menu-item" id="ctxMenuOpenSettingsBtn">
+            <span>Channel Settings</span>
+            <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        </button>
+        <button type="button" class="ctx-menu-item" id="ctxMenuQuickRenameBtn">
+            <span>Rename</span>
+            <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        </button>
+        <button type="button" class="ctx-menu-item" id="ctxMenuQuickIconBtn">
+            <span>Change Icon</span>
+            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+        </button>
+        <div class="ctx-menu-divider"></div>
+        <button type="button" class="ctx-menu-item danger" id="ctxMenuDeleteBtn">
+            <span id="ctxMenuDeleteText">Delete Channel</span>
+            <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+        </button>
+    </div>
+
+    <!-- Channel Settings Modal -->
+    <div class="talky-modal-overlay" id="channelEditSettingsModal" style="display: none;">
+        <div class="talky-modal-container small" style="max-width: 480px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h2 class="modal-title" id="channelEditModalTitle">Channel Settings</h2>
+                <p class="modal-subtitle" id="channelEditModalSubtitle">Customize channel icon, typography, colors and name</p>
+            </div>
+            <form id="channelEditSettingsForm">
+                <div class="modal-form-body">
+                    <!-- Channel Name Field -->
+                    <label class="modal-field-label">CHANNEL NAME <span class="required">*</span></label>
+                    <div class="channel-name-input-wrapper">
+                        <span class="channel-input-hash" id="channelEditPrefixHash">#</span>
+                        <input type="text" class="modal-text-input" id="channelEditNameInput" placeholder="channel-name" required maxlength="32">
+                    </div>
+
+                    <!-- Channel Typography / Font Family -->
+                    <div style="margin-top: 18px;">
+                        <label class="modal-field-label">CHANNEL FONT</label>
+                        <div class="font-style-grid" id="channelFontGrid">
+                            <button type="button" class="font-style-btn active" data-font="default">Default</button>
+                            <button type="button" class="font-style-btn" data-font="orbitron" style="font-family: 'Orbitron', sans-serif;">Orbitron</button>
+                            <button type="button" class="font-style-btn" data-font="mono" style="font-family: monospace;">Mono</button>
+                            <button type="button" class="font-style-btn" data-font="silkscreen" style="font-family: 'Silkscreen', cursive;">Pixel</button>
+                            <button type="button" class="font-style-btn" data-font="cinzel" style="font-family: 'Cinzel', serif;">Cinzel</button>
+                            <button type="button" class="font-style-btn" data-font="audiowide" style="font-family: 'Audiowide', sans-serif;">Audiowide</button>
+                        </div>
+                    </div>
+
+                    <!-- Channel Text Color & Gradient -->
+                    <div style="margin-top: 18px;">
+                        <label class="modal-field-label">TEXT APPEARANCE & COLORS</label>
+                        <div class="divider-style-pills" id="channelColorModePills" style="margin-top: 4px;">
+                            <button type="button" class="divider-style-pill-btn active" data-colormode="default">Default Gray</button>
+                            <button type="button" class="divider-style-pill-btn" data-colormode="solid">Solid Color</button>
+                            <button type="button" class="divider-style-pill-btn" data-colormode="gradient">Gradient Text</button>
+                        </div>
+
+                        <!-- Solid Color Picker Wrap -->
+                        <div id="channelSolidColorWrap" style="display: none; align-items: center; gap: 10px; margin-top: 10px; background: rgba(18, 19, 23, 0.6); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
+                            <div class="gradient-stop-swatch" id="channelSolidColorSwatch" style="background-color: #5865F2;">
+                                <input type="color" id="channelSolidColorInput" value="#5865F2">
+                            </div>
+                            <input type="text" id="channelSolidColorHex" class="gradient-stop-hex" value="#5865F2" maxlength="7">
+                            <span style="font-size: 0.74rem; color: #949ba4;">Custom channel text color</span>
+                        </div>
+
+                        <!-- Gradient Text Controls Wrap -->
+                        <div id="channelGradientWrap" style="display: none; margin-top: 10px; background: rgba(18, 19, 23, 0.6); padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                    <span style="font-size: 0.72rem; color: #949ba4;">From:</span>
+                                    <div class="gradient-stop-swatch" id="channelGradSwatch1" style="background-color: #5865F2;">
+                                        <input type="color" id="channelGradColor1" value="#5865F2">
+                                    </div>
+                                    <input type="text" id="channelGradHex1" class="gradient-stop-hex" value="#5865F2" maxlength="7" style="width: 72px;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                                    <span style="font-size: 0.72rem; color: #949ba4;">To:</span>
+                                    <div class="gradient-stop-swatch" id="channelGradSwatch2" style="background-color: #EB459E;">
+                                        <input type="color" id="channelGradColor2" value="#EB459E">
+                                    </div>
+                                    <input type="text" id="channelGradHex2" class="gradient-stop-hex" value="#EB459E" maxlength="7" style="width: 72px;">
+                                </div>
+                            </div>
+                            <!-- Gradient Rotation for Channel -->
+                            <div style="margin-top: 10px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 0.72rem; color: #949ba4;">Gradient Angle</span>
+                                    <span class="angle-degree-badge" id="channelGradAngleBadge" style="padding: 2px 6px; font-size: 0.75rem;">135°</span>
+                                </div>
+                                <div class="angle-slider-control" style="margin-top: 4px;">
+                                    <input type="range" id="channelGradAngleSlider" min="0" max="360" step="5" value="135">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Channel Icon Section -->
+                    <label class="modal-field-label" style="margin-top: 18px;">CHANNEL ICON</label>
+                    <div style="display: flex; align-items: center; gap: 14px; margin-top: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px;">
+                        <div id="channelEditIconPreviewBox" style="width: 44px; height: 44px; border-radius: 8px; background: #1e1f22; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #ffffff; flex-shrink: 0; overflow: hidden;">
+                            <span id="channelEditIconPreviewText">#</span>
+                            <img id="channelEditIconPreviewImg" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;" alt="" />
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" class="role-btn-shiny small" id="channelEditUploadIconBtn" style="padding: 6px 12px; font-size: 0.8rem;">
+                                    Upload Image / GIF
+                                </button>
+                                <button type="button" class="role-btn-secondary small" id="channelEditResetIconBtn" style="padding: 6px 10px; font-size: 0.8rem;">
+                                    Reset to #
+                                </button>
+                            </div>
+                            <span style="font-size: 0.72rem; color: #949ba4;">Upload any icon or animated GIF (compressed seamlessly).</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Icon / Emoji Presets -->
+                    <div style="margin-top: 14px;">
+                        <label class="modal-field-label">QUICK ICONS & EMOJIS</label>
+                        <div class="icon-preset-picker-grid" id="channelIconPresetGrid">
+                            <button type="button" class="icon-preset-btn" data-icon="#">#</button>
+                            <button type="button" class="icon-preset-btn" data-icon="💬">💬</button>
+                            <button type="button" class="icon-preset-btn" data-icon="📢">📢</button>
+                            <button type="button" class="icon-preset-btn" data-icon="🔊">🔊</button>
+                            <button type="button" class="icon-preset-btn" data-icon="🎮">🎮</button>
+                            <button type="button" class="icon-preset-btn" data-icon="✨">✨</button>
+                            <button type="button" class="icon-preset-btn" data-icon="🔥">🔥</button>
+                            <button type="button" class="icon-preset-btn" data-icon="⚡">⚡</button>
+                            <button type="button" class="icon-preset-btn" data-icon="🚀">🚀</button>
+                            <button type="button" class="icon-preset-btn" data-icon="💡">💡</button>
+                            <button type="button" class="icon-preset-btn" data-icon="📌">📌</button>
+                            <button type="button" class="icon-preset-btn" data-icon="🏆">🏆</button>
+                            <button type="button" class="icon-preset-btn" data-icon="❤️">❤️</button>
+                            <button type="button" class="icon-preset-btn" data-icon="🎉">🎉</button>
+                            <button type="button" class="icon-preset-btn" data-icon="🛡️">🛡️</button>
+                            <button type="button" class="icon-preset-btn" data-icon="🤖">🤖</button>
+                        </div>
+                    </div>
+
+                    <!-- Live Channel Preview -->
+                    <div style="margin-top: 18px;">
+                        <label class="modal-field-label">SIDEBAR PREVIEW</label>
+                        <div id="channelModalLivePreviewBox" style="background: #111214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 4px;">
+                            <!-- Active preview -->
+                            <div id="channelModalLiveActive" style="display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); color: #fff;">
+                                <span id="channelModalPreviewIconActive">#</span>
+                                <span id="channelModalPreviewNameActive">channel-name</span>
+                            </div>
+                            <!-- Inactive preview -->
+                            <div id="channelModalLiveInactive" style="display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; color: #949ba4;">
+                                <span id="channelModalPreviewIconInactive">#</span>
+                                <span id="channelModalPreviewNameInactive">channel-name</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer split" style="margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: space-between;">
+                    <button type="button" class="role-btn-secondary" id="channelEditDeleteBtn" style="color: #f23f43; border-color: rgba(242, 63, 67, 0.35);">
+                        Delete Channel
+                    </button>
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" class="role-btn-secondary" id="closeChannelEditModalBtn">Cancel</button>
+                        <button type="submit" class="role-btn-shiny" id="submitChannelEditBtn">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+            <input type="file" id="channelCustomIconDirectInput" accept="image/*" style="display: none;">
+        </div>
+    </div>
+
+    <!-- Divider Settings Modal -->
+    <div class="talky-modal-overlay" id="dividerEditSettingsModal" style="display: none;">
+        <div class="talky-modal-container small" style="max-width: 480px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h2 class="modal-title" id="dividerEditModalTitle">Divider Settings</h2>
+                <p class="modal-subtitle" id="dividerEditModalSubtitle">Customize divider name, gradient colors, rotation and style</p>
+            </div>
+            <form id="dividerEditSettingsForm">
+                <div class="modal-form-body">
+                    <!-- Divider Name Field -->
+                    <label class="modal-field-label">DIVIDER NAME / TITLE <span class="required">*</span></label>
+                    <input type="text" class="modal-text-input" id="dividerEditNameInput" placeholder="SECTION NAME" required maxlength="32">
+
+                    <!-- Divider Style Field -->
+                    <div style="margin-top: 16px;">
+                        <label class="modal-field-label">DIVIDER STYLE</label>
+                        <div class="divider-style-pills" id="dividerEditStylePills">
+                            <button type="button" class="divider-style-pill-btn active" data-style="minimal">Minimal</button>
+                            <button type="button" class="divider-style-pill-btn" data-style="gradient">Gradient</button>
+                            <button type="button" class="divider-style-pill-btn" data-style="ribbon">Ribbon</button>
+                            <button type="button" class="divider-style-pill-btn" data-style="banner">Banner</button>
+                        </div>
+                    </div>
+
+                    <!-- Divider Gradient Section (shown when Gradient style active) -->
+                    <div id="dividerEditGradientSection" style="margin-top: 16px; display: none;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                            <label class="modal-field-label" style="margin-bottom: 0;">GRADIENT COLORS (2 TO 5)</label>
+                            <span id="dividerColorsCountBadge" style="font-size: 0.72rem; color: #949ba4;">2 / 5 colors</span>
+                        </div>
+                        <div class="gradient-stops-container" id="dividerGradientStopsList">
+                            <!-- Dynamic 2-5 stops -->
+                        </div>
+                        <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between;">
+                            <button type="button" class="role-btn-secondary small" id="dividerAddColorStopBtn" style="font-size: 0.75rem; padding: 5px 12px;">
+                                + Add Color Stop
+                            </button>
+                            <span style="font-size: 0.7rem; color: #80848e;">Choose 2 to 5 colors</span>
+                        </div>
+
+                        <!-- Quick Presets -->
+                        <div style="margin-top: 12px;">
+                            <span style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase;">Color Presets</span>
+                            <div style="display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap;" id="dividerGradientPresetsGrid">
+                                <button type="button" class="angle-preset-btn" data-preset="talky" style="background: linear-gradient(90deg, #5865F2, #EB459E); color: #fff; border: none;">Talky Glow</button>
+                                <button type="button" class="angle-preset-btn" data-preset="cyber" style="background: linear-gradient(90deg, #00F2FE, #4FACFE, #9D00FF); color: #fff; border: none;">Cyberpunk</button>
+                                <button type="button" class="angle-preset-btn" data-preset="sunset" style="background: linear-gradient(90deg, #FF416C, #8A2387, #FFAA00); color: #fff; border: none;">Sunset</button>
+                                <button type="button" class="angle-preset-btn" data-preset="emerald" style="background: linear-gradient(90deg, #11998E, #38EF7D); color: #fff; border: none;">Emerald</button>
+                                <button type="button" class="angle-preset-btn" data-preset="prism" style="background: linear-gradient(90deg, #FF0055, #FFAA00, #00FF88, #00BFFF, #9D00FF); color: #fff; border: none;">Prism Rainbow (5)</button>
+                            </div>
+                        </div>
+
+                        <!-- Gradient Rotation / Angle -->
+                        <div style="margin-top: 16px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <label class="modal-field-label" style="margin-bottom: 0;">ROTATION ANGLE</label>
+                                <span class="angle-degree-badge" id="dividerGradientAngleBadge">135°</span>
+                            </div>
+                            <div class="angle-slider-control">
+                                <input type="range" id="dividerGradientAngleSlider" min="0" max="360" step="5" value="135">
+                            </div>
+                            <div class="angle-presets-row" id="dividerAnglePresetsRow">
+                                <button type="button" class="angle-preset-btn" data-angle="0">0° ↑</button>
+                                <button type="button" class="angle-preset-btn" data-angle="45">45° ↗</button>
+                                <button type="button" class="angle-preset-btn" data-angle="90">90° →</button>
+                                <button type="button" class="angle-preset-btn active" data-angle="135">135° ↘</button>
+                                <button type="button" class="angle-preset-btn" data-angle="180">180° ↓</button>
+                                <button type="button" class="angle-preset-btn" data-angle="270">270° ←</button>
+                            </div>
+                        </div>
+
+                        <!-- Font Style & Font Color -->
+                        <div style="margin-top: 16px;">
+                            <label class="modal-field-label">FONT FAMILY</label>
+                            <div class="font-style-grid" id="dividerFontGrid">
+                                <button type="button" class="font-style-btn active" data-font="default">Default</button>
+                                <button type="button" class="font-style-btn" data-font="orbitron" style="font-family: 'Orbitron', sans-serif;">Orbitron</button>
+                                <button type="button" class="font-style-btn" data-font="mono" style="font-family: monospace;">Mono</button>
+                                <button type="button" class="font-style-btn" data-font="silkscreen" style="font-family: 'Silkscreen', cursive;">Pixel</button>
+                                <button type="button" class="font-style-btn" data-font="cinzel" style="font-family: 'Cinzel', serif;">Cinzel</button>
+                                <button type="button" class="font-style-btn" data-font="audiowide" style="font-family: 'Audiowide', sans-serif;">Audiowide</button>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 16px;">
+                            <label class="modal-field-label">DIVIDER TEXT COLOR</label>
+                            <div style="display: flex; gap: 8px; margin-top: 4px;">
+                                <button type="button" class="divider-style-pill-btn active" id="dividerTextColorModeGrad" style="flex: 1;">Use Gradient</button>
+                                <button type="button" class="divider-style-pill-btn" id="dividerTextColorModeSolid" style="flex: 1;">Custom Solid</button>
+                            </div>
+                            <div id="dividerSolidColorWrap" style="display: none; align-items: center; gap: 10px; margin-top: 8px;">
+                                <div class="gradient-stop-swatch" id="dividerSolidColorSwatch" style="background-color: #FFFFFF;">
+                                    <input type="color" id="dividerSolidColorInput" value="#FFFFFF">
+                                </div>
+                                <input type="text" id="dividerSolidColorHex" class="gradient-stop-hex" value="#FFFFFF" maxlength="7">
+                                <span style="font-size: 0.74rem; color: #949ba4;">Solid text color with gradient bar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Divider Banner Section (shown when Banner style active) -->
+                    <div id="dividerEditBannerSection" style="margin-top: 14px; display: none;">
+                        <label class="modal-field-label">BANNER IMAGE / GIF</label>
+                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 4px;">
+                            <div id="dividerEditBannerPreview" style="height: 48px; flex: 1; border-radius: 6px; background: #1e1f22; border: 1px dashed rgba(255, 255, 255, 0.2); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #949ba4;">
+                                No banner image set
+                            </div>
+                            <button type="button" class="role-btn-shiny small" id="dividerEditUploadBannerBtn">Upload</button>
+                            <button type="button" class="role-btn-secondary small" id="dividerEditRemoveBannerBtn" style="display: none;">Remove</button>
+                        </div>
+                    </div>
+
+                    <!-- Live Preview in Divider Modal -->
+                    <div style="margin-top: 18px;">
+                        <label class="modal-field-label">LIVE PREVIEW</label>
+                        <div id="dividerModalLivePreviewBox" style="background: #111214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; min-height: 46px; display: flex; align-items: center;">
+                            <!-- Rendered dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer split" style="margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: space-between;">
+                    <button type="button" class="role-btn-secondary" id="dividerEditDeleteBtn" style="color: #f23f43; border-color: rgba(242, 63, 67, 0.35);">
+                        Delete Divider
+                    </button>
+                    <div style="display: flex; gap: 10px;">
+                        <button type="button" class="role-btn-secondary" id="closeDividerEditModalBtn">Cancel</button>
+                        <button type="submit" class="role-btn-shiny" id="submitDividerEditBtn">Save Changes</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -11619,7 +12398,1258 @@
             renderChannelsList(server);
         }
 
-        // Render Channels for Current Server (Including Section Dividers)
+        /* ------------------------------------------------------------
+           DRAG & DROP REORDERING STATE & HELPERS FOR CHANNELS & DIVIDERS
+           ------------------------------------------------------------ */
+        let draggedServerItemId = null;
+
+        function clearAllDragIndicators() {
+            if (!channelsItemsList) return;
+            channelsItemsList.querySelectorAll('.channel-item, .channel-divider-item').forEach(el => {
+                el.classList.remove('channel-drag-over-top', 'channel-drag-over-bottom', 'is-dragging');
+            });
+        }
+
+        function reorderServerItem(server, sourceId, targetId, insertBefore) {
+            if (!server || !Array.isArray(server.channels) || !sourceId || !targetId || sourceId === targetId) return;
+            if (!isUserServerOwner(currentUser, server)) return;
+
+            const fromIndex = server.channels.findIndex(c => c.id === sourceId);
+            if (fromIndex === -1) return;
+
+            const [movedItem] = server.channels.splice(fromIndex, 1);
+            let toIndex = server.channels.findIndex(c => c.id === targetId);
+
+            if (toIndex === -1) {
+                server.channels.push(movedItem);
+            } else {
+                if (!insertBefore) toIndex++;
+                server.channels.splice(toIndex, 0, movedItem);
+            }
+
+            saveServers();
+            renderChannelsList(server);
+
+            // Subtle drop highlight on the moved element for smooth feedback
+            const movedEl = channelsItemsList.querySelector(`[data-chan-id="${sourceId}"], [data-divider-id="${sourceId}"]`);
+            if (movedEl) {
+                movedEl.classList.add('flash-reorder-drop');
+                setTimeout(() => movedEl.classList.remove('flash-reorder-drop'), 700);
+            }
+        }
+
+        /* ------------------------------------------------------------
+           CUSTOM FLOATING CONTEXT MENU & MODALS (CHANNEL & DIVIDER SETTINGS)
+           ------------------------------------------------------------ */
+        const customItemContextMenu = document.getElementById('customItemContextMenu');
+        const ctxMenuHeader = document.getElementById('ctxMenuHeader');
+        const ctxMenuIcon = document.getElementById('ctxMenuIcon');
+        const ctxMenuTitle = document.getElementById('ctxMenuTitle');
+        const ctxMenuOpenSettingsBtn = document.getElementById('ctxMenuOpenSettingsBtn');
+        const ctxMenuQuickRenameBtn = document.getElementById('ctxMenuQuickRenameBtn');
+        const ctxMenuQuickIconBtn = document.getElementById('ctxMenuQuickIconBtn');
+        const ctxMenuDeleteBtn = document.getElementById('ctxMenuDeleteBtn');
+        const ctxMenuDeleteText = document.getElementById('ctxMenuDeleteText');
+
+        let activeContextMenuContext = null; // { type: 'channel'|'divider', id: string, serverId: string }
+
+        function closeCustomContextMenu() {
+            if (customItemContextMenu) {
+                customItemContextMenu.style.display = 'none';
+            }
+            activeContextMenuContext = null;
+        }
+
+        function openChannelContextMenu(x, y, server, channelId) {
+            if (!server || !customItemContextMenu || !isUserServerOwner(currentUser, server)) return;
+            const chan = server.channels.find(c => c.id === channelId);
+            if (!chan) return;
+
+            activeContextMenuContext = { type: 'channel', id: channelId, serverId: server.id };
+
+            if (ctxMenuHeader) {
+                if (ctxMenuIcon) {
+                    if (chan.icon && (chan.icon.startsWith('http') || chan.icon.startsWith('data:'))) {
+                        ctxMenuIcon.innerHTML = `<img src="${escapeHtml(chan.icon)}" style="width: 14px; height: 14px; border-radius: 3px; object-fit: cover; vertical-align: middle;" />`;
+                    } else if (chan.icon) {
+                        ctxMenuIcon.textContent = chan.icon;
+                    } else {
+                        ctxMenuIcon.textContent = '#';
+                    }
+                }
+                if (ctxMenuTitle) ctxMenuTitle.textContent = chan.name;
+            }
+
+            if (ctxMenuOpenSettingsBtn) ctxMenuOpenSettingsBtn.querySelector('span').textContent = 'Channel Settings';
+            if (ctxMenuQuickRenameBtn) ctxMenuQuickRenameBtn.querySelector('span').textContent = 'Rename Channel';
+            if (ctxMenuQuickIconBtn) {
+                ctxMenuQuickIconBtn.style.display = 'flex';
+                ctxMenuQuickIconBtn.querySelector('span').textContent = 'Change Icon';
+            }
+            if (ctxMenuDeleteText) ctxMenuDeleteText.textContent = 'Delete Channel';
+            if (ctxMenuDeleteBtn) ctxMenuDeleteBtn.style.display = 'flex';
+
+            positionContextMenu(x, y);
+        }
+
+        function openDividerContextMenu(x, y, server, dividerId) {
+            if (!server || !customItemContextMenu || !isUserServerOwner(currentUser, server)) return;
+
+            activeContextMenuContext = { type: 'divider', id: dividerId, serverId: server.id };
+
+            let divName = 'TEXT CHANNELS';
+            if (dividerId === 'main') {
+                const catDiv = server.categoryDivider || {};
+                divName = catDiv.title || 'TEXT CHANNELS';
+            } else {
+                const chan = server.channels.find(c => c.id === dividerId);
+                divName = chan ? chan.name : 'SECTION';
+            }
+
+            if (ctxMenuHeader) {
+                if (ctxMenuIcon) ctxMenuIcon.textContent = '—';
+                if (ctxMenuTitle) ctxMenuTitle.textContent = divName;
+            }
+
+            if (ctxMenuOpenSettingsBtn) ctxMenuOpenSettingsBtn.querySelector('span').textContent = 'Divider Settings';
+            if (ctxMenuQuickRenameBtn) ctxMenuQuickRenameBtn.querySelector('span').textContent = 'Rename Divider';
+            if (ctxMenuQuickIconBtn) {
+                ctxMenuQuickIconBtn.style.display = 'none';
+            }
+            if (ctxMenuDeleteText) ctxMenuDeleteText.textContent = 'Delete Divider';
+            if (ctxMenuDeleteBtn) {
+                ctxMenuDeleteBtn.style.display = (dividerId === 'main') ? 'none' : 'flex';
+            }
+
+            positionContextMenu(x, y);
+        }
+
+        function positionContextMenu(x, y) {
+            if (!customItemContextMenu) return;
+            customItemContextMenu.style.display = 'flex';
+
+            // Boundary checking to keep menu inside viewport
+            const menuWidth = 220;
+            const menuHeight = 180;
+            const maxX = window.innerWidth - menuWidth - 12;
+            const maxY = window.innerHeight - menuHeight - 12;
+
+            const posX = Math.max(10, Math.min(x, maxX));
+            const posY = Math.max(10, Math.min(y, maxY));
+
+            customItemContextMenu.style.left = `${posX}px`;
+            customItemContextMenu.style.top = `${posY}px`;
+        }
+
+        // Global Right-Click Prevention across the entire app
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+
+            const chanEl = e.target.closest('.channel-item');
+            const divEl = e.target.closest('.channel-divider-item');
+            const mainCatEl = e.target.closest('#serverMainCategoryHeader');
+
+            const server = serversList.find(s => s.id === activeServerId);
+            const isOwner = (server && currentUser) ? isUserServerOwner(currentUser, server) : false;
+
+            // Only server owners can open channel or divider settings via right-click
+            if (server && isOwner) {
+                if (chanEl && chanEl.dataset.chanId) {
+                    openChannelContextMenu(e.clientX, e.clientY, server, chanEl.dataset.chanId);
+                    return;
+                }
+
+                if (divEl && divEl.dataset.dividerId) {
+                    openDividerContextMenu(e.clientX, e.clientY, server, divEl.dataset.dividerId);
+                    return;
+                }
+
+                if (mainCatEl) {
+                    openDividerContextMenu(e.clientX, e.clientY, server, 'main');
+                    return;
+                }
+            }
+
+            // Right-clicked anywhere else (or user is not the server owner): close menu and do not show anything
+            closeCustomContextMenu();
+        });
+
+        // Close context menu on left click anywhere
+        document.addEventListener('click', (e) => {
+            if (customItemContextMenu && !customItemContextMenu.contains(e.target)) {
+                closeCustomContextMenu();
+            }
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCustomContextMenu();
+                closeChannelEditModal();
+                closeDividerEditModal();
+            }
+        });
+
+        /* ------------------------------------------------------------
+           CUSTOM FONTS & GRADIENT HELPERS
+           ------------------------------------------------------------ */
+        function getCustomFontCss(fontId) {
+            switch (fontId) {
+                case 'orbitron': return "font-family: 'Orbitron', sans-serif; letter-spacing: 0.05em;";
+                case 'silkscreen': return "font-family: 'Silkscreen', cursive; font-size: 0.8rem; letter-spacing: 0.03em;";
+                case 'mono': return "font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; letter-spacing: -0.02em;";
+                case 'cinzel': return "font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 0.04em;";
+                case 'audiowide': return "font-family: 'Audiowide', sans-serif; letter-spacing: 0.03em;";
+                default: return "";
+            }
+        }
+
+        function buildGradientCss(angle, colors) {
+            const deg = Number.isFinite(Number(angle)) ? Number(angle) : 135;
+            const arr = Array.isArray(colors) && colors.length >= 2 ? colors : ['#5865F2', '#EB459E'];
+            return `linear-gradient(${deg}deg, ${arr.join(', ')})`;
+        }
+
+        const GRADIENT_PRESETS = {
+            talky: ['#5865F2', '#EB459E'],
+            cyber: ['#00F2FE', '#4FACFE', '#9D00FF'],
+            sunset: ['#FF416C', '#8A2387', '#FFAA00'],
+            emerald: ['#11998E', '#38EF7D'],
+            prism: ['#FF0055', '#FFAA00', '#00FF88', '#00BFFF', '#9D00FF']
+        };
+
+        /* ------------------------------------------------------------
+           CHANNEL EDIT SETTINGS MODAL (ICONS, TYPOGRAPHY, GRADIENTS)
+           ------------------------------------------------------------ */
+        const channelEditSettingsModal = document.getElementById('channelEditSettingsModal');
+        const channelEditSettingsForm = document.getElementById('channelEditSettingsForm');
+        const channelEditNameInput = document.getElementById('channelEditNameInput');
+        const channelEditPrefixHash = document.getElementById('channelEditPrefixHash');
+        const channelEditIconPreviewText = document.getElementById('channelEditIconPreviewText');
+        const channelEditIconPreviewImg = document.getElementById('channelEditIconPreviewImg');
+        const channelEditUploadIconBtn = document.getElementById('channelEditUploadIconBtn');
+        const channelEditResetIconBtn = document.getElementById('channelEditResetIconBtn');
+        const channelCustomIconDirectInput = document.getElementById('channelCustomIconDirectInput');
+        const channelEditDeleteBtn = document.getElementById('channelEditDeleteBtn');
+        const closeChannelEditModalBtn = document.getElementById('closeChannelEditModalBtn');
+        const channelIconPresetGrid = document.getElementById('channelIconPresetGrid');
+
+        // Channel Typography & Color Controls
+        const channelFontGrid = document.getElementById('channelFontGrid');
+        const channelColorModePills = document.getElementById('channelColorModePills');
+        const channelSolidColorWrap = document.getElementById('channelSolidColorWrap');
+        const channelSolidColorSwatch = document.getElementById('channelSolidColorSwatch');
+        const channelSolidColorInput = document.getElementById('channelSolidColorInput');
+        const channelSolidColorHex = document.getElementById('channelSolidColorHex');
+        const channelGradientWrap = document.getElementById('channelGradientWrap');
+        const channelGradSwatch1 = document.getElementById('channelGradSwatch1');
+        const channelGradColor1 = document.getElementById('channelGradColor1');
+        const channelGradHex1 = document.getElementById('channelGradHex1');
+        const channelGradSwatch2 = document.getElementById('channelGradSwatch2');
+        const channelGradColor2 = document.getElementById('channelGradColor2');
+        const channelGradHex2 = document.getElementById('channelGradHex2');
+        const channelGradAngleSlider = document.getElementById('channelGradAngleSlider');
+        const channelGradAngleBadge = document.getElementById('channelGradAngleBadge');
+
+        // Channel Live Preview Elements
+        const channelModalPreviewIconActive = document.getElementById('channelModalPreviewIconActive');
+        const channelModalPreviewNameActive = document.getElementById('channelModalPreviewNameActive');
+        const channelModalPreviewIconInactive = document.getElementById('channelModalPreviewIconInactive');
+        const channelModalPreviewNameInactive = document.getElementById('channelModalPreviewNameInactive');
+
+        let editingChannelId = null;
+        let editingChannelDraftIcon = '';
+        let editingChannelDraftFont = 'default';
+        let editingChannelDraftColorMode = 'default'; // 'default' | 'solid' | 'gradient'
+        let editingChannelDraftSolidColor = '#5865F2';
+        let editingChannelDraftGrad1 = '#5865F2';
+        let editingChannelDraftGrad2 = '#EB459E';
+        let editingChannelDraftGradAngle = 135;
+
+        function updateChannelIconPreview(iconValue) {
+            editingChannelDraftIcon = iconValue || '';
+            if (editingChannelDraftIcon && (editingChannelDraftIcon.startsWith('http://') || editingChannelDraftIcon.startsWith('https://') || editingChannelDraftIcon.startsWith('data:image'))) {
+                if (channelEditIconPreviewImg) {
+                    channelEditIconPreviewImg.src = editingChannelDraftIcon;
+                    channelEditIconPreviewImg.style.display = 'block';
+                }
+                if (channelEditIconPreviewText) channelEditIconPreviewText.style.display = 'none';
+                if (channelEditPrefixHash) channelEditPrefixHash.textContent = '✦';
+            } else if (editingChannelDraftIcon && editingChannelDraftIcon !== '#') {
+                if (channelEditIconPreviewImg) channelEditIconPreviewImg.style.display = 'none';
+                if (channelEditIconPreviewText) {
+                    channelEditIconPreviewText.textContent = editingChannelDraftIcon;
+                    channelEditIconPreviewText.style.display = 'block';
+                }
+                if (channelEditPrefixHash) channelEditPrefixHash.textContent = editingChannelDraftIcon;
+            } else {
+                if (channelEditIconPreviewImg) channelEditIconPreviewImg.style.display = 'none';
+                if (channelEditIconPreviewText) {
+                    channelEditIconPreviewText.textContent = '#';
+                    channelEditIconPreviewText.style.display = 'block';
+                }
+                if (channelEditPrefixHash) channelEditPrefixHash.textContent = '#';
+            }
+
+            // Mark preset active
+            if (channelIconPresetGrid) {
+                channelIconPresetGrid.querySelectorAll('.icon-preset-btn').forEach(btn => {
+                    const icon = btn.dataset.icon;
+                    btn.classList.toggle('active', icon === editingChannelDraftIcon || (icon === '#' && !editingChannelDraftIcon));
+                });
+            }
+
+            updateChannelModalLivePreview();
+        }
+
+        function setChannelDraftFont(fontId) {
+            editingChannelDraftFont = fontId || 'default';
+            if (channelFontGrid) {
+                channelFontGrid.querySelectorAll('.font-style-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.font === editingChannelDraftFont);
+                });
+            }
+            updateChannelModalLivePreview();
+        }
+
+        function setChannelDraftColorMode(mode) {
+            editingChannelDraftColorMode = mode || 'default';
+            if (channelColorModePills) {
+                channelColorModePills.querySelectorAll('.divider-style-pill-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.colormode === editingChannelDraftColorMode);
+                });
+            }
+            if (channelSolidColorWrap) {
+                channelSolidColorWrap.style.display = (editingChannelDraftColorMode === 'solid') ? 'flex' : 'none';
+            }
+            if (channelGradientWrap) {
+                channelGradientWrap.style.display = (editingChannelDraftColorMode === 'gradient') ? 'block' : 'none';
+            }
+            updateChannelModalLivePreview();
+        }
+
+        function updateChannelModalLivePreview() {
+            const rawName = channelEditNameInput ? channelEditNameInput.value.trim() : '';
+            const cleanName = rawName.replace(/^#+/, '').replace(/\s+/g, '-') || 'channel-name';
+
+            // Update Icon Preview
+            let iconMarkup = '<span style="color: #949ba4; font-weight: 700;">#</span>';
+            if (editingChannelDraftIcon) {
+                if (editingChannelDraftIcon.startsWith('http://') || editingChannelDraftIcon.startsWith('https://') || editingChannelDraftIcon.startsWith('data:image')) {
+                    iconMarkup = `<img src="${escapeHtml(editingChannelDraftIcon)}" style="width: 16px; height: 16px; border-radius: 4px; object-fit: cover;" alt="" />`;
+                } else {
+                    iconMarkup = `<span style="font-size: 1rem; line-height: 1;">${escapeHtml(editingChannelDraftIcon)}</span>`;
+                }
+            }
+
+            if (channelModalPreviewIconActive) channelModalPreviewIconActive.innerHTML = iconMarkup;
+            if (channelModalPreviewIconInactive) channelModalPreviewIconInactive.innerHTML = iconMarkup;
+
+            // Compute font styling
+            const fontCss = getCustomFontCss(editingChannelDraftFont);
+
+            // Active State Typography
+            if (channelModalPreviewNameActive) {
+                channelModalPreviewNameActive.textContent = cleanName;
+                if (editingChannelDraftColorMode === 'solid') {
+                    channelModalPreviewNameActive.style.cssText = `color: ${editingChannelDraftSolidColor}; font-weight: 700; ${fontCss}`;
+                } else if (editingChannelDraftColorMode === 'gradient') {
+                    const grad = `linear-gradient(${editingChannelDraftGradAngle}deg, ${editingChannelDraftGrad1}, ${editingChannelDraftGrad2})`;
+                    channelModalPreviewNameActive.style.cssText = `background: ${grad}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; ${fontCss}`;
+                } else {
+                    channelModalPreviewNameActive.style.cssText = `color: #ffffff; font-weight: 600; ${fontCss}`;
+                }
+            }
+
+            // Inactive State Typography
+            if (channelModalPreviewNameInactive) {
+                channelModalPreviewNameInactive.textContent = cleanName;
+                if (editingChannelDraftColorMode === 'solid') {
+                    channelModalPreviewNameInactive.style.cssText = `color: ${editingChannelDraftSolidColor}; opacity: 0.75; ${fontCss}`;
+                } else if (editingChannelDraftColorMode === 'gradient') {
+                    const grad = `linear-gradient(${editingChannelDraftGradAngle}deg, ${editingChannelDraftGrad1}, ${editingChannelDraftGrad2})`;
+                    channelModalPreviewNameInactive.style.cssText = `background: ${grad}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; opacity: 0.75; font-weight: 600; ${fontCss}`;
+                } else {
+                    channelModalPreviewNameInactive.style.cssText = `color: #949ba4; font-weight: 500; ${fontCss}`;
+                }
+            }
+        }
+
+        function openChannelEditModal(server, channelId, focusTarget = 'name') {
+            if (!server || !isUserServerOwner(currentUser, server)) return;
+            const chan = server.channels.find(c => c.id === channelId);
+            if (!chan) return;
+
+            editingChannelId = channelId;
+            const modalTitle = document.getElementById('channelEditModalTitle');
+            const modalSubtitle = document.getElementById('channelEditModalSubtitle');
+            if (modalTitle) modalTitle.textContent = `Channel Settings: #${chan.name}`;
+            if (modalSubtitle) modalSubtitle.textContent = `Customize icon, typography, and colors for #${chan.name}`;
+
+            if (channelEditNameInput) {
+                channelEditNameInput.value = chan.name;
+            }
+
+            // Typography & Color Settings
+            setChannelDraftFont(chan.fontFamily || 'default');
+            setChannelDraftColorMode(chan.textColorMode || 'default');
+
+            editingChannelDraftSolidColor = chan.textColor || '#5865F2';
+            if (channelSolidColorInput) channelSolidColorInput.value = editingChannelDraftSolidColor;
+            if (channelSolidColorHex) channelSolidColorHex.value = editingChannelDraftSolidColor.toUpperCase();
+            if (channelSolidColorSwatch) channelSolidColorSwatch.style.backgroundColor = editingChannelDraftSolidColor;
+
+            const gradColors = Array.isArray(chan.gradientColors) && chan.gradientColors.length >= 2 ? chan.gradientColors : ['#5865F2', '#EB459E'];
+            editingChannelDraftGrad1 = gradColors[0];
+            editingChannelDraftGrad2 = gradColors[1];
+            editingChannelDraftGradAngle = Number.isFinite(Number(chan.gradientAngle)) ? Number(chan.gradientAngle) : 135;
+
+            if (channelGradColor1) channelGradColor1.value = editingChannelDraftGrad1;
+            if (channelGradHex1) channelGradHex1.value = editingChannelDraftGrad1.toUpperCase();
+            if (channelGradSwatch1) channelGradSwatch1.style.backgroundColor = editingChannelDraftGrad1;
+
+            if (channelGradColor2) channelGradColor2.value = editingChannelDraftGrad2;
+            if (channelGradHex2) channelGradHex2.value = editingChannelDraftGrad2.toUpperCase();
+            if (channelGradSwatch2) channelGradSwatch2.style.backgroundColor = editingChannelDraftGrad2;
+
+            if (channelGradAngleSlider) channelGradAngleSlider.value = editingChannelDraftGradAngle;
+            if (channelGradAngleBadge) channelGradAngleBadge.textContent = `${editingChannelDraftGradAngle}°`;
+
+            updateChannelIconPreview(chan.icon || '');
+            updateChannelModalLivePreview();
+
+            if (channelEditSettingsModal) {
+                channelEditSettingsModal.style.display = 'flex';
+            }
+
+            setTimeout(() => {
+                if (focusTarget === 'name' && channelEditNameInput) {
+                    channelEditNameInput.focus();
+                    channelEditNameInput.select();
+                }
+            }, 60);
+        }
+
+        function closeChannelEditModal() {
+            if (channelEditSettingsModal) {
+                channelEditSettingsModal.style.display = 'none';
+            }
+            editingChannelId = null;
+            editingChannelDraftIcon = '';
+        }
+
+        if (closeChannelEditModalBtn) {
+            closeChannelEditModalBtn.addEventListener('click', closeChannelEditModal);
+        }
+
+        if (channelEditNameInput) {
+            channelEditNameInput.addEventListener('input', updateChannelModalLivePreview);
+        }
+
+        if (channelFontGrid) {
+            channelFontGrid.addEventListener('click', (e) => {
+                const btn = e.target.closest('.font-style-btn');
+                if (!btn) return;
+                setChannelDraftFont(btn.dataset.font);
+            });
+        }
+
+        if (channelColorModePills) {
+            channelColorModePills.addEventListener('click', (e) => {
+                const btn = e.target.closest('.divider-style-pill-btn');
+                if (!btn) return;
+                setChannelDraftColorMode(btn.dataset.colormode);
+            });
+        }
+
+        if (channelSolidColorInput) {
+            channelSolidColorInput.addEventListener('input', (e) => {
+                const col = e.target.value;
+                editingChannelDraftSolidColor = col;
+                if (channelSolidColorHex) channelSolidColorHex.value = col.toUpperCase();
+                if (channelSolidColorSwatch) channelSolidColorSwatch.style.backgroundColor = col;
+                updateChannelModalLivePreview();
+            });
+        }
+
+        if (channelSolidColorHex) {
+            channelSolidColorHex.addEventListener('input', (e) => {
+                let col = e.target.value.trim();
+                if (!col.startsWith('#')) col = '#' + col;
+                if (/^#[0-9A-Fa-f]{6}$/.test(col)) {
+                    editingChannelDraftSolidColor = col;
+                    if (channelSolidColorInput) channelSolidColorInput.value = col;
+                    if (channelSolidColorSwatch) channelSolidColorSwatch.style.backgroundColor = col;
+                    updateChannelModalLivePreview();
+                }
+            });
+        }
+
+        if (channelGradColor1) {
+            channelGradColor1.addEventListener('input', (e) => {
+                const col = e.target.value;
+                editingChannelDraftGrad1 = col;
+                if (channelGradHex1) channelGradHex1.value = col.toUpperCase();
+                if (channelGradSwatch1) channelGradSwatch1.style.backgroundColor = col;
+                updateChannelModalLivePreview();
+            });
+        }
+
+        if (channelGradHex1) {
+            channelGradHex1.addEventListener('input', (e) => {
+                let col = e.target.value.trim();
+                if (!col.startsWith('#')) col = '#' + col;
+                if (/^#[0-9A-Fa-f]{6}$/.test(col)) {
+                    editingChannelDraftGrad1 = col;
+                    if (channelGradColor1) channelGradColor1.value = col;
+                    if (channelGradSwatch1) channelGradSwatch1.style.backgroundColor = col;
+                    updateChannelModalLivePreview();
+                }
+            });
+        }
+
+        if (channelGradColor2) {
+            channelGradColor2.addEventListener('input', (e) => {
+                const col = e.target.value;
+                editingChannelDraftGrad2 = col;
+                if (channelGradHex2) channelGradHex2.value = col.toUpperCase();
+                if (channelGradSwatch2) channelGradSwatch2.style.backgroundColor = col;
+                updateChannelModalLivePreview();
+            });
+        }
+
+        if (channelGradHex2) {
+            channelGradHex2.addEventListener('input', (e) => {
+                let col = e.target.value.trim();
+                if (!col.startsWith('#')) col = '#' + col;
+                if (/^#[0-9A-Fa-f]{6}$/.test(col)) {
+                    editingChannelDraftGrad2 = col;
+                    if (channelGradColor2) channelGradColor2.value = col;
+                    if (channelGradSwatch2) channelGradSwatch2.style.backgroundColor = col;
+                    updateChannelModalLivePreview();
+                }
+            });
+        }
+
+        if (channelGradAngleSlider) {
+            channelGradAngleSlider.addEventListener('input', (e) => {
+                editingChannelDraftGradAngle = parseInt(e.target.value, 10) || 135;
+                if (channelGradAngleBadge) channelGradAngleBadge.textContent = `${editingChannelDraftGradAngle}°`;
+                updateChannelModalLivePreview();
+            });
+        }
+
+        if (channelIconPresetGrid) {
+            channelIconPresetGrid.addEventListener('click', (e) => {
+                const btn = e.target.closest('.icon-preset-btn');
+                if (!btn) return;
+                const icon = btn.dataset.icon;
+                updateChannelIconPreview(icon === '#' ? '' : icon);
+            });
+        }
+
+        if (channelEditUploadIconBtn && channelCustomIconDirectInput) {
+            channelEditUploadIconBtn.addEventListener('click', () => {
+                channelCustomIconDirectInput.value = '';
+                channelCustomIconDirectInput.click();
+            });
+
+            channelCustomIconDirectInput.addEventListener('change', async (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                try {
+                    channelEditUploadIconBtn.textContent = 'Compressing...';
+                    const compressed = await compressImage(file, 128, 128, 0.85);
+                    channelEditUploadIconBtn.textContent = 'Upload Image / GIF';
+                    if (compressed) {
+                        updateChannelIconPreview(compressed);
+                    }
+                } catch (err) {
+                    channelEditUploadIconBtn.textContent = 'Upload Image / GIF';
+                    console.error('Error compressing channel icon:', err);
+                }
+            });
+        }
+
+        if (channelEditResetIconBtn) {
+            channelEditResetIconBtn.addEventListener('click', () => {
+                updateChannelIconPreview('');
+            });
+        }
+
+        if (channelEditDeleteBtn) {
+            channelEditDeleteBtn.addEventListener('click', () => {
+                const server = serversList.find(s => s.id === activeServerId);
+                if (!server || !editingChannelId || !isUserServerOwner(currentUser, server)) return;
+                const chan = server.channels.find(c => c.id === editingChannelId);
+                const chanName = chan ? chan.name : 'this channel';
+
+                if (server.channels.filter(c => c.type !== 'divider').length <= 1) {
+                    alert('You cannot delete the only text channel in the server.');
+                    return;
+                }
+
+                if (!confirm(`Are you sure you want to delete #${chanName}? This cannot be undone.`)) {
+                    return;
+                }
+
+                server.channels = server.channels.filter(c => c.id !== editingChannelId);
+                saveServers();
+                closeChannelEditModal();
+                renderChannelsList(server);
+                renderServerSettingsChannelsList(server);
+
+                if (activeChannelId === editingChannelId) {
+                    const firstRemaining = server.channels.find(c => c.type !== 'divider');
+                    if (firstRemaining) openChannel(firstRemaining.id);
+                }
+            });
+        }
+
+        if (channelEditSettingsForm) {
+            channelEditSettingsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const server = serversList.find(s => s.id === activeServerId);
+                if (!server || !editingChannelId || !isUserServerOwner(currentUser, server)) return;
+
+                const chan = server.channels.find(c => c.id === editingChannelId);
+                if (!chan) return;
+
+                const rawName = channelEditNameInput ? channelEditNameInput.value.trim() : '';
+                const cleanName = rawName
+                    .toLowerCase()
+                    .replace(/^#+/, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/[^a-z0-9_-]/g, '') || 'channel';
+
+                chan.name = cleanName;
+                if (editingChannelDraftIcon) {
+                    chan.icon = editingChannelDraftIcon;
+                } else {
+                    delete chan.icon;
+                }
+
+                // Save typography and appearance
+                chan.fontFamily = editingChannelDraftFont;
+                chan.textColorMode = editingChannelDraftColorMode;
+                chan.textColor = editingChannelDraftSolidColor;
+                chan.gradientColors = [editingChannelDraftGrad1, editingChannelDraftGrad2];
+                chan.gradientAngle = editingChannelDraftGradAngle;
+
+                saveServers();
+                renderChannelsList(server);
+                renderServerSettingsChannelsList(server);
+
+                // If currently open channel, refresh top title and icon
+                if (activeChannelId === chan.id) {
+                    openChannel(chan.id);
+                }
+
+                closeChannelEditModal();
+            });
+        }
+
+        /* ------------------------------------------------------------
+           DIVIDER EDIT SETTINGS MODAL (2-5 COLORS, ROTATION, FONTS)
+           ------------------------------------------------------------ */
+        const dividerEditSettingsModal = document.getElementById('dividerEditSettingsModal');
+        const dividerEditSettingsForm = document.getElementById('dividerEditSettingsForm');
+        const dividerEditNameInput = document.getElementById('dividerEditNameInput');
+        const dividerEditStylePills = document.getElementById('dividerEditStylePills');
+        const dividerEditGradientSection = document.getElementById('dividerEditGradientSection');
+        const dividerColorsCountBadge = document.getElementById('dividerColorsCountBadge');
+        const dividerGradientStopsList = document.getElementById('dividerGradientStopsList');
+        const dividerAddColorStopBtn = document.getElementById('dividerAddColorStopBtn');
+        const dividerGradientPresetsGrid = document.getElementById('dividerGradientPresetsGrid');
+        const dividerGradientAngleSlider = document.getElementById('dividerGradientAngleSlider');
+        const dividerGradientAngleBadge = document.getElementById('dividerGradientAngleBadge');
+        const dividerAnglePresetsRow = document.getElementById('dividerAnglePresetsRow');
+        const dividerFontGrid = document.getElementById('dividerFontGrid');
+        const dividerTextColorModeGrad = document.getElementById('dividerTextColorModeGrad');
+        const dividerTextColorModeSolid = document.getElementById('dividerTextColorModeSolid');
+        const dividerSolidColorWrap = document.getElementById('dividerSolidColorWrap');
+        const dividerSolidColorSwatch = document.getElementById('dividerSolidColorSwatch');
+        const dividerSolidColorInput = document.getElementById('dividerSolidColorInput');
+        const dividerSolidColorHex = document.getElementById('dividerSolidColorHex');
+        const dividerEditBannerSection = document.getElementById('dividerEditBannerSection');
+        const dividerEditBannerPreview = document.getElementById('dividerEditBannerPreview');
+        const dividerEditUploadBannerBtn = document.getElementById('dividerEditUploadBannerBtn');
+        const dividerEditRemoveBannerBtn = document.getElementById('dividerEditRemoveBannerBtn');
+        const dividerCustomBannerDirectInput = document.getElementById('dividerCustomBannerDirectInput');
+        const dividerModalLivePreviewBox = document.getElementById('dividerModalLivePreviewBox');
+        const dividerEditDeleteBtn = document.getElementById('dividerEditDeleteBtn');
+        const closeDividerEditModalBtn = document.getElementById('closeDividerEditModalBtn');
+
+        let editingDividerId = null;
+        let editingDividerDraftStyle = 'minimal';
+        let editingDividerDraftColors = ['#5865F2', '#EB459E']; // 2 to 5 colors
+        let editingDividerDraftAngle = 135; // 0 to 360
+        let editingDividerDraftFont = 'default';
+        let editingDividerDraftTextColorMode = 'gradient'; // 'gradient' | 'solid'
+        let editingDividerDraftTextColor = '#FFFFFF';
+        let editingDividerDraftBanner = '';
+
+        function setDividerDraftStyle(style) {
+            editingDividerDraftStyle = style || 'minimal';
+            if (dividerEditStylePills) {
+                dividerEditStylePills.querySelectorAll('.divider-style-pill-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.style === editingDividerDraftStyle);
+                });
+            }
+            if (dividerEditGradientSection) {
+                dividerEditGradientSection.style.display = (editingDividerDraftStyle === 'gradient') ? 'block' : 'none';
+            }
+            if (dividerEditBannerSection) {
+                dividerEditBannerSection.style.display = (editingDividerDraftStyle === 'banner') ? 'block' : 'none';
+            }
+            updateDividerModalLivePreview();
+        }
+
+        function setDividerDraftFont(fontId) {
+            editingDividerDraftFont = fontId || 'default';
+            if (dividerFontGrid) {
+                dividerFontGrid.querySelectorAll('.font-style-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.font === editingDividerDraftFont);
+                });
+            }
+            updateDividerModalLivePreview();
+        }
+
+        function setDividerDraftTextColorMode(mode) {
+            editingDividerDraftTextColorMode = mode || 'gradient';
+            if (dividerTextColorModeGrad) {
+                dividerTextColorModeGrad.classList.toggle('active', editingDividerDraftTextColorMode === 'gradient');
+            }
+            if (dividerTextColorModeSolid) {
+                dividerTextColorModeSolid.classList.toggle('active', editingDividerDraftTextColorMode === 'solid');
+            }
+            if (dividerSolidColorWrap) {
+                dividerSolidColorWrap.style.display = (editingDividerDraftTextColorMode === 'solid') ? 'flex' : 'none';
+            }
+            updateDividerModalLivePreview();
+        }
+
+        function renderDividerGradientStops() {
+            if (!dividerGradientStopsList) return;
+            dividerGradientStopsList.innerHTML = '';
+
+            if (!Array.isArray(editingDividerDraftColors) || editingDividerDraftColors.length < 2) {
+                editingDividerDraftColors = ['#5865F2', '#EB459E'];
+            }
+            if (editingDividerDraftColors.length > 5) {
+                editingDividerDraftColors = editingDividerDraftColors.slice(0, 5);
+            }
+
+            if (dividerColorsCountBadge) {
+                dividerColorsCountBadge.textContent = `${editingDividerDraftColors.length} / 5 colors`;
+            }
+
+            if (dividerAddColorStopBtn) {
+                dividerAddColorStopBtn.disabled = editingDividerDraftColors.length >= 5;
+                dividerAddColorStopBtn.style.opacity = editingDividerDraftColors.length >= 5 ? '0.45' : '1';
+                dividerAddColorStopBtn.style.cursor = editingDividerDraftColors.length >= 5 ? 'not-allowed' : 'pointer';
+            }
+
+            editingDividerDraftColors.forEach((color, idx) => {
+                const row = document.createElement('div');
+                row.className = 'gradient-stop-row';
+
+                const canDelete = editingDividerDraftColors.length > 2;
+
+                row.innerHTML = `
+                    <span class="gradient-stop-num">${idx + 1}</span>
+                    <div class="gradient-stop-swatch" style="background-color: ${escapeHtml(color)};">
+                        <input type="color" value="${escapeHtml(color)}" data-index="${idx}">
+                    </div>
+                    <input type="text" class="gradient-stop-hex" value="${escapeHtml(color.toUpperCase())}" maxlength="7" data-index="${idx}">
+                    ${canDelete ? `<button type="button" class="gradient-stop-delete-btn" data-index="${idx}" title="Remove color stop">✕</button>` : ''}
+                `;
+
+                const colorInput = row.querySelector('input[type="color"]');
+                const hexInput = row.querySelector('.gradient-stop-hex');
+                const swatch = row.querySelector('.gradient-stop-swatch');
+                const deleteBtn = row.querySelector('.gradient-stop-delete-btn');
+
+                if (colorInput) {
+                    colorInput.addEventListener('input', (e) => {
+                        const newCol = e.target.value;
+                        editingDividerDraftColors[idx] = newCol;
+                        if (hexInput) hexInput.value = newCol.toUpperCase();
+                        if (swatch) swatch.style.backgroundColor = newCol;
+                        updateDividerModalLivePreview();
+                    });
+                }
+
+                if (hexInput) {
+                    hexInput.addEventListener('input', (e) => {
+                        let val = e.target.value.trim();
+                        if (!val.startsWith('#')) val = '#' + val;
+                        if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+                            editingDividerDraftColors[idx] = val;
+                            if (colorInput) colorInput.value = val;
+                            if (swatch) swatch.style.backgroundColor = val;
+                            updateDividerModalLivePreview();
+                        }
+                    });
+                }
+
+                if (deleteBtn) {
+                    deleteBtn.addEventListener('click', () => {
+                        if (editingDividerDraftColors.length > 2) {
+                            editingDividerDraftColors.splice(idx, 1);
+                            renderDividerGradientStops();
+                        }
+                    });
+                }
+
+                dividerGradientStopsList.appendChild(row);
+            });
+
+            updateDividerModalLivePreview();
+        }
+
+        function updateDividerBannerPreview(bannerUrl) {
+            editingDividerDraftBanner = bannerUrl || '';
+            if (dividerEditBannerPreview) {
+                if (editingDividerDraftBanner) {
+                    dividerEditBannerPreview.style.backgroundImage = `url('${editingDividerDraftBanner}')`;
+                    dividerEditBannerPreview.textContent = '';
+                    dividerEditBannerPreview.style.borderStyle = 'solid';
+                    if (dividerEditRemoveBannerBtn) dividerEditRemoveBannerBtn.style.display = 'inline-flex';
+                } else {
+                    dividerEditBannerPreview.style.backgroundImage = 'none';
+                    dividerEditBannerPreview.textContent = 'No banner image set';
+                    dividerEditBannerPreview.style.borderStyle = 'dashed';
+                    if (dividerEditRemoveBannerBtn) dividerEditRemoveBannerBtn.style.display = 'none';
+                }
+            }
+            updateDividerModalLivePreview();
+        }
+
+        function updateDividerModalLivePreview() {
+            if (!dividerModalLivePreviewBox) return;
+
+            const name = dividerEditNameInput ? (dividerEditNameInput.value.trim().toUpperCase() || 'SECTION') : 'SECTION';
+            const fontCss = getCustomFontCss(editingDividerDraftFont);
+
+            if (editingDividerDraftStyle === 'gradient') {
+                const gradCss = buildGradientCss(editingDividerDraftAngle, editingDividerDraftColors);
+                const firstCol = editingDividerDraftColors[0] || '#5865F2';
+                const lastCol = editingDividerDraftColors[editingDividerDraftColors.length - 1] || '#EB459E';
+
+                const textStyle = (editingDividerDraftTextColorMode === 'solid')
+                    ? `color: ${editingDividerDraftTextColor}; ${fontCss}`
+                    : `background: ${gradCss}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; ${fontCss}`;
+
+                dividerModalLivePreviewBox.innerHTML = `
+                    <div style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <svg style="width: 11px; height: 11px; fill: ${firstCol};" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                                <span style="font-size: 0.76rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; ${textStyle}">
+                                    ${escapeHtml(name)}
+                                </span>
+                            </div>
+                            <span style="font-size: 0.7rem; color: #80848e;">${editingDividerDraftAngle}°</span>
+                        </div>
+                        <div style="width: 100%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, ${editingDividerDraftColors.join(', ')}, transparent); box-shadow: 0 0 8px ${firstCol}55;"></div>
+                    </div>
+                `;
+            } else if (editingDividerDraftStyle === 'ribbon') {
+                dividerModalLivePreviewBox.innerHTML = `
+                    <div style="background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 6px; padding: 6px 10px; display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <span style="font-size: 0.74rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #f2f3f5; ${fontCss}">
+                            ${escapeHtml(name)}
+                        </span>
+                        <span style="font-size: 0.6rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.12); color: #b5bac1;">
+                            SECTION
+                        </span>
+                    </div>
+                `;
+            } else if (editingDividerDraftStyle === 'banner') {
+                const bg = editingDividerDraftBanner ? `background-image: url('${escapeHtml(editingDividerDraftBanner)}');` : 'background: #2b2d31;';
+                dividerModalLivePreviewBox.innerHTML = `
+                    <div style="position: relative; height: 42px; border-radius: 6px; overflow: hidden; display: flex; align-items: center; padding: 0 12px; border: 1px solid rgba(255,255,255,0.15); width: 100%; ${bg} background-size: cover; background-position: center;">
+                        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10, 11, 14, 0.82) 0%, rgba(10, 11, 14, 0.35) 100%);"></div>
+                        <div style="position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                            <span style="font-size: 0.78rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.85); ${fontCss}">
+                                ${escapeHtml(name)}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Minimal Line
+                dividerModalLivePreviewBox.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
+                        <svg style="width: 10px; height: 10px; fill: #949ba4;" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                        <span style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #949ba4; ${fontCss}">
+                            ${escapeHtml(name)}
+                        </span>
+                        <div style="flex: 1; height: 1px; background: rgba(255, 255, 255, 0.12);"></div>
+                    </div>
+                `;
+            }
+        }
+
+        function openDividerEditModal(server, dividerId) {
+            if (!server || !isUserServerOwner(currentUser, server)) return;
+            editingDividerId = dividerId;
+
+            const modalTitle = document.getElementById('dividerEditModalTitle');
+            const modalSubtitle = document.getElementById('dividerEditModalSubtitle');
+
+            if (dividerId === 'main') {
+                const catDiv = server.categoryDivider || {};
+                if (modalTitle) modalTitle.textContent = 'Category Divider Settings';
+                if (modalSubtitle) modalSubtitle.textContent = 'Customize category name, multi-color gradient, font and rotation';
+                if (dividerEditNameInput) dividerEditNameInput.value = catDiv.title || 'TEXT CHANNELS';
+                setDividerDraftStyle(catDiv.style || 'minimal');
+
+                editingDividerDraftColors = Array.isArray(catDiv.gradientColors) && catDiv.gradientColors.length >= 2
+                    ? [...catDiv.gradientColors]
+                    : [catDiv.color1 || '#5865F2', catDiv.color2 || '#EB459E'];
+                editingDividerDraftAngle = Number.isFinite(Number(catDiv.gradientAngle)) ? Number(catDiv.gradientAngle) : 135;
+                setDividerDraftFont(catDiv.fontFamily || 'default');
+                setDividerDraftTextColorMode(catDiv.textColorMode || 'gradient');
+                editingDividerDraftTextColor = catDiv.textColor || '#FFFFFF';
+
+                updateDividerBannerPreview(catDiv.bannerImg || '');
+                if (dividerEditDeleteBtn) dividerEditDeleteBtn.style.display = 'none';
+            } else {
+                const chan = server.channels.find(c => c.id === dividerId);
+                if (!chan) return;
+                if (modalTitle) modalTitle.textContent = `Divider Settings: ${chan.name}`;
+                if (modalSubtitle) modalSubtitle.textContent = 'Customize section divider name, colors, font and angle';
+                if (dividerEditNameInput) dividerEditNameInput.value = chan.name;
+                setDividerDraftStyle(chan.style || 'minimal');
+
+                editingDividerDraftColors = Array.isArray(chan.gradientColors) && chan.gradientColors.length >= 2
+                    ? [...chan.gradientColors]
+                    : [chan.color1 || '#5865F2', chan.color2 || '#EB459E'];
+                editingDividerDraftAngle = Number.isFinite(Number(chan.gradientAngle)) ? Number(chan.gradientAngle) : 135;
+                setDividerDraftFont(chan.fontFamily || 'default');
+                setDividerDraftTextColorMode(chan.textColorMode || 'gradient');
+                editingDividerDraftTextColor = chan.textColor || '#FFFFFF';
+
+                updateDividerBannerPreview(chan.bannerImg || '');
+                if (dividerEditDeleteBtn) dividerEditDeleteBtn.style.display = 'inline-flex';
+            }
+
+            // Sync angle slider and presets
+            if (dividerGradientAngleSlider) dividerGradientAngleSlider.value = editingDividerDraftAngle;
+            if (dividerGradientAngleBadge) dividerGradientAngleBadge.textContent = `${editingDividerDraftAngle}°`;
+            if (dividerAnglePresetsRow) {
+                dividerAnglePresetsRow.querySelectorAll('.angle-preset-btn').forEach(btn => {
+                    btn.classList.toggle('active', parseInt(btn.dataset.angle, 10) === editingDividerDraftAngle);
+                });
+            }
+
+            // Sync solid color input
+            if (dividerSolidColorInput) dividerSolidColorInput.value = editingDividerDraftTextColor;
+            if (dividerSolidColorHex) dividerSolidColorHex.value = editingDividerDraftTextColor.toUpperCase();
+            if (dividerSolidColorSwatch) dividerSolidColorSwatch.style.backgroundColor = editingDividerDraftTextColor;
+
+            renderDividerGradientStops();
+
+            if (dividerEditSettingsModal) {
+                dividerEditSettingsModal.style.display = 'flex';
+            }
+
+            setTimeout(() => {
+                if (dividerEditNameInput) {
+                    dividerEditNameInput.focus();
+                    dividerEditNameInput.select();
+                }
+            }, 60);
+        }
+
+        function closeDividerEditModal() {
+            if (dividerEditSettingsModal) {
+                dividerEditSettingsModal.style.display = 'none';
+            }
+            editingDividerId = null;
+        }
+
+        if (closeDividerEditModalBtn) {
+            closeDividerEditModalBtn.addEventListener('click', closeDividerEditModal);
+        }
+
+        if (dividerEditNameInput) {
+            dividerEditNameInput.addEventListener('input', updateDividerModalLivePreview);
+        }
+
+        if (dividerEditStylePills) {
+            dividerEditStylePills.addEventListener('click', (e) => {
+                const btn = e.target.closest('.divider-style-pill-btn');
+                if (!btn) return;
+                setDividerDraftStyle(btn.dataset.style);
+            });
+        }
+
+        if (dividerAddColorStopBtn) {
+            dividerAddColorStopBtn.addEventListener('click', () => {
+                if (editingDividerDraftColors.length < 5) {
+                    const fallbackColors = ['#00F2FE', '#FFAA00', '#38EF7D', '#9D00FF', '#FF0055'];
+                    const nextColor = fallbackColors[editingDividerDraftColors.length] || '#00FF88';
+                    editingDividerDraftColors.push(nextColor);
+                    renderDividerGradientStops();
+                }
+            });
+        }
+
+        if (dividerGradientPresetsGrid) {
+            dividerGradientPresetsGrid.addEventListener('click', (e) => {
+                const btn = e.target.closest('.angle-preset-btn');
+                if (!btn) return;
+                const presetKey = btn.dataset.preset;
+                if (GRADIENT_PRESETS[presetKey]) {
+                    editingDividerDraftColors = [...GRADIENT_PRESETS[presetKey]];
+                    renderDividerGradientStops();
+                }
+            });
+        }
+
+        if (dividerGradientAngleSlider) {
+            dividerGradientAngleSlider.addEventListener('input', (e) => {
+                editingDividerDraftAngle = parseInt(e.target.value, 10) || 135;
+                if (dividerGradientAngleBadge) dividerGradientAngleBadge.textContent = `${editingDividerDraftAngle}°`;
+                if (dividerAnglePresetsRow) {
+                    dividerAnglePresetsRow.querySelectorAll('.angle-preset-btn').forEach(btn => {
+                        btn.classList.toggle('active', parseInt(btn.dataset.angle, 10) === editingDividerDraftAngle);
+                    });
+                }
+                updateDividerModalLivePreview();
+            });
+        }
+
+        if (dividerAnglePresetsRow) {
+            dividerAnglePresetsRow.addEventListener('click', (e) => {
+                const btn = e.target.closest('.angle-preset-btn');
+                if (!btn) return;
+                const angle = parseInt(btn.dataset.angle, 10);
+                if (!isNaN(angle)) {
+                    editingDividerDraftAngle = angle;
+                    if (dividerGradientAngleSlider) dividerGradientAngleSlider.value = angle;
+                    if (dividerGradientAngleBadge) dividerGradientAngleBadge.textContent = `${angle}°`;
+                    dividerAnglePresetsRow.querySelectorAll('.angle-preset-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    updateDividerModalLivePreview();
+                }
+            });
+        }
+
+        if (dividerFontGrid) {
+            dividerFontGrid.addEventListener('click', (e) => {
+                const btn = e.target.closest('.font-style-btn');
+                if (!btn) return;
+                setDividerDraftFont(btn.dataset.font);
+            });
+        }
+
+        if (dividerTextColorModeGrad) {
+            dividerTextColorModeGrad.addEventListener('click', () => setDividerDraftTextColorMode('gradient'));
+        }
+
+        if (dividerTextColorModeSolid) {
+            dividerTextColorModeSolid.addEventListener('click', () => setDividerDraftTextColorMode('solid'));
+        }
+
+        if (dividerSolidColorInput) {
+            dividerSolidColorInput.addEventListener('input', (e) => {
+                const col = e.target.value;
+                editingDividerDraftTextColor = col;
+                if (dividerSolidColorHex) dividerSolidColorHex.value = col.toUpperCase();
+                if (dividerSolidColorSwatch) dividerSolidColorSwatch.style.backgroundColor = col;
+                updateDividerModalLivePreview();
+            });
+        }
+
+        if (dividerSolidColorHex) {
+            dividerSolidColorHex.addEventListener('input', (e) => {
+                let val = e.target.value.trim();
+                if (!val.startsWith('#')) val = '#' + val;
+                if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+                    editingDividerDraftTextColor = val;
+                    if (dividerSolidColorInput) dividerSolidColorInput.value = val;
+                    if (dividerSolidColorSwatch) dividerSolidColorSwatch.style.backgroundColor = val;
+                    updateDividerModalLivePreview();
+                }
+            });
+        }
+
+        if (dividerEditUploadBannerBtn && dividerCustomBannerDirectInput) {
+            dividerEditUploadBannerBtn.addEventListener('click', () => {
+                dividerCustomBannerDirectInput.value = '';
+                dividerCustomBannerDirectInput.click();
+            });
+
+            dividerCustomBannerDirectInput.addEventListener('change', async (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                try {
+                    dividerEditUploadBannerBtn.textContent = 'Compressing...';
+                    const compressed = await compressImage(file, 640, 160, 0.82);
+                    dividerEditUploadBannerBtn.textContent = 'Upload';
+                    if (compressed) {
+                        updateDividerBannerPreview(compressed);
+                    }
+                } catch (err) {
+                    dividerEditUploadBannerBtn.textContent = 'Upload';
+                    console.error('Error compressing divider banner:', err);
+                }
+            });
+        }
+
+        if (dividerEditRemoveBannerBtn) {
+            dividerEditRemoveBannerBtn.addEventListener('click', () => {
+                updateDividerBannerPreview('');
+            });
+        }
+
+        if (dividerEditDeleteBtn) {
+            dividerEditDeleteBtn.addEventListener('click', () => {
+                const server = serversList.find(s => s.id === activeServerId);
+                if (!server || !editingDividerId || editingDividerId === 'main' || !isUserServerOwner(currentUser, server)) return;
+
+                server.channels = server.channels.filter(c => c.id !== editingDividerId);
+                saveServers();
+                closeDividerEditModal();
+                renderChannelsList(server);
+                renderServerSettingsChannelsList(server);
+            });
+        }
+
+        if (dividerEditSettingsForm) {
+            dividerEditSettingsForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const server = serversList.find(s => s.id === activeServerId);
+                if (!server || !editingDividerId || !isUserServerOwner(currentUser, server)) return;
+
+                const rawTitle = dividerEditNameInput ? dividerEditNameInput.value.trim() : 'SECTION';
+
+                if (editingDividerId === 'main') {
+                    if (!server.categoryDivider) server.categoryDivider = {};
+                    server.categoryDivider.title = rawTitle.toUpperCase() || 'TEXT CHANNELS';
+                    server.categoryDivider.style = editingDividerDraftStyle;
+                    delete server.categoryDivider.icon;
+                    server.categoryDivider.bannerImg = editingDividerDraftBanner;
+                    server.categoryDivider.gradientColors = [...editingDividerDraftColors];
+                    server.categoryDivider.gradientAngle = editingDividerDraftAngle;
+                    server.categoryDivider.fontFamily = editingDividerDraftFont;
+                    server.categoryDivider.textColorMode = editingDividerDraftTextColorMode;
+                    server.categoryDivider.textColor = editingDividerDraftTextColor;
+                    // Backward compatibility
+                    server.categoryDivider.color1 = editingDividerDraftColors[0] || '#5865F2';
+                    server.categoryDivider.color2 = editingDividerDraftColors[editingDividerDraftColors.length - 1] || '#EB459E';
+                } else {
+                    const chan = server.channels.find(c => c.id === editingDividerId);
+                    if (chan) {
+                        chan.name = rawTitle.toUpperCase() || 'SECTION';
+                        chan.style = editingDividerDraftStyle;
+                        delete chan.icon;
+                        chan.bannerImg = editingDividerDraftBanner;
+                        chan.gradientColors = [...editingDividerDraftColors];
+                        chan.gradientAngle = editingDividerDraftAngle;
+                        chan.fontFamily = editingDividerDraftFont;
+                        chan.textColorMode = editingDividerDraftTextColorMode;
+                        chan.textColor = editingDividerDraftTextColor;
+                        // Backward compatibility
+                        chan.color1 = editingDividerDraftColors[0] || '#5865F2';
+                        chan.color2 = editingDividerDraftColors[editingDividerDraftColors.length - 1] || '#EB459E';
+                    }
+                }
+
+                saveServers();
+                renderChannelsList(server);
+                renderServerSettingsChannelsList(server);
+                closeDividerEditModal();
+            });
+        }
+
+        // Context Menu Button Event Handlers
+        if (ctxMenuOpenSettingsBtn) {
+            ctxMenuOpenSettingsBtn.addEventListener('click', () => {
+                if (!activeContextMenuContext) return;
+                const server = serversList.find(s => s.id === activeContextMenuContext.serverId);
+                if (!server || !isUserServerOwner(currentUser, server)) return;
+                const { type, id } = activeContextMenuContext;
+                closeCustomContextMenu();
+                if (type === 'channel') {
+                    openChannelEditModal(server, id, 'name');
+                } else {
+                    openDividerEditModal(server, id);
+                }
+            });
+        }
+
+        if (ctxMenuQuickRenameBtn) {
+            ctxMenuQuickRenameBtn.addEventListener('click', () => {
+                if (!activeContextMenuContext) return;
+                const server = serversList.find(s => s.id === activeContextMenuContext.serverId);
+                if (!server || !isUserServerOwner(currentUser, server)) return;
+                const { type, id } = activeContextMenuContext;
+                closeCustomContextMenu();
+                if (type === 'channel') {
+                    openChannelEditModal(server, id, 'name');
+                } else {
+                    openDividerEditModal(server, id);
+                }
+            });
+        }
+
+        if (ctxMenuQuickIconBtn) {
+            ctxMenuQuickIconBtn.addEventListener('click', () => {
+                if (!activeContextMenuContext) return;
+                const server = serversList.find(s => s.id === activeContextMenuContext.serverId);
+                if (!server || !isUserServerOwner(currentUser, server)) return;
+                const { type, id } = activeContextMenuContext;
+                closeCustomContextMenu();
+                if (type === 'channel') {
+                    openChannelEditModal(server, id, 'icon');
+                } else {
+                    openDividerEditModal(server, id);
+                }
+            });
+        }
+
+        if (ctxMenuDeleteBtn) {
+            ctxMenuDeleteBtn.addEventListener('click', () => {
+                if (!activeContextMenuContext) return;
+                const server = serversList.find(s => s.id === activeContextMenuContext.serverId);
+                if (!server || !isUserServerOwner(currentUser, server)) return;
+                const { type, id } = activeContextMenuContext;
+                closeCustomContextMenu();
+
+                if (type === 'channel') {
+                    if (server.channels.filter(c => c.type !== 'divider').length <= 1) {
+                        alert('You cannot delete the only text channel in the server.');
+                        return;
+                    }
+                    const chan = server.channels.find(c => c.id === id);
+                    if (chan && confirm(`Are you sure you want to delete #${chan.name}?`)) {
+                        server.channels = server.channels.filter(c => c.id !== id);
+                        saveServers();
+                        renderChannelsList(server);
+                        renderServerSettingsChannelsList(server);
+                        if (activeChannelId === id) {
+                            const first = server.channels.find(c => c.type !== 'divider');
+                            if (first) openChannel(first.id);
+                        }
+                    }
+                } else if (type === 'divider' && id !== 'main') {
+                    const chan = server.channels.find(c => c.id === id);
+                    if (chan && confirm(`Delete divider "${chan.name}"?`)) {
+                        server.channels = server.channels.filter(c => c.id !== id);
+                        saveServers();
+                        renderChannelsList(server);
+                        renderServerSettingsChannelsList(server);
+                    }
+                }
+            });
+        }
+
+        // Render Channels for Current Server (Including Section Dividers & Drag-Drop Reordering)
         function renderChannelsList(server) {
             if (!channelsItemsList) return;
             channelsItemsList.innerHTML = '';
@@ -11633,12 +13663,19 @@
                 server.collapsedDividers = [];
             }
 
+            const isServerOwner = isUserServerOwner(currentUser, server);
+
             // Apply custom category divider styling to primary category header
             const catDiv = server.categoryDivider || {
                 title: 'TEXT CHANNELS',
                 style: 'minimal',
+                gradientColors: ['#5865F2', '#EB459E'],
+                gradientAngle: 135,
+                fontFamily: 'default',
+                textColorMode: 'gradient',
+                textColor: '#FFFFFF',
                 color1: '#5865F2',
-                color2: '#eb459e',
+                color2: '#EB459E',
                 bannerImg: ''
             };
 
@@ -11647,8 +13684,11 @@
             const bannerBg = document.getElementById('serverMainCategoryBannerBg');
             const bannerOverlay = document.getElementById('serverMainCategoryBannerOverlay');
 
+            const catFontCss = getCustomFontCss(catDiv.fontFamily);
+
             if (titleEl) {
                 titleEl.textContent = catDiv.title || 'TEXT CHANNELS';
+                titleEl.style.cssText = catFontCss;
             }
 
             const isMainCollapsed = server.collapsedDividers.includes('main');
@@ -11660,8 +13700,22 @@
 
                 if (catDiv.style === 'gradient') {
                     headerEl.classList.add('custom-gradient');
-                    headerEl.style.setProperty('--cat-color1', catDiv.color1 || '#5865F2');
-                    headerEl.style.setProperty('--cat-color2', catDiv.color2 || '#eb459e');
+                    const catColors = (Array.isArray(catDiv.gradientColors) && catDiv.gradientColors.length >= 2)
+                        ? catDiv.gradientColors
+                        : [catDiv.color1 || '#5865F2', catDiv.color2 || '#EB459E'];
+                    const catAngle = Number.isFinite(Number(catDiv.gradientAngle)) ? Number(catDiv.gradientAngle) : 135;
+                    const catGrad = buildGradientCss(catAngle, catColors);
+
+                    headerEl.style.setProperty('--cat-color1', catColors[0] || '#5865F2');
+                    headerEl.style.setProperty('--cat-color2', catColors[catColors.length - 1] || '#EB459E');
+
+                    if (titleEl) {
+                        if (catDiv.textColorMode === 'solid' && catDiv.textColor) {
+                            titleEl.style.cssText = `color: ${catDiv.textColor}; ${catFontCss}`;
+                        } else {
+                            titleEl.style.cssText = `background: ${catGrad}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; ${catFontCss}`;
+                        }
+                    }
                 } else if (catDiv.style === 'ribbon') {
                     headerEl.classList.add('custom-ribbon');
                 } else if (catDiv.style === 'banner' && catDiv.bannerImg) {
@@ -11674,14 +13728,22 @@
                 }
 
                 headerEl.classList.toggle('collapsed', isMainCollapsed);
-                headerEl.title = isMainCollapsed ? 'Click to expand channels' : 'Click to collapse channels';
+                headerEl.title = isMainCollapsed ? 'Click to expand channels' : (isServerOwner ? 'Click to collapse channels (Right-click for Settings)' : 'Click to collapse channels');
                 headerEl.onclick = (e) => {
                     if (e.target.closest('#openAddChannelBtn')) return;
                     toggleDividerCollapse(server, 'main');
                 };
 
+                // Right click on main category header (only owner can open settings)
+                headerEl.oncontextmenu = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (isServerOwner) {
+                        openDividerContextMenu(e.clientX, e.clientY, server, 'main');
+                    }
+                };
+
                 const addChanBtn = document.getElementById('openAddChannelBtn');
-                const isServerOwner = isUserServerOwner(currentUser, server);
                 if (addChanBtn) {
                     addChanBtn.style.display = isServerOwner ? 'block' : 'none';
                 }
@@ -11699,25 +13761,50 @@
                     const divStyle = chan.style || 'minimal';
                     divEl.className = `channel-divider-item ${divStyle} ${isDividerCollapsed ? 'collapsed' : ''}`;
                     divEl.dataset.dividerId = chan.id;
-                    divEl.title = isDividerCollapsed ? 'Click to expand section' : 'Click to collapse section';
+                    divEl.title = isDividerCollapsed ? 'Click to expand section' : (isServerOwner ? 'Click to collapse section (Right click for Settings, Drag to move)' : 'Click to collapse section');
+                    divEl.draggable = isServerOwner;
+
+                    let divIconMarkup = '';
+                    if (chan.icon && chan.icon !== 'none') {
+                        if (chan.icon.startsWith('http') || chan.icon.startsWith('data:')) {
+                            divIconMarkup = `<img src="${escapeHtml(chan.icon)}" style="width: 14px; height: 14px; border-radius: 3px; object-fit: cover; margin-right: 2px;" alt="" />`;
+                        } else {
+                            divIconMarkup = `<span style="font-size: 0.85rem; margin-right: 2px;">${escapeHtml(chan.icon)}</span>`;
+                        }
+                    }
+
+                    const divFontCss = getCustomFontCss(chan.fontFamily);
 
                     if (divStyle === 'gradient') {
+                        const divColors = (Array.isArray(chan.gradientColors) && chan.gradientColors.length >= 2)
+                            ? chan.gradientColors
+                            : [chan.color1 || '#5865F2', chan.color2 || '#EB459E'];
+                        const divAngle = Number.isFinite(Number(chan.gradientAngle)) ? Number(chan.gradientAngle) : 135;
+                        const gradCss = buildGradientCss(divAngle, divColors);
+                        const firstCol = divColors[0] || '#5865F2';
+
+                        const textStyle = (chan.textColorMode === 'solid' && chan.textColor)
+                            ? `color: ${escapeHtml(chan.textColor)}; ${divFontCss}`
+                            : `background: ${gradCss}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; ${divFontCss}`;
+
                         divEl.innerHTML = `
                             <div class="channel-divider-gradient-row">
                                 <div style="display: flex; align-items: center; gap: 6px;">
-                                    <svg class="divider-collapse-chevron" style="color: ${chan.color1 || catDiv.color1 || '#5865F2'};" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                                    <span class="channel-divider-gradient-text" style="background: linear-gradient(135deg, ${chan.color1 || catDiv.color1 || '#5865F2'}, ${chan.color2 || catDiv.color2 || '#eb459e'}); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                    <svg class="divider-collapse-chevron" style="color: ${firstCol};" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                                    ${divIconMarkup}
+                                    <span class="channel-divider-gradient-text" style="${textStyle}">
                                         ${escapeHtml(chan.name)}
                                     </span>
                                 </div>
                             </div>
-                            <div class="channel-divider-gradient-bar" style="background: linear-gradient(90deg, ${chan.color1 || catDiv.color1 || '#5865F2'}, ${chan.color2 || catDiv.color2 || '#eb459e'}, transparent);"></div>
+                            <div class="channel-divider-gradient-bar" style="background: linear-gradient(90deg, ${divColors.join(', ')}, transparent); box-shadow: 0 0 8px ${firstCol}44;"></div>
                         `;
                     } else if (divStyle === 'ribbon') {
                         divEl.innerHTML = `
                             <div style="display: flex; align-items: center; gap: 6px;">
                                 <svg class="divider-collapse-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                                <span class="channel-divider-ribbon-text">${escapeHtml(chan.name)}</span>
+                                ${divIconMarkup}
+                                <span class="channel-divider-ribbon-text" style="${divFontCss}">${escapeHtml(chan.name)}</span>
                             </div>
                             <span class="channel-divider-ribbon-badge">SECTION</span>
                         `;
@@ -11728,14 +13815,16 @@
                             <div class="channel-divider-banner-overlay"></div>
                             <div style="position: relative; z-index: 1; display: flex; align-items: center; gap: 6px;">
                                 <svg class="divider-collapse-chevron" style="color: #ffffff;" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                                <span class="channel-divider-banner-text">${escapeHtml(chan.name)}</span>
+                                ${divIconMarkup}
+                                <span class="channel-divider-banner-text" style="${divFontCss}">${escapeHtml(chan.name)}</span>
                             </div>
                         `;
                     } else {
                         // Minimal Line
                         divEl.innerHTML = `
                             <svg class="divider-collapse-chevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                            <span class="channel-divider-minimal-text">${escapeHtml(chan.name)}</span>
+                            ${divIconMarkup}
+                            <span class="channel-divider-minimal-text" style="${divFontCss}">${escapeHtml(chan.name)}</span>
                             <div class="channel-divider-minimal-line"></div>
                         `;
                     }
@@ -11744,6 +13833,60 @@
                         e.stopPropagation();
                         toggleDividerCollapse(server, chan.id);
                     });
+
+                    divEl.addEventListener('contextmenu', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (isServerOwner) {
+                            openDividerContextMenu(e.clientX, e.clientY, server, chan.id);
+                        }
+                    });
+
+                    // Drag & drop handlers for dividers - only enabled for server owners
+                    if (isServerOwner) {
+                        divEl.addEventListener('dragstart', (e) => {
+                            draggedServerItemId = chan.id;
+                            divEl.classList.add('is-dragging');
+                            e.dataTransfer.effectAllowed = 'move';
+                            e.dataTransfer.setData('text/plain', chan.id);
+                        });
+
+                        divEl.addEventListener('dragend', () => {
+                            divEl.classList.remove('is-dragging');
+                            clearAllDragIndicators();
+                            draggedServerItemId = null;
+                        });
+
+                        divEl.addEventListener('dragover', (e) => {
+                            e.preventDefault();
+                            e.dataTransfer.dropEffect = 'move';
+                            const rect = divEl.getBoundingClientRect();
+                            const midY = rect.top + rect.height / 2;
+                            if (e.clientY < midY) {
+                                divEl.classList.add('channel-drag-over-top');
+                                divEl.classList.remove('channel-drag-over-bottom');
+                            } else {
+                                divEl.classList.add('channel-drag-over-bottom');
+                                divEl.classList.remove('channel-drag-over-top');
+                            }
+                        });
+
+                        divEl.addEventListener('dragleave', () => {
+                            divEl.classList.remove('channel-drag-over-top', 'channel-drag-over-bottom');
+                        });
+
+                        divEl.addEventListener('drop', (e) => {
+                            e.preventDefault();
+                            const rect = divEl.getBoundingClientRect();
+                            const isAbove = e.clientY < (rect.top + rect.height / 2);
+                            const sourceId = draggedServerItemId || e.dataTransfer.getData('text/plain');
+                            clearAllDragIndicators();
+                            if (sourceId && sourceId !== chan.id) {
+                                reorderServerItem(server, sourceId, chan.id, isAbove);
+                                renderServerSettingsChannelsList(server);
+                            }
+                        });
+                    }
 
                     channelsItemsList.appendChild(divEl);
                     return;
@@ -11756,20 +13899,94 @@
                 chanEl.className = `channel-item ${chan.id === activeChannelId ? 'active' : ''} ${isSectionHidden ? 'collapsed-hidden' : ''}`;
                 chanEl.dataset.chanId = chan.id;
                 chanEl.dataset.sectionId = currentSectionId;
+                chanEl.draggable = isServerOwner;
+                chanEl.title = isServerOwner ? `Channel #${chan.name} (Right-click for Settings, Drag to reorder)` : `#${chan.name}`;
 
                 let iconMarkup = '<span class="channel-hash">#</span>';
                 if (chan.icon) {
-                    iconMarkup = `<img src="${escapeHtml(chan.icon)}" class="channel-custom-icon" alt="" />`;
+                    if (chan.icon.startsWith('http://') || chan.icon.startsWith('https://') || chan.icon.startsWith('data:image')) {
+                        iconMarkup = `<img src="${escapeHtml(chan.icon)}" class="channel-custom-icon" alt="" />`;
+                    } else {
+                        iconMarkup = `<span class="channel-custom-emoji" style="font-size: 1.05rem; line-height: 1; flex-shrink: 0; display: inline-flex; align-items: center;">${escapeHtml(chan.icon)}</span>`;
+                    }
+                }
+
+                // Channel typography & text appearance
+                const chanFontCss = getCustomFontCss(chan.fontFamily);
+                let nameStyle = chanFontCss;
+
+                if (chan.textColorMode === 'solid' && chan.textColor) {
+                    nameStyle += ` color: ${escapeHtml(chan.textColor)};`;
+                } else if (chan.textColorMode === 'gradient') {
+                    const gradCols = (Array.isArray(chan.gradientColors) && chan.gradientColors.length >= 2)
+                        ? chan.gradientColors
+                        : ['#5865F2', '#EB459E'];
+                    const gradAngle = Number.isFinite(Number(chan.gradientAngle)) ? Number(chan.gradientAngle) : 135;
+                    nameStyle += ` background: linear-gradient(${gradAngle}deg, ${gradCols[0]}, ${gradCols[1]}); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;`;
                 }
 
                 chanEl.innerHTML = `
                     ${iconMarkup}
-                    <span class="channel-name">${escapeHtml(chan.name)}</span>
+                    <span class="channel-name" style="${nameStyle}">${escapeHtml(chan.name)}</span>
                 `;
 
                 chanEl.addEventListener('click', () => {
                     openChannel(chan.id);
                 });
+
+                chanEl.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (isServerOwner) {
+                        openChannelContextMenu(e.clientX, e.clientY, server, chan.id);
+                    }
+                });
+
+                // Drag & drop handlers for channels - only enabled for server owners
+                if (isServerOwner) {
+                    chanEl.addEventListener('dragstart', (e) => {
+                        draggedServerItemId = chan.id;
+                        chanEl.classList.add('is-dragging');
+                        e.dataTransfer.effectAllowed = 'move';
+                        e.dataTransfer.setData('text/plain', chan.id);
+                    });
+
+                    chanEl.addEventListener('dragend', () => {
+                        chanEl.classList.remove('is-dragging');
+                        clearAllDragIndicators();
+                        draggedServerItemId = null;
+                    });
+
+                    chanEl.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = 'move';
+                        const rect = chanEl.getBoundingClientRect();
+                        const midY = rect.top + rect.height / 2;
+                        if (e.clientY < midY) {
+                            chanEl.classList.add('channel-drag-over-top');
+                            chanEl.classList.remove('channel-drag-over-bottom');
+                        } else {
+                            chanEl.classList.add('channel-drag-over-bottom');
+                            chanEl.classList.remove('channel-drag-over-top');
+                        }
+                    });
+
+                    chanEl.addEventListener('dragleave', () => {
+                        chanEl.classList.remove('channel-drag-over-top', 'channel-drag-over-bottom');
+                    });
+
+                    chanEl.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        const rect = chanEl.getBoundingClientRect();
+                        const isAbove = e.clientY < (rect.top + rect.height / 2);
+                        const sourceId = draggedServerItemId || e.dataTransfer.getData('text/plain');
+                        clearAllDragIndicators();
+                        if (sourceId && sourceId !== chan.id) {
+                            reorderServerItem(server, sourceId, chan.id, isAbove);
+                            renderServerSettingsChannelsList(server);
+                        }
+                    });
+                }
 
                 channelsItemsList.appendChild(chanEl);
             });
@@ -11805,7 +14022,11 @@
             const headerHash = document.getElementById('serverChannelHeaderHash');
             if (headerHash) {
                 if (chan.icon) {
-                    headerHash.innerHTML = `<img src="${escapeHtml(chan.icon)}" class="chat-header-channel-icon" alt="" />`;
+                    if (chan.icon.startsWith('http://') || chan.icon.startsWith('https://') || chan.icon.startsWith('data:image')) {
+                        headerHash.innerHTML = `<img src="${escapeHtml(chan.icon)}" class="chat-header-channel-icon" alt="" />`;
+                    } else {
+                        headerHash.innerHTML = `<span style="font-size: 1.2rem; margin-right: 6px; display: inline-flex; align-items: center;">${escapeHtml(chan.icon)}</span>`;
+                    }
                 } else {
                     headerHash.textContent = '#';
                 }
@@ -11816,7 +14037,11 @@
             const introHash = document.getElementById('serverIntroHash');
             if (introHash) {
                 if (chan.icon) {
-                    introHash.innerHTML = `<img src="${escapeHtml(chan.icon)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="" />`;
+                    if (chan.icon.startsWith('http://') || chan.icon.startsWith('https://') || chan.icon.startsWith('data:image')) {
+                        introHash.innerHTML = `<img src="${escapeHtml(chan.icon)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" alt="" />`;
+                    } else {
+                        introHash.innerHTML = `<span style="font-size: 2.2rem; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%;">${escapeHtml(chan.icon)}</span>`;
+                    }
                 } else {
                     introHash.textContent = '#';
                 }
@@ -13182,10 +15407,97 @@
         let categoryDividerDraft = {
             title: 'TEXT CHANNELS',
             style: 'minimal',
+            gradientColors: ['#5865F2', '#EB459E'],
+            gradientAngle: 135,
+            fontFamily: 'default',
+            textColorMode: 'gradient',
+            textColor: '#FFFFFF',
             color1: '#5865F2',
-            color2: '#eb459e',
+            color2: '#EB459E',
             bannerImg: ''
         };
+
+        function renderCatGradientStops() {
+            const listEl = document.getElementById('catGradientStopsList');
+            if (!listEl) return;
+            listEl.innerHTML = '';
+
+            if (!Array.isArray(categoryDividerDraft.gradientColors) || categoryDividerDraft.gradientColors.length < 2) {
+                categoryDividerDraft.gradientColors = ['#5865F2', '#EB459E'];
+            }
+            if (categoryDividerDraft.gradientColors.length > 5) {
+                categoryDividerDraft.gradientColors = categoryDividerDraft.gradientColors.slice(0, 5);
+            }
+
+            const countBadge = document.getElementById('catColorsCountBadge');
+            if (countBadge) {
+                countBadge.textContent = `${categoryDividerDraft.gradientColors.length} / 5 colors`;
+            }
+
+            const addBtn = document.getElementById('catAddColorStopBtn');
+            if (addBtn) {
+                addBtn.disabled = categoryDividerDraft.gradientColors.length >= 5;
+                addBtn.style.opacity = categoryDividerDraft.gradientColors.length >= 5 ? '0.45' : '1';
+                addBtn.style.cursor = categoryDividerDraft.gradientColors.length >= 5 ? 'not-allowed' : 'pointer';
+            }
+
+            categoryDividerDraft.gradientColors.forEach((color, idx) => {
+                const row = document.createElement('div');
+                row.className = 'gradient-stop-row';
+
+                const canDelete = categoryDividerDraft.gradientColors.length > 2;
+
+                row.innerHTML = `
+                    <span class="gradient-stop-num">${idx + 1}</span>
+                    <div class="gradient-stop-swatch" style="background-color: ${escapeHtml(color)};">
+                        <input type="color" value="${escapeHtml(color)}" data-index="${idx}">
+                    </div>
+                    <input type="text" class="gradient-stop-hex" value="${escapeHtml(color.toUpperCase())}" maxlength="7" data-index="${idx}">
+                    ${canDelete ? `<button type="button" class="gradient-stop-delete-btn" data-index="${idx}" title="Remove color stop">✕</button>` : ''}
+                `;
+
+                const colorInput = row.querySelector('input[type="color"]');
+                const hexInput = row.querySelector('.gradient-stop-hex');
+                const swatch = row.querySelector('.gradient-stop-swatch');
+                const deleteBtn = row.querySelector('.gradient-stop-delete-btn');
+
+                if (colorInput) {
+                    colorInput.addEventListener('input', (e) => {
+                        const newCol = e.target.value;
+                        categoryDividerDraft.gradientColors[idx] = newCol;
+                        if (hexInput) hexInput.value = newCol.toUpperCase();
+                        if (swatch) swatch.style.backgroundColor = newCol;
+                        renderCategoryLivePreview();
+                    });
+                }
+
+                if (hexInput) {
+                    hexInput.addEventListener('input', (e) => {
+                        let val = e.target.value.trim();
+                        if (!val.startsWith('#')) val = '#' + val;
+                        if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+                            categoryDividerDraft.gradientColors[idx] = val;
+                            if (colorInput) colorInput.value = val;
+                            if (swatch) swatch.style.backgroundColor = val;
+                            renderCategoryLivePreview();
+                        }
+                    });
+                }
+
+                if (deleteBtn) {
+                    deleteBtn.addEventListener('click', () => {
+                        if (categoryDividerDraft.gradientColors.length > 2) {
+                            categoryDividerDraft.gradientColors.splice(idx, 1);
+                            renderCatGradientStops();
+                        }
+                    });
+                }
+
+                listEl.appendChild(row);
+            });
+
+            renderCategoryLivePreview();
+        }
 
         function initCategoryDividerDraft(server) {
             if (!server) return;
@@ -13193,8 +15505,15 @@
             categoryDividerDraft = {
                 title: current.title !== undefined ? current.title : 'TEXT CHANNELS',
                 style: current.style || 'minimal',
+                gradientColors: (Array.isArray(current.gradientColors) && current.gradientColors.length >= 2)
+                    ? [...current.gradientColors]
+                    : [current.color1 || '#5865F2', current.color2 || '#EB459E'],
+                gradientAngle: Number.isFinite(Number(current.gradientAngle)) ? Number(current.gradientAngle) : 135,
+                fontFamily: current.fontFamily || 'default',
+                textColorMode: current.textColorMode || 'gradient',
+                textColor: current.textColor || '#FFFFFF',
                 color1: current.color1 || '#5865F2',
-                color2: current.color2 || '#eb459e',
+                color2: current.color2 || '#EB459E',
                 bannerImg: current.bannerImg || ''
             };
 
@@ -13203,20 +15522,43 @@
 
             updateCategoryDividerStylePills(categoryDividerDraft.style);
 
-            const col1 = document.getElementById('catColor1Input');
-            const col2 = document.getElementById('catColor2Input');
-            const hex1 = document.getElementById('catColor1Hex');
-            const hex2 = document.getElementById('catColor2Hex');
-            const swatch1 = document.getElementById('catColorSwatch1');
-            const swatch2 = document.getElementById('catColorSwatch2');
+            // Angle slider & badge
+            const angleSlider = document.getElementById('catGradientAngleSlider');
+            const angleBadge = document.getElementById('catGradientAngleBadge');
+            if (angleSlider) angleSlider.value = categoryDividerDraft.gradientAngle;
+            if (angleBadge) angleBadge.textContent = `${categoryDividerDraft.gradientAngle}°`;
 
-            if (col1) col1.value = categoryDividerDraft.color1;
-            if (col2) col2.value = categoryDividerDraft.color2;
-            if (hex1) hex1.textContent = categoryDividerDraft.color1.toUpperCase();
-            if (hex2) hex2.textContent = categoryDividerDraft.color2.toUpperCase();
-            if (swatch1) swatch1.style.backgroundColor = categoryDividerDraft.color1;
-            if (swatch2) swatch2.style.backgroundColor = categoryDividerDraft.color2;
+            const anglePresetsRow = document.getElementById('catAnglePresetsRow');
+            if (anglePresetsRow) {
+                anglePresetsRow.querySelectorAll('.angle-preset-btn').forEach(btn => {
+                    btn.classList.toggle('active', parseInt(btn.dataset.angle, 10) === categoryDividerDraft.gradientAngle);
+                });
+            }
 
+            // Font grid
+            const fontGrid = document.getElementById('catFontGrid');
+            if (fontGrid) {
+                fontGrid.querySelectorAll('.font-style-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.font === categoryDividerDraft.fontFamily);
+                });
+            }
+
+            // Text color mode
+            const modeGrad = document.getElementById('catTextColorModeGrad');
+            const modeSolid = document.getElementById('catTextColorModeSolid');
+            const solidWrap = document.getElementById('catSolidColorWrap');
+            const solidInput = document.getElementById('catSolidColorInput');
+            const solidHex = document.getElementById('catSolidColorHex');
+            const solidSwatch = document.getElementById('catSolidColorSwatch');
+
+            if (modeGrad) modeGrad.classList.toggle('active', categoryDividerDraft.textColorMode === 'gradient');
+            if (modeSolid) modeSolid.classList.toggle('active', categoryDividerDraft.textColorMode === 'solid');
+            if (solidWrap) solidWrap.style.display = (categoryDividerDraft.textColorMode === 'solid') ? 'flex' : 'none';
+            if (solidInput) solidInput.value = categoryDividerDraft.textColor;
+            if (solidHex) solidHex.value = categoryDividerDraft.textColor.toUpperCase();
+            if (solidSwatch) solidSwatch.style.backgroundColor = categoryDividerDraft.textColor;
+
+            renderCatGradientStops();
             renderCategoryLivePreview();
         }
 
@@ -13241,27 +15583,39 @@
 
             const title = categoryDividerDraft.title || 'TEXT CHANNELS';
             const style = categoryDividerDraft.style || 'minimal';
+            const fontCss = getCustomFontCss(categoryDividerDraft.fontFamily);
 
             let html = '';
             if (style === 'gradient') {
+                const colors = (Array.isArray(categoryDividerDraft.gradientColors) && categoryDividerDraft.gradientColors.length >= 2)
+                    ? categoryDividerDraft.gradientColors
+                    : ['#5865F2', '#EB459E'];
+                const angle = Number.isFinite(Number(categoryDividerDraft.gradientAngle)) ? Number(categoryDividerDraft.gradientAngle) : 135;
+                const gradCss = buildGradientCss(angle, colors);
+                const firstCol = colors[0] || '#5865F2';
+
+                const textStyle = (categoryDividerDraft.textColorMode === 'solid')
+                    ? `color: ${categoryDividerDraft.textColor}; ${fontCss}`
+                    : `background: ${gradCss}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; ${fontCss}`;
+
                 html = `
                     <div style="display: flex; flex-direction: column; gap: 5px; padding: 4px 6px;">
                         <div style="display: flex; align-items: center; justify-content: space-between;">
                             <div style="display: flex; align-items: center; gap: 6px;">
-                                <svg style="width: 10px; height: 10px; fill: ${categoryDividerDraft.color1};" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                                <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; background: linear-gradient(135deg, ${categoryDividerDraft.color1}, ${categoryDividerDraft.color2}); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                                <svg style="width: 10px; height: 10px; fill: ${firstCol};" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+                                <span style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; ${textStyle}">
                                     ${escapeHtml(title)}
                                 </span>
                             </div>
                             <span style="color: #949ba4; font-size: 0.85rem; line-height: 1;">+</span>
                         </div>
-                        <div style="width: 100%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, ${categoryDividerDraft.color1}, ${categoryDividerDraft.color2}, transparent); box-shadow: 0 0 8px ${categoryDividerDraft.color1}55;"></div>
+                        <div style="width: 100%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, ${colors.join(', ')}, transparent); box-shadow: 0 0 8px ${firstCol}55;"></div>
                     </div>
                 `;
             } else if (style === 'ribbon') {
                 html = `
                     <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 6px; padding: 5px 8px; display: flex; align-items: center; justify-content: space-between;">
-                        <span style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #f2f3f5;">
+                        <span style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #f2f3f5; ${fontCss}">
                             ${escapeHtml(title)}
                         </span>
                         <span style="font-size: 0.6rem; font-weight: 700; padding: 1px 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.1); color: #b5bac1;">
@@ -13275,7 +15629,7 @@
                     <div style="position: relative; height: 38px; border-radius: 6px; overflow: hidden; display: flex; align-items: center; padding: 0 10px; border: 1px solid rgba(255,255,255,0.12); ${bg} background-size: cover; background-position: center;">
                         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10, 11, 14, 0.82) 0%, rgba(10, 11, 14, 0.35) 100%);"></div>
                         <div style="position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; width: 100%;">
-                            <span style="font-size: 0.74rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.85);">
+                            <span style="font-size: 0.74rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.85); ${fontCss}">
                                 ${escapeHtml(title)}
                             </span>
                             <span style="color: #fff; font-size: 0.85rem; font-weight: 600;">+</span>
@@ -13288,7 +15642,7 @@
                     <div style="display: flex; align-items: center; justify-content: space-between; padding: 4px 6px;">
                         <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
                             <svg style="width: 10px; height: 10px; fill: #949ba4;" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
-                            <span style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #949ba4;">
+                            <span style="font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #949ba4; ${fontCss}">
                                 ${escapeHtml(title)}
                             </span>
                             <div style="flex: 1; height: 1px; background: rgba(255, 255, 255, 0.12); margin-left: 4px;"></div>
@@ -13310,6 +15664,12 @@
                 categoryDividerDraft.title = titleInput.value.trim() || 'TEXT CHANNELS';
             }
 
+            // Sync backward compatibility colors
+            if (Array.isArray(categoryDividerDraft.gradientColors) && categoryDividerDraft.gradientColors.length >= 2) {
+                categoryDividerDraft.color1 = categoryDividerDraft.gradientColors[0];
+                categoryDividerDraft.color2 = categoryDividerDraft.gradientColors[categoryDividerDraft.gradientColors.length - 1];
+            }
+
             server.categoryDivider = { ...categoryDividerDraft };
             saveServers();
             renderChannelsList(server);
@@ -13324,6 +15684,7 @@
             }
         }
 
+        // Render Channels & Dividers Hierarchy with Drag-and-Drop and In-Place Customization
         function renderServerSettingsChannelsList(server) {
             const listEl = document.getElementById('serverSettingsChannelsList');
             if (!listEl) return;
@@ -13338,112 +15699,209 @@
                 return;
             }
 
-            server.channels.forEach(chan => {
+            const isOwner = isUserServerOwner(currentUser, server);
+
+            server.channels.forEach((chan) => {
+                const row = document.createElement('div');
+                row.className = 'hierarchy-list-item';
+                row.dataset.itemId = chan.id;
+                row.draggable = isOwner;
+
                 if (chan.type === 'divider') {
-                    // Render Section Divider Row
-                    const row = document.createElement('div');
-                    row.className = 'channel-divider-settings-row';
+                    // Section Divider Hierarchy Row
                     const divStyle = chan.style || 'minimal';
+                    const fontCss = getCustomFontCss(chan.fontFamily);
+                    const divColors = (Array.isArray(chan.gradientColors) && chan.gradientColors.length >= 2)
+                        ? chan.gradientColors
+                        : [chan.color1 || '#5865F2', chan.color2 || '#EB459E'];
+                    const divAngle = Number.isFinite(Number(chan.gradientAngle)) ? Number(chan.gradientAngle) : 135;
+
+                    let titleStyle = fontCss;
+                    if (divStyle === 'gradient') {
+                        if (chan.textColorMode === 'solid' && chan.textColor) {
+                            titleStyle += ` color: ${chan.textColor}; font-weight: 800;`;
+                        } else {
+                            titleStyle += ` background: ${buildGradientCss(divAngle, divColors)}; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800;`;
+                        }
+                    } else {
+                        titleStyle += ` color: #ffffff; font-weight: 700;`;
+                    }
 
                     row.innerHTML = `
-                        <div style="display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1;">
-                            <div style="width: 32px; height: 32px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #b5bac1;">
+                        <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+                            <span class="hierarchy-drag-handle" title="Drag to reorder hierarchy">⋮⋮</span>
+                            <div style="width: 30px; height: 30px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #b5bac1; flex-shrink: 0;">
                                 ✦
                             </div>
                             <div style="min-width: 0; flex: 1;">
-                                <div style="font-size: 0.92rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                <div style="font-size: 0.92rem; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ${titleStyle}">
                                     ${escapeHtml(chan.name)}
                                 </div>
                                 <div style="font-size: 0.72rem; color: #949ba4; margin-top: 2px;">
                                     Section Divider • <span style="text-transform: capitalize;">${escapeHtml(divStyle)} Style</span>
+                                    ${divStyle === 'gradient' ? ` • ${divColors.length} Colors • ${divAngle}°` : ''}
                                 </div>
                             </div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+                            <button type="button" class="role-btn-shiny small customize-divider-btn" data-divider-id="${escapeHtml(chan.id)}">
+                                Customize
+                            </button>
                             <button type="button" class="role-btn-secondary small remove-divider-btn" data-divider-id="${escapeHtml(chan.id)}" style="color: #f23f43; border-color: rgba(242,63,67,0.3);">
                                 Delete
                             </button>
                         </div>
                     `;
 
+                    const customizeBtn = row.querySelector('.customize-divider-btn');
+                    if (customizeBtn) {
+                        customizeBtn.addEventListener('click', () => {
+                            openDividerEditModal(server, chan.id);
+                        });
+                    }
+
                     const deleteBtn = row.querySelector('.remove-divider-btn');
                     if (deleteBtn) {
                         deleteBtn.addEventListener('click', () => {
+                            if (!isUserServerOwner(currentUser, server)) return;
                             server.channels = server.channels.filter(c => c.id !== chan.id);
                             saveServers();
                             renderServerSettingsChannelsList(server);
                             renderChannelsList(server);
                         });
                     }
-
-                    listEl.appendChild(row);
-                    return;
-                }
-
-                // Regular Text Channel Row
-                const row = document.createElement('div');
-                row.className = 'channel-settings-item-row';
-
-                let iconDisplay = '';
-                if (chan.icon) {
-                    iconDisplay = `<img src="${escapeHtml(chan.icon)}" style="width: 32px; height: 32px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,255,255,0.25);" alt="" />`;
                 } else {
-                    iconDisplay = `
-                        <div style="width: 32px; height: 32px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 700; color: #949ba4;">
-                            #
+                    // Regular Text Channel Hierarchy Row
+                    const chanFontCss = getCustomFontCss(chan.fontFamily);
+                    let nameStyle = chanFontCss;
+
+                    if (chan.textColorMode === 'solid' && chan.textColor) {
+                        nameStyle += ` color: ${escapeHtml(chan.textColor)}; font-weight: 700;`;
+                    } else if (chan.textColorMode === 'gradient') {
+                        const gradCols = (Array.isArray(chan.gradientColors) && chan.gradientColors.length >= 2)
+                            ? chan.gradientColors
+                            : ['#5865F2', '#EB459E'];
+                        const gradAngle = Number.isFinite(Number(chan.gradientAngle)) ? Number(chan.gradientAngle) : 135;
+                        nameStyle += ` background: linear-gradient(${gradAngle}deg, ${gradCols[0]}, ${gradCols[1]}); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;`;
+                    } else {
+                        nameStyle += ` color: #ffffff; font-weight: 600;`;
+                    }
+
+                    let iconDisplay = '';
+                    if (chan.icon) {
+                        if (chan.icon.startsWith('http://') || chan.icon.startsWith('https://') || chan.icon.startsWith('data:image')) {
+                            iconDisplay = `<img src="${escapeHtml(chan.icon)}" style="width: 30px; height: 30px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,255,255,0.25);" alt="" />`;
+                        } else {
+                            iconDisplay = `<div style="width: 30px; height: 30px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">${escapeHtml(chan.icon)}</div>`;
+                        }
+                    } else {
+                        iconDisplay = `
+                            <div style="width: 30px; height: 30px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; color: #949ba4;">
+                                #
+                            </div>
+                        `;
+                    }
+
+                    row.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+                            <span class="hierarchy-drag-handle" title="Drag to reorder hierarchy">⋮⋮</span>
+                            <div class="channel-icon-trigger" style="cursor: pointer;" title="Click to customize">
+                                ${iconDisplay}
+                            </div>
+                            <div style="min-width: 0; flex: 1;">
+                                <div style="font-size: 0.94rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ${nameStyle}">
+                                    #${escapeHtml(chan.name)}
+                                </div>
+                                <div style="font-size: 0.74rem; color: #949ba4; margin-top: 2px;">
+                                    ${chan.fontFamily ? `${chan.fontFamily.toUpperCase()} Font` : 'Default Font'} • ${chan.textColorMode === 'gradient' ? 'Gradient Text' : (chan.textColorMode === 'solid' ? 'Custom Color' : 'Default Gray')}
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+                            <button type="button" class="role-btn-shiny small customize-chan-btn" data-chan-id="${escapeHtml(chan.id)}">
+                                Customize
+                            </button>
+                            <button type="button" class="role-btn-secondary small remove-chan-btn" data-chan-id="${escapeHtml(chan.id)}" style="color: #f23f43; border-color: rgba(242,63,67,0.3);">
+                                Delete
+                            </button>
                         </div>
                     `;
+
+                    const customizeBtn = row.querySelector('.customize-chan-btn');
+                    if (customizeBtn) {
+                        customizeBtn.addEventListener('click', () => {
+                            openChannelEditModal(server, chan.id);
+                        });
+                    }
+
+                    const removeBtn = row.querySelector('.remove-chan-btn');
+                    if (removeBtn) {
+                        removeBtn.addEventListener('click', () => {
+                            if (!isUserServerOwner(currentUser, server)) return;
+                            if (server.channels.filter(c => c.type !== 'divider').length <= 1) {
+                                alert('You cannot delete the only text channel in the server.');
+                                return;
+                            }
+                            if (confirm(`Delete #${chan.name}?`)) {
+                                server.channels = server.channels.filter(c => c.id !== chan.id);
+                                saveServers();
+                                renderServerSettingsChannelsList(server);
+                                renderChannelsList(server);
+                                if (activeChannelId === chan.id) {
+                                    const first = server.channels.find(c => c.type !== 'divider');
+                                    if (first) openChannel(first.id);
+                                }
+                            }
+                        });
+                    }
                 }
 
-                row.innerHTML = `
-                    <div style="display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1;">
-                        <div class="channel-icon-trigger" style="cursor: pointer;" title="Click to change channel icon">
-                            ${iconDisplay}
-                        </div>
-                        <div style="min-width: 0; flex: 1;">
-                            <div style="font-size: 0.94rem; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                #${escapeHtml(chan.name)}
-                            </div>
-                            <div style="font-size: 0.74rem; color: #949ba4; margin-top: 2px;">
-                                ${chan.icon ? 'Custom icon active' : 'Default (#) icon'}
-                            </div>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
-                        <button type="button" class="role-btn-shiny small change-chan-icon-btn" data-chan-id="${escapeHtml(chan.id)}">
-                            Change Icon
-                        </button>
-                        ${chan.icon ? `
-                            <button type="button" class="role-btn-secondary small remove-chan-icon-btn" data-chan-id="${escapeHtml(chan.id)}" style="color: #f23f43; border-color: rgba(242,63,67,0.3);">
-                                Reset to #
-                            </button>
-                        ` : ''}
-                    </div>
-                `;
+                // In-Panel Drag & Drop Reordering
+                if (isOwner) {
+                    row.addEventListener('dragstart', (e) => {
+                        draggedServerItemId = chan.id;
+                        row.classList.add('is-dragging');
+                        e.dataTransfer.effectAllowed = 'move';
+                        e.dataTransfer.setData('text/plain', chan.id);
+                    });
 
-                const openPicker = () => {
-                    targetChannelIdForIcon = chan.id;
-                    const fileInput = document.getElementById('channelCustomIconFileInput');
-                    if (fileInput) {
-                        fileInput.value = '';
-                        fileInput.click();
-                    }
-                };
+                    row.addEventListener('dragend', () => {
+                        row.classList.remove('is-dragging');
+                        listEl.querySelectorAll('.hierarchy-list-item').forEach(el => {
+                            el.classList.remove('channel-drag-over-top', 'channel-drag-over-bottom', 'is-dragging');
+                        });
+                        draggedServerItemId = null;
+                    });
 
-                const changeBtn = row.querySelector('.change-chan-icon-btn');
-                const iconTrigger = row.querySelector('.channel-icon-trigger');
-                if (changeBtn) changeBtn.addEventListener('click', openPicker);
-                if (iconTrigger) iconTrigger.addEventListener('click', openPicker);
+                    row.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        e.dataTransfer.dropEffect = 'move';
+                        const rect = row.getBoundingClientRect();
+                        const midY = rect.top + rect.height / 2;
+                        if (e.clientY < midY) {
+                            row.classList.add('channel-drag-over-top');
+                            row.classList.remove('channel-drag-over-bottom');
+                        } else {
+                            row.classList.add('channel-drag-over-bottom');
+                            row.classList.remove('channel-drag-over-top');
+                        }
+                    });
 
-                const removeBtn = row.querySelector('.remove-chan-icon-btn');
-                if (removeBtn) {
-                    removeBtn.addEventListener('click', () => {
-                        delete chan.icon;
-                        saveServers();
-                        renderServerSettingsChannelsList(server);
-                        renderChannelsList(server);
-                        if (activeChannelId === chan.id) {
-                            openChannel(chan.id);
+                    row.addEventListener('dragleave', () => {
+                        row.classList.remove('channel-drag-over-top', 'channel-drag-over-bottom');
+                    });
+
+                    row.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        const rect = row.getBoundingClientRect();
+                        const isAbove = e.clientY < (rect.top + rect.height / 2);
+                        const sourceId = draggedServerItemId || e.dataTransfer.getData('text/plain');
+                        listEl.querySelectorAll('.hierarchy-list-item').forEach(el => {
+                            el.classList.remove('channel-drag-over-top', 'channel-drag-over-bottom', 'is-dragging');
+                        });
+                        if (sourceId && sourceId !== chan.id) {
+                            reorderServerItem(server, sourceId, chan.id, isAbove);
+                            renderServerSettingsChannelsList(server);
                         }
                     });
                 }
@@ -13639,30 +16097,14 @@
             serverSettingsTabChannels.addEventListener('click', () => switchServerSettingsTab('channels'));
         }
 
-        const channelCustomIconFileInput = document.getElementById('channelCustomIconFileInput');
-        if (channelCustomIconFileInput) {
-            channelCustomIconFileInput.addEventListener('change', async (e) => {
-                const file = e.target.files && e.target.files[0];
-                if (!file || !targetChannelIdForIcon) return;
-
-                const server = serversList.find(s => s.id === activeServerId);
-                if (!server || !Array.isArray(server.channels)) return;
-
-                const chan = server.channels.find(c => c.id === targetChannelIdForIcon);
-                if (!chan) return;
-
-                try {
-                    const compressed = await compressImage(file, 96, 96, 0.85);
-                    chan.icon = compressed;
-                    saveServers();
-                    renderServerSettingsChannelsList(server);
-                    renderChannelsList(server);
-                    if (activeChannelId === chan.id) {
-                        openChannel(chan.id);
-                    }
-                } catch (err) {
-                    console.error('Error uploading channel icon:', err);
-                }
+        const serverSettingsAddChannelBtn = document.getElementById('serverSettingsAddChannelBtn');
+        if (serverSettingsAddChannelBtn) {
+            serverSettingsAddChannelBtn.addEventListener('click', () => {
+                closeServerSettings();
+                setChannelModalType('text');
+                if (newChannelNameInput) newChannelNameInput.value = '';
+                if (addChannelModal) addChannelModal.style.display = 'flex';
+                if (newChannelNameInput) setTimeout(() => newChannelNameInput.focus(), 60);
             });
         }
 
@@ -13685,52 +16127,124 @@
             });
         });
 
-        const catColor1Input = document.getElementById('catColor1Input');
-        const catColor2Input = document.getElementById('catColor2Input');
-        const catColor1Hex = document.getElementById('catColor1Hex');
-        const catColor2Hex = document.getElementById('catColor2Hex');
-        const catColorSwatch1 = document.getElementById('catColorSwatch1');
-        const catColorSwatch2 = document.getElementById('catColorSwatch2');
+        const catAddColorStopBtn = document.getElementById('catAddColorStopBtn');
+        if (catAddColorStopBtn) {
+            catAddColorStopBtn.addEventListener('click', () => {
+                if (categoryDividerDraft.gradientColors.length < 5) {
+                    const fallbackColors = ['#00F2FE', '#FFAA00', '#38EF7D', '#9D00FF', '#FF0055'];
+                    const nextColor = fallbackColors[categoryDividerDraft.gradientColors.length] || '#00FF88';
+                    categoryDividerDraft.gradientColors.push(nextColor);
+                    renderCatGradientStops();
+                }
+            });
+        }
 
-        if (catColor1Input) {
-            catColor1Input.addEventListener('input', (e) => {
-                const col = e.target.value;
-                categoryDividerDraft.color1 = col;
-                if (catColor1Hex) catColor1Hex.textContent = col.toUpperCase();
-                if (catColorSwatch1) catColorSwatch1.style.backgroundColor = col;
+        const catGradientPresetsRow = document.getElementById('catGradientPresetsRow');
+        if (catGradientPresetsRow) {
+            catGradientPresetsRow.addEventListener('click', (e) => {
+                const btn = e.target.closest('.angle-preset-btn');
+                if (!btn) return;
+                const presetKey = btn.dataset.preset;
+                if (GRADIENT_PRESETS[presetKey]) {
+                    categoryDividerDraft.gradientColors = [...GRADIENT_PRESETS[presetKey]];
+                    renderCatGradientStops();
+                }
+            });
+        }
+
+        const catGradientAngleSlider = document.getElementById('catGradientAngleSlider');
+        const catGradientAngleBadge = document.getElementById('catGradientAngleBadge');
+        const catAnglePresetsRow = document.getElementById('catAnglePresetsRow');
+
+        if (catGradientAngleSlider) {
+            catGradientAngleSlider.addEventListener('input', (e) => {
+                categoryDividerDraft.gradientAngle = parseInt(e.target.value, 10) || 135;
+                if (catGradientAngleBadge) catGradientAngleBadge.textContent = `${categoryDividerDraft.gradientAngle}°`;
+                if (catAnglePresetsRow) {
+                    catAnglePresetsRow.querySelectorAll('.angle-preset-btn').forEach(btn => {
+                        btn.classList.toggle('active', parseInt(btn.dataset.angle, 10) === categoryDividerDraft.gradientAngle);
+                    });
+                }
                 renderCategoryLivePreview();
             });
         }
 
-        if (catColor2Input) {
-            catColor2Input.addEventListener('input', (e) => {
-                const col = e.target.value;
-                categoryDividerDraft.color2 = col;
-                if (catColor2Hex) catColor2Hex.textContent = col.toUpperCase();
-                if (catColorSwatch2) catColorSwatch2.style.backgroundColor = col;
+        if (catAnglePresetsRow) {
+            catAnglePresetsRow.addEventListener('click', (e) => {
+                const btn = e.target.closest('.angle-preset-btn');
+                if (!btn) return;
+                const angle = parseInt(btn.dataset.angle, 10);
+                if (!isNaN(angle)) {
+                    categoryDividerDraft.gradientAngle = angle;
+                    if (catGradientAngleSlider) catGradientAngleSlider.value = angle;
+                    if (catGradientAngleBadge) catGradientAngleBadge.textContent = `${angle}°`;
+                    catAnglePresetsRow.querySelectorAll('.angle-preset-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderCategoryLivePreview();
+                }
+            });
+        }
+
+        const catFontGrid = document.getElementById('catFontGrid');
+        if (catFontGrid) {
+            catFontGrid.addEventListener('click', (e) => {
+                const btn = e.target.closest('.font-style-btn');
+                if (!btn) return;
+                categoryDividerDraft.fontFamily = btn.dataset.font || 'default';
+                catFontGrid.querySelectorAll('.font-style-btn').forEach(b => b.classList.toggle('active', b === btn));
                 renderCategoryLivePreview();
             });
         }
 
-        const catPresetBtns = document.querySelectorAll('.cat-preset-btn');
-        catPresetBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const c1 = btn.dataset.c1;
-                const c2 = btn.dataset.c2;
-                if (!c1 || !c2) return;
-                categoryDividerDraft.color1 = c1;
-                categoryDividerDraft.color2 = c2;
+        const catTextColorModeGrad = document.getElementById('catTextColorModeGrad');
+        const catTextColorModeSolid = document.getElementById('catTextColorModeSolid');
+        const catSolidColorWrap = document.getElementById('catSolidColorWrap');
+        const catSolidColorInput = document.getElementById('catSolidColorInput');
+        const catSolidColorHex = document.getElementById('catSolidColorHex');
+        const catSolidColorSwatch = document.getElementById('catSolidColorSwatch');
 
-                if (catColor1Input) catColor1Input.value = c1;
-                if (catColor2Input) catColor2Input.value = c2;
-                if (catColor1Hex) catColor1Hex.textContent = c1.toUpperCase();
-                if (catColor2Hex) catColor2Hex.textContent = c2.toUpperCase();
-                if (catColorSwatch1) catColorSwatch1.style.backgroundColor = c1;
-                if (catColorSwatch2) catColorSwatch2.style.backgroundColor = c2;
-
+        if (catTextColorModeGrad) {
+            catTextColorModeGrad.addEventListener('click', () => {
+                categoryDividerDraft.textColorMode = 'gradient';
+                catTextColorModeGrad.classList.add('active');
+                if (catTextColorModeSolid) catTextColorModeSolid.classList.remove('active');
+                if (catSolidColorWrap) catSolidColorWrap.style.display = 'none';
                 renderCategoryLivePreview();
             });
-        });
+        }
+
+        if (catTextColorModeSolid) {
+            catTextColorModeSolid.addEventListener('click', () => {
+                categoryDividerDraft.textColorMode = 'solid';
+                catTextColorModeSolid.classList.add('active');
+                if (catTextColorModeGrad) catTextColorModeGrad.classList.remove('active');
+                if (catSolidColorWrap) catSolidColorWrap.style.display = 'flex';
+                renderCategoryLivePreview();
+            });
+        }
+
+        if (catSolidColorInput) {
+            catSolidColorInput.addEventListener('input', (e) => {
+                const col = e.target.value;
+                categoryDividerDraft.textColor = col;
+                if (catSolidColorHex) catSolidColorHex.value = col.toUpperCase();
+                if (catSolidColorSwatch) catSolidColorSwatch.style.backgroundColor = col;
+                renderCategoryLivePreview();
+            });
+        }
+
+        if (catSolidColorHex) {
+            catSolidColorHex.addEventListener('input', (e) => {
+                let val = e.target.value.trim();
+                if (!val.startsWith('#')) val = '#' + val;
+                if (/^#[0-9A-Fa-f]{6}$/.test(val)) {
+                    categoryDividerDraft.textColor = val;
+                    if (catSolidColorInput) catSolidColorInput.value = val;
+                    if (catSolidColorSwatch) catSolidColorSwatch.style.backgroundColor = val;
+                    renderCategoryLivePreview();
+                }
+            });
+        }
 
         const uploadCategoryBannerBtn = document.getElementById('uploadCategoryBannerBtn');
         const categoryBannerFileInput = document.getElementById('categoryBannerFileInput');
@@ -13771,8 +16285,13 @@
                 categoryDividerDraft = {
                     title: 'TEXT CHANNELS',
                     style: 'minimal',
+                    gradientColors: ['#5865F2', '#EB459E'],
+                    gradientAngle: 135,
+                    fontFamily: 'default',
+                    textColorMode: 'gradient',
+                    textColor: '#FFFFFF',
                     color1: '#5865F2',
-                    color2: '#eb459e',
+                    color2: '#EB459E',
                     bannerImg: ''
                 };
                 const server = serversList.find(s => s.id === activeServerId);
@@ -14278,6 +16797,8 @@
         if (openAddChannelBtn) {
             openAddChannelBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
+                const server = serversList.find(s => s.id === activeServerId);
+                if (!server || !isUserServerOwner(currentUser, server)) return;
                 setChannelModalType('text');
                 if (newChannelNameInput) newChannelNameInput.value = '';
                 if (addChannelModal) addChannelModal.style.display = 'flex';
@@ -14296,7 +16817,7 @@
                 e.preventDefault();
                 const rawName = newChannelNameInput ? newChannelNameInput.value.trim() : '';
                 const server = serversList.find(s => s.id === activeServerId);
-                if (!server) return;
+                if (!server || !isUserServerOwner(currentUser, server)) return;
 
                 if (selectedChannelModalType === 'divider') {
                     const dividerName = rawName || 'SECTION';
