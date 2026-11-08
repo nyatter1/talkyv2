@@ -2743,6 +2743,10 @@
             if (globalExploreView) globalExploreView.style.display = 'none';
             if (serverChannelsSidebar) serverChannelsSidebar.style.display = 'flex';
             if (serverChatView) serverChatView.style.display = 'flex';
+            const serverMainLobbyView = document.getElementById('serverMainLobbyView');
+            const serverLobbyBtn = document.getElementById('serverLobbyBtn');
+            if (serverMainLobbyView) serverMainLobbyView.style.display = 'none';
+            if (serverLobbyBtn) serverLobbyBtn.classList.remove('active');
 
             // Mark DMs and Explore wrappers inactive, update active server pill
             const serverDmsWrapper = document.getElementById('serverDmsWrapper');
@@ -2824,6 +2828,12 @@
             if (!chan) return;
 
             activeChannelId = channelId;
+
+            const serverMainLobbyView = document.getElementById('serverMainLobbyView');
+            const serverLobbyBtn = document.getElementById('serverLobbyBtn');
+            if (serverLobbyBtn) serverLobbyBtn.classList.remove('active');
+            if (serverMainLobbyView) serverMainLobbyView.style.display = 'none';
+            if (serverChatView) serverChatView.style.display = 'flex';
 
             // Highlight channel item
             if (channelsItemsList) {

@@ -1021,6 +1021,219 @@
             display: flex;
         }
 
+        /* Discord Slash Command Autocomplete Popover */
+        .slash-commands-popover {
+            position: absolute;
+            bottom: calc(100% - 10px);
+            left: 16px;
+            right: 16px;
+            background: #2b2d31;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.7), 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 950;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            max-height: 340px;
+            height: 310px;
+            animation: suggestionsFadeIn 0.12s ease-out;
+        }
+
+        .slash-commands-popover.open {
+            display: flex !important;
+        }
+
+        .slash-commands-header {
+            padding: 8px 14px;
+            background: #232428;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: #949ba4;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .slash-commands-header-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #dbdee1;
+        }
+
+        .slash-commands-hint {
+            font-size: 0.68rem;
+            color: #80848e;
+            text-transform: none;
+            font-weight: 500;
+        }
+
+        .slash-commands-body {
+            display: flex;
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        /* Left Column: Server list / sources */
+        .slash-commands-sources-col {
+            width: 175px;
+            background: #1e1f22;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .slash-source-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.14s ease;
+            user-select: none;
+        }
+
+        .slash-source-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .slash-source-item.active {
+            background: #313338;
+            color: #ffffff;
+        }
+
+        .slash-source-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background-color: #2b2d31;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #ffffff;
+            flex-shrink: 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .slash-source-name {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #dbdee1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+
+        .slash-source-badge {
+            font-size: 0.65rem;
+            background: rgba(255, 255, 255, 0.08);
+            color: #949ba4;
+            padding: 1px 5px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        /* Right Column: Commands list */
+        .slash-commands-list-col {
+            flex: 1;
+            padding: 6px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .slash-command-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.12s ease;
+            user-select: none;
+        }
+
+        .slash-command-item:hover,
+        .slash-command-item.active {
+            background: #35373c;
+        }
+
+        .slash-command-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .slash-command-server-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background-color: #1e1f22;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #ffffff;
+            flex-shrink: 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .slash-command-name {
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .slash-command-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+
+        .slash-command-desc {
+            font-size: 0.76rem;
+            color: #949ba4;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 280px;
+        }
+
+        .slash-command-empty {
+            padding: 30px 14px;
+            text-align: center;
+            color: #949ba4;
+            font-size: 0.82rem;
+        }
+
         .reply-context-bar {
             background: #232428;
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -4050,6 +4263,636 @@
             .role-presets-grid {
                 gap: 8px;
             }
+        }
+
+        /* Server Settings - Bots & Bot Creation Styling */
+        #serverSettingsPanelBots {
+            flex: 1;
+            width: 100%;
+            max-width: calc(100% - 50px);
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        #botsMainView {
+            width: 100%;
+        }
+
+        .bots-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            width: 100%;
+        }
+
+        .bot-card-item {
+            background: #1e1f22;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 0.18s, background-color 0.18s, transform 0.18s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .bot-card-item:hover {
+            border-color: rgba(255, 255, 255, 0.22);
+            background: rgba(30, 31, 34, 0.95);
+            transform: translateY(-1px);
+        }
+
+        .bot-card-banner {
+            width: 100%;
+            height: 84px;
+            background: #2b2d31;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 1;
+        }
+
+        .bot-card-body {
+            position: relative;
+            z-index: 2;
+            padding: 10px 14px 14px 14px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .bot-card-header-row {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-top: -30px;
+            margin-bottom: 8px;
+        }
+
+        .bot-card-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background-color: #2b2d31;
+            border: 3.5px solid #1e1f22;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            flex-shrink: 0;
+            overflow: hidden;
+            position: relative;
+            z-index: 4;
+        }
+
+        .bot-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+            margin-bottom: 12px;
+        }
+
+        .bot-card-name-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bot-card-meta {
+            font-size: 0.76rem;
+            color: #949ba4;
+        }
+
+        .bot-card-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            flex-wrap: wrap;
+        }
+
+        .bot-card-invite-btn.is-invited {
+            background: rgba(35, 165, 90, 0.15) !important;
+            border-color: rgba(35, 165, 90, 0.4) !important;
+            color: #23a55a !important;
+        }
+
+        .bot-wizard-banner-box {
+            width: 100%;
+            height: 120px;
+            border-radius: 8px;
+            background: #2b2d31;
+            background-size: cover;
+            background-position: center;
+            border: 1px dashed rgba(255, 255, 255, 0.16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #949ba4;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.18s;
+        }
+
+        .bot-wizard-banner-box.has-image {
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .bot-review-card {
+            background: #111214;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+            max-width: 440px;
+        }
+
+        /* Bot Editor & Visual Block Coding Workspace */
+        .bot-editor-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .bot-editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .bot-editor-filebar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: #18191c;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+
+        .bot-file-tabs-scroll {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            overflow-x: auto;
+            max-width: calc(100% - 150px);
+        }
+
+        .bot-file-tab-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #949ba4;
+            transition: all 0.16s ease;
+            white-space: nowrap;
+        }
+
+        .bot-file-tab-chip:hover {
+            background: rgba(255, 255, 255, 0.09);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .bot-file-tab-chip.active {
+            background: #2b2d31;
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .bot-editor-workspace {
+            display: flex;
+            gap: 14px;
+            min-height: 540px;
+            height: calc(100vh - 250px);
+            width: 100%;
+            min-width: 0;
+        }
+
+        @media (max-width: 900px) {
+            .bot-editor-workspace {
+                flex-direction: column;
+                height: auto;
+            }
+        }
+
+        .bot-toolbox-panel {
+            width: 270px;
+            flex-shrink: 0;
+            background: #18191c;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            overflow-y: auto;
+        }
+
+        .bot-files-list-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .bot-file-sidebar-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #232428;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 7px 9px;
+            cursor: pointer;
+            transition: all 0.16s ease;
+            gap: 6px;
+        }
+
+        .bot-file-sidebar-item:hover {
+            background: #2b2d31;
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .bot-file-sidebar-item.active {
+            background: rgba(88, 101, 242, 0.14);
+            border-color: rgba(88, 101, 242, 0.55);
+        }
+
+        .bot-file-item-left {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .bot-file-item-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bot-file-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .bot-file-link-pill {
+            font-size: 0.68rem;
+            padding: 2px 7px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.16s ease;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.05);
+            color: #949ba4;
+        }
+
+        .bot-file-link-pill.linked {
+            background: rgba(35, 165, 90, 0.18);
+            border-color: rgba(35, 165, 90, 0.45);
+            color: #23a55a;
+        }
+
+        .bot-file-link-pill:hover {
+            border-color: rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+        }
+
+        .bot-toolbox-section-title {
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #949ba4;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bot-toolbox-card {
+            background: #232428;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #dbdee1;
+            cursor: grab;
+            transition: all 0.16s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            margin-bottom: 6px;
+            user-select: none;
+        }
+
+        .bot-toolbox-card:hover {
+            background: #2b2d31;
+            border-color: rgba(255, 255, 255, 0.28);
+            color: #ffffff;
+            transform: translateX(2px);
+        }
+
+        .bot-toolbox-card:active {
+            cursor: grabbing;
+        }
+
+        .bot-toolbox-card.trigger-card {
+            border-left: 3px solid #5865F2;
+        }
+
+        .bot-toolbox-card.action-card {
+            border-left: 3px solid #23a55a;
+        }
+
+        .bot-toolbox-card.control-card {
+            border-left: 3px solid #f0b232;
+        }
+
+        .bot-canvas-wrapper {
+            flex: 1;
+            background: #141517;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bot-canvas-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 14px;
+            background: rgba(24, 25, 28, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 10;
+        }
+
+        .bot-canvas-viewport {
+            flex: 1;
+            position: relative;
+            overflow: auto;
+            background-color: #111214;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .bot-canvas-stage {
+            position: relative;
+            width: 2200px;
+            height: 1800px;
+        }
+
+        .bot-canvas-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .bot-block-node {
+            position: absolute;
+            width: 280px;
+            background: #1e1f22;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+            z-index: 5;
+            transition: box-shadow 0.15s, border-color 0.15s;
+            user-select: none;
+        }
+
+        .bot-block-node:hover {
+            border-color: rgba(255, 255, 255, 0.32);
+        }
+
+        .bot-block-node.dragging {
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.7);
+            border-color: #5865F2;
+            z-index: 20;
+        }
+
+        .bot-block-node.event-block {
+            border-top: 3px solid #5865F2;
+        }
+
+        .bot-block-node.action-block {
+            border-top: 3px solid #23a55a;
+        }
+
+        .bot-block-node.control-block {
+            border-top: 3px solid #f0b232;
+        }
+
+        .bot-block-header {
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            cursor: move;
+            border-radius: 7px 7px 0 0;
+        }
+
+        .bot-block-header-title {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .bot-block-delete-btn {
+            background: transparent;
+            border: none;
+            color: #6d737b;
+            cursor: pointer;
+            font-size: 1rem;
+            line-height: 1;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: color 0.15s;
+        }
+
+        .bot-block-delete-btn:hover {
+            color: #f23f43;
+            background: rgba(242, 63, 67, 0.15);
+        }
+
+        .bot-block-body {
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .bot-block-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #949ba4;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .bot-block-input {
+            width: 100%;
+            background: #111214;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 5px;
+            color: #ffffff;
+            padding: 6px 10px;
+            font-size: 0.82rem;
+            outline: none;
+            transition: border-color 0.15s;
+            font-family: inherit;
+        }
+
+        .bot-block-input:focus {
+            border-color: #5865F2;
+        }
+
+        .bot-block-footer {
+            padding: 6px 12px 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.74rem;
+        }
+
+        .bot-connector-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(88, 101, 242, 0.15);
+            color: #8090ff;
+            font-weight: 600;
+            font-size: 0.7rem;
+            cursor: pointer;
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            transition: all 0.15s ease;
+        }
+
+        .bot-connector-badge:hover {
+            background: rgba(88, 101, 242, 0.28);
+            border-color: #5865F2;
+            color: #ffffff;
+        }
+
+        .bot-connector-badge.connected {
+            background: rgba(35, 165, 90, 0.15);
+            color: #23a55a;
+            border-color: rgba(35, 165, 90, 0.3);
+        }
+
+        .bot-connector-badge.connected:hover {
+            background: rgba(242, 63, 67, 0.15);
+            color: #f23f43;
+            border-color: rgba(242, 63, 67, 0.3);
+        }
+
+        .bot-modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .bot-modal-box {
+            background: #18191c;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .bot-type-option-card {
+            background: #1e1f22;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .bot-type-option-card.selected {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .bot-type-option-card.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-style: dashed;
         }
 
         /* Discord Save Changes Floating Notice Bar */
@@ -7406,6 +8249,18 @@
 
         <!-- Channels Scroll List -->
         <div class="channels-list-container">
+            <!-- Server Lobby Nav Button (under the banner, on top of the main channel) -->
+            <div class="server-lobby-nav" id="serverLobbyNav" style="padding-bottom: 6px; margin-bottom: 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+                <div class="channel-item server-lobby-btn" id="serverLobbyBtn" title="Server Lobby" data-name="Lobby">
+                    <span class="channel-hash" style="display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; color: inherit;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                    </span>
+                    <span class="channel-name" style="font-weight: 600;">Lobby</span>
+                </div>
+            </div>
+
             <div class="channels-category-header" id="serverMainCategoryHeader">
                 <div class="cat-banner-bg" id="serverMainCategoryBannerBg" style="display: none;"></div>
                 <div class="cat-banner-overlay" id="serverMainCategoryBannerOverlay" style="display: none;"></div>
@@ -7672,6 +8527,25 @@
 
                     <!-- Input Bar with Attach, Reply, Emoji Picker, Send -->
                     <div class="chat-input-bar">
+                        <!-- Discord Slash Command Autocomplete Popover -->
+                        <div class="slash-commands-popover" id="serverSlashCommandsPopover" style="display: none;">
+                            <div class="slash-commands-header">
+                                <div class="slash-commands-header-title">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="color: #5865F2;"><path d="M16 4L8 20"/></svg>
+                                    <span>COMMANDS</span>
+                                </div>
+                                <span class="slash-commands-hint">TAB or ↑↓ to navigate • ENTER to select</span>
+                            </div>
+                            <div class="slash-commands-body">
+                                <div class="slash-commands-sources-col" id="serverSlashCommandsSources">
+                                    <!-- Rendered dynamically: Server list and bots on the left -->
+                                </div>
+                                <div class="slash-commands-list-col" id="serverSlashCommandsList">
+                                    <!-- Rendered dynamically: Commands with server icon and name on the right -->
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Server Emoji Suggestions Autocomplete Popover (Discord style) -->
                         <div class="emoji-suggestions-popover" id="serverEmojiSuggestionsPopover" style="display: none;">
                             <div class="emoji-suggestions-header">
@@ -7718,6 +8592,122 @@
                     <div class="members-list" id="membersList">
                         <!-- Populated dynamically with role hierarchy by renderServerMembersList -->
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Server Main Lobby View (replaces chat and players online on the right) -->
+        <div id="serverMainLobbyView" class="chat-view-container" style="display: none; background: #111214; flex-direction: column; overflow: hidden; position: relative;">
+            <!-- Server Ambient Background Layer -->
+            <div id="serverMainLobbyBackground" class="server-chat-background" style="display: none;"></div>
+
+            <div class="chat-top-header" style="position: relative; z-index: 2;">
+                <div class="chat-header-user">
+                    <span class="chat-header-hash" style="display: inline-flex; align-items: center; justify-content: center; color: #80848e;">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                    </span>
+                    <span class="chat-header-name" id="serverMainLobbyTitle">Lobby</span>
+                    <span class="channel-topic-divider">|</span>
+                    <span class="channel-topic-text" id="serverMainLobbyTopic">Welcome to the server lobby!</span>
+                </div>
+            </div>
+
+            <div class="main-lobby-scroll-container" style="flex: 1; overflow-y: auto; overflow-x: hidden; position: relative; z-index: 1;">
+                <div id="mainLobbyWrapper" style="width: 100%; min-height: 100%; transition: opacity 0.3s ease, transform 0.3s ease; opacity: 1; transform: scale(1); display: flex; flex-direction: column;">
+                    
+                    <!-- Screen 1: Centered Server Card View -->
+                    <div id="mainLobbyCardView" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; flex: 1; width: 100%; padding: 40px 20px; text-align: center; margin: 0 auto;">
+                        <div style="margin-bottom: 24px; text-align: center;">
+                            <h2 class="settings-content-heading" style="font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.02em; text-align: center;">Server Lobby</h2>
+                            <p style="font-size: 0.85rem; color: #949ba4; text-align: center;">Hover over your server card and click Enter to view full server details.</p>
+                        </div>
+                        <div id="mainLobbyServerCardContainer" style="width: 100%; max-width: 440px; display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                            <!-- Server card rendered dynamically here -->
+                        </div>
+                    </div>
+
+                    <!-- Screen 2: Detailed Server Showcase View -->
+                    <div id="mainLobbyShowcaseView" style="display: none; width: 100%; min-height: 100%; position: relative; padding-bottom: 40px;">
+                        
+                        <!-- Back Button to return to Card View -->
+                        <div style="position: absolute; top: 16px; left: 20px; z-index: 20;">
+                            <button type="button" id="mainLobbyBackToCardBtn" class="glass-btn" style="padding: 6px 14px; font-size: 0.82rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; border-radius: 20px; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,255,255,0.2); color: #dbdee1; cursor: pointer; backdrop-filter: blur(8px);">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                                <span>Back to Card</span>
+                            </button>
+                        </div>
+
+                        <!-- Full Width Server Banner stretching left-to-right (No gaps on top/left/right, blurry, faded on left & right) -->
+                        <div id="mainLobbyShowcaseBanner" style="width: 100%; height: 230px; position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%); margin-bottom: -54px; border-radius: 0;">
+                            <div id="mainLobbyShowcaseBannerBg" style="position: absolute; inset: -12px; background-size: cover; background-position: center; filter: blur(8px) brightness(0.88); transform: scale(1.08);"></div>
+                            <div style="position: absolute; inset: 0; background: linear-gradient(90deg, #111214 0%, transparent 20%, transparent 80%, #111214 100%), linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(17,18,20,0.92) 100%);"></div>
+                        </div>
+
+                        <!-- Centered Server Icon -->
+                        <div id="mainLobbyShowcaseIcon" style="width: 108px; height: 108px; border-radius: 28px; border: 4px solid #111214; background: #1e1f22; background-size: cover; background-position: center; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; color: #fff; position: relative; z-index: 10; box-shadow: 0 14px 36px rgba(0,0,0,0.75);">
+                        </div>
+
+                        <!-- Centered Server Name -->
+                        <h2 id="mainLobbyShowcaseName" style="text-align: center; font-size: 1.75rem; font-weight: 800; color: #ffffff; margin-top: 14px; margin-bottom: 26px; letter-spacing: -0.02em;">
+                            Server Name
+                        </h2>
+
+                        <!-- Details Cards Stack -->
+                        <div style="max-width: 560px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; padding: 0 20px;">
+                            
+                            <!-- Card 1: Server Description (Pure text, left aligned) -->
+                            <div style="background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px 22px; text-align: left;">
+                                <div style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
+                                    Server Description
+                                </div>
+                                <div id="mainLobbyShowcaseDescText" style="font-size: 0.95rem; color: #dbdee1; line-height: 1.55; white-space: pre-wrap; font-family: inherit;">
+                                    No description provided.
+                                </div>
+                            </div>
+
+                            <!-- Card 2: Online Status / People -->
+                            <div style="background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px 22px; text-align: left; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                                <div>
+                                    <div style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+                                        Community Activity
+                                    </div>
+                                    <div id="mainLobbyShowcaseOnlineText" style="font-size: 1.05rem; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+                                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #23a55a; display: inline-block; box-shadow: 0 0 10px rgba(35, 165, 89, 0.6);"></span>
+                                        <span>1 Member Online</span>
+                                    </div>
+                                </div>
+                                <div id="mainLobbyShowcaseTotalMembersTag" style="font-size: 0.8rem; color: #b5bac1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-weight: 600;">
+                                    1 Member
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Server Owner -->
+                            <div style="background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px 22px; text-align: left;">
+                                <div style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;">
+                                    Server Owner
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <div id="mainLobbyShowcaseOwnerAvatar" style="width: 44px; height: 44px; border-radius: 50%; background: #1e1f22; border: 1px solid rgba(255,255,255,0.15); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 1.1rem; flex-shrink: 0;">
+                                            👑
+                                        </div>
+                                        <div>
+                                            <div id="mainLobbyShowcaseOwnerName" style="font-size: 0.95rem; font-weight: 700; color: #ffffff;">Owner</div>
+                                            <div id="mainLobbyShowcaseOwnerHandle" style="font-size: 0.78rem; color: #949ba4;">@owner</div>
+                                        </div>
+                                    </div>
+                                    <div style="background: rgba(246, 219, 102, 0.12); border: 1px solid rgba(246, 219, 102, 0.3); color: #f6db66; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                                        <span>👑</span>
+                                        <span>Owner</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -8037,6 +9027,7 @@
             <div class="settings-item" data-server-tab="roles" id="serverSettingsTabRoles">Roles</div>
             <div class="settings-item" data-server-tab="channels" id="serverSettingsTabChannels">Channels & Hierarchy</div>
             <div class="settings-item" data-server-tab="dividers" id="serverSettingsTabDividers">Category & Dividers</div>
+            <div class="settings-item" data-server-tab="bots" id="serverSettingsTabBots">Bots</div>
             <div class="settings-divider" style="height: 1px; background: rgba(255,255,255,0.08); margin: 8px 0;"></div>
             <button type="button" class="settings-item delete" id="serverSettingsDeleteBtn" style="color: #f23f43; background: transparent; border: none; text-align: left; width: 100%; cursor: pointer;">
                 Delete Server
@@ -8140,6 +9131,14 @@
                     <!-- Screen 2: Detailed Server Showcase View -->
                     <div id="lobbyShowcaseView" style="display: none; width: 100%; min-height: 100%; position: relative; padding-bottom: 40px;">
                         
+                        <!-- Back Button to return to Card View -->
+                        <div style="position: absolute; top: 16px; left: 20px; z-index: 20;">
+                            <button type="button" id="lobbyBackToCardBtn" class="glass-btn" style="padding: 6px 14px; font-size: 0.82rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; border-radius: 20px; background: rgba(0,0,0,0.65); border: 1px solid rgba(255,255,255,0.2); color: #dbdee1; cursor: pointer; backdrop-filter: blur(8px);">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                                <span>Back to Card</span>
+                            </button>
+                        </div>
+
                         <!-- Full Width Server Banner stretching left-to-right (No gaps on top/left/right, blurry, faded on left & right) -->
                         <div id="lobbyShowcaseBanner" style="width: 100%; height: 230px; position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%); margin-bottom: -54px; border-radius: 0;">
                             <div id="lobbyShowcaseBannerBg" style="position: absolute; inset: -12px; background-size: cover; background-position: center; filter: blur(8px) brightness(0.88); transform: scale(1.08);"></div>
@@ -8581,6 +9580,360 @@
                                     <span>voice-hangout</span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Server Settings - Bots Panel -->
+            <div class="settings-tab-panel" id="serverSettingsPanelBots" style="display: none;">
+                <!-- Main Bots List View -->
+                <div id="botsMainView">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h2 class="settings-content-heading" style="font-size: 1.25rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Bots</h2>
+                            <p style="font-size: 0.82rem; color: #949ba4;">Manage the bots in your server.</p>
+                        </div>
+                        <button type="button" class="role-btn-shiny" id="openCreateBotBtn">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            Create Bot
+                        </button>
+                    </div>
+
+                    <div id="botsListContainer">
+                        <!-- Populated dynamically: bot cards or empty state -->
+                    </div>
+                </div>
+
+                <!-- Bot Creation Wizard (Steps 1-3) -->
+                <div id="botCreationView" style="display: none; max-width: 540px;">
+                    <!-- Wizard Header -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); flex-wrap: wrap; gap: 10px;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <button type="button" id="botCreationBackToMainBtn" class="role-btn-secondary small" style="padding: 6px 12px; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                                Back to Bots
+                            </button>
+                            <h2 class="settings-content-heading" style="font-size: 1.18rem; font-weight: 700; color: #fff; margin: 0;">Create Bot</h2>
+                        </div>
+                        <div id="botStepIndicatorBadge" style="font-size: 0.78rem; color: #dbdee1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); padding: 4px 12px; border-radius: 20px; font-weight: 600;">
+                            Step 1 of 3
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Bot Name -->
+                    <div id="botCreationStep1" class="bot-wizard-step">
+                        <div class="profile-field-group">
+                            <label class="profile-field-label">BOT NAME</label>
+                            <input type="text" class="profile-input" id="botNameInput" placeholder="e.g. MusicBot, Welcomer, Assistant" maxlength="32" style="font-size: 0.95rem; padding: 10px 14px;">
+                            <div id="botNameError" style="display: none; color: #f23f43; font-size: 0.78rem; margin-top: 6px;">Please enter a bot name.</div>
+                            <div style="font-size: 0.76rem; color: #949ba4; margin-top: 6px;">Choose a clear and unique name for this bot in your server.</div>
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                            <button type="button" class="role-btn-secondary" id="botStep1CancelBtn">Cancel</button>
+                            <button type="button" class="role-btn-shiny" id="botStep1NextBtn">
+                                Next
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.83l-5.59 5.59L12 20l8-8-8-8-1.41 1.41L16.17 11H5v2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Bot Icon & Banner -->
+                    <div id="botCreationStep2" class="bot-wizard-step" style="display: none;">
+                        <!-- Bot Icon -->
+                        <div class="profile-field-group" style="margin-bottom: 22px;">
+                            <label class="profile-field-label">BOT ICON</label>
+                            <div style="font-size: 0.76rem; color: #949ba4; margin-bottom: 10px;">Upload a square avatar for your bot. PNG, JPG or GIF.</div>
+                            <div style="display: flex; align-items: center; gap: 16px;">
+                                <div id="botIconPreview" style="width: 64px; height: 64px; border-radius: 50%; background: #2b2d31; border: 2px solid rgba(255, 255, 255, 0.16); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: #949ba4; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.4);">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <div style="display: flex; gap: 8px;">
+                                        <button type="button" class="role-btn-secondary small" id="botUploadIconBtn">Upload Icon</button>
+                                        <button type="button" class="role-btn-secondary small" id="botRemoveIconBtn" style="display: none; color: #f23f43;">Remove</button>
+                                    </div>
+                                    <span style="font-size: 0.72rem; color: #6d737b;">Square format recommended (min 128x128)</span>
+                                </div>
+                                <input type="file" id="botIconFileInput" accept="image/*" style="display: none;">
+                            </div>
+                        </div>
+
+                        <!-- Bot Banner -->
+                        <div class="profile-field-group">
+                            <label class="profile-field-label">BOT BANNER</label>
+                            <div style="font-size: 0.76rem; color: #949ba4; margin-bottom: 10px;">Upload a custom banner image for the bot's profile card.</div>
+                            <div id="botBannerPreviewBox" class="bot-wizard-banner-box">
+                                <span id="botBannerPlaceholderText" style="font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                    No custom banner selected
+                                </span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
+                                <button type="button" class="role-btn-secondary small" id="botUploadBannerBtn">Upload Banner</button>
+                                <button type="button" class="role-btn-secondary small" id="botRemoveBannerBtn" style="display: none; color: #f23f43;">Remove</button>
+                                <span style="font-size: 0.72rem; color: #6d737b; margin-left: 4px;">Recommended size: 640x220px</span>
+                            </div>
+                            <input type="file" id="botBannerFileInput" accept="image/*" style="display: none;">
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                            <button type="button" class="role-btn-secondary" id="botStep2BackBtn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                                Back
+                            </button>
+                            <button type="button" class="role-btn-shiny" id="botStep2NextBtn">
+                                Next
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13h11.83l-5.59 5.59L12 20l8-8-8-8-1.41 1.41L16.17 11H5v2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Review & Save -->
+                    <div id="botCreationStep3" class="bot-wizard-step" style="display: none;">
+                        <div>
+                            <label class="profile-field-label">REVIEW BOT PROFILE</label>
+                            <div style="font-size: 0.76rem; color: #949ba4; margin-bottom: 14px;">Preview how your bot will appear to members in this server.</div>
+                        </div>
+
+                        <!-- Card Preview -->
+                        <div class="bot-review-card">
+                            <div id="botReviewBanner" style="width: 100%; height: 110px; background: #2b2d31; background-size: cover; background-position: center; background-repeat: no-repeat; border-bottom: 1px solid rgba(255, 255, 255, 0.08); position: relative; z-index: 1;"></div>
+                            <div style="padding: 12px 18px 18px 18px; position: relative; z-index: 2;">
+                                <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-top: -36px; margin-bottom: 12px; position: relative; z-index: 3;">
+                                    <div id="botReviewAvatar" style="width: 56px; height: 56px; border-radius: 50%; background: #2b2d31; border: 3.5px solid #111214; background-size: cover; background-position: center; background-repeat: no-repeat; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); position: relative; z-index: 4;">
+                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
+                                    </div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span id="botReviewName" style="font-size: 1.1rem; font-weight: 700; color: #ffffff;">Bot Name</span>
+                                        <span class="bot-tag">BOT</span>
+                                    </div>
+                                    <div style="font-size: 0.78rem; color: #949ba4;">Server Bot</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; justify-content: space-between; gap: 10px; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                            <button type="button" class="role-btn-secondary" id="botStep3BackBtn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                                Back
+                            </button>
+                            <button type="button" class="role-btn-shiny" id="botSaveBtn" style="padding: 9px 24px;">
+                                Save Bot
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bot Code & Block Editor View -->
+                <div id="botEditorView" style="display: none; width: 100%;" class="bot-editor-layout">
+                    <!-- Top Bar -->
+                    <div class="bot-editor-header">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <button type="button" id="botEditorBackBtn" class="role-btn-secondary small" style="padding: 6px 12px; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                                Back to Bots
+                            </button>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div id="botEditorAvatarThumb" style="width: 32px; height: 32px; border-radius: 50%; background: #2b2d31; border: 2px solid rgba(255,255,255,0.16); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; overflow: hidden;">
+                                    🤖
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <h2 id="botEditorNameTitle" style="font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0;">Bot Name</h2>
+                                    <span class="bot-tag">BOT</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span id="botEditorStatusNotice" style="display: none; font-size: 0.76rem; color: #23a55a; font-weight: 600; background: rgba(35, 165, 90, 0.15); border: 1px solid rgba(35, 165, 90, 0.3); padding: 4px 10px; border-radius: 20px;">
+                                ✓ Saved & Published
+                            </span>
+                            <button type="button" class="role-btn-secondary small" id="botEditorInviteBtn" style="padding: 7px 14px; gap: 6px;" title="Invite this bot to appear in the server members list">
+                                <span>🤖</span>
+                                <span id="botEditorInviteBtnText">Invite to Server</span>
+                            </button>
+                            <button type="button" class="role-btn-shiny" id="botEditorSavePublishBtn" style="padding: 7px 18px; gap: 6px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                                Save & Publish
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- File Explorer Bar -->
+                    <div class="bot-editor-filebar">
+                        <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0;">
+                            <span style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.05em; flex-shrink: 0;">Files:</span>
+                            <div class="bot-file-tabs-scroll" id="botEditorFileTabs">
+                                <!-- Populated dynamically: file tab chips -->
+                            </div>
+                        </div>
+                        <button type="button" class="role-btn-secondary small" id="botEditorCreateFileBtn" style="padding: 5px 12px; gap: 6px; flex-shrink: 0;">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            Create File
+                        </button>
+                    </div>
+
+                    <!-- Visual Workspace -->
+                    <div class="bot-editor-workspace">
+                        <!-- Left Palette / Toolbox -->
+                        <div class="bot-toolbox-panel" id="botEditorToolbox">
+                            <!-- Dedicated Files Section -->
+                            <div style="padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <div class="bot-toolbox-section-title" style="margin-bottom: 0;">
+                                        <span>📁 Bot Files</span>
+                                    </div>
+                                    <button type="button" class="role-btn-secondary small" id="botSidebarCreateFileBtn" style="padding: 2px 8px; font-size: 0.72rem; gap: 3px;" title="Create new file">
+                                        + New File
+                                    </button>
+                                </div>
+                                <div class="bot-files-list-box" id="botSidebarFilesList">
+                                    <!-- Populated dynamically with Link, Delete, and Active indicators -->
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="bot-toolbox-section-title">
+                                    <span>⚡ Triggers (Events)</span>
+                                </div>
+                                <div class="bot-toolbox-card trigger-card" data-block-type="event_command" title="Triggered when a command like /bot hello is sent">
+                                    <span>/bot [command]</span>
+                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Add</span>
+                                </div>
+                                <div class="bot-toolbox-card trigger-card" data-block-type="event_join" title="Triggered when a user joins the server">
+                                    <span>When member joins</span>
+                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Add</span>
+                                </div>
+                                <div class="bot-toolbox-card trigger-card" data-block-type="event_message" title="Triggered when a message contains specific text">
+                                    <span>Message contains</span>
+                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Add</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="bot-toolbox-section-title">
+                                    <span>💬 Actions</span>
+                                </div>
+                                <div class="bot-toolbox-card action-card" data-block-type="action_reply" title="Send a reply message in the current channel">
+                                    <span>Reply in channel</span>
+                                    <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                </div>
+                                <div class="bot-toolbox-card action-card" data-block-type="action_dm" title="Send a private direct message to the user">
+                                    <span>Send Direct Message</span>
+                                    <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                </div>
+                                <div class="bot-toolbox-card action-card" data-block-type="action_react" title="Add an emoji reaction to the message">
+                                    <span>Add reaction</span>
+                                    <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="bot-toolbox-section-title">
+                                    <span>⚙️ Logic & Flow</span>
+                                </div>
+                                <div class="bot-toolbox-card control-card" data-block-type="control_link_file" title="Execute another linked file in this bot">
+                                    <span>🔗 Link & Run File</span>
+                                    <span style="font-size: 0.7rem; color: #f0b232;">+ Add</span>
+                                </div>
+                                <div class="bot-toolbox-card control-card" data-block-type="control_if_role" title="Check if user has a role before executing">
+                                    <span>If user has role</span>
+                                    <span style="font-size: 0.7rem; color: #f0b232;">+ Add</span>
+                                </div>
+                                <div class="bot-toolbox-card control-card" data-block-type="control_wait" title="Delay before continuing execution">
+                                    <span>Wait seconds</span>
+                                    <span style="font-size: 0.7rem; color: #f0b232;">+ Add</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: auto; padding: 10px; background: rgba(0,0,0,0.25); border-radius: 6px; font-size: 0.73rem; color: #949ba4; line-height: 1.4;">
+                                💡 <strong style="color: #dbdee1;">Tip:</strong> Click <strong style="color:#5865F2;">+ Add</strong> or drag blocks directly onto the canvas. Connect matching blocks using the bottom notch.
+                            </div>
+                        </div>
+
+                        <!-- Right Canvas Area -->
+                        <div class="bot-canvas-wrapper">
+                            <div class="bot-canvas-toolbar">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 0.8rem; font-weight: 700; color: #ffffff;" id="botActiveFileNameDisplay">main.blocks</span>
+                                    <span style="font-size: 0.68rem; color: #949ba4; background: rgba(255,255,255,0.06); padding: 2px 7px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">Block Mode</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <button type="button" class="role-btn-secondary small" id="botCanvasCenterBtn" title="Reset canvas view">
+                                        Center View
+                                    </button>
+                                    <button type="button" class="role-btn-secondary small" id="botCanvasClearBtn" style="color: #f23f43;" title="Clear all blocks in this file">
+                                        Clear Blocks
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Viewport & Stage -->
+                            <div class="bot-canvas-viewport" id="botCanvasViewport">
+                                <div class="bot-canvas-stage" id="botCanvasStage">
+                                    <svg class="bot-canvas-svg" id="botCanvasSvg"></svg>
+                                    <div id="botCanvasNodesContainer">
+                                        <!-- Blocks rendered dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create File Modal -->
+                <div id="botCreateFileModal" class="bot-modal-backdrop" style="display: none;">
+                    <div class="bot-modal-box">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <h3 style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin: 0;">Create Bot File</h3>
+                            <button type="button" class="bot-block-delete-btn" id="closeBotCreateFileModalBtn" style="font-size: 1.3rem;">✕</button>
+                        </div>
+                        <p style="font-size: 0.82rem; color: #949ba4; margin: 0;">Choose a file name and select what coding style you want for this file.</p>
+
+                        <!-- File Name -->
+                        <div class="profile-field-group">
+                            <label class="profile-field-label">FILE NAME</label>
+                            <input type="text" class="profile-input" id="newBotFileNameInput" placeholder="e.g. greetings.blocks, moderation.blocks" maxlength="40" style="padding: 10px 12px; font-size: 0.92rem;">
+                            <div id="newBotFileNameError" style="display: none; color: #f23f43; font-size: 0.78rem; margin-top: 6px;">Please enter a valid file name.</div>
+                        </div>
+
+                        <!-- Coding Options -->
+                        <div class="profile-field-group">
+                            <label class="profile-field-label">CODING FORMAT</label>
+                            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 6px;">
+                                <!-- Block Coding (Available & Selected) -->
+                                <div class="bot-type-option-card selected" id="botOptionBlockCoding">
+                                    <div style="font-size: 1.4rem; line-height: 1;">🧩</div>
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                                            <span style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">Block Coding</span>
+                                            <span style="font-size: 0.68rem; font-weight: 700; color: #23a55a; background: rgba(35, 165, 90, 0.15); border: 1px solid rgba(35, 165, 90, 0.3); padding: 2px 7px; border-radius: 12px;">Active</span>
+                                        </div>
+                                        <p style="font-size: 0.78rem; color: #949ba4; margin: 4px 0 0 0;">Visual drag-and-drop block interface. Connect commands, responses, and events effortlessly.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Text Coding (Disabled / Coming Soon) -->
+                                <div class="bot-type-option-card disabled" id="botOptionTextCoding">
+                                    <div style="font-size: 1.4rem; line-height: 1;">💻</div>
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                                            <span style="font-size: 0.9rem; font-weight: 700; color: #949ba4;">Script Coding (JS / TS)</span>
+                                            <span style="font-size: 0.68rem; font-weight: 700; color: #b5bac1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); padding: 2px 7px; border-radius: 12px;">Coming Soon</span>
+                                        </div>
+                                        <p style="font-size: 0.78rem; color: #6d737b; margin: 4px 0 0 0;">Write raw JavaScript/TypeScript code. (Block coding is currently the active format).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Actions -->
+                        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                            <button type="button" class="role-btn-secondary" id="cancelBotCreateFileBtn">Cancel</button>
+                            <button type="button" class="role-btn-shiny" id="confirmBotCreateFileBtn" style="padding: 8px 20px;">Create File</button>
                         </div>
                     </div>
                 </div>
@@ -12670,6 +14023,8 @@
         const serverBannerImg = document.getElementById('serverBannerImg');
         const channelsItemsList = document.getElementById('channelsItemsList');
         const openAddChannelBtn = document.getElementById('openAddChannelBtn');
+        const serverLobbyBtn = document.getElementById('serverLobbyBtn');
+        const serverMainLobbyView = document.getElementById('serverMainLobbyView');
 
         // Server Chat view elements
         const serverChannelTitle = document.getElementById('serverChannelTitle');
@@ -12856,14 +14211,25 @@
         // Update Server Ambient Background for every channel
         function updateActiveServerBackground() {
             const bgEl = document.getElementById('serverChatBackground');
-            if (!bgEl) return;
+            const lobbyBgEl = document.getElementById('serverMainLobbyBackground');
             const server = serversList.find(s => s.id === activeServerId);
-            if (server && server.backgroundImage) {
-                bgEl.style.backgroundImage = `url('${server.backgroundImage}')`;
-                bgEl.style.display = 'block';
-            } else {
-                bgEl.style.backgroundImage = 'none';
-                bgEl.style.display = 'none';
+            if (bgEl) {
+                if (server && server.backgroundImage) {
+                    bgEl.style.backgroundImage = `url('${server.backgroundImage}')`;
+                    bgEl.style.display = 'block';
+                } else {
+                    bgEl.style.backgroundImage = 'none';
+                    bgEl.style.display = 'none';
+                }
+            }
+            if (lobbyBgEl) {
+                if (server && server.backgroundImage) {
+                    lobbyBgEl.style.backgroundImage = `url('${server.backgroundImage}')`;
+                    lobbyBgEl.style.display = 'block';
+                } else {
+                    lobbyBgEl.style.backgroundImage = 'none';
+                    lobbyBgEl.style.display = 'none';
+                }
             }
             refreshSiteThemeForActiveServer();
         }
@@ -12928,6 +14294,8 @@
             if (globalExploreView) globalExploreView.style.display = 'none';
             if (serverChannelsSidebar) serverChannelsSidebar.style.display = 'flex';
             if (serverChatView) serverChatView.style.display = 'flex';
+            if (serverMainLobbyView) serverMainLobbyView.style.display = 'none';
+            if (serverLobbyBtn) serverLobbyBtn.classList.remove('active');
 
             // Mark DMs and Explore wrappers inactive, update active server pill
             const serverDmsWrapper = document.getElementById('serverDmsWrapper');
@@ -14353,6 +15721,10 @@
                 server.collapsedDividers = [];
             }
 
+            if (serverLobbyBtn) {
+                serverLobbyBtn.classList.toggle('active', activeChannelId === '__lobby__');
+            }
+
             const isServerOwner = isUserServerOwner(currentUser, server);
 
             // Apply custom category divider styling to primary category header
@@ -14700,6 +16072,17 @@
 
             activeChannelId = channelId;
 
+            // Deactivate lobby button and show channel chat view
+            if (serverLobbyBtn) {
+                serverLobbyBtn.classList.remove('active');
+            }
+            if (serverMainLobbyView) {
+                serverMainLobbyView.style.display = 'none';
+            }
+            if (serverChatView) {
+                serverChatView.style.display = 'flex';
+            }
+
             // Highlight channel item
             if (channelsItemsList) {
                 channelsItemsList.querySelectorAll('.channel-item').forEach(el => {
@@ -14762,6 +16145,7 @@
 
             if (serverChannelsSidebar) serverChannelsSidebar.style.display = 'none';
             if (serverChatView) serverChatView.style.display = 'none';
+            if (serverMainLobbyView) serverMainLobbyView.style.display = 'none';
             if (dmChatView) dmChatView.style.display = 'none';
             if (globalExploreView) globalExploreView.style.display = 'none';
             if (dmsSidebar) dmsSidebar.style.display = 'flex';
@@ -14817,6 +16201,7 @@
             if (dmsSidebar) dmsSidebar.style.display = 'none';
             if (serverChannelsSidebar) serverChannelsSidebar.style.display = 'none';
             if (serverChatView) serverChatView.style.display = 'none';
+            if (serverMainLobbyView) serverMainLobbyView.style.display = 'none';
             if (globalExploreView) globalExploreView.style.display = 'flex';
 
             const serverDmsWrapper = document.getElementById('serverDmsWrapper');
@@ -15308,6 +16693,35 @@
                         isBot: true
                     });
                 }
+                // Ensure custom invited bots are present and synchronized in members
+                if (Array.isArray(server.bots)) {
+                    server.bots.forEach(b => {
+                        if (b.isInvited) {
+                            let bMem = server.members.find(m => m.id === b.id);
+                            if (!bMem) {
+                                server.members.push({
+                                    id: b.id,
+                                    name: b.name,
+                                    displayName: b.name,
+                                    handle: b.name.toLowerCase().replace(/[^a-z0-9]/g, '_') + '_bot',
+                                    avatar: b.icon || '',
+                                    banner: b.banner || '',
+                                    isOwner: false,
+                                    isBot: true,
+                                    status: 'online',
+                                    customStatus: 'Coding with Blocks',
+                                    joinedAt: b.createdAt || Date.now()
+                                });
+                            } else {
+                                bMem.name = b.name;
+                                bMem.displayName = b.name;
+                                bMem.avatar = b.icon || '';
+                                bMem.banner = b.banner || '';
+                                bMem.isBot = true;
+                            }
+                        }
+                    });
+                }
             }
             return server.members;
         }
@@ -15451,7 +16865,24 @@
                 if (memObj) {
                     el.onclick = () => {
                         if (memObj.isBot) {
-                            openUserProfileCard(talkyBotProfile, false);
+                            if (memObj.id === 'bot_talky') {
+                                openUserProfileCard(talkyBotProfile, false);
+                            } else {
+                                const customBotProfile = {
+                                    id: memObj.id,
+                                    username: memObj.name,
+                                    displayName: memObj.name,
+                                    handle: memObj.handle || (memObj.name.toLowerCase().replace(/[^a-z0-9]/g, '_') + '_bot'),
+                                    avatar: memObj.avatar || '',
+                                    banner: memObj.banner || '',
+                                    bio: 'Custom server bot built with visual blocks in Talky.',
+                                    isBot: true,
+                                    status: 'online',
+                                    customStatus: 'Coding with Blocks',
+                                    createdAt: memObj.joinedAt || Date.now()
+                                };
+                                openUserProfileCard(customBotProfile, false);
+                            }
                         } else {
                             const liveUser = (window.globalUsersMap && window.globalUsersMap[memObj.id]) || null;
                             const userToOpen = liveUser || (currentUser && (String(currentUser.id) === String(memObj.id) || String(memObj.id) === 'user_default') ? currentUser : memObj);
@@ -16246,6 +17677,237 @@
             }, 300);
         }
 
+        /* ------------------------------------------------------------
+           MAIN SERVER LOBBY CONTROLLER (RIGHT VIEW)
+           Replaces chat & players online with the full server lobby layout
+           ------------------------------------------------------------ */
+
+        function openServerLobby() {
+            const server = serversList.find(s => s.id === activeServerId);
+            if (!server) return;
+
+            activeChannelId = '__lobby__';
+
+            // Sidebar button active state
+            if (serverLobbyBtn) {
+                serverLobbyBtn.classList.add('active');
+            }
+            if (channelsItemsList) {
+                channelsItemsList.querySelectorAll('.channel-item').forEach(el => {
+                    el.classList.remove('active');
+                });
+            }
+
+            // Hide channel chat & members sidebar, show main lobby
+            if (serverChatView) {
+                serverChatView.style.display = 'none';
+            }
+            if (serverMainLobbyView) {
+                serverMainLobbyView.style.display = 'flex';
+            }
+
+            // Top bar text
+            const mainLobbyTitle = document.getElementById('serverMainLobbyTitle');
+            const mainLobbyTopic = document.getElementById('serverMainLobbyTopic');
+            if (mainLobbyTitle) mainLobbyTitle.textContent = 'Lobby';
+            if (mainLobbyTopic) mainLobbyTopic.textContent = `Welcome to the ${server.name || 'Talky Server'} lobby!`;
+
+            // Ambient background
+            updateActiveServerBackground();
+
+            // Render exact server lobby card
+            renderMainLobbyServerCard();
+        }
+
+        function renderMainLobbyServerCard() {
+            const cardView = document.getElementById('mainLobbyCardView');
+            const showcaseView = document.getElementById('mainLobbyShowcaseView');
+            if (cardView) cardView.style.display = 'flex';
+            if (showcaseView) showcaseView.style.display = 'none';
+
+            const container = document.getElementById('mainLobbyServerCardContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const server = serversList.find(s => s.id === activeServerId);
+            if (!server) {
+                container.innerHTML = `<div style="color: #949ba4; font-size: 0.92rem;">No active server selected.</div>`;
+                return;
+            }
+
+            const name = server.name || 'Talky Server';
+            const description = server.description || 'Welcome to our server lobby! Connect, chat, and hangout with our community.';
+            const icon = server.icon || '';
+            const banner = server.banner || '';
+
+            const membersCountNum = (server.members && server.members.length) ? server.members.length : 1;
+            const ownerName = server.ownerName || (currentUser ? (currentUser.displayName || currentUser.username) : 'Server Owner');
+            const ownerHandle = server.ownerHandle || (currentUser ? (currentUser.handle || 'owner') : 'owner');
+            const category = server.category || 'Community';
+
+            const cardData = {
+                id: server.id,
+                name: name,
+                description: description,
+                category: category,
+                icon: icon,
+                banner: banner,
+                ownerName: ownerName,
+                ownerHandle: ownerHandle,
+                membersCount: `${membersCountNum} ${membersCountNum === 1 ? 'Member' : 'Members'}`,
+                membersCountNum: membersCountNum
+            };
+
+            const cardEl = createGlobalServerCard(cardData);
+            cardEl.style.margin = '0 auto';
+            cardEl.style.width = '100%';
+            cardEl.style.maxWidth = '400px';
+            cardEl.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 255, 255, 0.08)';
+            cardEl.style.transition = 'all 0.25s ease';
+            cardEl.style.position = 'relative';
+
+            // Hover overlay with "Enter" button
+            const hoverOverlay = document.createElement('div');
+            hoverOverlay.className = 'lobby-card-enter-overlay';
+            hoverOverlay.innerHTML = `
+                <div class="enter-badge-btn">
+                    <span>Enter</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            `;
+
+            cardEl.addEventListener('click', (e) => {
+                e.stopPropagation();
+                triggerMainLobbyEnterTransition();
+            });
+
+            cardEl.appendChild(hoverOverlay);
+            container.appendChild(cardEl);
+        }
+
+        function triggerMainLobbyEnterTransition() {
+            const mainWrapper = document.getElementById('mainLobbyWrapper');
+            if (!mainWrapper) return;
+
+            mainWrapper.style.opacity = '0';
+            mainWrapper.style.transform = 'scale(0.96)';
+
+            setTimeout(() => {
+                const cardView = document.getElementById('mainLobbyCardView');
+                const showcaseView = document.getElementById('mainLobbyShowcaseView');
+
+                if (cardView) cardView.style.display = 'none';
+                if (showcaseView) showcaseView.style.display = 'block';
+
+                renderMainLobbyShowcaseView();
+
+                mainWrapper.style.opacity = '1';
+                mainWrapper.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        function renderMainLobbyShowcaseView() {
+            const server = serversList.find(s => s.id === activeServerId);
+            if (!server) return;
+
+            const name = server.name || 'Talky Server';
+            const description = server.description || 'Welcome to our server lobby! Connect, chat, and hangout with our community.';
+            const icon = server.icon || '';
+            const banner = server.banner || '';
+
+            const membersCountNum = (server.members && server.members.length) ? server.members.length : 1;
+            const ownerName = server.ownerName || (currentUser ? (currentUser.displayName || currentUser.username) : 'Server Owner');
+            const ownerHandle = server.ownerHandle || (currentUser ? (currentUser.handle || 'owner') : 'owner');
+
+            // 1. Full width Blurry Faded Banner
+            const bannerBgEl = document.getElementById('mainLobbyShowcaseBannerBg');
+            if (bannerBgEl) {
+                if (banner) {
+                    bannerBgEl.style.backgroundImage = `url('${banner}')`;
+                } else {
+                    bannerBgEl.style.backgroundImage = 'linear-gradient(135deg, rgba(88, 101, 242, 0.6) 0%, rgba(235, 69, 158, 0.6) 100%), #1e1f22';
+                }
+            }
+
+            // 2. Centered Icon at top
+            const iconEl = document.getElementById('mainLobbyShowcaseIcon');
+            if (iconEl) {
+                if (icon) {
+                    iconEl.style.backgroundImage = `url('${icon}')`;
+                    iconEl.textContent = '';
+                } else {
+                    iconEl.style.backgroundImage = 'none';
+                    const initials = name.split(/\s+/).map(w => w.charAt(0).toUpperCase()).slice(0, 2).join('') || 'S';
+                    iconEl.textContent = initials;
+                }
+            }
+
+            // 3. Centered Server Name
+            const nameEl = document.getElementById('mainLobbyShowcaseName');
+            if (nameEl) nameEl.textContent = name;
+
+            // 4. Pure Text Description Card
+            const descEl = document.getElementById('mainLobbyShowcaseDescText');
+            if (descEl) descEl.textContent = description;
+
+            // 5. Online Status Card
+            const onlineEl = document.getElementById('mainLobbyShowcaseOnlineText');
+            const totalMembersEl = document.getElementById('mainLobbyShowcaseTotalMembersTag');
+            if (onlineEl) {
+                onlineEl.innerHTML = `
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #23a55a; display: inline-block; box-shadow: 0 0 10px rgba(35, 165, 89, 0.6);"></span>
+                    <span>1 Member Online</span>
+                `;
+            }
+            if (totalMembersEl) {
+                totalMembersEl.textContent = `${membersCountNum} ${membersCountNum === 1 ? 'Total Member' : 'Total Members'}`;
+            }
+
+            // 6. Server Owner Card
+            const ownerAvatarEl = document.getElementById('mainLobbyShowcaseOwnerAvatar');
+            const ownerNameEl = document.getElementById('mainLobbyShowcaseOwnerName');
+            const ownerHandleEl = document.getElementById('mainLobbyShowcaseOwnerHandle');
+
+            if (ownerNameEl) ownerNameEl.textContent = ownerName;
+            if (ownerHandleEl) ownerHandleEl.textContent = `@${ownerHandle}`;
+            if (ownerAvatarEl) {
+                let ownerUser = null;
+                if (server.ownerId && window.globalUsersMap && window.globalUsersMap[server.ownerId]) {
+                    ownerUser = window.globalUsersMap[server.ownerId];
+                } else if (currentUser && (server.ownerId === currentUser.id || !server.ownerId)) {
+                    ownerUser = currentUser;
+                }
+                if (ownerUser && ownerUser.avatar) {
+                    ownerAvatarEl.style.backgroundImage = `url('${ownerUser.avatar}')`;
+                    ownerAvatarEl.textContent = '';
+                } else {
+                    ownerAvatarEl.style.backgroundImage = 'none';
+                    ownerAvatarEl.textContent = '👑';
+                }
+            }
+        }
+
+        function triggerMainLobbyBackTransition() {
+            const mainWrapper = document.getElementById('mainLobbyWrapper');
+            if (!mainWrapper) return;
+
+            mainWrapper.style.opacity = '0';
+            mainWrapper.style.transform = 'scale(0.96)';
+
+            setTimeout(() => {
+                const cardView = document.getElementById('mainLobbyCardView');
+                const showcaseView = document.getElementById('mainLobbyShowcaseView');
+
+                if (showcaseView) showcaseView.style.display = 'none';
+                if (cardView) cardView.style.display = 'flex';
+
+                renderMainLobbyServerCard();
+
+                mainWrapper.style.opacity = '1';
+                mainWrapper.style.transform = 'scale(1)';
+            }, 300);
+        }
+
         // Server Settings Modal Controls
         function openServerSettings(initialTab = 'overview') {
             const server = serversList.find(s => s.id === activeServerId);
@@ -16839,12 +18501,14 @@
             const tabRoles = document.getElementById('serverSettingsTabRoles');
             const tabChannels = document.getElementById('serverSettingsTabChannels');
             const tabDividers = document.getElementById('serverSettingsTabDividers');
+            const tabBots = document.getElementById('serverSettingsTabBots');
 
             const panelOverview = document.getElementById('serverSettingsPanelOverview');
             const panelLobby = document.getElementById('serverSettingsPanelLobby');
             const panelRoles = document.getElementById('serverSettingsPanelRoles');
             const panelChannels = document.getElementById('serverSettingsPanelChannels');
             const panelDividers = document.getElementById('serverSettingsPanelDividers');
+            const panelBots = document.getElementById('serverSettingsPanelBots');
             const noticeBar = document.getElementById('serverSaveNoticeBar');
 
             if (tabOverview) tabOverview.classList.toggle('active', tabName === 'overview');
@@ -16852,6 +18516,7 @@
             if (tabRoles) tabRoles.classList.toggle('active', tabName === 'roles');
             if (tabChannels) tabChannels.classList.toggle('active', tabName === 'channels');
             if (tabDividers) tabDividers.classList.toggle('active', tabName === 'dividers');
+            if (tabBots) tabBots.classList.toggle('active', tabName === 'bots');
 
             if (panelOverview) panelOverview.style.display = (tabName === 'overview') ? 'block' : 'none';
             if (panelLobby) {
@@ -16886,6 +18551,13 @@
                     if (server) {
                         initCategoryDividerDraft(server);
                     }
+                }
+            }
+            if (panelBots) {
+                panelBots.style.display = (tabName === 'bots') ? 'block' : 'none';
+                if (tabName === 'bots') {
+                    if (noticeBar) noticeBar.classList.remove('show');
+                    openBotsMainListView();
                 }
             }
         }
@@ -17051,6 +18723,30 @@
             serverSettingsTabLobby.addEventListener('click', () => switchServerSettingsTab('lobby'));
         }
 
+        // Main Channel Sidebar Lobby Button Event Listener
+        if (serverLobbyBtn) {
+            serverLobbyBtn.addEventListener('click', () => {
+                openServerLobby();
+            });
+        }
+
+        // Back to Card buttons in Showcase views
+        const mainLobbyBackToCardBtn = document.getElementById('mainLobbyBackToCardBtn');
+        if (mainLobbyBackToCardBtn) {
+            mainLobbyBackToCardBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                triggerMainLobbyBackTransition();
+            });
+        }
+
+        const lobbyBackToCardBtn = document.getElementById('lobbyBackToCardBtn');
+        if (lobbyBackToCardBtn) {
+            lobbyBackToCardBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                triggerLobbyBackTransition();
+            });
+        }
+
         const serverSettingsTabRoles = document.getElementById('serverSettingsTabRoles');
         if (serverSettingsTabRoles) {
             serverSettingsTabRoles.addEventListener('click', () => switchServerSettingsTab('roles'));
@@ -17064,6 +18760,1368 @@
         const serverSettingsTabDividers = document.getElementById('serverSettingsTabDividers');
         if (serverSettingsTabDividers) {
             serverSettingsTabDividers.addEventListener('click', () => switchServerSettingsTab('dividers'));
+        }
+
+        const serverSettingsTabBots = document.getElementById('serverSettingsTabBots');
+        if (serverSettingsTabBots) {
+            serverSettingsTabBots.addEventListener('click', () => switchServerSettingsTab('bots'));
+        }
+
+        // ==========================================
+        // Server Settings - Bots & Bot Creation System
+        // ==========================================
+        let botDraft = {
+            name: '',
+            icon: '',
+            banner: ''
+        };
+        let currentBotStep = 1;
+
+        function openBotsMainListView() {
+            const mainView = document.getElementById('botsMainView');
+            const creationView = document.getElementById('botCreationView');
+            const editorView = document.getElementById('botEditorView');
+            if (mainView) mainView.style.display = 'block';
+            if (creationView) creationView.style.display = 'none';
+            if (editorView) editorView.style.display = 'none';
+
+            const server = serversList.find(s => s.id === activeServerId);
+            if (!server) return;
+            renderServerBotsList(server);
+        }
+
+        function renderServerBotsList(server) {
+            const container = document.getElementById('botsListContainer');
+            if (!container) return;
+
+            if (!Array.isArray(server.bots)) {
+                server.bots = [];
+            }
+
+            if (server.bots.length === 0) {
+                container.innerHTML = `
+                    <div style="background: rgba(18, 19, 23, 0.7); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 40px 20px; text-align: center;">
+                        <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto; color: #949ba4;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
+                        </div>
+                        <div style="font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: 6px;">No Bots Created Yet</div>
+                        <p style="font-size: 0.82rem; color: #949ba4; max-width: 380px; margin: 0 auto 20px auto;">Create custom bots with their own icon and banner for your server.</p>
+                        <button type="button" class="role-btn-shiny" id="emptyCreateBotBtn">+ Create First Bot</button>
+                    </div>
+                `;
+                const emptyBtn = document.getElementById('emptyCreateBotBtn');
+                if (emptyBtn) {
+                    emptyBtn.addEventListener('click', openBotCreationWizard);
+                }
+                return;
+            }
+
+            let cardsHtml = '<div class="bots-list-grid">';
+            server.bots.forEach(bot => {
+                const bannerStyle = bot.banner
+                    ? `background-image: url('${escapeHtml(bot.banner)}');`
+                    : `background: linear-gradient(135deg, #1e1f22, #2b2d31);`;
+
+                const avatarContent = bot.icon
+                    ? ''
+                    : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>`;
+
+                const avatarStyle = bot.icon
+                    ? `background-image: url('${escapeHtml(bot.icon)}');`
+                    : '';
+
+                const createdDate = bot.createdAt
+                    ? new Date(bot.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
+                    : 'Server Bot';
+
+                cardsHtml += `
+                    <div class="bot-card-item" data-bot-id="${escapeHtml(bot.id)}">
+                        <div class="bot-card-banner" style="${bannerStyle}"></div>
+                        <div class="bot-card-body">
+                            <div class="bot-card-header-row">
+                                <div class="bot-card-avatar" style="${avatarStyle}">
+                                    ${avatarContent}
+                                </div>
+                            </div>
+                            <div class="bot-card-info">
+                                <div class="bot-card-name-title">
+                                    <span>${escapeHtml(bot.name)}</span>
+                                    <span class="bot-tag">BOT</span>
+                                </div>
+                                <div class="bot-card-meta">Added ${escapeHtml(createdDate)}</div>
+                            </div>
+                            <div class="bot-card-footer">
+                                <button type="button" class="role-btn-secondary small bot-card-invite-btn ${bot.isInvited ? 'is-invited' : ''}" data-bot-id="${escapeHtml(bot.id)}" title="${bot.isInvited ? 'Bot is in server. Click to remove.' : 'Invite bot to server members'}">
+                                    ${bot.isInvited ? '✓ In Server' : '🤖 Invite'}
+                                </button>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <button type="button" class="role-btn-shiny small bot-card-edit-btn" data-bot-id="${escapeHtml(bot.id)}" title="Open Bot Code Editor">
+                                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                                        Edit
+                                    </button>
+                                    <button type="button" class="role-btn-secondary small bot-card-delete-btn" data-bot-id="${escapeHtml(bot.id)}" style="color: #f23f43; border-color: rgba(242, 63, 67, 0.25);">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            cardsHtml += '</div>';
+
+            container.innerHTML = cardsHtml;
+
+            // Bind invite actions
+            container.querySelectorAll('.bot-card-invite-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleBotServerInvite(btn.dataset.botId);
+                });
+            });
+
+            // Bind edit actions
+            container.querySelectorAll('.bot-card-edit-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openBotEditor(btn.dataset.botId);
+                });
+            });
+
+            // Bind delete actions
+            container.querySelectorAll('.bot-card-delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const botId = btn.dataset.botId;
+                    const bIndex = server.bots.findIndex(b => b.id === botId);
+                    if (bIndex !== -1) {
+                        const botName = server.bots[bIndex].name;
+                        // Remove from server.members if present
+                        if (Array.isArray(server.members)) {
+                            const mIdx = server.members.findIndex(m => m.id === botId);
+                            if (mIdx !== -1) {
+                                server.members.splice(mIdx, 1);
+                            }
+                        }
+                        server.bots.splice(bIndex, 1);
+                        saveServers();
+                        renderServerBotsList(server);
+                        renderServerMembersList(server);
+                        showBotEditorToast(`Deleted bot ${botName}`);
+                    }
+                });
+            });
+        }
+
+        function openBotCreationWizard() {
+            const mainView = document.getElementById('botsMainView');
+            const creationView = document.getElementById('botCreationView');
+            const editorView = document.getElementById('botEditorView');
+            if (mainView) mainView.style.display = 'none';
+            if (creationView) creationView.style.display = 'block';
+            if (editorView) editorView.style.display = 'none';
+
+            botDraft = {
+                name: '',
+                icon: '',
+                banner: ''
+            };
+
+            const nameInput = document.getElementById('botNameInput');
+            if (nameInput) nameInput.value = '';
+            const errEl = document.getElementById('botNameError');
+            if (errEl) errEl.style.display = 'none';
+
+            updateBotIconPreview();
+            updateBotBannerPreview();
+            goToBotStep(1);
+        }
+
+        function goToBotStep(step) {
+            currentBotStep = Math.max(1, Math.min(3, step));
+
+            const stepBadge = document.getElementById('botStepIndicatorBadge');
+            if (stepBadge) {
+                stepBadge.textContent = `Step ${currentBotStep} of 3`;
+            }
+
+            const step1 = document.getElementById('botCreationStep1');
+            const step2 = document.getElementById('botCreationStep2');
+            const step3 = document.getElementById('botCreationStep3');
+
+            if (step1) step1.style.display = (currentBotStep === 1) ? 'block' : 'none';
+            if (step2) {
+                step2.style.display = (currentBotStep === 2) ? 'block' : 'none';
+                if (currentBotStep === 2) {
+                    updateBotIconPreview();
+                    updateBotBannerPreview();
+                }
+            }
+            if (step3) {
+                step3.style.display = (currentBotStep === 3) ? 'block' : 'none';
+                if (currentBotStep === 3) {
+                    renderBotReviewCard();
+                }
+            }
+
+            if (currentBotStep === 1) {
+                const nameInput = document.getElementById('botNameInput');
+                if (nameInput) setTimeout(() => nameInput.focus(), 50);
+            }
+        }
+
+        function updateBotIconPreview() {
+            const preview = document.getElementById('botIconPreview');
+            const removeBtn = document.getElementById('botRemoveIconBtn');
+            const uploadBtn = document.getElementById('botUploadIconBtn');
+
+            if (!preview) return;
+
+            if (botDraft.icon) {
+                preview.style.backgroundImage = `url('${botDraft.icon}')`;
+                preview.innerHTML = '';
+                if (removeBtn) removeBtn.style.display = 'inline-flex';
+                if (uploadBtn) uploadBtn.textContent = 'Replace Icon';
+            } else {
+                preview.style.backgroundImage = 'none';
+                preview.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>`;
+                if (removeBtn) removeBtn.style.display = 'none';
+                if (uploadBtn) uploadBtn.textContent = 'Upload Icon';
+            }
+        }
+
+        function updateBotBannerPreview() {
+            const box = document.getElementById('botBannerPreviewBox');
+            const placeholder = document.getElementById('botBannerPlaceholderText');
+            const removeBtn = document.getElementById('botRemoveBannerBtn');
+            const uploadBtn = document.getElementById('botUploadBannerBtn');
+
+            if (!box) return;
+
+            if (botDraft.banner) {
+                box.style.backgroundImage = `url('${botDraft.banner}')`;
+                box.classList.add('has-image');
+                if (placeholder) placeholder.style.display = 'none';
+                if (removeBtn) removeBtn.style.display = 'inline-flex';
+                if (uploadBtn) uploadBtn.textContent = 'Replace Banner';
+            } else {
+                box.style.backgroundImage = 'none';
+                box.classList.remove('has-image');
+                if (placeholder) placeholder.style.display = 'flex';
+                if (removeBtn) removeBtn.style.display = 'none';
+                if (uploadBtn) uploadBtn.textContent = 'Upload Banner';
+            }
+        }
+
+        function renderBotReviewCard() {
+            const reviewBanner = document.getElementById('botReviewBanner');
+            const reviewAvatar = document.getElementById('botReviewAvatar');
+            const reviewName = document.getElementById('botReviewName');
+
+            if (reviewBanner) {
+                if (botDraft.banner) {
+                    reviewBanner.style.backgroundImage = `url('${botDraft.banner}')`;
+                } else {
+                    reviewBanner.style.backgroundImage = 'linear-gradient(135deg, #1e1f22, #2b2d31)';
+                }
+            }
+
+            if (reviewAvatar) {
+                if (botDraft.icon) {
+                    reviewAvatar.style.backgroundImage = `url('${botDraft.icon}')`;
+                    reviewAvatar.innerHTML = '';
+                } else {
+                    reviewAvatar.style.backgroundImage = 'none';
+                    reviewAvatar.innerHTML = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>`;
+                }
+            }
+
+            if (reviewName) {
+                reviewName.textContent = botDraft.name || 'Unnamed Bot';
+            }
+        }
+
+        // Bind Bot creation and settings UI controls
+        const openCreateBotBtn = document.getElementById('openCreateBotBtn');
+        if (openCreateBotBtn) {
+            openCreateBotBtn.addEventListener('click', openBotCreationWizard);
+        }
+
+        const botCreationBackToMainBtn = document.getElementById('botCreationBackToMainBtn');
+        if (botCreationBackToMainBtn) {
+            botCreationBackToMainBtn.addEventListener('click', openBotsMainListView);
+        }
+
+        // Step 1 controls
+        const botNameInput = document.getElementById('botNameInput');
+        const botNameError = document.getElementById('botNameError');
+        const botStep1CancelBtn = document.getElementById('botStep1CancelBtn');
+        const botStep1NextBtn = document.getElementById('botStep1NextBtn');
+
+        if (botStep1CancelBtn) {
+            botStep1CancelBtn.addEventListener('click', openBotsMainListView);
+        }
+
+        if (botNameInput) {
+            botNameInput.addEventListener('input', () => {
+                if (botNameError) botNameError.style.display = 'none';
+            });
+            botNameInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (botStep1NextBtn) botStep1NextBtn.click();
+                }
+            });
+        }
+
+        if (botStep1NextBtn) {
+            botStep1NextBtn.addEventListener('click', () => {
+                const name = (botNameInput ? botNameInput.value : '').trim();
+                if (!name) {
+                    if (botNameError) botNameError.style.display = 'block';
+                    if (botNameInput) botNameInput.focus();
+                    return;
+                }
+                if (botNameError) botNameError.style.display = 'none';
+                botDraft.name = name;
+                goToBotStep(2);
+            });
+        }
+
+        // Step 2 controls
+        const botUploadIconBtn = document.getElementById('botUploadIconBtn');
+        const botRemoveIconBtn = document.getElementById('botRemoveIconBtn');
+        const botIconFileInput = document.getElementById('botIconFileInput');
+
+        if (botUploadIconBtn && botIconFileInput) {
+            botUploadIconBtn.addEventListener('click', () => botIconFileInput.click());
+        }
+
+        if (botIconFileInput) {
+            botIconFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (file) {
+                    try {
+                        const compressed = await compressImage(file, 200, 200, 0.82);
+                        botDraft.icon = compressed;
+                        updateBotIconPreview();
+                    } catch (err) {
+                        console.error('Error compressing bot icon:', err);
+                    }
+                }
+                e.target.value = '';
+            });
+        }
+
+        if (botRemoveIconBtn) {
+            botRemoveIconBtn.addEventListener('click', () => {
+                botDraft.icon = '';
+                updateBotIconPreview();
+            });
+        }
+
+        const botUploadBannerBtn = document.getElementById('botUploadBannerBtn');
+        const botRemoveBannerBtn = document.getElementById('botRemoveBannerBtn');
+        const botBannerFileInput = document.getElementById('botBannerFileInput');
+
+        if (botUploadBannerBtn && botBannerFileInput) {
+            botUploadBannerBtn.addEventListener('click', () => botBannerFileInput.click());
+        }
+
+        if (botBannerFileInput) {
+            botBannerFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (file) {
+                    try {
+                        const compressed = await compressImage(file, 800, 320, 0.80);
+                        botDraft.banner = compressed;
+                        updateBotBannerPreview();
+                    } catch (err) {
+                        console.error('Error compressing bot banner:', err);
+                    }
+                }
+                e.target.value = '';
+            });
+        }
+
+        if (botRemoveBannerBtn) {
+            botRemoveBannerBtn.addEventListener('click', () => {
+                botDraft.banner = '';
+                updateBotBannerPreview();
+            });
+        }
+
+        const botStep2BackBtn = document.getElementById('botStep2BackBtn');
+        if (botStep2BackBtn) {
+            botStep2BackBtn.addEventListener('click', () => goToBotStep(1));
+        }
+
+        const botStep2NextBtn = document.getElementById('botStep2NextBtn');
+        if (botStep2NextBtn) {
+            botStep2NextBtn.addEventListener('click', () => goToBotStep(3));
+        }
+
+        // Step 3 controls
+        const botStep3BackBtn = document.getElementById('botStep3BackBtn');
+        if (botStep3BackBtn) {
+            botStep3BackBtn.addEventListener('click', () => goToBotStep(2));
+        }
+
+        const botSaveBtn = document.getElementById('botSaveBtn');
+        if (botSaveBtn) {
+            botSaveBtn.addEventListener('click', () => {
+                const server = serversList.find(s => s.id === activeServerId);
+                if (!server) return;
+                if (!Array.isArray(server.bots)) {
+                    server.bots = [];
+                }
+                const newBot = {
+                    id: 'bot_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8),
+                    name: (botDraft.name || 'Unnamed Bot').trim(),
+                    icon: botDraft.icon || '',
+                    banner: botDraft.banner || '',
+                    createdAt: Date.now()
+                };
+                server.bots.push(newBot);
+                saveServers();
+                openBotsMainListView();
+            });
+        }
+
+        // ==========================================
+        // Bot Code & Block Editor System
+        // ==========================================
+        let currentEditingBotId = null;
+        let currentActiveFileId = null;
+
+        const BLOCK_TEMPLATES = {
+            event_command: {
+                category: 'event',
+                title: 'When command /bot is received',
+                icon: '⚡',
+                defaultParam: 'hello',
+                inputLabel: 'COMMAND NAME (e.g. hello, ping)',
+                badgeText: 'Trigger',
+                canConnectFrom: true,
+                canConnectTo: false
+            },
+            event_join: {
+                category: 'event',
+                title: 'When member joins server',
+                icon: '👋',
+                defaultParam: 'any',
+                inputLabel: 'TRIGGER EVENT',
+                badgeText: 'Trigger',
+                isStatic: true,
+                canConnectFrom: true,
+                canConnectTo: false
+            },
+            event_message: {
+                category: 'event',
+                title: 'When message contains',
+                icon: '💬',
+                defaultParam: 'hi',
+                inputLabel: 'KEYWORD MATCH',
+                badgeText: 'Trigger',
+                canConnectFrom: true,
+                canConnectTo: false
+            },
+            action_reply: {
+                category: 'action',
+                title: 'Reply in channel',
+                icon: '💬',
+                defaultParam: 'Hello there! 👋 Welcome to the server!',
+                inputLabel: 'REPLY MESSAGE',
+                badgeText: 'Action',
+                canConnectFrom: true,
+                canConnectTo: true
+            },
+            action_dm: {
+                category: 'action',
+                title: 'Send Direct Message',
+                icon: '✉️',
+                defaultParam: 'Welcome to our server community!',
+                inputLabel: 'DM CONTENT',
+                badgeText: 'Action',
+                canConnectFrom: true,
+                canConnectTo: true
+            },
+            action_react: {
+                category: 'action',
+                title: 'Add reaction',
+                icon: '✨',
+                defaultParam: '👍',
+                inputLabel: 'EMOJI REACTION',
+                badgeText: 'Action',
+                canConnectFrom: true,
+                canConnectTo: true
+            },
+            control_if_role: {
+                category: 'control',
+                title: 'If user has role',
+                icon: '🛡️',
+                defaultParam: 'Member',
+                inputLabel: 'REQUIRED ROLE',
+                badgeText: 'Control',
+                canConnectFrom: true,
+                canConnectTo: true
+            },
+            control_wait: {
+                category: 'control',
+                title: 'Wait seconds',
+                icon: '⏱️',
+                defaultParam: '1',
+                inputLabel: 'DURATION IN SECONDS',
+                badgeText: 'Control',
+                canConnectFrom: true,
+                canConnectTo: true
+            },
+            control_link_file: {
+                category: 'control',
+                title: 'Link & Run File',
+                icon: '🔗',
+                defaultParam: 'custom.blocks',
+                inputLabel: 'LINKED FILE TO EXECUTE',
+                badgeText: 'Link File',
+                canConnectFrom: true,
+                canConnectTo: true
+            }
+        };
+
+        function showBotEditorToast(msg, isSuccess = true) {
+            let toast = document.getElementById('botEditorToastNotification');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'botEditorToastNotification';
+                toast.style.position = 'fixed';
+                toast.style.bottom = '28px';
+                toast.style.right = '28px';
+                toast.style.background = '#1e1f22';
+                toast.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+                toast.style.color = '#ffffff';
+                toast.style.borderRadius = '8px';
+                toast.style.padding = '12px 18px';
+                toast.style.fontSize = '0.88rem';
+                toast.style.fontWeight = '600';
+                toast.style.boxShadow = '0 8px 28px rgba(0, 0, 0, 0.7)';
+                toast.style.zIndex = '99999';
+                toast.style.display = 'flex';
+                toast.style.alignItems = 'center';
+                toast.style.gap = '10px';
+                toast.style.transition = 'opacity 0.2s, transform 0.2s';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = msg;
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0)';
+            toast.style.display = 'flex';
+
+            if (window._botToastTimer) clearTimeout(window._botToastTimer);
+            window._botToastTimer = setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                setTimeout(() => { if (toast) toast.style.display = 'none'; }, 200);
+            }, 3200);
+        }
+
+        function updateBotEditorInviteBtnState(bot) {
+            const btn = document.getElementById('botEditorInviteBtn');
+            const text = document.getElementById('botEditorInviteBtnText');
+            if (!btn || !text) return;
+
+            if (bot && bot.isInvited) {
+                text.textContent = '✓ In Server';
+                btn.classList.add('is-invited');
+                btn.style.color = '#23a55a';
+                btn.style.borderColor = 'rgba(35, 165, 90, 0.45)';
+                btn.style.background = 'rgba(35, 165, 90, 0.12)';
+                btn.title = 'Bot is active in server members list. Click to remove from server.';
+            } else {
+                text.textContent = 'Invite to Server';
+                btn.classList.remove('is-invited');
+                btn.style.color = '';
+                btn.style.borderColor = '';
+                btn.style.background = '';
+                btn.title = 'Invite this bot to appear in the server members list';
+            }
+        }
+
+        function toggleBotServerInvite(botId) {
+            const server = serversList.find(s => s.id === activeServerId);
+            if (!server || !Array.isArray(server.bots)) return;
+            const bot = server.bots.find(b => b.id === botId);
+            if (!bot) return;
+
+            if (!Array.isArray(server.members)) {
+                server.members = ensureServerMembers(server);
+            }
+
+            const wasInvited = !!bot.isInvited;
+            bot.isInvited = !wasInvited;
+
+            if (bot.isInvited) {
+                // Add or update in server.members
+                const existingMember = server.members.find(m => m.id === bot.id);
+                if (!existingMember) {
+                    server.members.push({
+                        id: bot.id,
+                        name: bot.name,
+                        displayName: bot.name,
+                        handle: bot.name.toLowerCase().replace(/[^a-z0-9]/g, '_') + '_bot',
+                        avatar: bot.icon || '',
+                        banner: bot.banner || '',
+                        isOwner: false,
+                        isBot: true,
+                        status: 'online',
+                        customStatus: 'Coding with Blocks',
+                        joinedAt: Date.now()
+                    });
+                } else {
+                    existingMember.name = bot.name;
+                    existingMember.displayName = bot.name;
+                    existingMember.avatar = bot.icon || '';
+                    existingMember.banner = bot.banner || '';
+                    existingMember.isBot = true;
+                }
+                showBotEditorToast(`🎉 ${bot.name} has joined ${server.name}! Check the members list on the right.`);
+            } else {
+                // Remove from server.members
+                const mIdx = server.members.findIndex(m => m.id === bot.id);
+                if (mIdx !== -1) {
+                    server.members.splice(mIdx, 1);
+                }
+                showBotEditorToast(`${bot.name} was removed from the server.`);
+            }
+
+            saveServers();
+            renderServerMembersList(server);
+            renderServerBotsList(server);
+            if (currentEditingBotId === bot.id) {
+                updateBotEditorInviteBtnState(bot);
+            }
+        }
+
+        function getActiveEditingBot() {
+            const server = serversList.find(s => s.id === activeServerId);
+            if (!server || !Array.isArray(server.bots)) return null;
+            return server.bots.find(b => b.id === currentEditingBotId);
+        }
+
+        function getActiveBotFile() {
+            const bot = getActiveEditingBot();
+            if (!bot || !Array.isArray(bot.files)) return null;
+            return bot.files.find(f => f.id === currentActiveFileId) || bot.files[0];
+        }
+
+        function openBotEditor(botId) {
+            const server = serversList.find(s => s.id === activeServerId);
+            if (!server || !Array.isArray(server.bots)) return;
+            const bot = server.bots.find(b => b.id === botId);
+            if (!bot) return;
+
+            currentEditingBotId = botId;
+
+            // Ensure bot has files
+            if (!Array.isArray(bot.files) || bot.files.length === 0) {
+                const starterBlock1Id = 'blk_' + Date.now() + '_1';
+                const starterBlock2Id = 'blk_' + Date.now() + '_2';
+                bot.files = [
+                    {
+                        id: 'file_default_' + Date.now(),
+                        name: 'main.blocks',
+                        type: 'blocks',
+                        isLinked: true,
+                        blocks: [
+                            {
+                                id: starterBlock1Id,
+                                type: 'event_command',
+                                param: 'hello',
+                                x: 60,
+                                y: 50,
+                                connectedTo: starterBlock2Id
+                            },
+                            {
+                                id: starterBlock2Id,
+                                type: 'action_reply',
+                                param: 'Hello there! 👋 Welcome to the server!',
+                                x: 60,
+                                y: 220,
+                                connectedTo: null
+                            }
+                        ]
+                    }
+                ];
+            }
+
+            currentActiveFileId = bot.files[0].id;
+
+            // Toggle view visibility
+            const mainView = document.getElementById('botsMainView');
+            const creationView = document.getElementById('botCreationView');
+            const editorView = document.getElementById('botEditorView');
+            if (mainView) mainView.style.display = 'none';
+            if (creationView) creationView.style.display = 'none';
+            if (editorView) editorView.style.display = 'flex';
+
+            // Populate header details
+            const nameEl = document.getElementById('botEditorNameTitle');
+            if (nameEl) nameEl.textContent = bot.name || 'Unnamed Bot';
+
+            const avatarThumb = document.getElementById('botEditorAvatarThumb');
+            if (avatarThumb) {
+                if (bot.icon) {
+                    avatarThumb.style.backgroundImage = `url('${bot.icon}')`;
+                    avatarThumb.textContent = '';
+                } else {
+                    avatarThumb.style.backgroundImage = 'none';
+                    avatarThumb.textContent = '🤖';
+                }
+            }
+
+            const statusNotice = document.getElementById('botEditorStatusNotice');
+            if (statusNotice) statusNotice.style.display = 'none';
+
+            updateBotEditorInviteBtnState(bot);
+            renderBotEditorFilesList();
+            renderActiveFileCanvas();
+
+            // Center canvas initial view
+            const viewport = document.getElementById('botCanvasViewport');
+            if (viewport) {
+                viewport.scrollLeft = 0;
+                viewport.scrollTop = 0;
+            }
+        }
+
+        function renderBotEditorFilesList() {
+            renderBotEditorFileTabs();
+            const sidebarContainer = document.getElementById('botSidebarFilesList');
+            const bot = getActiveEditingBot();
+            if (!sidebarContainer || !bot || !Array.isArray(bot.files)) return;
+
+            let html = '';
+            bot.files.forEach((file, index) => {
+                const isActive = file.id === currentActiveFileId;
+                const isMain = index === 0 || file.name === 'main.blocks';
+                const isLinked = isMain || !!file.isLinked;
+                const blockCount = Array.isArray(file.blocks) ? file.blocks.length : 0;
+                const canDelete = bot.files.length > 1;
+
+                html += `
+                    <div class="bot-file-sidebar-item ${isActive ? 'active' : ''}" data-file-id="${escapeHtml(file.id)}">
+                        <div class="bot-file-item-left">
+                            <span style="font-size: 0.82rem;">${isMain ? '⭐' : (isLinked ? '🔗' : '📄')}</span>
+                            <div style="min-width: 0;">
+                                <div class="bot-file-item-title">${escapeHtml(file.name)}</div>
+                                <div style="font-size: 0.68rem; color: #949ba4;">${blockCount} ${blockCount === 1 ? 'block' : 'blocks'}</div>
+                            </div>
+                        </div>
+                        <div class="bot-file-item-actions">
+                            ${isMain ? `
+                                <span class="bot-file-link-pill linked" title="Main entry point for this bot">Entry</span>
+                            ` : `
+                                <button type="button" class="bot-file-link-pill ${isLinked ? 'linked' : ''} bot-file-toggle-link-btn" data-file-id="${escapeHtml(file.id)}" title="${isLinked ? 'Linked to bot execution. Click to unlink.' : 'Click to link file into bot execution.'}">
+                                    ${isLinked ? '✓ Linked' : '+ Link'}
+                                </button>
+                            `}
+                            ${canDelete ? `
+                                <button type="button" class="bot-block-delete-btn bot-sidebar-file-delete-btn" data-file-id="${escapeHtml(file.id)}" title="Delete file" style="padding: 2px 4px; font-size: 0.8rem; color: #f23f43;">
+                                    ✕
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            sidebarContainer.innerHTML = html;
+
+            // Click file row to switch canvas
+            sidebarContainer.querySelectorAll('.bot-file-sidebar-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    if (e.target.closest('.bot-file-toggle-link-btn') || e.target.closest('.bot-sidebar-file-delete-btn')) {
+                        return;
+                    }
+                    const fid = item.dataset.fileId;
+                    if (fid && fid !== currentActiveFileId) {
+                        currentActiveFileId = fid;
+                        renderBotEditorFilesList();
+                        renderActiveFileCanvas();
+                    }
+                });
+            });
+
+            // Toggle link button
+            sidebarContainer.querySelectorAll('.bot-file-toggle-link-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const fid = btn.dataset.fileId;
+                    const targetFile = bot.files.find(f => f.id === fid);
+                    if (targetFile) {
+                        targetFile.isLinked = !targetFile.isLinked;
+                        saveServers();
+                        renderBotEditorFilesList();
+                        showBotEditorToast(targetFile.isLinked ? `🔗 Linked ${targetFile.name} to bot bundle` : `Unlinked ${targetFile.name}`);
+                    }
+                });
+            });
+
+            // Delete file button in sidebar
+            sidebarContainer.querySelectorAll('.bot-sidebar-file-delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const fid = btn.dataset.fileId;
+                    deleteBotFile(fid);
+                });
+            });
+        }
+
+        function renderBotEditorFileTabs() {
+            const container = document.getElementById('botEditorFileTabs');
+            if (!container) return;
+            const bot = getActiveEditingBot();
+            if (!bot || !Array.isArray(bot.files)) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            bot.files.forEach((file, index) => {
+                const isActive = file.id === currentActiveFileId;
+                const isMain = index === 0 || file.name === 'main.blocks';
+                const isLinked = isMain || !!file.isLinked;
+                const canDelete = bot.files.length > 1;
+                html += `
+                    <div class="bot-file-tab-chip ${isActive ? 'active' : ''}" data-file-id="${escapeHtml(file.id)}" title="${isLinked ? 'Linked file' : 'File'}">
+                        <span>${isMain ? '⭐' : (isLinked ? '🔗' : '🧩')}</span>
+                        <span>${escapeHtml(file.name)}</span>
+                        ${canDelete ? `<button type="button" class="bot-file-delete-btn" data-file-id="${escapeHtml(file.id)}" style="background:none; border:none; color:#6d737b; font-size:0.75rem; cursor:pointer; padding:0 2px; margin-left:2px;" title="Delete file">✕</button>` : ''}
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+            container.querySelectorAll('.bot-file-tab-chip').forEach(chip => {
+                chip.addEventListener('click', (e) => {
+                    const deleteBtn = e.target.closest('.bot-file-delete-btn');
+                    if (deleteBtn) {
+                        e.stopPropagation();
+                        const fileIdToDelete = deleteBtn.dataset.fileId;
+                        deleteBotFile(fileIdToDelete);
+                        return;
+                    }
+                    const fid = chip.dataset.fileId;
+                    if (fid && fid !== currentActiveFileId) {
+                        currentActiveFileId = fid;
+                        renderBotEditorFilesList();
+                        renderActiveFileCanvas();
+                    }
+                });
+            });
+        }
+
+        function deleteBotFile(fileId) {
+            const bot = getActiveEditingBot();
+            if (!bot || !Array.isArray(bot.files) || bot.files.length <= 1) return;
+            const fileToDelete = bot.files.find(f => f.id === fileId);
+            const fileName = fileToDelete ? fileToDelete.name : 'File';
+            const idx = bot.files.findIndex(f => f.id === fileId);
+            if (idx !== -1) {
+                bot.files.splice(idx, 1);
+                if (currentActiveFileId === fileId) {
+                    currentActiveFileId = bot.files[0].id;
+                }
+                saveServers();
+                renderBotEditorFilesList();
+                renderActiveFileCanvas();
+                showBotEditorToast(`Deleted ${fileName}`);
+            }
+        }
+
+        function renderActiveFileCanvas() {
+            const file = getActiveBotFile();
+            const nodesContainer = document.getElementById('botCanvasNodesContainer');
+            const nameDisplay = document.getElementById('botActiveFileNameDisplay');
+
+            if (nameDisplay && file) {
+                nameDisplay.textContent = file.name;
+            }
+
+            if (!nodesContainer) return;
+
+            if (!file) {
+                nodesContainer.innerHTML = '';
+                updateCanvasSvgLines();
+                return;
+            }
+
+            if (!Array.isArray(file.blocks)) {
+                file.blocks = [];
+            }
+
+            if (file.blocks.length === 0) {
+                nodesContainer.innerHTML = `
+                    <div style="position: absolute; top: 100px; left: 60px; background: rgba(30, 31, 35, 0.7); border: 1px dashed rgba(255, 255, 255, 0.16); border-radius: 8px; padding: 24px 30px; color: #949ba4; font-size: 0.88rem; max-width: 400px; line-height: 1.5; pointer-events: none;">
+                        <div style="color: #ffffff; font-weight: 700; margin-bottom: 6px; font-size: 0.95rem;">Empty Block Canvas</div>
+                        Click any block in the left toolbox (e.g. <strong style="color: #5865F2;">/bot [command]</strong>) to add it to this file and connect your bot logic.
+                    </div>
+                `;
+                updateCanvasSvgLines();
+                return;
+            }
+
+            let nodesHtml = '';
+            file.blocks.forEach(blk => {
+                const tmpl = BLOCK_TEMPLATES[blk.type] || {
+                    category: 'event',
+                    title: 'Block',
+                    icon: '📦',
+                    inputLabel: 'PARAMETER',
+                    badgeText: 'Block',
+                    canConnectFrom: true,
+                    canConnectTo: true
+                };
+
+                const isConnected = !!blk.connectedTo;
+                const targetBlk = isConnected ? file.blocks.find(b => b.id === blk.connectedTo) : null;
+                const connectionLabel = targetBlk ? `Connected → ${escapeHtml(targetBlk.title || targetBlk.type)}` : (isConnected ? 'Connected' : '▼ Connect');
+
+                nodesHtml += `
+                    <div class="bot-block-node ${tmpl.category}-block" id="blockNode_${escapeHtml(blk.id)}" data-block-id="${escapeHtml(blk.id)}" style="left: ${blk.x}px; top: ${blk.y}px;">
+                        <div class="bot-block-header">
+                            <div class="bot-block-header-title">
+                                <span>${tmpl.icon}</span>
+                                <span>${escapeHtml(tmpl.title)}</span>
+                            </div>
+                            <button type="button" class="bot-block-delete-btn" data-block-id="${escapeHtml(blk.id)}" title="Delete block">✕</button>
+                        </div>
+                        <div class="bot-block-body">
+                            <label class="bot-block-label">${escapeHtml(tmpl.inputLabel)}</label>
+                            ${tmpl.isStatic ? `
+                                <div style="font-size: 0.8rem; color: #dbdee1; background: #111214; padding: 6px 10px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.08);">
+                                    Any member joining
+                                </div>
+                            ` : `
+                                <input type="text" class="bot-block-input" data-block-id="${escapeHtml(blk.id)}" value="${escapeHtml(blk.param || '')}" placeholder="Value...">
+                            `}
+                        </div>
+                        <div class="bot-block-footer">
+                            <span style="font-size: 0.68rem; color: #949ba4;">${tmpl.badgeText}</span>
+                            ${tmpl.canConnectFrom ? `
+                                <button type="button" class="bot-connector-badge ${isConnected ? 'connected' : ''}" data-block-id="${escapeHtml(blk.id)}" title="${isConnected ? 'Click to disconnect' : 'Click to connect to next block'}">
+                                    ${connectionLabel}
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            nodesContainer.innerHTML = nodesHtml;
+
+            // Bind block node header dragging
+            nodesContainer.querySelectorAll('.bot-block-node').forEach(nodeEl => {
+                const blkId = nodeEl.dataset.blockId;
+                const header = nodeEl.querySelector('.bot-block-header');
+                if (header) {
+                    header.addEventListener('mousedown', (e) => {
+                        if (e.target.closest('.bot-block-delete-btn')) return;
+                        e.preventDefault();
+                        initBlockDrag(e, blkId, nodeEl);
+                    });
+                }
+            });
+
+            // Bind input changes
+            nodesContainer.querySelectorAll('.bot-block-input').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const blkId = input.dataset.blockId;
+                    const blk = file.blocks.find(b => b.id === blkId);
+                    if (blk) {
+                        blk.param = e.target.value;
+                    }
+                });
+            });
+
+            // Bind delete block
+            nodesContainer.querySelectorAll('.bot-block-delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const blkId = btn.dataset.blockId;
+                    deleteBlock(blkId);
+                });
+            });
+
+            // Bind connect button
+            nodesContainer.querySelectorAll('.bot-connector-badge').forEach(badge => {
+                badge.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const blkId = badge.dataset.blockId;
+                    handleConnectorClick(blkId);
+                });
+            });
+
+            updateCanvasSvgLines();
+        }
+
+        function initBlockDrag(e, blockId, nodeEl) {
+            const file = getActiveBotFile();
+            if (!file) return;
+            const blk = file.blocks.find(b => b.id === blockId);
+            if (!blk) return;
+
+            nodeEl.classList.add('dragging');
+
+            const startMouseX = e.clientX;
+            const startMouseY = e.clientY;
+            const startBlockX = blk.x;
+            const startBlockY = blk.y;
+
+            function onMouseMove(moveEvent) {
+                const dx = moveEvent.clientX - startMouseX;
+                const dy = moveEvent.clientY - startMouseY;
+                const newX = Math.max(10, Math.min(1900, startBlockX + dx));
+                const newY = Math.max(10, Math.min(1500, startBlockY + dy));
+
+                blk.x = newX;
+                blk.y = newY;
+                nodeEl.style.left = newX + 'px';
+                nodeEl.style.top = newY + 'px';
+
+                updateCanvasSvgLines();
+            }
+
+            function onMouseUp() {
+                window.removeEventListener('mousemove', onMouseMove);
+                window.removeEventListener('mouseup', onMouseUp);
+                nodeEl.classList.remove('dragging');
+
+                // Auto-snap detection: if dropped near below another block
+                file.blocks.forEach(otherBlk => {
+                    if (otherBlk.id !== blk.id) {
+                        const distX = Math.abs(blk.x - otherBlk.x);
+                        const distY = blk.y - (otherBlk.y + 130);
+                        if (distX < 60 && distY >= -20 && distY < 60) {
+                            blk.x = otherBlk.x;
+                            blk.y = otherBlk.y + 140;
+                            nodeEl.style.left = blk.x + 'px';
+                            nodeEl.style.top = blk.y + 'px';
+                            otherBlk.connectedTo = blk.id;
+                            renderActiveFileCanvas();
+                        }
+                    }
+                });
+
+                updateCanvasSvgLines();
+            }
+
+            window.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('mouseup', onMouseUp);
+        }
+
+        function handleConnectorClick(sourceBlockId) {
+            const file = getActiveBotFile();
+            if (!file) return;
+            const sourceBlk = file.blocks.find(b => b.id === sourceBlockId);
+            if (!sourceBlk) return;
+
+            // If already connected, toggle off (disconnect)
+            if (sourceBlk.connectedTo) {
+                sourceBlk.connectedTo = null;
+                renderActiveFileCanvas();
+                return;
+            }
+
+            // Find next available candidate block that is not source
+            const candidates = file.blocks.filter(b => b.id !== sourceBlockId && b.y > sourceBlk.y);
+            if (candidates.length > 0) {
+                candidates.sort((a, b) => a.y - b.y);
+                sourceBlk.connectedTo = candidates[0].id;
+            } else {
+                const other = file.blocks.find(b => b.id !== sourceBlockId);
+                if (other) {
+                    sourceBlk.connectedTo = other.id;
+                }
+            }
+            renderActiveFileCanvas();
+        }
+
+        function deleteBlock(blockId) {
+            const file = getActiveBotFile();
+            if (!file || !Array.isArray(file.blocks)) return;
+            const idx = file.blocks.findIndex(b => b.id === blockId);
+            if (idx !== -1) {
+                file.blocks.splice(idx, 1);
+                file.blocks.forEach(b => {
+                    if (b.connectedTo === blockId) b.connectedTo = null;
+                });
+                renderActiveFileCanvas();
+            }
+        }
+
+        function addBlockToActiveFile(blockType, customX, customY) {
+            const file = getActiveBotFile();
+            if (!file) return;
+            if (!Array.isArray(file.blocks)) file.blocks = [];
+
+            const tmpl = BLOCK_TEMPLATES[blockType];
+            if (!tmpl) return;
+
+            let posX = customX !== undefined ? customX : 60;
+            let posY = customY !== undefined ? customY : 60;
+
+            if (customX === undefined || customY === undefined) {
+                if (file.blocks.length > 0) {
+                    let lowestBlk = file.blocks[0];
+                    file.blocks.forEach(b => {
+                        if (b.y > lowestBlk.y) lowestBlk = b;
+                    });
+                    posX = lowestBlk.x;
+                    posY = lowestBlk.y + 145;
+                }
+            }
+
+            const newBlock = {
+                id: 'blk_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+                type: blockType,
+                title: tmpl.title,
+                param: tmpl.defaultParam || '',
+                x: posX,
+                y: posY,
+                connectedTo: null
+            };
+
+            // Auto-connect if previous block has no connection
+            if (file.blocks.length > 0) {
+                const prev = file.blocks[file.blocks.length - 1];
+                if (!prev.connectedTo && prev.type !== newBlock.type) {
+                    prev.connectedTo = newBlock.id;
+                }
+            }
+
+            file.blocks.push(newBlock);
+            renderActiveFileCanvas();
+        }
+
+        function updateCanvasSvgLines() {
+            const svg = document.getElementById('botCanvasSvg');
+            if (!svg) return;
+            const file = getActiveBotFile();
+            if (!file || !Array.isArray(file.blocks)) {
+                svg.innerHTML = '';
+                return;
+            }
+
+            let pathsHtml = '';
+            file.blocks.forEach(blk => {
+                if (blk.connectedTo) {
+                    const targetBlk = file.blocks.find(b => b.id === blk.connectedTo);
+                    if (targetBlk) {
+                        const startX = blk.x + 140; // center of 280px wide block
+                        const startY = blk.y + 115; // bottom of source block
+                        const endX = targetBlk.x + 140;
+                        const endY = targetBlk.y; // top of target block
+                        const dy = Math.max(25, Math.abs(endY - startY) * 0.45);
+
+                        pathsHtml += `
+                            <path d="M ${startX} ${startY} C ${startX} ${startY + dy}, ${endX} ${endY - dy}, ${endX} ${endY}"
+                                  stroke="#5865F2" stroke-width="3" fill="none" stroke-linecap="round" />
+                            <circle cx="${endX}" cy="${endY}" r="4.5" fill="#5865F2" />
+                            <circle cx="${startX}" cy="${startY}" r="4" fill="#5865F2" />
+                        `;
+                    }
+                }
+            });
+            svg.innerHTML = pathsHtml;
+        }
+
+        // Attach Bot Editor top bar and tool events
+        const botEditorBackBtn = document.getElementById('botEditorBackBtn');
+        if (botEditorBackBtn) {
+            botEditorBackBtn.addEventListener('click', openBotsMainListView);
+        }
+
+        const botEditorSavePublishBtn = document.getElementById('botEditorSavePublishBtn');
+        if (botEditorSavePublishBtn) {
+            botEditorSavePublishBtn.addEventListener('click', () => {
+                const bot = getActiveEditingBot();
+                // Ensure latest input values from DOM are updated into memory
+                const file = getActiveBotFile();
+                if (file && Array.isArray(file.blocks)) {
+                    document.querySelectorAll('.bot-block-input').forEach(input => {
+                        const blkId = input.dataset.blockId;
+                        const blk = file.blocks.find(b => b.id === blkId);
+                        if (blk) blk.param = input.value;
+                    });
+                }
+
+                // If bot is invited, keep server.members in sync
+                const server = serversList.find(s => s.id === activeServerId);
+                if (server && bot && bot.isInvited && Array.isArray(server.members)) {
+                    const m = server.members.find(x => x.id === bot.id);
+                    if (m) {
+                        m.name = bot.name;
+                        m.displayName = bot.name;
+                        m.avatar = bot.icon || '';
+                        m.banner = bot.banner || '';
+                    }
+                    renderServerMembersList(server);
+                }
+
+                saveServers();
+
+                const statusNotice = document.getElementById('botEditorStatusNotice');
+                if (statusNotice) {
+                    statusNotice.style.display = 'inline-block';
+                    setTimeout(() => {
+                        statusNotice.style.display = 'none';
+                    }, 3500);
+                }
+
+                if (bot) {
+                    if (bot.isInvited) {
+                        showBotEditorToast(`✓ Saved & Published! ${bot.name} is updated in the server members list.`);
+                    } else {
+                        showBotEditorToast(`✓ Saved & Published! Click "Invite to Server" above to add ${bot.name} to the server.`);
+                    }
+                }
+            });
+        }
+
+        // Top bar Invite to Server button
+        const botEditorInviteBtn = document.getElementById('botEditorInviteBtn');
+        if (botEditorInviteBtn) {
+            botEditorInviteBtn.addEventListener('click', () => {
+                if (currentEditingBotId) {
+                    toggleBotServerInvite(currentEditingBotId);
+                }
+            });
+        }
+
+        // Sidebar + New File button
+        const botSidebarCreateFileBtn = document.getElementById('botSidebarCreateFileBtn');
+        if (botSidebarCreateFileBtn) {
+            botSidebarCreateFileBtn.addEventListener('click', openCreateFileDialog);
+        }
+
+        // Palette Toolbox click to add
+        const toolboxCards = document.querySelectorAll('.bot-toolbox-card[data-block-type]');
+        toolboxCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const bType = card.dataset.blockType;
+                if (bType) addBlockToActiveFile(bType);
+            });
+        });
+
+        // Canvas toolbar buttons
+        const botCanvasCenterBtn = document.getElementById('botCanvasCenterBtn');
+        if (botCanvasCenterBtn) {
+            botCanvasCenterBtn.addEventListener('click', () => {
+                const viewport = document.getElementById('botCanvasViewport');
+                if (viewport) {
+                    viewport.scrollTo({ left: 0, top: 0, behavior: 'smooth' });
+                }
+            });
+        }
+
+        const botCanvasClearBtn = document.getElementById('botCanvasClearBtn');
+        if (botCanvasClearBtn) {
+            botCanvasClearBtn.addEventListener('click', () => {
+                const file = getActiveBotFile();
+                if (file) {
+                    file.blocks = [];
+                    renderActiveFileCanvas();
+                }
+            });
+        }
+
+        // File Creation Modal wiring
+        const botEditorCreateFileBtn = document.getElementById('botEditorCreateFileBtn');
+        const botCreateFileModal = document.getElementById('botCreateFileModal');
+        const closeBotCreateFileModalBtn = document.getElementById('closeBotCreateFileModalBtn');
+        const cancelBotCreateFileBtn = document.getElementById('cancelBotCreateFileBtn');
+        const confirmBotCreateFileBtn = document.getElementById('confirmBotCreateFileBtn');
+        const newBotFileNameInput = document.getElementById('newBotFileNameInput');
+        const newBotFileNameError = document.getElementById('newBotFileNameError');
+
+        function openCreateFileDialog() {
+            if (botCreateFileModal) botCreateFileModal.style.display = 'flex';
+            if (newBotFileNameInput) {
+                newBotFileNameInput.value = '';
+                setTimeout(() => newBotFileNameInput.focus(), 60);
+            }
+            if (newBotFileNameError) newBotFileNameError.style.display = 'none';
+        }
+
+        function closeCreateFileDialog() {
+            if (botCreateFileModal) botCreateFileModal.style.display = 'none';
+            if (newBotFileNameError) newBotFileNameError.style.display = 'none';
+        }
+
+        if (botEditorCreateFileBtn) {
+            botEditorCreateFileBtn.addEventListener('click', openCreateFileDialog);
+        }
+        if (closeBotCreateFileModalBtn) {
+            closeBotCreateFileModalBtn.addEventListener('click', closeCreateFileDialog);
+        }
+        if (cancelBotCreateFileBtn) {
+            cancelBotCreateFileBtn.addEventListener('click', closeCreateFileDialog);
+        }
+
+        if (newBotFileNameInput) {
+            newBotFileNameInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (confirmBotCreateFileBtn) confirmBotCreateFileBtn.click();
+                }
+            });
+        }
+
+        if (confirmBotCreateFileBtn) {
+            confirmBotCreateFileBtn.addEventListener('click', () => {
+                const bot = getActiveEditingBot();
+                if (!bot) return;
+                let rawName = (newBotFileNameInput ? newBotFileNameInput.value : '').trim();
+                if (!rawName) {
+                    if (newBotFileNameError) {
+                        newBotFileNameError.textContent = 'Please enter a valid file name.';
+                        newBotFileNameError.style.display = 'block';
+                    }
+                    if (newBotFileNameInput) newBotFileNameInput.focus();
+                    return;
+                }
+
+                if (!rawName.endsWith('.blocks')) {
+                    rawName += '.blocks';
+                }
+
+                if (!Array.isArray(bot.files)) bot.files = [];
+
+                // Check duplicate
+                if (bot.files.some(f => f.name.toLowerCase() === rawName.toLowerCase())) {
+                    if (newBotFileNameError) {
+                        newBotFileNameError.textContent = 'A file with this name already exists.';
+                        newBotFileNameError.style.display = 'block';
+                    }
+                    return;
+                }
+
+                const newFile = {
+                    id: 'file_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+                    name: rawName,
+                    type: 'blocks',
+                    isLinked: true,
+                    blocks: []
+                };
+
+                bot.files.push(newFile);
+                currentActiveFileId = newFile.id;
+                saveServers();
+                closeCreateFileDialog();
+                renderBotEditorFilesList();
+                renderActiveFileCanvas();
+                showBotEditorToast(`Created and linked ${rawName}`);
+            });
         }
 
         const serverChannelsSearchInput = document.getElementById('serverChannelsSearchInput');
@@ -17432,6 +20490,14 @@
 
             // Update ambient background across all channels in this server
             updateActiveServerBackground();
+
+            // Refresh right-side Main Lobby if currently visible
+            if (serverMainLobbyView && serverMainLobbyView.style.display === 'flex') {
+                renderMainLobbyServerCard();
+                if (document.getElementById('mainLobbyShowcaseView')?.style.display === 'block') {
+                    renderMainLobbyShowcaseView();
+                }
+            }
 
             serverSavedState = { ...serverDraftState };
             checkServerUnsavedChanges();
@@ -18262,6 +21328,8 @@
                 scrollServerChatToBottom();
                 saveServerChannelMessages();
 
+                closeSlashCommandsMenu();
+
                 // Live Sync to Firebase Realtime Database
                 try {
                     if (activeServerId && activeChannelId) {
@@ -18270,7 +21338,554 @@
                 } catch (fbErr) {
                     console.warn('Firebase RTDB message send error:', fbErr);
                 }
+
+                // Execute Bot Engine & Slash Commands
+                const activeServer = (Array.isArray(serversList) ? serversList.find(s => s.id === activeServerId) : null) || null;
+                if (activeServer) {
+                    executeServerBotTriggers(activeServer, activeChannelId, text, newMsg);
+                }
             });
+        }
+
+        // ==========================================
+        // DISCORD SLASH COMMANDS & BOT ENGINE SYSTEM
+        // ==========================================
+        let activeSlashFilter = 'all';
+        let currentFilteredSlashCommands = [];
+        let selectedSlashIndex = 0;
+
+        function getActiveServerObject() {
+            return (Array.isArray(serversList) ? serversList.find(s => s.id === activeServerId) : null) || null;
+        }
+
+        function collectServerSlashCommands(server) {
+            if (!server) return { sources: [], commands: [] };
+
+            const sName = server.name || 'Server';
+            const sIcon = server.icon || '';
+            const sInitial = (sName.charAt(0) || 'S').toUpperCase();
+
+            const sourcesMap = new Map();
+            const commandsList = [];
+
+            // 1. Current Server Source
+            sourcesMap.set('server_main', {
+                id: 'server_main',
+                name: sName,
+                icon: sIcon,
+                initial: sInitial,
+                isServer: true,
+                count: 0
+            });
+
+            // Built-in commands for the server
+            const builtIns = [
+                {
+                    name: '/help',
+                    desc: 'List active server bots and commands',
+                    icon: sIcon,
+                    initial: sInitial,
+                    sourceId: 'server_main',
+                    sourceName: sName,
+                    isBuiltIn: true
+                },
+                {
+                    name: '/ping',
+                    desc: 'Check server bot latency response',
+                    icon: sIcon,
+                    initial: sInitial,
+                    sourceId: 'server_main',
+                    sourceName: sName,
+                    isBuiltIn: true
+                },
+                {
+                    name: '/roll',
+                    desc: 'Roll a random number from 1 to 100',
+                    icon: sIcon,
+                    initial: sInitial,
+                    sourceId: 'server_main',
+                    sourceName: sName,
+                    isBuiltIn: true
+                },
+                {
+                    name: '/clear',
+                    desc: 'Clear messages in this channel',
+                    icon: sIcon,
+                    initial: sInitial,
+                    sourceId: 'server_main',
+                    sourceName: sName,
+                    isBuiltIn: true
+                }
+            ];
+
+            builtIns.forEach(c => {
+                commandsList.push(c);
+                sourcesMap.get('server_main').count++;
+            });
+
+            // 2. Custom Bots in this server (only active/invited bots)
+            if (Array.isArray(server.bots)) {
+                server.bots.forEach(bot => {
+                    if (!bot.isInvited) return; // Only show commands for bots that are in the server!
+                    const bId = 'bot_' + bot.id;
+                    const bName = bot.name || 'Bot';
+                    const bIcon = bot.icon || sIcon;
+                    const bInitial = (bName.charAt(0) || 'B').toUpperCase();
+
+                    sourcesMap.set(bId, {
+                        id: bId,
+                        name: bName,
+                        icon: bIcon,
+                        initial: bInitial,
+                        isBot: true,
+                        count: 0
+                    });
+
+                    // Search linked files for event_command blocks
+                    const filesToSearch = Array.isArray(bot.files) ? bot.files : [];
+                    filesToSearch.forEach(file => {
+                        // Check if main or linked
+                        if (file.name !== 'main.blocks' && file.isLinked === false) return;
+                        if (!Array.isArray(file.blocks)) return;
+
+                        file.blocks.forEach(blk => {
+                            if (blk.type === 'event_command') {
+                                const cmdNameRaw = (blk.param || 'hello').trim();
+                                const formattedCmd = cmdNameRaw.startsWith('/') ? cmdNameRaw : ('/' + cmdNameRaw);
+
+                                // Find connected reply description
+                                let previewDesc = 'Execute bot logic';
+                                if (blk.connectedTo) {
+                                    const nextBlk = file.blocks.find(b => b.id === blk.connectedTo);
+                                    if (nextBlk && nextBlk.type === 'action_reply' && nextBlk.param) {
+                                        previewDesc = nextBlk.param.length > 50 ? (nextBlk.param.slice(0, 50) + '...') : nextBlk.param;
+                                    }
+                                }
+
+                                commandsList.push({
+                                    name: formattedCmd,
+                                    desc: previewDesc,
+                                    icon: bIcon,
+                                    initial: bInitial,
+                                    sourceId: bId,
+                                    sourceName: bName,
+                                    botId: bot.id,
+                                    blockId: blk.id
+                                });
+
+                                sourcesMap.get(bId).count++;
+                            }
+                        });
+                    });
+                });
+            }
+
+            return {
+                sources: Array.from(sourcesMap.values()),
+                commands: commandsList
+            };
+        }
+
+        function openSlashCommandsMenu(query = '') {
+            const popover = document.getElementById('serverSlashCommandsPopover');
+            if (!popover) return;
+
+            const server = getActiveServerObject();
+            if (!server) {
+                closeSlashCommandsMenu();
+                return;
+            }
+
+            renderSlashCommandsMenu(query.toLowerCase());
+            popover.classList.add('open');
+            popover.style.display = 'flex';
+        }
+
+        function closeSlashCommandsMenu() {
+            const popover = document.getElementById('serverSlashCommandsPopover');
+            if (popover) {
+                popover.classList.remove('open');
+                popover.style.display = 'none';
+            }
+        }
+
+        function renderSlashCommandsMenu(query = '') {
+            const server = getActiveServerObject();
+            if (!server) return;
+
+            const data = collectServerSlashCommands(server);
+            const sourcesContainer = document.getElementById('serverSlashCommandsSources');
+            const listContainer = document.getElementById('serverSlashCommandsList');
+            if (!sourcesContainer || !listContainer) return;
+
+            // Render Sources List on Left
+            let sourcesHtml = '';
+            data.sources.forEach(src => {
+                const isActive = (activeSlashFilter === src.id) || (activeSlashFilter === 'all' && src.isServer);
+                const iconStyle = src.icon ? `background-image: url('${escapeHtml(src.icon)}');` : '';
+                sourcesHtml += `
+                    <div class="slash-source-item ${isActive ? 'active' : ''}" data-source-id="${escapeHtml(src.id)}">
+                        <div class="slash-source-icon" style="${iconStyle}">
+                            ${src.icon ? '' : escapeHtml(src.initial)}
+                        </div>
+                        <span class="slash-source-name" title="${escapeHtml(src.name)}">${escapeHtml(src.name)}</span>
+                        <span class="slash-source-badge">${src.count}</span>
+                    </div>
+                `;
+            });
+            sourcesContainer.innerHTML = sourcesHtml;
+
+            // Bind click to filter by source on the left
+            sourcesContainer.querySelectorAll('.slash-source-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    activeSlashFilter = item.dataset.sourceId;
+                    renderSlashCommandsMenu(query);
+                });
+            });
+
+            // Filter commands
+            let filtered = data.commands;
+            if (activeSlashFilter && activeSlashFilter !== 'all' && activeSlashFilter !== 'server_main') {
+                filtered = filtered.filter(c => c.sourceId === activeSlashFilter);
+            }
+
+            if (query) {
+                filtered = filtered.filter(c => {
+                    const cleanCmd = c.name.replace(/^\//, '').toLowerCase();
+                    return cleanCmd.startsWith(query) || cleanCmd.includes(query) || c.desc.toLowerCase().includes(query);
+                });
+            }
+
+            currentFilteredSlashCommands = filtered;
+            if (selectedSlashIndex >= filtered.length) {
+                selectedSlashIndex = Math.max(0, filtered.length - 1);
+            }
+
+            // Render Commands List on Right
+            if (filtered.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="slash-command-empty">
+                        <div style="font-size: 1.1rem; margin-bottom: 4px;">🔍</div>
+                        <div>No commands found matching <strong>/${escapeHtml(query)}</strong></div>
+                    </div>
+                `;
+                return;
+            }
+
+            let commandsHtml = '';
+            filtered.forEach((cmd, idx) => {
+                const isSelected = idx === selectedSlashIndex;
+                const iconStyle = cmd.icon ? `background-image: url('${escapeHtml(cmd.icon)}');` : '';
+                commandsHtml += `
+                    <div class="slash-command-item ${isSelected ? 'active' : ''}" data-index="${idx}" data-cmd="${escapeHtml(cmd.name)}">
+                        <div class="slash-command-left">
+                            <div class="slash-command-server-icon" style="${iconStyle}">
+                                ${cmd.icon ? '' : escapeHtml(cmd.initial)}
+                            </div>
+                            <span class="slash-command-name">${escapeHtml(cmd.name)}</span>
+                        </div>
+                        <div class="slash-command-right">
+                            <span class="slash-command-desc">${escapeHtml(cmd.desc)}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            listContainer.innerHTML = commandsHtml;
+
+            // Click to run command
+            listContainer.querySelectorAll('.slash-command-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const idx = parseInt(item.dataset.index, 10);
+                    if (!isNaN(idx) && currentFilteredSlashCommands[idx]) {
+                        chooseAndExecuteSlashCommand(currentFilteredSlashCommands[idx]);
+                    }
+                });
+            });
+
+            // Scroll selected into view
+            const activeEl = listContainer.querySelector('.slash-command-item.active');
+            if (activeEl) {
+                activeEl.scrollIntoView({ block: 'nearest' });
+            }
+        }
+
+        function chooseAndExecuteSlashCommand(cmdObj) {
+            const input = document.getElementById('serverMessageInput');
+            const form = document.getElementById('serverMessageForm');
+            if (!input || !form) return;
+
+            input.value = cmdObj.name;
+            closeSlashCommandsMenu();
+            // Automatically submit and trigger bot execution
+            form.dispatchEvent(new Event('submit', { cancelable: true }));
+        }
+
+        // Attach input listeners for slash commands
+        const serverInputForSlash = document.getElementById('serverMessageInput');
+        if (serverInputForSlash) {
+            serverInputForSlash.addEventListener('input', (e) => {
+                const val = e.target.value;
+                if (val.startsWith('/')) {
+                    const q = val.slice(1).trim();
+                    openSlashCommandsMenu(q);
+                } else {
+                    closeSlashCommandsMenu();
+                }
+            });
+
+            serverInputForSlash.addEventListener('keydown', (e) => {
+                const popover = document.getElementById('serverSlashCommandsPopover');
+                const isOpen = popover && popover.classList.contains('open');
+
+                if (isOpen) {
+                    if (e.key === 'ArrowDown') {
+                        e.preventDefault();
+                        if (currentFilteredSlashCommands.length > 0) {
+                            selectedSlashIndex = (selectedSlashIndex + 1) % currentFilteredSlashCommands.length;
+                            const query = serverInputForSlash.value.startsWith('/') ? serverInputForSlash.value.slice(1).trim() : '';
+                            renderSlashCommandsMenu(query);
+                        }
+                    } else if (e.key === 'ArrowUp') {
+                        e.preventDefault();
+                        if (currentFilteredSlashCommands.length > 0) {
+                            selectedSlashIndex = (selectedSlashIndex - 1 + currentFilteredSlashCommands.length) % currentFilteredSlashCommands.length;
+                            const query = serverInputForSlash.value.startsWith('/') ? serverInputForSlash.value.slice(1).trim() : '';
+                            renderSlashCommandsMenu(query);
+                        }
+                    } else if (e.key === 'Tab' || e.key === 'Enter') {
+                        if (currentFilteredSlashCommands.length > 0 && currentFilteredSlashCommands[selectedSlashIndex]) {
+                            e.preventDefault();
+                            chooseAndExecuteSlashCommand(currentFilteredSlashCommands[selectedSlashIndex]);
+                        }
+                    } else if (e.key === 'Escape') {
+                        closeSlashCommandsMenu();
+                    }
+                }
+            });
+        }
+
+        // Click outside closes slash commands popover
+        document.addEventListener('click', (e) => {
+            const popover = document.getElementById('serverSlashCommandsPopover');
+            const input = document.getElementById('serverMessageInput');
+            if (popover && popover.classList.contains('open')) {
+                if (!popover.contains(e.target) && e.target !== input) {
+                    closeSlashCommandsMenu();
+                }
+            }
+        });
+
+        // Bot Trigger Execution Engine
+        async function executeServerBotTriggers(server, channelId, rawText, userMsg) {
+            if (!server || !rawText) return;
+            const text = rawText.trim();
+            const lower = text.toLowerCase();
+            const isSlash = lower.startsWith('/');
+            const cleanCmd = (isSlash ? lower.slice(1) : lower).trim();
+            const cmdParts = cleanCmd.split(/\s+/);
+            const cmdWord = cmdParts[0];
+            const cmdArg = cmdParts.slice(1).join(' ');
+
+            const authorName = userMsg ? userMsg.author : 'User';
+            const serverName = server.name || 'Server';
+            const activeChan = Array.isArray(server.channels) ? server.channels.find(c => c.id === channelId) : null;
+            const channelName = activeChan ? activeChan.name : 'general';
+
+            // Helper to post a message from a bot or system
+            function postBotReply(botName, botAvatar, replyText, isBot = true) {
+                const botMsg = {
+                    id: 'smsg_bot_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                    author: botName,
+                    authorId: 'bot_' + botName.toLowerCase().replace(/[^a-z0-9]/g, '_'),
+                    avatar: botAvatar || '',
+                    isBot: isBot,
+                    time: formatCurrentTime(),
+                    createdAt: Date.now(),
+                    text: replyText,
+                    images: [],
+                    replyTo: userMsg ? {
+                        id: userMsg.id,
+                        author: userMsg.author,
+                        authorId: userMsg.authorId,
+                        avatar: userMsg.avatar,
+                        text: userMsg.text
+                    } : null,
+                    reactions: {}
+                };
+
+                currentServerMessages.push(botMsg);
+                renderServerMessage(botMsg);
+                scrollServerChatToBottom();
+                saveServerChannelMessages();
+
+                try {
+                    if (activeServerId && activeChannelId) {
+                        set(ref(rtdb, `server_messages/${activeServerId}/${activeChannelId}/${botMsg.id}`), botMsg);
+                    }
+                } catch (e) {
+                    console.warn('RTDB sync bot reply error:', e);
+                }
+            }
+
+            // 1. Built-in Slash Commands Handling
+            if (isSlash) {
+                if (cmdWord === 'ping') {
+                    const latency = Math.floor(Math.random() * 16) + 12;
+                    setTimeout(() => {
+                        postBotReply(serverName, server.icon || '', `Pong! 🏓 Latency: ${latency}ms`);
+                    }, 250);
+                    return;
+                }
+
+                if (cmdWord === 'roll') {
+                    const num = Math.floor(Math.random() * 100) + 1;
+                    setTimeout(() => {
+                        postBotReply(serverName, server.icon || '', `🎲 @${authorName} rolled a **${num}** (1-100)!`);
+                    }, 250);
+                    return;
+                }
+
+                if (cmdWord === 'clear') {
+                    currentServerMessages = [];
+                    renderAllServerMessages();
+                    saveServerChannelMessages();
+                    showBotEditorToast(`Cleared channel messages`);
+                    return;
+                }
+
+                if (cmdWord === 'help') {
+                    setTimeout(() => {
+                        const botNames = (server.bots || []).filter(b => b.isInvited).map(b => b.name).join(', ') || 'None';
+                        const helpText = `📋 **Available Server Commands**:\n• \`/ping\` - Test latency response\n• \`/roll\` - Roll random number 1-100\n• \`/clear\` - Clear chat messages\n• **Active Bots in Server**: ${botNames}\n💡 Type any configured bot command (e.g. \`/hello\`) to trigger your custom bots!`;
+                        postBotReply(serverName, server.icon || '', helpText);
+                    }, 300);
+                    return;
+                }
+            }
+
+            // 2. Custom Server Bots Handling (Event Blocks)
+            if (!Array.isArray(server.bots)) return;
+
+            for (const bot of server.bots) {
+                if (!bot.isInvited) continue; // Bot must be invited to the server to run
+
+                const files = Array.isArray(bot.files) ? bot.files : [];
+                for (const file of files) {
+                    if (file.name !== 'main.blocks' && file.isLinked === false) continue;
+                    if (!Array.isArray(file.blocks)) continue;
+
+                    for (const blk of file.blocks) {
+                        let isMatched = false;
+
+                        // Match command trigger
+                        if (blk.type === 'event_command') {
+                            const targetCmd = (blk.param || 'hello').trim().toLowerCase().replace(/^\//, '');
+                            if (
+                                cleanCmd === targetCmd ||
+                                cleanCmd === 'bot ' + targetCmd ||
+                                (cmdWord === 'bot' && cmdArg === targetCmd) ||
+                                (cmdWord === targetCmd)
+                            ) {
+                                isMatched = true;
+                            }
+                        }
+
+                        // Match keyword message trigger
+                        if (blk.type === 'event_message') {
+                            const kw = (blk.param || '').trim().toLowerCase();
+                            if (kw && lower.includes(kw)) {
+                                isMatched = true;
+                            }
+                        }
+
+                        if (isMatched && blk.connectedTo) {
+                            // Execute sequence of blocks
+                            executeBotActionSequence(bot, file, blk.connectedTo, userMsg, server, authorName, channelName);
+                        }
+                    }
+                }
+            }
+        }
+
+        async function executeBotActionSequence(bot, startFile, startBlockId, userMsg, server, authorName, channelName) {
+            let currentBlkId = startBlockId;
+            let currentFile = startFile;
+
+            while (currentBlkId) {
+                const blk = currentFile.blocks.find(b => b.id === currentBlkId);
+                if (!blk) break;
+
+                if (blk.type === 'action_reply') {
+                    let replyText = (blk.param || 'Hello! 👋')
+                        .replace(/{user}/gi, `@${authorName}`)
+                        .replace(/{server}/gi, server.name || 'Server')
+                        .replace(/{channel}/gi, '#' + channelName);
+
+                    const botMsg = {
+                        id: 'smsg_bot_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                        author: bot.name,
+                        authorId: bot.id,
+                        avatar: bot.icon || '',
+                        isBot: true,
+                        time: formatCurrentTime(),
+                        createdAt: Date.now(),
+                        text: replyText,
+                        images: [],
+                        replyTo: userMsg ? {
+                            id: userMsg.id,
+                            author: userMsg.author,
+                            authorId: userMsg.authorId,
+                            avatar: userMsg.avatar,
+                            text: userMsg.text
+                        } : null,
+                        reactions: {}
+                    };
+
+                    currentServerMessages.push(botMsg);
+                    renderServerMessage(botMsg);
+                    scrollServerChatToBottom();
+                    saveServerChannelMessages();
+
+                    try {
+                        if (activeServerId && activeChannelId) {
+                            set(ref(rtdb, `server_messages/${activeServerId}/${activeChannelId}/${botMsg.id}`), botMsg);
+                        }
+                    } catch (e) {
+                        console.warn('RTDB sync bot reply error:', e);
+                    }
+                } else if (blk.type === 'action_react') {
+                    const emoji = (blk.param || '👍').trim();
+                    if (userMsg && userMsg.id) {
+                        toggleServerMessageReaction(userMsg.id, emoji);
+                    }
+                } else if (blk.type === 'action_dm') {
+                    const dmText = (blk.param || 'Direct message from bot!')
+                        .replace(/{user}/gi, authorName)
+                        .replace(/{server}/gi, server.name || 'Server');
+                    showBotEditorToast(`✉️ Direct Message from ${bot.name}: "${dmText}"`);
+                } else if (blk.type === 'control_wait') {
+                    const secs = parseFloat(blk.param) || 1;
+                    await new Promise(r => setTimeout(r, Math.min(secs, 10) * 1000));
+                } else if (blk.type === 'control_link_file') {
+                    const targetFileName = (blk.param || '').trim().toLowerCase();
+                    const linkedFile = bot.files.find(f => f.name.toLowerCase() === targetFileName || f.name.toLowerCase() === targetFileName + '.blocks');
+                    if (linkedFile && Array.isArray(linkedFile.blocks) && linkedFile.blocks.length > 0) {
+                        const firstAction = linkedFile.blocks.find(b => b.type.startsWith('action_') || b.type.startsWith('control_')) || linkedFile.blocks[0];
+                        if (firstAction) {
+                            currentFile = linkedFile;
+                            currentBlkId = firstAction.id;
+                            continue;
+                        }
+                    }
+                }
+
+                currentBlkId = blk.connectedTo;
+                if (currentBlkId) {
+                    await new Promise(r => setTimeout(r, 220));
+                }
+            }
         }
 
         // Server Emoji Button Link
