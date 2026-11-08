@@ -4844,6 +4844,79 @@
             border-color: rgba(242, 63, 67, 0.3);
         }
 
+        .bot-block-select {
+            width: 100%;
+            background: #111214;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 5px;
+            color: #ffffff;
+            padding: 6px 10px;
+            font-size: 0.82rem;
+            outline: none;
+            transition: border-color 0.15s;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .bot-block-select:focus {
+            border-color: #5865F2;
+        }
+
+        .slash-role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(240, 178, 50, 0.15);
+            border: 1px solid rgba(240, 178, 50, 0.35);
+            color: #f0b232;
+            font-size: 0.68rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .slash-server-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(88, 101, 242, 0.15);
+            border: 1px solid rgba(88, 101, 242, 0.35);
+            color: #5865F2;
+            font-size: 0.68rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .slash-channel-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(35, 165, 90, 0.15);
+            border: 1px solid rgba(35, 165, 90, 0.35);
+            color: #23a55a;
+            font-size: 0.68rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .bot-assigned-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #5865F2;
+            background: rgba(88, 101, 242, 0.12);
+            border: 1px solid rgba(88, 101, 242, 0.28);
+            padding: 2px 7px;
+            border-radius: 12px;
+        }
+
         .bot-modal-backdrop {
             position: fixed;
             top: 0;
@@ -4893,6 +4966,199 @@
             opacity: 0.5;
             cursor: not-allowed;
             border-style: dashed;
+        }
+
+        /* Bot Code Editor (Real Script Coding Mode) */
+        .bot-mode-tab-btn {
+            background: transparent;
+            border: none;
+            color: #949ba4;
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .bot-mode-tab-btn.active {
+            background: #5865F2;
+            color: #ffffff;
+            box-shadow: 0 1px 4px rgba(88, 101, 242, 0.4);
+        }
+
+        .bot-mode-tab-btn:hover:not(.active) {
+            color: #ffffff;
+        }
+
+        .bot-code-editor-viewport {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #111214;
+            overflow: hidden;
+            position: relative;
+            min-height: 0;
+        }
+
+        .bot-code-main-area {
+            flex: 1;
+            display: flex;
+            position: relative;
+            background: #111214;
+            overflow: hidden;
+            min-height: 0;
+        }
+
+        .bot-code-gutter {
+            width: 48px;
+            padding: 14px 8px 14px 0;
+            text-align: right;
+            color: #4e5058;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, Menlo, Monaco, monospace;
+            font-size: 0.84rem;
+            line-height: 1.55;
+            background: #18191c;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            user-select: none;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .bot-code-textarea {
+            flex: 1;
+            background: transparent;
+            color: #e0e2e6;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, Menlo, Monaco, monospace;
+            font-size: 0.84rem;
+            line-height: 1.55;
+            padding: 14px 16px;
+            border: none;
+            outline: none;
+            resize: none;
+            white-space: pre;
+            overflow: auto;
+            tab-size: 4;
+            letter-spacing: 0.02em;
+        }
+
+        .bot-code-textarea::selection {
+            background: rgba(88, 101, 242, 0.4);
+        }
+
+        .bot-code-statusbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #18191c;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 5px 14px;
+            font-size: 0.72rem;
+            color: #949ba4;
+            font-family: inherit;
+            flex-shrink: 0;
+        }
+
+        .bot-terminal-container {
+            height: 190px;
+            background: #0d0e11;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: height 0.2s ease;
+        }
+
+        .bot-terminal-container.minimized {
+            height: 34px;
+        }
+
+        .bot-terminal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 12px;
+            background: #141518;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            user-select: none;
+        }
+
+        .bot-terminal-status-badge {
+            font-size: 0.65rem;
+            color: #23a55a;
+            background: rgba(35, 165, 90, 0.14);
+            border: 1px solid rgba(35, 165, 90, 0.3);
+            padding: 1px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .bot-terminal-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #949ba4;
+            font-size: 0.7rem;
+            padding: 2px 7px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .bot-terminal-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .bot-terminal-logs {
+            flex: 1;
+            padding: 8px 12px;
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', Consolas, monospace;
+            font-size: 0.76rem;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .bot-log-entry {
+            word-break: break-word;
+        }
+
+        .bot-log-entry.info { color: #949ba4; }
+        .bot-log-entry.log { color: #dbdee1; }
+        .bot-log-entry.reply { color: #23a55a; font-weight: 600; }
+        .bot-log-entry.cmd { color: #5865F2; font-weight: 600; }
+        .bot-log-entry.warn { color: #f0b232; }
+        .bot-log-entry.error { color: #f23f43; font-weight: 600; }
+
+        .bot-terminal-input-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: #141518;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .bot-terminal-input {
+            flex: 1;
+            background: #1e1f22;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: #ffffff;
+            font-family: 'JetBrains Mono', Consolas, monospace;
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            outline: none;
+        }
+
+        .bot-terminal-input:focus {
+            border-color: #5865F2;
+        }
+
+        .bot-toolbox-card.code-snippet-card {
+            border-left: 3px solid #5865F2;
         }
 
         /* Discord Save Changes Floating Notice Bar */
@@ -8736,7 +9002,7 @@
                 <h2 class="settings-section-title">Profiles</h2>
 
                 <div class="profile-field-group">
-                    <label class="profile-field-label">Display Name</label>
+                    <label class="profile-field-label">Display Name <span style="font-size: 0.72rem; color: #949ba4; font-weight: normal; text-transform: none; margin-left: 6px;">(Min 3 chars, max 1 space, only letters, numbers, _ and .)</span></label>
                     <input type="text" class="profile-input" id="displayNameInput" value="User" placeholder="Enter display name...">
                     <div class="name-style-section" id="nameStyleEditor">
                         <!-- Header with Reset -->
@@ -8829,11 +9095,11 @@
                 </div>
 
                 <div class="profile-field-group">
-                    <label class="profile-field-label">Handle</label>
+                    <label class="profile-field-label">Handle <span style="font-size: 0.72rem; color: #949ba4; font-weight: normal; text-transform: none; margin-left: 6px;">(3–12 chars, no spaces, only letters, numbers, _ and .)</span></label>
                     <div class="handle-input-row">
                         <div class="handle-input-box">
                             <span class="handle-prefix">@</span>
-                            <input type="text" class="handle-input" id="handleInput" placeholder="username">
+                            <input type="text" class="handle-input" id="handleInput" placeholder="username" maxlength="12">
                         </div>
                         <button type="button" class="shiny-glass-btn" id="saveHandleBtn">Save Handle</button>
                     </div>
@@ -9747,7 +10013,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 6px;" title="Restrict this bot to talk only in an assigned server">
+                                <span style="font-size: 0.74rem; color: #949ba4; font-weight: 600;">Server Lock:</span>
+                                <select id="botEditorServerAssignSelect" class="bot-block-select" style="width: auto; padding: 5px 8px; font-size: 0.76rem; background: #2b2d31; border-color: rgba(255,255,255,0.18);">
+                                    <option value="all">🌐 Any Server</option>
+                                </select>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 6px;" title="Restrict this bot to only talk in an assigned channel">
+                                <span style="font-size: 0.74rem; color: #949ba4; font-weight: 600;">Channel Lock:</span>
+                                <select id="botEditorChannelAssignSelect" class="bot-block-select" style="width: auto; padding: 5px 8px; font-size: 0.76rem; background: #2b2d31; border-color: rgba(255,255,255,0.18);">
+                                    <option value="all"># Any Channel</option>
+                                </select>
+                            </div>
                             <span id="botEditorStatusNotice" style="display: none; font-size: 0.76rem; color: #23a55a; font-weight: 600; background: rgba(35, 165, 90, 0.15); border: 1px solid rgba(35, 165, 90, 0.3); padding: 4px 10px; border-radius: 20px;">
                                 ✓ Saved & Published
                             </span>
@@ -9795,73 +10073,135 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <div class="bot-toolbox-section-title">
-                                    <span>⚡ Triggers (Events)</span>
+                            <!-- Visual Block Toolbox Section -->
+                            <div id="botBlockToolboxSections">
+                                <div>
+                                    <div class="bot-toolbox-section-title">
+                                        <span>⚡ Triggers (Events)</span>
+                                    </div>
+                                    <div class="bot-toolbox-card trigger-card" data-block-type="event_command" title="Triggered when a command like /bot hello is sent">
+                                        <span>/bot [command]</span>
+                                        <span style="font-size: 0.7rem; color: #5865F2;">+ Add</span>
+                                    </div>
+                                    <div class="bot-toolbox-card trigger-card" data-block-type="event_join" title="Triggered when a user joins the server">
+                                        <span>When member joins</span>
+                                        <span style="font-size: 0.7rem; color: #5865F2;">+ Add</span>
+                                    </div>
+                                    <div class="bot-toolbox-card trigger-card" data-block-type="event_message" title="Triggered when a message contains specific text">
+                                        <span>Message contains</span>
+                                        <span style="font-size: 0.7rem; color: #5865F2;">+ Add</span>
+                                    </div>
                                 </div>
-                                <div class="bot-toolbox-card trigger-card" data-block-type="event_command" title="Triggered when a command like /bot hello is sent">
-                                    <span>/bot [command]</span>
-                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Add</span>
+
+                                <div style="margin-top: 10px;">
+                                    <div class="bot-toolbox-section-title">
+                                        <span>💬 Actions</span>
+                                    </div>
+                                    <div class="bot-toolbox-card action-card" data-block-type="action_reply" title="Send a reply message in the current channel">
+                                        <span>Reply in channel</span>
+                                        <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                    </div>
+                                    <div class="bot-toolbox-card action-card" data-block-type="action_send_server" title="Send message to a specific server and channel">
+                                        <span>Send to server</span>
+                                        <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                    </div>
+                                    <div class="bot-toolbox-card action-card" data-block-type="action_dm" title="Send a private direct message to the user">
+                                        <span>Send Direct Message</span>
+                                        <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                    </div>
+                                    <div class="bot-toolbox-card action-card" data-block-type="action_react" title="Add an emoji reaction to the message">
+                                        <span>Add reaction</span>
+                                        <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                    </div>
                                 </div>
-                                <div class="bot-toolbox-card trigger-card" data-block-type="event_join" title="Triggered when a user joins the server">
-                                    <span>When member joins</span>
-                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Add</span>
-                                </div>
-                                <div class="bot-toolbox-card trigger-card" data-block-type="event_message" title="Triggered when a message contains specific text">
-                                    <span>Message contains</span>
-                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Add</span>
+
+                                <div style="margin-top: 10px;">
+                                    <div class="bot-toolbox-section-title">
+                                        <span>⚙️ Logic & Flow</span>
+                                    </div>
+                                    <div class="bot-toolbox-card control-card" data-block-type="control_link_file" title="Execute another linked file in this bot">
+                                        <span>🔗 Link & Run File</span>
+                                        <span style="font-size: 0.7rem; color: #f0b232;">+ Add</span>
+                                    </div>
+                                    <div class="bot-toolbox-card control-card" data-block-type="control_if_role" title="Check if user has a role before executing">
+                                        <span>If user has role</span>
+                                        <span style="font-size: 0.7rem; color: #f0b232;">+ Add</span>
+                                    </div>
+                                    <div class="bot-toolbox-card control-card" data-block-type="control_wait" title="Delay before continuing execution">
+                                        <span>Wait seconds</span>
+                                        <span style="font-size: 0.7rem; color: #f0b232;">+ Add</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div>
+                            <!-- JavaScript Code Snippets Section (Visible in Code Mode) -->
+                            <div id="botCodeSnippetsSection" style="display: none;">
                                 <div class="bot-toolbox-section-title">
-                                    <span>💬 Actions</span>
+                                    <span>⚡ Code Snippets</span>
                                 </div>
-                                <div class="bot-toolbox-card action-card" data-block-type="action_reply" title="Send a reply message in the current channel">
-                                    <span>Reply in channel</span>
-                                    <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                <div class="bot-toolbox-card code-snippet-card" data-snippet="command" title="Click to insert slash command boilerplate">
+                                    <span>/ Slash Command</span>
+                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Insert</span>
                                 </div>
-                                <div class="bot-toolbox-card action-card" data-block-type="action_dm" title="Send a private direct message to the user">
-                                    <span>Send Direct Message</span>
-                                    <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                <div class="bot-toolbox-card code-snippet-card" data-snippet="coinflip" title="Click to insert Coinflip minigame">
+                                    <span>🪙 Coinflip Game</span>
+                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Insert</span>
                                 </div>
-                                <div class="bot-toolbox-card action-card" data-block-type="action_react" title="Add an emoji reaction to the message">
-                                    <span>Add reaction</span>
-                                    <span style="font-size: 0.7rem; color: #23a55a;">+ Add</span>
+                                <div class="bot-toolbox-card code-snippet-card" data-snippet="roll" title="Click to insert Dice Roll with args">
+                                    <span>🎲 Dice Roller</span>
+                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Insert</span>
                                 </div>
-                            </div>
+                                <div class="bot-toolbox-card code-snippet-card" data-snippet="8ball" title="Click to insert Magic 8-Ball Oracle">
+                                    <span>🎱 8-Ball Oracle</span>
+                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Insert</span>
+                                </div>
+                                <div class="bot-toolbox-card code-snippet-card" data-snippet="role_command" title="Click to insert command with role requirement">
+                                    <span>🛡️ Role-Locked Cmd</span>
+                                    <span style="font-size: 0.7rem; color: #f0b232;">+ Insert</span>
+                                </div>
+                                <div class="bot-toolbox-card code-snippet-card" data-snippet="channel_command" title="Click to insert command with channel lock">
+                                    <span>🔒 Channel-Locked Cmd</span>
+                                    <span style="font-size: 0.7rem; color: #23a55a;">+ Insert</span>
+                                </div>
+                                <div class="bot-toolbox-card code-snippet-card" data-snippet="message_listener" title="Click to insert keyword autoresponder">
+                                    <span>💬 Autoresponder</span>
+                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Insert</span>
+                                </div>
+                                <div class="bot-toolbox-card code-snippet-card" data-snippet="cross_server" title="Click to insert cross-server broadcast">
+                                    <span>🌐 Cross-Server Msg</span>
+                                    <span style="font-size: 0.7rem; color: #5865F2;">+ Insert</span>
+                                </div>
 
-                            <div>
-                                <div class="bot-toolbox-section-title">
-                                    <span>⚙️ Logic & Flow</span>
-                                </div>
-                                <div class="bot-toolbox-card control-card" data-block-type="control_link_file" title="Execute another linked file in this bot">
-                                    <span>🔗 Link & Run File</span>
-                                    <span style="font-size: 0.7rem; color: #f0b232;">+ Add</span>
-                                </div>
-                                <div class="bot-toolbox-card control-card" data-block-type="control_if_role" title="Check if user has a role before executing">
-                                    <span>If user has role</span>
-                                    <span style="font-size: 0.7rem; color: #f0b232;">+ Add</span>
-                                </div>
-                                <div class="bot-toolbox-card control-card" data-block-type="control_wait" title="Delay before continuing execution">
-                                    <span>Wait seconds</span>
-                                    <span style="font-size: 0.7rem; color: #f0b232;">+ Add</span>
+                                <div style="margin-top: 14px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 6px; font-size: 0.72rem; color: #949ba4; line-height: 1.5;">
+                                    <div style="font-weight: 700; color: #ffffff; margin-bottom: 4px;">📖 Talky Bot API</div>
+                                    <div><code style="color: #5865F2;">ctx.reply(text)</code> — reply in chat</div>
+                                    <div><code style="color: #23a55a;">ctx.react(emoji)</code> — add emoji</div>
+                                    <div><code style="color: #f0b232;">ctx.dm(text)</code> — direct message</div>
+                                    <div><code style="color: #dbdee1;">ctx.args</code> — command arguments</div>
+                                    <div><code style="color: #dbdee1;">await ctx.sleep(ms)</code> — delay</div>
                                 </div>
                             </div>
 
                             <div style="margin-top: auto; padding: 10px; background: rgba(0,0,0,0.25); border-radius: 6px; font-size: 0.73rem; color: #949ba4; line-height: 1.4;">
-                                💡 <strong style="color: #dbdee1;">Tip:</strong> Click <strong style="color:#5865F2;">+ Add</strong> or drag blocks directly onto the canvas. Connect matching blocks using the bottom notch.
+                                💡 <strong style="color: #dbdee1;">Tip:</strong> Switch to <strong style="color:#5865F2;">Code (JS)</strong> mode to write custom JavaScript bots or click snippets to insert code instantly.
                             </div>
                         </div>
 
-                        <!-- Right Canvas Area -->
+                        <!-- Right Canvas / Code Editor Area -->
                         <div class="bot-canvas-wrapper">
                             <div class="bot-canvas-toolbar">
                                 <div style="display: flex; align-items: center; gap: 8px;">
                                     <span style="font-size: 0.8rem; font-weight: 700; color: #ffffff;" id="botActiveFileNameDisplay">main.blocks</span>
-                                    <span style="font-size: 0.68rem; color: #949ba4; background: rgba(255,255,255,0.06); padding: 2px 7px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">Block Mode</span>
+                                    
+                                    <!-- Segmented View Mode Switcher -->
+                                    <div class="bot-view-mode-toggle" id="botViewModeToggle" style="display: flex; align-items: center; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 20px; padding: 2px; margin-left: 4px;">
+                                        <button type="button" class="bot-mode-tab-btn active" id="botModeBlocksBtn" title="Visual Block Canvas">🧩 Blocks</button>
+                                        <button type="button" class="bot-mode-tab-btn" id="botModeCodeBtn" title="JavaScript Code Editor">💻 Code (JS)</button>
+                                    </div>
                                 </div>
-                                <div style="display: flex; align-items: center; gap: 8px;">
+
+                                <!-- Block Canvas Controls -->
+                                <div style="display: flex; align-items: center; gap: 8px;" id="botCanvasBlocksControls">
                                     <button type="button" class="role-btn-secondary small" id="botCanvasCenterBtn" title="Reset canvas view">
                                         Center View
                                     </button>
@@ -9869,14 +10209,70 @@
                                         Clear Blocks
                                     </button>
                                 </div>
+
+                                <!-- Code Editor Controls -->
+                                <div style="display: none; align-items: center; gap: 8px;" id="botCodeEditorControls">
+                                    <button type="button" class="role-btn-secondary small" id="botCodeFormatBtn" title="Format JavaScript Code" style="padding: 4px 10px; font-size: 0.75rem;">
+                                        ⚡ Format
+                                    </button>
+                                    <button type="button" class="role-btn-secondary small" id="botCodeTestRunBtn" style="color: #23a55a; border-color: rgba(35, 165, 90, 0.35); padding: 4px 12px; font-size: 0.75rem; font-weight: 600;" title="Run in live sandbox & test console">
+                                        ▶ Test Code
+                                    </button>
+                                    <button type="button" class="role-btn-secondary small" id="botToggleConsoleBtn" title="Toggle Bot Terminal Console" style="padding: 4px 10px; font-size: 0.75rem;">
+                                        🖥️ Terminal
+                                    </button>
+                                </div>
                             </div>
 
-                            <!-- Viewport & Stage -->
+                            <!-- Viewport & Stage for Visual Blocks -->
                             <div class="bot-canvas-viewport" id="botCanvasViewport">
                                 <div class="bot-canvas-stage" id="botCanvasStage">
                                     <svg class="bot-canvas-svg" id="botCanvasSvg"></svg>
                                     <div id="botCanvasNodesContainer">
                                         <!-- Blocks rendered dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Code Editor Viewport (Actual JavaScript / TypeScript Coding) -->
+                            <div class="bot-code-editor-viewport" id="botCodeEditorViewport" style="display: none;">
+                                <div class="bot-code-main-area">
+                                    <div class="bot-code-gutter" id="botCodeGutter"></div>
+                                    <textarea class="bot-code-textarea" id="botCodeTextarea" spellcheck="false" placeholder="// Write actual bot JavaScript code here..."></textarea>
+                                </div>
+
+                                <!-- Status Bar -->
+                                <div class="bot-code-statusbar">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <span id="botCodeSyntaxLabel" style="font-weight: 600; color: #5865F2;">JavaScript (ES2024)</span>
+                                        <span id="botCodeStatsLabel">Ln 1, Col 1</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span id="botCodeRegisteredCount" style="color: #23a55a; font-weight: 600;">● 0 Commands Ready</span>
+                                        <span>UTF-8</span>
+                                    </div>
+                                </div>
+
+                                <!-- Integrated Bot Console & Interactive Test Runner -->
+                                <div class="bot-terminal-container" id="botTerminalContainer">
+                                    <div class="bot-terminal-header">
+                                        <div style="display: flex; align-items: center; gap: 8px;">
+                                            <span style="font-size: 0.85rem;">🖥️</span>
+                                            <span style="font-weight: 700; color: #fff; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.05em;">Bot Console & Sandbox Terminal</span>
+                                            <span class="bot-terminal-status-badge">● Sandbox Active</span>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 6px;">
+                                            <button type="button" class="bot-terminal-btn" id="botTerminalClearBtn" title="Clear Console">Clear</button>
+                                            <button type="button" class="bot-terminal-btn" id="botTerminalMinimizeBtn" title="Toggle Terminal Size">_</button>
+                                        </div>
+                                    </div>
+                                    <div class="bot-terminal-logs" id="botTerminalLogs">
+                                        <div class="bot-log-entry info"><span class="bot-log-time">[System]</span> Bot Runtime sandbox initialized. Real JavaScript execution engine ready.</div>
+                                    </div>
+                                    <div class="bot-terminal-input-bar">
+                                        <span style="color: #5865F2; font-weight: 800; font-family: monospace;">&gt;</span>
+                                        <input type="text" id="botTerminalCommandInput" class="bot-terminal-input" placeholder="Type test command e.g. /ping, /coinflip, /roll 20, or test message...">
+                                        <button type="button" id="botTerminalSendBtn" class="role-btn-shiny small" style="padding: 4px 12px; font-size: 0.75rem;">Run</button>
                                     </div>
                                 </div>
                             </div>
@@ -9891,12 +10287,12 @@
                             <h3 style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin: 0;">Create Bot File</h3>
                             <button type="button" class="bot-block-delete-btn" id="closeBotCreateFileModalBtn" style="font-size: 1.3rem;">✕</button>
                         </div>
-                        <p style="font-size: 0.82rem; color: #949ba4; margin: 0;">Choose a file name and select what coding style you want for this file.</p>
+                        <p style="font-size: 0.82rem; color: #949ba4; margin: 0;">Choose a file name and select your preferred coding format.</p>
 
                         <!-- File Name -->
                         <div class="profile-field-group">
                             <label class="profile-field-label">FILE NAME</label>
-                            <input type="text" class="profile-input" id="newBotFileNameInput" placeholder="e.g. greetings.blocks, moderation.blocks" maxlength="40" style="padding: 10px 12px; font-size: 0.92rem;">
+                            <input type="text" class="profile-input" id="newBotFileNameInput" placeholder="e.g. commands.js, moderation.blocks, games.js" maxlength="40" style="padding: 10px 12px; font-size: 0.92rem;">
                             <div id="newBotFileNameError" style="display: none; color: #f23f43; font-size: 0.78rem; margin-top: 6px;">Please enter a valid file name.</div>
                         </div>
 
@@ -9904,27 +10300,27 @@
                         <div class="profile-field-group">
                             <label class="profile-field-label">CODING FORMAT</label>
                             <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 6px;">
-                                <!-- Block Coding (Available & Selected) -->
-                                <div class="bot-type-option-card selected" id="botOptionBlockCoding">
-                                    <div style="font-size: 1.4rem; line-height: 1;">🧩</div>
-                                    <div style="flex: 1;">
-                                        <div style="display: flex; align-items: center; justify-content: space-between;">
-                                            <span style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">Block Coding</span>
-                                            <span style="font-size: 0.68rem; font-weight: 700; color: #23a55a; background: rgba(35, 165, 90, 0.15); border: 1px solid rgba(35, 165, 90, 0.3); padding: 2px 7px; border-radius: 12px;">Active</span>
-                                        </div>
-                                        <p style="font-size: 0.78rem; color: #949ba4; margin: 4px 0 0 0;">Visual drag-and-drop block interface. Connect commands, responses, and events effortlessly.</p>
-                                    </div>
-                                </div>
-
-                                <!-- Text Coding (Disabled / Coming Soon) -->
-                                <div class="bot-type-option-card disabled" id="botOptionTextCoding">
+                                <!-- Script Coding (JavaScript / TypeScript) -->
+                                <div class="bot-type-option-card selected" id="botOptionTextCoding">
                                     <div style="font-size: 1.4rem; line-height: 1;">💻</div>
                                     <div style="flex: 1;">
                                         <div style="display: flex; align-items: center; justify-content: space-between;">
-                                            <span style="font-size: 0.9rem; font-weight: 700; color: #949ba4;">Script Coding (JS / TS)</span>
-                                            <span style="font-size: 0.68rem; font-weight: 700; color: #b5bac1; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); padding: 2px 7px; border-radius: 12px;">Coming Soon</span>
+                                            <span style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">Script Coding (JS / TS)</span>
+                                            <span id="botOptionTextBadge" style="font-size: 0.68rem; font-weight: 700; color: #5865F2; background: rgba(88, 101, 242, 0.15); border: 1px solid rgba(88, 101, 242, 0.35); padding: 2px 7px; border-radius: 12px;">Active &amp; Ready</span>
                                         </div>
-                                        <p style="font-size: 0.78rem; color: #6d737b; margin: 4px 0 0 0;">Write raw JavaScript/TypeScript code. (Block coding is currently the active format).</p>
+                                        <p style="font-size: 0.78rem; color: #949ba4; margin: 4px 0 0 0;">Write actual JavaScript/TypeScript code. Full client.command() API, interactive live sandbox, console logs, and custom logic!</p>
+                                    </div>
+                                </div>
+
+                                <!-- Block Coding (Visual Blocks) -->
+                                <div class="bot-type-option-card" id="botOptionBlockCoding">
+                                    <div style="font-size: 1.4rem; line-height: 1;">🧩</div>
+                                    <div style="flex: 1;">
+                                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                                            <span style="font-size: 0.9rem; font-weight: 700; color: #ffffff;">Block Coding (.blocks)</span>
+                                            <span style="font-size: 0.68rem; font-weight: 700; color: #23a55a; background: rgba(35, 165, 90, 0.15); border: 1px solid rgba(35, 165, 90, 0.3); padding: 2px 7px; border-radius: 12px;">Visual Flow</span>
+                                        </div>
+                                        <p style="font-size: 0.78rem; color: #949ba4; margin: 4px 0 0 0;">Visual drag-and-drop block interface. Connect commands, responses, and events effortlessly.</p>
                                     </div>
                                 </div>
                             </div>
@@ -10094,6 +10490,14 @@
                             </div>
                         </div>
                         <svg class="choice-chevron" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+                    </div>
+
+                    <div style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid rgba(255, 255, 255, 0.08); text-align: left;">
+                        <div style="font-size: 0.75rem; font-weight: 800; color: #949ba4; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.6rem;">HAVE AN INVITE ALREADY?</div>
+                        <form id="joinServerInviteForm" style="display: flex; gap: 8px;">
+                            <input type="text" id="joinServerInviteInput" class="modal-text-input" placeholder="Enter invite code or link (e.g. server ID)" style="flex: 1; font-size: 0.88rem; padding: 0.65rem 0.9rem;" required>
+                            <button type="submit" class="modal-btn primary" style="white-space: nowrap; padding: 0 1.1rem; font-size: 0.88rem;">Join Server</button>
+                        </form>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -10914,6 +11318,16 @@
 
         function saveUserData() {
             if (!currentUser) return;
+
+            // Preserve user's password from local storage or memory if missing on currentUser object
+            try {
+                let users = JSON.parse(localStorage.getItem('talky_users') || '[]');
+                const existing = users.find(u => u.id === currentUser.id || (u.email && u.email === currentUser.email));
+                if (existing && existing.password && !currentUser.password) {
+                    currentUser.password = existing.password;
+                }
+            } catch (e) {}
+
             safeStorageSet('talky_current_user', JSON.stringify(currentUser));
 
             try {
@@ -12198,19 +12612,61 @@
             });
         }
 
-        // 5-Day Handle Cooldown Handler
+        // 5-Day Handle Cooldown & Format Handler
         const FIVE_DAYS_MS = 5 * 24 * 60 * 60 * 1000;
 
-        saveHandleBtn.addEventListener('click', () => {
-            const rawNewHandle = handleInput.value.trim().replace(/^@/, '').toLowerCase().replace(/[^a-z0-9_]/g, '');
+        saveHandleBtn.addEventListener('click', async () => {
+            const rawNewHandle = handleInput.value.trim().replace(/^@/, '');
+            
             if (!rawNewHandle) {
-                handleNotice.textContent = 'Handle must contain at least one valid character.';
+                handleNotice.textContent = 'Handle must contain at least 3 valid characters.';
                 handleNotice.className = 'handle-notice error';
                 return;
             }
 
-            if (rawNewHandle === currentUser.handle) {
+            if (rawNewHandle.includes(' ')) {
+                handleNotice.textContent = 'Handle cannot contain spaces.';
+                handleNotice.className = 'handle-notice error';
+                return;
+            }
+
+            if (rawNewHandle.length < 3 || rawNewHandle.length > 12) {
+                handleNotice.textContent = 'Handle must be between 3 and 12 characters long.';
+                handleNotice.className = 'handle-notice error';
+                return;
+            }
+
+            if (!/^[a-zA-Z0-9_.]+$/.test(rawNewHandle)) {
+                handleNotice.textContent = 'Handle can only contain letters, numbers, underscores (_), and dots (.). No special characters.';
+                handleNotice.className = 'handle-notice error';
+                return;
+            }
+
+            const cleanHandle = rawNewHandle.toLowerCase();
+
+            if (cleanHandle === currentUser.handle) {
                 handleNotice.textContent = 'This is already your current handle.';
+                handleNotice.className = 'handle-notice error';
+                return;
+            }
+
+            // Check if handle is taken by another user in localStorage or Firebase
+            let usersList = [];
+            try { usersList = JSON.parse(localStorage.getItem('talky_users') || '[]'); } catch(e) {}
+            let handleIsTaken = usersList.some(u => u.id !== currentUser.id && u.handle && u.handle.toLowerCase() === cleanHandle);
+
+            if (!handleIsTaken) {
+                try {
+                    const snap = await get(ref(rtdb, 'users'));
+                    if (snap.exists()) {
+                        const fbUsers = snap.val();
+                        handleIsTaken = Object.values(fbUsers).some(u => u.id !== currentUser.id && u.handle && u.handle.toLowerCase() === cleanHandle);
+                    }
+                } catch (fbErr) {}
+            }
+
+            if (handleIsTaken) {
+                handleNotice.textContent = `The handle "@${cleanHandle}" is already taken by another account.`;
                 handleNotice.className = 'handle-notice error';
                 return;
             }
@@ -12235,12 +12691,13 @@
                 return;
             }
 
-            currentUser.handle = rawNewHandle;
+            currentUser.handle = cleanHandle;
             currentUser.handleLastChanged = now;
             saveUserData();
 
-            previewHandle.textContent = '@' + rawNewHandle;
-            barHandle.textContent = '@' + rawNewHandle;
+            previewHandle.textContent = '@' + cleanHandle;
+            barHandle.textContent = '@' + cleanHandle;
+            handleInput.value = cleanHandle;
 
             handleNotice.textContent = 'Handle changed successfully! Cooldown active for 5 days.';
             handleNotice.className = 'handle-notice success';
@@ -12366,6 +12823,28 @@
 
         if (profileSaveNoticeBtn) {
             profileSaveNoticeBtn.addEventListener('click', async () => {
+                const newDisplayName = (profileDraftState.displayName || '').trim();
+
+                // Validate Display Name format
+                if (newDisplayName.length < 3) {
+                    showBotEditorToast('⚠️ Display name must be at least 3 characters long.');
+                    if (displayNameInput) displayNameInput.focus();
+                    return;
+                }
+
+                const spaceCount = (newDisplayName.match(/ /g) || []).length;
+                if (spaceCount > 1) {
+                    showBotEditorToast('⚠️ Display name can contain at most 1 space.');
+                    if (displayNameInput) displayNameInput.focus();
+                    return;
+                }
+
+                if (!/^[a-zA-Z0-9_. ]+$/.test(newDisplayName)) {
+                    showBotEditorToast('⚠️ Display name can only contain letters, numbers, underscores (_), dots (.), and up to 1 space.');
+                    if (displayNameInput) displayNameInput.focus();
+                    return;
+                }
+
                 profileSaveNoticeBtn.disabled = true;
                 const origText = profileSaveNoticeBtn.textContent;
                 profileSaveNoticeBtn.textContent = 'Saving...';
@@ -12379,7 +12858,7 @@
                         profileDraftState.banner = await compressImage(profileDraftState.banner, 640, 220, 0.80);
                     }
 
-                    currentUser.displayName = profileDraftState.displayName.trim() || 'User';
+                    currentUser.displayName = newDisplayName;
                     currentUser.pronouns = profileDraftState.pronouns;
                     currentUser.bio = profileDraftState.bio;
                     currentUser.accentColor = profileDraftState.accentColor;
@@ -12413,6 +12892,7 @@
                     saveUserData();
                     applyUserDataToUI();
                     checkProfileUnsavedChanges();
+                    showBotEditorToast('✓ Profile saved successfully!');
                 } catch (err) {
                     console.error('Error during profile save:', err);
                 } finally {
@@ -16127,6 +16607,7 @@
 
             // Reset pending reply & attachments
             cancelServerReply();
+            if (typeof closeSlashCommandsMenu === 'function') closeSlashCommandsMenu();
             pendingServerImages = [];
             renderServerAttachmentTray();
 
@@ -18629,7 +19110,7 @@
             serverDropdownInviteBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const server = serversList.find(s => s.id === activeServerId);
-                const inviteUrl = window.location.origin + '/app' + (server ? `?server=${server.id}` : '');
+                const inviteUrl = window.location.origin + '/invite.html' + (server ? `?code=${encodeURIComponent(server.id)}` : '');
                 const label = serverDropdownInviteBtn.querySelector('span');
                 const orig = label ? label.textContent : 'Invite People';
                 if (navigator.clipboard) {
@@ -18834,6 +19315,21 @@
                     ? new Date(bot.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })
                     : 'Server Bot';
 
+                let assignedServerText = '🌐 All Servers';
+                if (bot.assignedServerId && bot.assignedServerId !== 'all') {
+                    const as = (serversList || []).find(s => s.id === bot.assignedServerId);
+                    assignedServerText = '🔒 ' + (as ? as.name : 'Assigned Server');
+                }
+
+                let assignedChannelBadge = '';
+                if (bot.assignedChannelId && bot.assignedChannelId !== 'all') {
+                    const targetServer = (serversList || []).find(s => s.id === (bot.assignedServerId && bot.assignedServerId !== 'all' ? bot.assignedServerId : activeServerId));
+                    const ac = targetServer && Array.isArray(targetServer.channels) ? targetServer.channels.find(c => c.id === bot.assignedChannelId) : null;
+                    if (ac) {
+                        assignedChannelBadge = `<span>•</span><span class="slash-channel-badge"># ${escapeHtml(ac.name)}</span>`;
+                    }
+                }
+
                 cardsHtml += `
                     <div class="bot-card-item" data-bot-id="${escapeHtml(bot.id)}">
                         <div class="bot-card-banner" style="${bannerStyle}"></div>
@@ -18848,7 +19344,12 @@
                                     <span>${escapeHtml(bot.name)}</span>
                                     <span class="bot-tag">BOT</span>
                                 </div>
-                                <div class="bot-card-meta">Added ${escapeHtml(createdDate)}</div>
+                                <div class="bot-card-meta" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 2px;">
+                                    <span>Added ${escapeHtml(createdDate)}</span>
+                                    <span>•</span>
+                                    <span class="bot-assigned-badge">${escapeHtml(assignedServerText)}</span>
+                                    ${assignedChannelBadge}
+                                </div>
                             </div>
                             <div class="bot-card-footer">
                                 <button type="button" class="role-btn-secondary small bot-card-invite-btn ${bot.isInvited ? 'is-invited' : ''}" data-bot-id="${escapeHtml(bot.id)}" title="${bot.isInvited ? 'Bot is in server. Click to remove.' : 'Invite bot to server members'}">
@@ -19180,6 +19681,7 @@
                     name: (botDraft.name || 'Unnamed Bot').trim(),
                     icon: botDraft.icon || '',
                     banner: botDraft.banner || '',
+                    assignedServerId: activeServerId || 'all',
                     createdAt: Date.now()
                 };
                 server.bots.push(newBot);
@@ -19200,7 +19702,7 @@
                 title: 'When command /bot is received',
                 icon: '⚡',
                 defaultParam: 'hello',
-                inputLabel: 'COMMAND NAME (e.g. hello, ping)',
+                inputLabel: 'COMMAND NAME (e.g. hello, announce, ban)',
                 badgeText: 'Trigger',
                 canConnectFrom: true,
                 canConnectTo: false
@@ -19230,8 +19732,18 @@
                 category: 'action',
                 title: 'Reply in channel',
                 icon: '💬',
-                defaultParam: 'Hello there! 👋 Welcome to the server!',
+                defaultParam: 'Hello there! 👋 Welcome to {server}!',
                 inputLabel: 'REPLY MESSAGE',
+                badgeText: 'Action',
+                canConnectFrom: true,
+                canConnectTo: true
+            },
+            action_send_server: {
+                category: 'action',
+                title: 'Send to specific server',
+                icon: '🌐',
+                defaultParam: 'Announcement from {server} bot!',
+                inputLabel: 'MESSAGE CONTENT',
                 badgeText: 'Action',
                 canConnectFrom: true,
                 canConnectTo: true
@@ -19260,7 +19772,7 @@
                 category: 'control',
                 title: 'If user has role',
                 icon: '🛡️',
-                defaultParam: 'Member',
+                defaultParam: 'Admin',
                 inputLabel: 'REQUIRED ROLE',
                 badgeText: 'Control',
                 canConnectFrom: true,
@@ -19449,8 +19961,26 @@
                                 connectedTo: null
                             }
                         ]
+                    },
+                    {
+                        id: 'file_script_' + Date.now(),
+                        name: 'commands.js',
+                        type: 'script',
+                        isLinked: true,
+                        code: getDefaultStarterScript('commands.js', bot),
+                        blocks: []
                     }
                 ];
+            } else if (!bot.files.some(f => f.name.endsWith('.js') || f.name.endsWith('.ts') || f.type === 'script')) {
+                // Ensure a script coding file is always available
+                bot.files.push({
+                    id: 'file_script_' + Date.now(),
+                    name: 'commands.js',
+                    type: 'script',
+                    isLinked: true,
+                    code: getDefaultStarterScript('commands.js', bot),
+                    blocks: []
+                });
             }
 
             currentActiveFileId = bot.files[0].id;
@@ -19481,6 +20011,45 @@
             const statusNotice = document.getElementById('botEditorStatusNotice');
             if (statusNotice) statusNotice.style.display = 'none';
 
+            // Populate and bind server and channel assignment lock dropdowns
+            const assignSelect = document.getElementById('botEditorServerAssignSelect');
+            const channelAssignSelect = document.getElementById('botEditorChannelAssignSelect');
+
+            const refreshChannelAssignOptions = (serverId) => {
+                if (!channelAssignSelect) return;
+                const tgtServer = (serversList || []).find(s => s.id === (serverId && serverId !== 'all' ? serverId : activeServerId)) || (serversList || [])[0];
+                let chOptionsHtml = '<option value="all"># Any Channel (Global)</option>';
+                if (tgtServer && Array.isArray(tgtServer.channels)) {
+                    tgtServer.channels.filter(c => c.type !== 'divider').forEach(ch => {
+                        chOptionsHtml += `<option value="${escapeHtml(ch.id)}">🔒 Only in #${escapeHtml(ch.name)}</option>`;
+                    });
+                }
+                channelAssignSelect.innerHTML = chOptionsHtml;
+                channelAssignSelect.value = bot.assignedChannelId || 'all';
+            };
+
+            if (assignSelect) {
+                let optionsHtml = '<option value="all">🌐 Any Server (Global)</option>';
+                (serversList || []).forEach(s => {
+                    optionsHtml += `<option value="${escapeHtml(s.id)}">🔒 Only in ${escapeHtml(s.name)}</option>`;
+                });
+                assignSelect.innerHTML = optionsHtml;
+                assignSelect.value = bot.assignedServerId || 'all';
+                assignSelect.onchange = () => {
+                    bot.assignedServerId = assignSelect.value;
+                    refreshChannelAssignOptions(assignSelect.value);
+                    saveServers();
+                };
+            }
+
+            if (channelAssignSelect) {
+                refreshChannelAssignOptions(bot.assignedServerId || 'all');
+                channelAssignSelect.onchange = () => {
+                    bot.assignedChannelId = channelAssignSelect.value;
+                    saveServers();
+                };
+            }
+
             updateBotEditorInviteBtnState(bot);
             renderBotEditorFilesList();
             renderActiveFileCanvas();
@@ -19493,6 +20062,370 @@
             }
         }
 
+        let currentEditorViewMode = 'blocks';
+
+        function getDefaultStarterScript(fileName = 'commands.js', bot = null) {
+            const botName = bot ? bot.name : 'TalkyBot';
+            return `// ==========================================
+// ${fileName} — Talky Bot Script (JavaScript)
+// Write actual JavaScript code to power your bot!
+// Full Discord-style API: client.command(), ctx.reply()
+// ==========================================
+
+// 1. Slash command: /ping
+client.command('ping', { description: 'Check bot latency and status' }, async (ctx) => {
+    const latency = Math.floor(Math.random() * 25 + 12);
+    await ctx.reply(\`🏓 Pong! \${ctx.bot.name} is online and running fast (latency: \${latency}ms)\`);
+});
+
+// 2. Coinflip game: /coinflip
+client.command('coinflip', { description: 'Flip a coin (Heads or Tails)' }, async (ctx) => {
+    const outcome = Math.random() > 0.5 ? '🪙 Heads!' : '🪙 Tails!';
+    await ctx.reply(\`@\${ctx.user.name} flipped a coin and got: **\${outcome}**\`);
+});
+
+// 3. Dice roll with argument: /roll [sides]
+client.command('roll', { description: 'Roll a dice (e.g. /roll 20)' }, async (ctx) => {
+    const sides = parseInt(ctx.args[0], 10) || 6;
+    const result = Math.floor(Math.random() * sides) + 1;
+    await ctx.reply(\`🎲 @\${ctx.user.name} rolled a d\${sides} and got: **\${result}**\`);
+});
+
+// 4. Magic 8-Ball oracle: /8ball [question]
+client.command('8ball', { description: 'Ask the oracle a question' }, async (ctx) => {
+    const fortunes = [
+        'It is certain! ✨', 'Without a doubt! 🎯', 'Yes, definitely! 👍',
+        'Ask again later... 🔮', 'Cannot predict now 🤔',
+        'Don\\'t count on it ❌', 'My sources say no 🚫', 'Outlook not so good 🌧️'
+    ];
+    const pick = fortunes[Math.floor(Math.random() * fortunes.length)];
+    const question = ctx.args.join(' ') || 'Will it happen?';
+    await ctx.reply(\`🎱 **Question:** "\${question}"\\n**Answer:** \${pick}\`);
+});
+
+// 5. Keyword listener in chat
+client.on('message', async (ctx) => {
+    if (ctx.message.toLowerCase().includes('good bot')) {
+        await ctx.react('❤️');
+        await ctx.reply(\`Aww, thank you @\${ctx.user.name}! 🥰\`);
+    }
+});
+`;
+        }
+
+        function generateJsFromBlocks(file) {
+            if (!file || !Array.isArray(file.blocks)) return '';
+            let code = `// ==========================================\n// Converted from visual blocks: ${file.name}\n// Talky Bot Script Engine\n// ==========================================\n\n`;
+            file.blocks.forEach(blk => {
+                if (blk.type === 'event_command') {
+                    const cmdName = (blk.param || 'hello').replace(/^\//, '');
+                    const opts = [];
+                    if (blk.requiredRole) opts.push(`role: '${blk.requiredRole}'`);
+                    if (blk.allowedChannelId) opts.push(`channelId: '${blk.allowedChannelId}'`);
+                    const optStr = opts.length > 0 ? `{ ${opts.join(', ')} }, ` : '';
+                    code += `client.command('${cmdName}', ${optStr}async (ctx) => {\n`;
+                    let cur = blk.connectedTo;
+                    while (cur) {
+                        const next = file.blocks.find(b => b.id === cur);
+                        if (!next) break;
+                        if (next.type === 'action_reply') {
+                            code += `    await ctx.reply(\`${(next.param || '').replace(/`/g, '\\`')}\`);\n`;
+                        } else if (next.type === 'action_send_server') {
+                            code += `    await ctx.sendServer('${next.targetServerId || ''}', '${next.targetChannel || ''}', \`${(next.param || '').replace(/`/g, '\\`')}\`);\n`;
+                        } else if (next.type === 'action_react') {
+                            code += `    await ctx.react('${next.param || '👍'}');\n`;
+                        } else if (next.type === 'action_dm') {
+                            code += `    await ctx.dm(\`${(next.param || '').replace(/`/g, '\\`')}\`);\n`;
+                        } else if (next.type === 'control_wait') {
+                            code += `    await ctx.sleep(${parseFloat(next.param) * 1000 || 1000});\n`;
+                        }
+                        cur = next.connectedTo;
+                    }
+                    code += `});\n\n`;
+                } else if (blk.type === 'event_message') {
+                    const kw = blk.param || '';
+                    code += `client.on('message', async (ctx) => {\n`;
+                    code += `    if (ctx.message.toLowerCase().includes('${kw.toLowerCase()}')) {\n`;
+                    let cur = blk.connectedTo;
+                    while (cur) {
+                        const next = file.blocks.find(b => b.id === cur);
+                        if (!next) break;
+                        if (next.type === 'action_reply') {
+                            code += `        await ctx.reply(\`${(next.param || '').replace(/`/g, '\\`')}\`);\n`;
+                        } else if (next.type === 'action_react') {
+                            code += `        await ctx.react('${next.param || '👍'}');\n`;
+                        }
+                        cur = next.connectedTo;
+                    }
+                    code += `    }\n`;
+                    code += `});\n\n`;
+                }
+            });
+            return code;
+        }
+
+        function compileAndRunBotScript(bot, scriptCode, server, options = {}) {
+            const registeredCommands = new Map();
+            const eventHandlers = {
+                message: [],
+                memberJoin: []
+            };
+            const consoleLogs = [];
+
+            const mockConsole = {
+                log: (...args) => {
+                    const text = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+                    consoleLogs.push({ type: 'log', text: text, time: new Date().toLocaleTimeString() });
+                    if (options.onLog) options.onLog('log', text);
+                },
+                warn: (...args) => {
+                    const text = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+                    consoleLogs.push({ type: 'warn', text: text, time: new Date().toLocaleTimeString() });
+                    if (options.onLog) options.onLog('warn', text);
+                },
+                error: (...args) => {
+                    const text = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+                    consoleLogs.push({ type: 'error', text: text, time: new Date().toLocaleTimeString() });
+                    if (options.onLog) options.onLog('error', text);
+                }
+            };
+
+            const client = {
+                command: (name, optOrFn, maybeFn) => {
+                    const cmdName = String(name || '').trim().toLowerCase().replace(/^\//, '');
+                    const opts = (typeof optOrFn === 'object' && optOrFn !== null) ? optOrFn : {};
+                    const handler = typeof optOrFn === 'function' ? optOrFn : (typeof maybeFn === 'function' ? maybeFn : null);
+                    if (cmdName && handler) {
+                        registeredCommands.set(cmdName, {
+                            name: '/' + cmdName,
+                            cleanName: cmdName,
+                            description: opts.description || 'Custom JavaScript command',
+                            requiredRole: opts.role || null,
+                            channel: opts.channel || null,
+                            allowedChannelId: opts.channelId || null,
+                            targetServer: opts.targetServer || null,
+                            handler: handler
+                        });
+                    }
+                },
+                on: (eventName, handler) => {
+                    if (typeof handler === 'function') {
+                        const ev = String(eventName || '').trim().toLowerCase();
+                        if (eventHandlers[ev]) {
+                            eventHandlers[ev].push(handler);
+                        } else {
+                            eventHandlers[ev] = [handler];
+                        }
+                    }
+                }
+            };
+
+            try {
+                const fn = new Function('client', 'console', 'bot', 'server', scriptCode || '');
+                fn(client, mockConsole, bot, server);
+                return { success: true, commands: registeredCommands, eventHandlers, consoleLogs };
+            } catch (err) {
+                mockConsole.error('Syntax / Runtime Error: ' + (err.message || String(err)));
+                return { success: false, error: err, commands: registeredCommands, eventHandlers, consoleLogs };
+            }
+        }
+
+        function renderCodeEditor(file) {
+            const textarea = document.getElementById('botCodeTextarea');
+            if (!textarea || !file) return;
+
+            const isScript = file.type === 'script' || file.name.endsWith('.js') || file.name.endsWith('.ts');
+            if (isScript) {
+                if (typeof file.code !== 'string') {
+                    const bot = getActiveEditingBot();
+                    file.code = getDefaultStarterScript(file.name, bot);
+                }
+                textarea.value = file.code;
+            } else if (file.type === 'blocks') {
+                textarea.value = generateJsFromBlocks(file);
+            }
+
+            updateCodeEditorGutterAndStats();
+            refreshCodeEditorCompileStatus();
+        }
+
+        function updateCodeEditorGutterAndStats() {
+            const textarea = document.getElementById('botCodeTextarea');
+            const gutter = document.getElementById('botCodeGutter');
+            const statsLabel = document.getElementById('botCodeStatsLabel');
+            if (!textarea || !gutter) return;
+
+            const lines = textarea.value.split('\n');
+            const lineCount = lines.length;
+            let gutterHtml = '';
+            for (let i = 1; i <= lineCount; i++) {
+                gutterHtml += i + '<br>';
+            }
+            gutter.innerHTML = gutterHtml;
+            gutter.scrollTop = textarea.scrollTop;
+
+            if (statsLabel) {
+                const selStart = textarea.selectionStart || 0;
+                const textBefore = textarea.value.substring(0, selStart);
+                const curLine = textBefore.split('\n').length;
+                const curCol = textBefore.length - textBefore.lastIndexOf('\n');
+                statsLabel.textContent = `Ln ${curLine}, Col ${curCol} (${lineCount} lines)`;
+            }
+        }
+
+        function refreshCodeEditorCompileStatus() {
+            const textarea = document.getElementById('botCodeTextarea');
+            const badge = document.getElementById('botCodeRegisteredCount');
+            if (!textarea || !badge) return;
+            const bot = getActiveEditingBot();
+            const server = getActiveServerObject();
+            const res = compileAndRunBotScript(bot, textarea.value, server);
+            if (res.success) {
+                const count = res.commands.size;
+                badge.style.color = '#23a55a';
+                badge.textContent = `● ${count} ${count === 1 ? 'Command' : 'Commands'} Ready`;
+            } else {
+                badge.style.color = '#f23f43';
+                badge.textContent = `⚠️ Syntax Error`;
+            }
+        }
+
+        function formatCodeEditor() {
+            const textarea = document.getElementById('botCodeTextarea');
+            if (!textarea) return;
+            const lines = textarea.value.split('\n');
+            let indent = 0;
+            const formatted = lines.map(line => {
+                const trimmed = line.trim();
+                if (!trimmed) return '';
+                if (trimmed.startsWith('}') || trimmed.startsWith(']') || trimmed.startsWith(')')) {
+                    indent = Math.max(0, indent - 1);
+                }
+                const res = '    '.repeat(indent) + trimmed;
+                if ((trimmed.endsWith('{') || trimmed.endsWith('[') || trimmed.endsWith('(')) && !trimmed.startsWith('//')) {
+                    indent++;
+                }
+                return res;
+            }).join('\n');
+
+            textarea.value = formatted;
+            const file = getActiveBotFile();
+            if (file) file.code = formatted;
+            updateCodeEditorGutterAndStats();
+            refreshCodeEditorCompileStatus();
+            showBotEditorToast('✓ Formatted JavaScript code');
+        }
+
+        function logToBotTerminal(type, message) {
+            const logsContainer = document.getElementById('botTerminalLogs');
+            if (!logsContainer) return;
+            const entry = document.createElement('div');
+            entry.className = `bot-log-entry ${type}`;
+            const time = new Date().toLocaleTimeString();
+            let prefix = '[LOG]';
+            if (type === 'cmd') prefix = '⚡ [CMD]';
+            else if (type === 'reply') prefix = '💬 [REPLY]';
+            else if (type === 'warn') prefix = '⚠️ [WARN]';
+            else if (type === 'error') prefix = '❌ [ERROR]';
+            else if (type === 'info') prefix = 'ℹ️ [INFO]';
+
+            entry.innerHTML = `<span class="bot-log-time" style="color:#6d737b; font-size:0.7rem; margin-right:6px;">${time}</span><strong style="margin-right:6px;">${prefix}</strong>${escapeHtml(message)}`;
+            logsContainer.appendChild(entry);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+
+        async function runBotTerminalTest(customInput = null) {
+            const textarea = document.getElementById('botCodeTextarea');
+            const inputEl = document.getElementById('botTerminalCommandInput');
+            if (!textarea) return;
+
+            const code = textarea.value;
+            const bot = getActiveEditingBot() || { name: 'Bot', icon: '' };
+            const server = getActiveServerObject() || { id: activeServerId || 'srv_1', name: 'Server', channels: [{ id: activeChannelId || 'c_1', name: 'general' }] };
+            const testText = customInput !== null ? customInput : (inputEl ? inputEl.value.trim() : '');
+
+            logToBotTerminal('info', `Compiling ${bot.name} script in sandbox...`);
+
+            const compileRes = compileAndRunBotScript(bot, code, server, {
+                onLog: (lvl, msg) => logToBotTerminal(lvl, msg)
+            });
+
+            if (!compileRes.success) {
+                logToBotTerminal('error', `Compilation Failed: ${compileRes.error ? compileRes.error.message : 'Unknown error'}`);
+                return;
+            }
+
+            const cmdCount = compileRes.commands.size;
+            logToBotTerminal('info', `✓ Sandbox compiled successfully. Registered ${cmdCount} command(s): ${Array.from(compileRes.commands.keys()).map(k => '/' + k).join(', ') || 'none'}.`);
+
+            if (testText) {
+                const isSlash = testText.startsWith('/');
+                const clean = (isSlash ? testText.slice(1) : testText).trim().toLowerCase();
+                const parts = clean.split(/\s+/);
+                const cmdName = parts[0];
+                const args = parts.slice(1);
+
+                if (compileRes.commands.has(cmdName)) {
+                    const cmdObj = compileRes.commands.get(cmdName);
+                    logToBotTerminal('cmd', `Executing command ${cmdObj.name} with args: [${args.join(', ')}]`);
+
+                    const mockCtx = {
+                        bot: bot,
+                        user: { id: currentUser ? currentUser.id : 'user_test', name: currentUser ? (currentUser.displayName || currentUser.username) : 'TestUser', avatar: '' },
+                        server: server,
+                        channel: { id: activeChannelId || 'c_1', name: 'general' },
+                        args: args,
+                        rawArgs: args.join(' '),
+                        message: testText,
+                        reply: async (msg) => {
+                            logToBotTerminal('reply', `Bot: "${msg}"`);
+                        },
+                        send: async (ch, msg) => {
+                            logToBotTerminal('reply', `Sent to #${ch}: "${msg}"`);
+                        },
+                        sendServer: async (srv, ch, msg) => {
+                            logToBotTerminal('reply', `Sent to [${srv}] #${ch}: "${msg}"`);
+                        },
+                        react: async (emoji) => {
+                            logToBotTerminal('reply', `Reacted with: ${emoji}`);
+                        },
+                        dm: async (msg) => {
+                            logToBotTerminal('reply', `Direct Message: "${msg}"`);
+                        },
+                        sleep: (ms) => new Promise(r => setTimeout(r, Math.min(ms || 1000, 3000)))
+                    };
+
+                    try {
+                        const start = performance.now();
+                        await cmdObj.handler(mockCtx);
+                        const elapsed = Math.round(performance.now() - start);
+                        logToBotTerminal('info', `✓ Command executed in ${elapsed}ms.`);
+                    } catch (runErr) {
+                        logToBotTerminal('error', `Runtime error in handler: ${runErr.message || String(runErr)}`);
+                    }
+                } else {
+                    logToBotTerminal('warn', `Unknown test command "/${cmdName}". Available: ${Array.from(compileRes.commands.keys()).map(k => '/' + k).join(', ')}`);
+                }
+            } else {
+                const firstCmdKey = Array.from(compileRes.commands.keys())[0];
+                if (firstCmdKey) {
+                    if (inputEl) inputEl.value = '/' + firstCmdKey;
+                    runBotTerminalTest('/' + firstCmdKey);
+                }
+            }
+        }
+
+        const SNIPPETS = {
+            command: `// Register slash command\nclient.command('hello', { description: 'Greet the user' }, async (ctx) => {\n    await ctx.reply(\`Hello @\${ctx.user.name}! Welcome to \${ctx.server.name}! 👋\`);\n});\n\n`,
+            coinflip: `// Coinflip minigame\nclient.command('coinflip', { description: 'Flip a coin' }, async (ctx) => {\n    const outcome = Math.random() > 0.5 ? '🪙 Heads!' : '🪙 Tails!';\n    await ctx.reply(\`@\${ctx.user.name} flipped a coin and got: **\${outcome}**\`);\n});\n\n`,
+            roll: `// Dice roll with argument\nclient.command('roll', { description: 'Roll a dice (e.g. /roll 20)' }, async (ctx) => {\n    const sides = parseInt(ctx.args[0], 10) || 6;\n    const result = Math.floor(Math.random() * sides) + 1;\n    await ctx.reply(\`🎲 @\${ctx.user.name} rolled a d\${sides}: **\${result}**\`);\n});\n\n`,
+            '8ball': `// Magic 8-Ball oracle\nclient.command('8ball', { description: 'Ask the oracle a question' }, async (ctx) => {\n    const fortunes = ['It is certain! ✨', 'Without a doubt! 🎯', 'Yes, definitely! 👍', 'Ask again later 🔮', 'Don\\'t count on it ❌', 'My sources say no 🚫'];\n    const pick = fortunes[Math.floor(Math.random() * fortunes.length)];\n    const q = ctx.args.join(' ') || 'Will it happen?';\n    await ctx.reply(\`🎱 **Question:** "\${q}"\\n**Answer:** \${pick}\`);\n});\n\n`,
+            role_command: `// Command requiring a specific server role\nclient.command('adminpanel', { role: 'Admin', description: 'Admin only' }, async (ctx) => {\n    await ctx.reply(\`🛡️ Welcome to the admin controls, @\${ctx.user.name}!\`);\n});\n\n`,
+            channel_command: `// Command locked to a specific channel\nclient.command('botinfo', { channel: 'bot-commands', description: 'Only runnable in #bot-commands' }, async (ctx) => {\n    await ctx.reply(\`🤖 \${ctx.bot.name} is online and operational in #\${ctx.channel.name}!\`);\n});\n\n`,
+            message_listener: `// Keyword message listener\nclient.on('message', async (ctx) => {\n    if (ctx.message.toLowerCase().includes('good bot')) {\n        await ctx.react('❤️');\n        await ctx.reply(\`Aww, thank you @\${ctx.user.name}! 🥰\`);\n    }\n});\n\n`,
+            cross_server: `// Cross-server announcement\nclient.command('broadcast', async (ctx) => {\n    const msg = ctx.args.join(' ') || 'Important broadcast!';\n    await ctx.sendServer('Other Server', 'general', \`📢 **Broadcast from \${ctx.server.name}:** \${msg}\`);\n    await ctx.reply(\`✓ Broadcast sent successfully!\`);\n});\n\n`
+        };
+
         function renderBotEditorFilesList() {
             renderBotEditorFileTabs();
             const sidebarContainer = document.getElementById('botSidebarFilesList');
@@ -19504,16 +20437,20 @@
                 const isActive = file.id === currentActiveFileId;
                 const isMain = index === 0 || file.name === 'main.blocks';
                 const isLinked = isMain || !!file.isLinked;
-                const blockCount = Array.isArray(file.blocks) ? file.blocks.length : 0;
+                const isScript = file.type === 'script' || file.name.endsWith('.js') || file.name.endsWith('.ts');
+                const fileIcon = isMain ? '⭐' : (isScript ? '💻' : (isLinked ? '🔗' : '🧩'));
+                const blockCount = isScript 
+                    ? ((file.code ? file.code.split('\n').length : 1) + ' lines') 
+                    : ((Array.isArray(file.blocks) ? file.blocks.length : 0) + ' blocks');
                 const canDelete = bot.files.length > 1;
 
                 html += `
                     <div class="bot-file-sidebar-item ${isActive ? 'active' : ''}" data-file-id="${escapeHtml(file.id)}">
                         <div class="bot-file-item-left">
-                            <span style="font-size: 0.82rem;">${isMain ? '⭐' : (isLinked ? '🔗' : '📄')}</span>
+                            <span style="font-size: 0.82rem;">${fileIcon}</span>
                             <div style="min-width: 0;">
                                 <div class="bot-file-item-title">${escapeHtml(file.name)}</div>
-                                <div style="font-size: 0.68rem; color: #949ba4;">${blockCount} ${blockCount === 1 ? 'block' : 'blocks'}</div>
+                                <div style="font-size: 0.68rem; color: #949ba4;">${blockCount}</div>
                             </div>
                         </div>
                         <div class="bot-file-item-actions">
@@ -19536,7 +20473,7 @@
 
             sidebarContainer.innerHTML = html;
 
-            // Click file row to switch canvas
+            // Click file row to switch canvas / editor
             sidebarContainer.querySelectorAll('.bot-file-sidebar-item').forEach(item => {
                 item.addEventListener('click', (e) => {
                     if (e.target.closest('.bot-file-toggle-link-btn') || e.target.closest('.bot-sidebar-file-delete-btn')) {
@@ -19545,6 +20482,10 @@
                     const fid = item.dataset.fileId;
                     if (fid && fid !== currentActiveFileId) {
                         currentActiveFileId = fid;
+                        const targetFile = bot.files.find(f => f.id === fid);
+                        if (targetFile) {
+                            currentEditorViewMode = (targetFile.type === 'script' || targetFile.name.endsWith('.js') || targetFile.name.endsWith('.ts')) ? 'code' : 'blocks';
+                        }
                         renderBotEditorFilesList();
                         renderActiveFileCanvas();
                     }
@@ -19590,10 +20531,12 @@
                 const isActive = file.id === currentActiveFileId;
                 const isMain = index === 0 || file.name === 'main.blocks';
                 const isLinked = isMain || !!file.isLinked;
+                const isScript = file.type === 'script' || file.name.endsWith('.js') || file.name.endsWith('.ts');
+                const fileIcon = isMain ? '⭐' : (isScript ? '💻' : (isLinked ? '🔗' : '🧩'));
                 const canDelete = bot.files.length > 1;
                 html += `
                     <div class="bot-file-tab-chip ${isActive ? 'active' : ''}" data-file-id="${escapeHtml(file.id)}" title="${isLinked ? 'Linked file' : 'File'}">
-                        <span>${isMain ? '⭐' : (isLinked ? '🔗' : '🧩')}</span>
+                        <span>${fileIcon}</span>
                         <span>${escapeHtml(file.name)}</span>
                         ${canDelete ? `<button type="button" class="bot-file-delete-btn" data-file-id="${escapeHtml(file.id)}" style="background:none; border:none; color:#6d737b; font-size:0.75rem; cursor:pointer; padding:0 2px; margin-left:2px;" title="Delete file">✕</button>` : ''}
                     </div>
@@ -19613,6 +20556,10 @@
                     const fid = chip.dataset.fileId;
                     if (fid && fid !== currentActiveFileId) {
                         currentActiveFileId = fid;
+                        const targetFile = bot.files.find(f => f.id === fid);
+                        if (targetFile) {
+                            currentEditorViewMode = (targetFile.type === 'script' || targetFile.name.endsWith('.js') || targetFile.name.endsWith('.ts')) ? 'code' : 'blocks';
+                        }
                         renderBotEditorFilesList();
                         renderActiveFileCanvas();
                     }
@@ -19647,13 +20594,48 @@
                 nameDisplay.textContent = file.name;
             }
 
-            if (!nodesContainer) return;
-
             if (!file) {
-                nodesContainer.innerHTML = '';
+                if (nodesContainer) nodesContainer.innerHTML = '';
                 updateCanvasSvgLines();
                 return;
             }
+
+            const isScript = file.type === 'script' || file.name.endsWith('.js') || file.name.endsWith('.ts');
+            const effectiveMode = isScript ? 'code' : currentEditorViewMode;
+
+            // View Mode Controls
+            const modeBlocksBtn = document.getElementById('botModeBlocksBtn');
+            const modeCodeBtn = document.getElementById('botModeCodeBtn');
+            const blockViewport = document.getElementById('botCanvasViewport');
+            const codeViewport = document.getElementById('botCodeEditorViewport');
+            const blockControls = document.getElementById('botCanvasBlocksControls');
+            const codeControls = document.getElementById('botCodeEditorControls');
+            const blockToolbox = document.getElementById('botBlockToolboxSections');
+            const codeSnippets = document.getElementById('botCodeSnippetsSection');
+
+            if (modeBlocksBtn) modeBlocksBtn.classList.toggle('active', effectiveMode === 'blocks');
+            if (modeCodeBtn) modeCodeBtn.classList.toggle('active', effectiveMode === 'code');
+
+            if (effectiveMode === 'code') {
+                if (blockViewport) blockViewport.style.display = 'none';
+                if (codeViewport) codeViewport.style.display = 'flex';
+                if (blockControls) blockControls.style.display = 'none';
+                if (codeControls) codeControls.style.display = 'flex';
+                if (blockToolbox) blockToolbox.style.display = 'none';
+                if (codeSnippets) codeSnippets.style.display = 'block';
+
+                renderCodeEditor(file);
+                return;
+            } else {
+                if (blockViewport) blockViewport.style.display = 'block';
+                if (codeViewport) codeViewport.style.display = 'none';
+                if (blockControls) blockControls.style.display = 'flex';
+                if (codeControls) codeControls.style.display = 'none';
+                if (blockToolbox) blockToolbox.style.display = 'block';
+                if (codeSnippets) codeSnippets.style.display = 'none';
+            }
+
+            if (!nodesContainer) return;
 
             if (!Array.isArray(file.blocks)) {
                 file.blocks = [];
@@ -19663,12 +20645,17 @@
                 nodesContainer.innerHTML = `
                     <div style="position: absolute; top: 100px; left: 60px; background: rgba(30, 31, 35, 0.7); border: 1px dashed rgba(255, 255, 255, 0.16); border-radius: 8px; padding: 24px 30px; color: #949ba4; font-size: 0.88rem; max-width: 400px; line-height: 1.5; pointer-events: none;">
                         <div style="color: #ffffff; font-weight: 700; margin-bottom: 6px; font-size: 0.95rem;">Empty Block Canvas</div>
-                        Click any block in the left toolbox (e.g. <strong style="color: #5865F2;">/bot [command]</strong>) to add it to this file and connect your bot logic.
+                        Click any block in the left toolbox (e.g. <strong style="color: #5865F2;">/bot [command]</strong>) to add it to this file and connect your bot logic, or switch to <strong style="color: #5865F2;">Code (JS)</strong> mode to write actual code.
                     </div>
                 `;
                 updateCanvasSvgLines();
                 return;
             }
+
+            const activeServer = (serversList || []).find(s => s.id === activeServerId) || {};
+            const serverRoles = Array.isArray(activeServer.roles) ? activeServer.roles : [];
+            const allServersList = Array.isArray(serversList) ? serversList : [];
+            const serverChannels = (Array.isArray(activeServer.channels) ? activeServer.channels : []).filter(c => c.type !== 'divider');
 
             let nodesHtml = '';
             file.blocks.forEach(blk => {
@@ -19686,6 +20673,74 @@
                 const targetBlk = isConnected ? file.blocks.find(b => b.id === blk.connectedTo) : null;
                 const connectionLabel = targetBlk ? `Connected → ${escapeHtml(targetBlk.title || targetBlk.type)}` : (isConnected ? 'Connected' : '▼ Connect');
 
+                let bodyContentHtml = '';
+
+                if (blk.type === 'event_command') {
+                    const cleanVal = (blk.param || 'hello').replace(/^\//, '');
+                    bodyContentHtml = `
+                        <label class="bot-block-label">COMMAND NAME</label>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="color: #5865F2; font-weight: 800; font-size: 0.95rem;">/</span>
+                            <input type="text" class="bot-block-input bot-block-cmd-name" data-block-id="${escapeHtml(blk.id)}" value="${escapeHtml(cleanVal)}" placeholder="e.g. hello, announce, ban">
+                        </div>
+                        <label class="bot-block-label" style="margin-top: 6px;">REQUIRED ROLE TO USE (OPTIONAL)</label>
+                        <select class="bot-block-select bot-block-role-input" data-block-id="${escapeHtml(blk.id)}">
+                            <option value="">@everyone (No role required)</option>
+                            <option value="owner" ${blk.requiredRole === 'owner' ? 'selected' : ''}>👑 Server Owner</option>
+                            ${serverRoles.map(r => `<option value="${escapeHtml(r.name)}" ${blk.requiredRole === r.name ? 'selected' : ''}>🛡️ ${escapeHtml(r.name)}</option>`).join('')}
+                        </select>
+                        <label class="bot-block-label" style="margin-top: 6px;">ALLOWED CHANNEL (OPTIONAL)</label>
+                        <select class="bot-block-select bot-block-channel-filter-input" data-block-id="${escapeHtml(blk.id)}">
+                            <option value=""># Any Channel (No restriction)</option>
+                            ${serverChannels.map(c => `<option value="${escapeHtml(c.id)}" ${blk.allowedChannelId === c.id ? 'selected' : ''}># ${escapeHtml(c.name)}</option>`).join('')}
+                        </select>
+                    `;
+                } else if (blk.type === 'control_if_role') {
+                    bodyContentHtml = `
+                        <label class="bot-block-label">REQUIRED ROLE</label>
+                        <select class="bot-block-select bot-block-input" data-block-id="${escapeHtml(blk.id)}">
+                            <option value="owner" ${blk.param === 'owner' ? 'selected' : ''}>👑 Server Owner</option>
+                            ${serverRoles.map(r => `<option value="${escapeHtml(r.name)}" ${blk.param === r.name ? 'selected' : ''}>🛡️ ${escapeHtml(r.name)}</option>`).join('')}
+                        </select>
+                    `;
+                } else if (blk.type === 'action_reply') {
+                    bodyContentHtml = `
+                        <label class="bot-block-label">REPLY MESSAGE ({user}, {server}, {channel})</label>
+                        <textarea class="bot-block-input" data-block-id="${escapeHtml(blk.id)}" placeholder="Message text..." style="resize: vertical; min-height: 44px; font-family: inherit;">${escapeHtml(blk.param || '')}</textarea>
+                        <label class="bot-block-label" style="margin-top: 4px;">SEND TO SERVER (OPTIONAL)</label>
+                        <select class="bot-block-select bot-block-server-input" data-block-id="${escapeHtml(blk.id)}">
+                            <option value="">📍 Current Server (Where triggered)</option>
+                            ${allServersList.map(s => `<option value="${escapeHtml(s.id)}" ${blk.targetServerId === s.id ? 'selected' : ''}>🌐 ${escapeHtml(s.name)}</option>`).join('')}
+                        </select>
+                        <label class="bot-block-label" style="margin-top: 4px;">CHANNEL NAME (OPTIONAL)</label>
+                        <input type="text" class="bot-block-input bot-block-channel-input" data-block-id="${escapeHtml(blk.id)}" value="${escapeHtml(blk.targetChannel || '')}" placeholder="e.g. general, announcements">
+                    `;
+                } else if (blk.type === 'action_send_server') {
+                    bodyContentHtml = `
+                        <label class="bot-block-label">MESSAGE CONTENT</label>
+                        <textarea class="bot-block-input" data-block-id="${escapeHtml(blk.id)}" placeholder="Message to send..." style="resize: vertical; min-height: 44px; font-family: inherit;">${escapeHtml(blk.param || '')}</textarea>
+                        <label class="bot-block-label" style="margin-top: 4px;">DESTINATION SERVER</label>
+                        <select class="bot-block-select bot-block-server-input" data-block-id="${escapeHtml(blk.id)}">
+                            <option value="">📍 Current Server</option>
+                            ${allServersList.map(s => `<option value="${escapeHtml(s.id)}" ${blk.targetServerId === s.id ? 'selected' : ''}>🌐 ${escapeHtml(s.name)}</option>`).join('')}
+                        </select>
+                        <label class="bot-block-label" style="margin-top: 4px;">DESTINATION CHANNEL</label>
+                        <input type="text" class="bot-block-input bot-block-channel-input" data-block-id="${escapeHtml(blk.id)}" value="${escapeHtml(blk.targetChannel || '')}" placeholder="e.g. general, announcements">
+                    `;
+                } else if (tmpl.isStatic) {
+                    bodyContentHtml = `
+                        <label class="bot-block-label">${escapeHtml(tmpl.inputLabel)}</label>
+                        <div style="font-size: 0.8rem; color: #dbdee1; background: #111214; padding: 6px 10px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.08);">
+                            Any member joining
+                        </div>
+                    `;
+                } else {
+                    bodyContentHtml = `
+                        <label class="bot-block-label">${escapeHtml(tmpl.inputLabel)}</label>
+                        <input type="text" class="bot-block-input" data-block-id="${escapeHtml(blk.id)}" value="${escapeHtml(blk.param || '')}" placeholder="Value...">
+                    `;
+                }
+
                 nodesHtml += `
                     <div class="bot-block-node ${tmpl.category}-block" id="blockNode_${escapeHtml(blk.id)}" data-block-id="${escapeHtml(blk.id)}" style="left: ${blk.x}px; top: ${blk.y}px;">
                         <div class="bot-block-header">
@@ -19696,14 +20751,7 @@
                             <button type="button" class="bot-block-delete-btn" data-block-id="${escapeHtml(blk.id)}" title="Delete block">✕</button>
                         </div>
                         <div class="bot-block-body">
-                            <label class="bot-block-label">${escapeHtml(tmpl.inputLabel)}</label>
-                            ${tmpl.isStatic ? `
-                                <div style="font-size: 0.8rem; color: #dbdee1; background: #111214; padding: 6px 10px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.08);">
-                                    Any member joining
-                                </div>
-                            ` : `
-                                <input type="text" class="bot-block-input" data-block-id="${escapeHtml(blk.id)}" value="${escapeHtml(blk.param || '')}" placeholder="Value...">
-                            `}
+                            ${bodyContentHtml}
                         </div>
                         <div class="bot-block-footer">
                             <span style="font-size: 0.68rem; color: #949ba4;">${tmpl.badgeText}</span>
@@ -19732,13 +20780,57 @@
                 }
             });
 
-            // Bind input changes
+            // Bind standard inputs / textareas
             nodesContainer.querySelectorAll('.bot-block-input').forEach(input => {
                 input.addEventListener('input', (e) => {
                     const blkId = input.dataset.blockId;
                     const blk = file.blocks.find(b => b.id === blkId);
                     if (blk) {
                         blk.param = e.target.value;
+                    }
+                });
+            });
+
+            // Bind command name inputs
+            nodesContainer.querySelectorAll('.bot-block-cmd-name').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const blkId = input.dataset.blockId;
+                    const blk = file.blocks.find(b => b.id === blkId);
+                    if (blk) {
+                        blk.param = e.target.value.trim().replace(/^\//, '');
+                    }
+                });
+            });
+
+            // Bind role selects
+            nodesContainer.querySelectorAll('.bot-block-role-input').forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const blkId = select.dataset.blockId;
+                    const blk = file.blocks.find(b => b.id === blkId);
+                    if (blk) {
+                        blk.requiredRole = e.target.value;
+                    }
+                });
+            });
+
+            // Bind server destination selects
+            nodesContainer.querySelectorAll('.bot-block-server-input').forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const blkId = select.dataset.blockId;
+                    const blk = file.blocks.find(b => b.id === blkId);
+                    if (blk) {
+                        blk.targetServerId = e.target.value;
+                    }
+                });
+            });
+
+            // Bind channel destination inputs
+            nodesContainer.querySelectorAll('.bot-block-channel-input').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const blkId = input.dataset.blockId;
+                    const blk = file.blocks.find(b => b.id === blkId);
+                    if (blk) {
+                        blk.targetChannel = e.target.value.trim().replace(/^#/, '');
                     }
                 });
             });
@@ -19917,8 +21009,10 @@
                 if (blk.connectedTo) {
                     const targetBlk = file.blocks.find(b => b.id === blk.connectedTo);
                     if (targetBlk) {
+                        const sourceEl = document.getElementById('blockNode_' + blk.id);
+                        const blockHeight = sourceEl ? sourceEl.offsetHeight : 120;
                         const startX = blk.x + 140; // center of 280px wide block
-                        const startY = blk.y + 115; // bottom of source block
+                        const startY = blk.y + blockHeight; // exact bottom of source block
                         const endX = targetBlk.x + 140;
                         const endY = targetBlk.y; // top of target block
                         const dy = Math.max(25, Math.abs(endY - startY) * 0.45);
@@ -19945,6 +21039,17 @@
         if (botEditorSavePublishBtn) {
             botEditorSavePublishBtn.addEventListener('click', () => {
                 const bot = getActiveEditingBot();
+                if (bot) {
+                    const assignSelect = document.getElementById('botEditorServerAssignSelect');
+                    if (assignSelect) {
+                        bot.assignedServerId = assignSelect.value;
+                    }
+                    const chanAssignSelect = document.getElementById('botEditorChannelAssignSelect');
+                    if (chanAssignSelect) {
+                        bot.assignedChannelId = chanAssignSelect.value;
+                    }
+                }
+
                 // Ensure latest input values from DOM are updated into memory
                 const file = getActiveBotFile();
                 if (file && Array.isArray(file.blocks)) {
@@ -19953,6 +21058,39 @@
                         const blk = file.blocks.find(b => b.id === blkId);
                         if (blk) blk.param = input.value;
                     });
+                    document.querySelectorAll('.bot-block-cmd-name').forEach(input => {
+                        const blkId = input.dataset.blockId;
+                        const blk = file.blocks.find(b => b.id === blkId);
+                        if (blk) blk.param = input.value.trim().replace(/^\//, '');
+                    });
+                    document.querySelectorAll('.bot-block-role-input').forEach(select => {
+                        const blkId = select.dataset.blockId;
+                        const blk = file.blocks.find(b => b.id === blkId);
+                        if (blk) blk.requiredRole = select.value;
+                    });
+                    document.querySelectorAll('.bot-block-channel-filter-input').forEach(select => {
+                        const blkId = select.dataset.blockId;
+                        const blk = file.blocks.find(b => b.id === blkId);
+                        if (blk) blk.allowedChannelId = select.value;
+                    });
+                    document.querySelectorAll('.bot-block-server-input').forEach(select => {
+                        const blkId = select.dataset.blockId;
+                        const blk = file.blocks.find(b => b.id === blkId);
+                        if (blk) blk.targetServerId = select.value;
+                    });
+                    document.querySelectorAll('.bot-block-channel-input').forEach(input => {
+                        const blkId = input.dataset.blockId;
+                        const blk = file.blocks.find(b => b.id === blkId);
+                        if (blk) blk.targetChannel = input.value.trim().replace(/^#/, '');
+                    });
+                }
+
+                // Save code editor text if currently editing script or in code mode
+                const textarea = document.getElementById('botCodeTextarea');
+                if (file && textarea) {
+                    if (file.type === 'script' || file.name.endsWith('.js') || file.name.endsWith('.ts') || currentEditorViewMode === 'code') {
+                        file.code = textarea.value;
+                    }
                 }
 
                 // If bot is invited, keep server.members in sync
@@ -19987,6 +21125,156 @@
                 }
             });
         }
+
+        // Mode switch buttons (Blocks vs Code)
+        const botModeBlocksBtn = document.getElementById('botModeBlocksBtn');
+        const botModeCodeBtn = document.getElementById('botModeCodeBtn');
+        if (botModeBlocksBtn) {
+            botModeBlocksBtn.addEventListener('click', () => {
+                currentEditorViewMode = 'blocks';
+                renderActiveFileCanvas();
+            });
+        }
+        if (botModeCodeBtn) {
+            botModeCodeBtn.addEventListener('click', () => {
+                currentEditorViewMode = 'code';
+                renderActiveFileCanvas();
+            });
+        }
+
+        // Code Editor Actions & Input Listeners
+        const botCodeTextarea = document.getElementById('botCodeTextarea');
+        const botCodeFormatBtn = document.getElementById('botCodeFormatBtn');
+        const botCodeTestRunBtn = document.getElementById('botCodeTestRunBtn');
+        const botToggleConsoleBtn = document.getElementById('botToggleConsoleBtn');
+        const botTerminalContainer = document.getElementById('botTerminalContainer');
+        const botTerminalClearBtn = document.getElementById('botTerminalClearBtn');
+        const botTerminalMinimizeBtn = document.getElementById('botTerminalMinimizeBtn');
+        const botTerminalSendBtn = document.getElementById('botTerminalSendBtn');
+        const botTerminalCommandInput = document.getElementById('botTerminalCommandInput');
+
+        if (botCodeFormatBtn) {
+            botCodeFormatBtn.addEventListener('click', formatCodeEditor);
+        }
+
+        if (botCodeTestRunBtn) {
+            botCodeTestRunBtn.addEventListener('click', () => {
+                if (botTerminalContainer) botTerminalContainer.style.display = 'flex';
+                runBotTerminalTest();
+            });
+        }
+
+        if (botToggleConsoleBtn) {
+            botToggleConsoleBtn.addEventListener('click', () => {
+                if (!botTerminalContainer) return;
+                const isHidden = botTerminalContainer.style.display === 'none';
+                botTerminalContainer.style.display = isHidden ? 'flex' : 'none';
+                if (isHidden && botTerminalCommandInput) {
+                    setTimeout(() => botTerminalCommandInput.focus(), 60);
+                }
+            });
+        }
+
+        if (botTerminalMinimizeBtn) {
+            botTerminalMinimizeBtn.addEventListener('click', () => {
+                if (botTerminalContainer) botTerminalContainer.style.display = 'none';
+            });
+        }
+
+        if (botTerminalClearBtn) {
+            botTerminalClearBtn.addEventListener('click', () => {
+                const logsContainer = document.getElementById('botTerminalLogs');
+                if (logsContainer) logsContainer.innerHTML = '';
+                logToBotTerminal('info', 'Console cleared.');
+            });
+        }
+
+        if (botTerminalSendBtn && botTerminalCommandInput) {
+            botTerminalSendBtn.addEventListener('click', () => {
+                const text = botTerminalCommandInput.value.trim();
+                if (text) {
+                    runBotTerminalTest(text);
+                    botTerminalCommandInput.value = '';
+                }
+            });
+        }
+
+        if (botTerminalCommandInput) {
+            botTerminalCommandInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const text = botTerminalCommandInput.value.trim();
+                    if (text) {
+                        runBotTerminalTest(text);
+                        botTerminalCommandInput.value = '';
+                    }
+                }
+            });
+        }
+
+        if (botCodeTextarea) {
+            let compileDebounceTimer = null;
+            botCodeTextarea.addEventListener('input', () => {
+                const file = getActiveBotFile();
+                if (file) {
+                    file.code = botCodeTextarea.value;
+                }
+                updateCodeEditorGutterAndStats();
+                clearTimeout(compileDebounceTimer);
+                compileDebounceTimer = setTimeout(() => {
+                    refreshCodeEditorCompileStatus();
+                }, 350);
+            });
+
+            botCodeTextarea.addEventListener('scroll', () => {
+                const gutter = document.getElementById('botCodeGutter');
+                if (gutter) gutter.scrollTop = botCodeTextarea.scrollTop;
+            });
+
+            botCodeTextarea.addEventListener('click', updateCodeEditorGutterAndStats);
+            botCodeTextarea.addEventListener('keyup', updateCodeEditorGutterAndStats);
+
+            // Tab handling & indentation
+            botCodeTextarea.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = botCodeTextarea.selectionStart;
+                    const end = botCodeTextarea.selectionEnd;
+                    const value = botCodeTextarea.value;
+
+                    // Insert 4 spaces
+                    botCodeTextarea.value = value.substring(0, start) + '    ' + value.substring(end);
+                    botCodeTextarea.selectionStart = botCodeTextarea.selectionEnd = start + 4;
+                    const file = getActiveBotFile();
+                    if (file) file.code = botCodeTextarea.value;
+                    updateCodeEditorGutterAndStats();
+                }
+            });
+        }
+
+        // Snippet Click to Insert into Editor
+        document.querySelectorAll('.bot-toolbox-card[data-snippet]').forEach(card => {
+            card.addEventListener('click', () => {
+                const snippetKey = card.dataset.snippet;
+                const codeSnippet = SNIPPETS[snippetKey];
+                if (!codeSnippet || !botCodeTextarea) return;
+
+                const start = botCodeTextarea.selectionStart || botCodeTextarea.value.length;
+                const end = botCodeTextarea.selectionEnd || botCodeTextarea.value.length;
+                const val = botCodeTextarea.value;
+
+                botCodeTextarea.value = val.substring(0, start) + '\n' + codeSnippet + val.substring(end);
+                botCodeTextarea.selectionStart = botCodeTextarea.selectionEnd = start + codeSnippet.length + 1;
+                botCodeTextarea.focus();
+
+                const file = getActiveBotFile();
+                if (file) file.code = botCodeTextarea.value;
+
+                updateCodeEditorGutterAndStats();
+                refreshCodeEditorCompileStatus();
+                showBotEditorToast(`+ Inserted ${snippetKey} snippet`);
+            });
+        });
 
         // Top bar Invite to Server button
         const botEditorInviteBtn = document.getElementById('botEditorInviteBtn');
@@ -20043,12 +21331,44 @@
         const confirmBotCreateFileBtn = document.getElementById('confirmBotCreateFileBtn');
         const newBotFileNameInput = document.getElementById('newBotFileNameInput');
         const newBotFileNameError = document.getElementById('newBotFileNameError');
+        const botOptionTextCoding = document.getElementById('botOptionTextCoding');
+        const botOptionBlockCoding = document.getElementById('botOptionBlockCoding');
+
+        let selectedCreateFileFormat = 'script'; // Default to real Script Coding
+
+        function updateCreateFileOptionSelection(format) {
+            selectedCreateFileFormat = format;
+            if (botOptionTextCoding) botOptionTextCoding.classList.toggle('selected', format === 'script');
+            if (botOptionBlockCoding) botOptionBlockCoding.classList.toggle('selected', format === 'blocks');
+
+            if (newBotFileNameInput) {
+                let curVal = newBotFileNameInput.value.trim();
+                if (curVal) {
+                    if (format === 'script' && curVal.endsWith('.blocks')) {
+                        newBotFileNameInput.value = curVal.replace(/\.blocks$/, '.js');
+                    } else if (format === 'blocks' && (curVal.endsWith('.js') || curVal.endsWith('.ts'))) {
+                        newBotFileNameInput.value = curVal.replace(/\.(js|ts)$/, '.blocks');
+                    }
+                }
+            }
+        }
+
+        if (botOptionTextCoding) {
+            botOptionTextCoding.addEventListener('click', () => updateCreateFileOptionSelection('script'));
+        }
+        if (botOptionBlockCoding) {
+            botOptionBlockCoding.addEventListener('click', () => updateCreateFileOptionSelection('blocks'));
+        }
 
         function openCreateFileDialog() {
             if (botCreateFileModal) botCreateFileModal.style.display = 'flex';
+            updateCreateFileOptionSelection('script');
             if (newBotFileNameInput) {
-                newBotFileNameInput.value = '';
-                setTimeout(() => newBotFileNameInput.focus(), 60);
+                newBotFileNameInput.value = 'commands.js';
+                setTimeout(() => {
+                    newBotFileNameInput.focus();
+                    newBotFileNameInput.select();
+                }, 60);
             }
             if (newBotFileNameError) newBotFileNameError.style.display = 'none';
         }
@@ -20091,8 +21411,15 @@
                     return;
                 }
 
-                if (!rawName.endsWith('.blocks')) {
-                    rawName += '.blocks';
+                const isScriptFormat = selectedCreateFileFormat === 'script' || rawName.endsWith('.js') || rawName.endsWith('.ts');
+                if (isScriptFormat) {
+                    if (!rawName.endsWith('.js') && !rawName.endsWith('.ts')) {
+                        rawName += '.js';
+                    }
+                } else {
+                    if (!rawName.endsWith('.blocks')) {
+                        rawName += '.blocks';
+                    }
                 }
 
                 if (!Array.isArray(bot.files)) bot.files = [];
@@ -20109,13 +21436,15 @@
                 const newFile = {
                     id: 'file_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
                     name: rawName,
-                    type: 'blocks',
+                    type: isScriptFormat ? 'script' : 'blocks',
                     isLinked: true,
+                    code: isScriptFormat ? getDefaultStarterScript(rawName, bot) : '',
                     blocks: []
                 };
 
                 bot.files.push(newFile);
                 currentActiveFileId = newFile.id;
+                currentEditorViewMode = isScriptFormat ? 'code' : 'blocks';
                 saveServers();
                 closeCreateFileDialog();
                 renderBotEditorFilesList();
@@ -20626,6 +21955,25 @@
             choiceScratchBtn.addEventListener('click', () => {
                 setServerModalStep(1);
                 if (newServerNameInput) setTimeout(() => newServerNameInput.focus(), 60);
+            });
+        }
+
+        // Screen 0: Join Server Invite Code Form
+        const joinServerInviteForm = document.getElementById('joinServerInviteForm');
+        const joinServerInviteInput = document.getElementById('joinServerInviteInput');
+        if (joinServerInviteForm) {
+            joinServerInviteForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let code = (joinServerInviteInput ? joinServerInviteInput.value : '').trim();
+                if (!code) return;
+                if (code.includes('code=')) {
+                    code = code.split('code=')[1].split('&')[0];
+                } else if (code.includes('server=')) {
+                    code = code.split('server=')[1].split('&')[0];
+                } else if (code.includes('/')) {
+                    code = code.split('/').pop();
+                }
+                window.location.href = `invite.html?code=${encodeURIComponent(code)}`;
             });
         }
 
@@ -21289,6 +22637,80 @@
             });
         }
 
+        // Role verification helper
+        function checkUserHasRole(server, userId, requiredRoleNameOrId) {
+            if (!server || !requiredRoleNameOrId) return true;
+            const req = requiredRoleNameOrId.trim().toLowerCase();
+            if (req === '' || req === 'everyone' || req === '@everyone') return true;
+
+            const targetUid = String(userId || (currentUser ? currentUser.id : ''));
+
+            // Check if server owner (server owners bypass role requirements)
+            if (server.ownerId && String(server.ownerId) === targetUid) return true;
+            if (currentUser && currentUser.isOwner && String(currentUser.id) === targetUid) return true;
+            if (req === 'owner') return false;
+
+            // Check roles in server
+            if (!Array.isArray(server.roles)) return false;
+            const matchedRole = server.roles.find(r => 
+                (r.name && r.name.toLowerCase() === req) || 
+                (r.id && r.id.toLowerCase() === req)
+            );
+            if (!matchedRole) return false;
+
+            if (!Array.isArray(matchedRole.members)) return false;
+            return matchedRole.members.some(mId => String(mId) === targetUid);
+        }
+
+        // Helper to check if text is a bot command
+        function isBotCommand(server, text, channelId = null) {
+            if (!server || !text) return false;
+            const t = text.trim();
+            if (t.startsWith('/')) return true;
+            if (!Array.isArray(server.bots)) return false;
+
+            const lower = t.toLowerCase();
+            const cmdWord = lower.split(/\s+/)[0];
+
+            for (const bot of server.bots) {
+                if (!bot.isInvited) continue;
+                if (bot.assignedServerId && bot.assignedServerId !== 'all' && bot.assignedServerId !== server.id) continue;
+                if (channelId && bot.assignedChannelId && bot.assignedChannelId !== 'all' && bot.assignedChannelId !== channelId) continue;
+                const files = Array.isArray(bot.files) ? bot.files : [];
+                for (const file of files) {
+                    if (file.name !== 'main.blocks' && file.isLinked === false) continue;
+
+                    // Check JavaScript script files
+                    if (file.type === 'script' || file.name.endsWith('.js') || file.name.endsWith('.ts') || file.code) {
+                        const scriptCode = file.code || '';
+                        if (scriptCode) {
+                            const res = compileAndRunBotScript(bot, scriptCode, server);
+                            if (res.success && res.commands) {
+                                for (const [cName, cmdObj] of res.commands.entries()) {
+                                    if (channelId && cmdObj.allowedChannelId && cmdObj.allowedChannelId !== 'all' && cmdObj.allowedChannelId !== channelId) continue;
+                                    if (cmdWord === cName || (cmdWord === 'bot' && lower.includes(cName))) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if (!Array.isArray(file.blocks)) continue;
+                    for (const blk of file.blocks) {
+                        if (blk.type === 'event_command') {
+                            if (channelId && blk.allowedChannelId && blk.allowedChannelId !== 'all' && blk.allowedChannelId !== channelId) continue;
+                            const cName = (blk.param || '').trim().toLowerCase().replace(/^\//, '');
+                            if (cName && (cmdWord === cName || (cmdWord === 'bot' && lower.includes(cName)))) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
         // Send Server Message
         if (serverMessageForm && serverMessageInput) {
             serverMessageForm.addEventListener('submit', (e) => {
@@ -21302,6 +22724,31 @@
                 const authorAvatar = currentUser && currentUser.avatar ? currentUser.avatar : '';
                 const time = formatCurrentTime();
                 const imagesToSend = pendingServerImages.map(p => typeof p === 'object' ? p.url : p);
+                const activeServer = (Array.isArray(serversList) ? serversList.find(s => s.id === activeServerId) : null) || null;
+
+                // When user sends a command (e.g. /command), do NOT post the raw command text as a chat message.
+                // Directly execute the bot trigger so ONLY the result is displayed in chat!
+                const isCommand = text.startsWith('/') || isBotCommand(activeServer, text, activeChannelId);
+
+                if (isCommand) {
+                    serverMessageInput.value = '';
+                    pendingServerImages = [];
+                    renderServerAttachmentTray();
+                    cancelServerReply();
+                    closeEmojiBoard();
+                    closeSlashCommandsMenu();
+
+                    if (activeServer) {
+                        executeServerBotTriggers(activeServer, activeChannelId, text, {
+                            id: 'cmd_' + Date.now(),
+                            author: authorName,
+                            authorId: currentUser ? currentUser.id : '',
+                            avatar: authorAvatar,
+                            isCommand: true
+                        });
+                    }
+                    return;
+                }
 
                 const newMsg = {
                     id: 'smsg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
@@ -21339,8 +22786,7 @@
                     console.warn('Firebase RTDB message send error:', fbErr);
                 }
 
-                // Execute Bot Engine & Slash Commands
-                const activeServer = (Array.isArray(serversList) ? serversList.find(s => s.id === activeServerId) : null) || null;
+                // Execute Bot Engine Keyword Triggers
                 if (activeServer) {
                     executeServerBotTriggers(activeServer, activeChannelId, text, newMsg);
                 }
@@ -21358,108 +22804,132 @@
             return (Array.isArray(serversList) ? serversList.find(s => s.id === activeServerId) : null) || null;
         }
 
-        function collectServerSlashCommands(server) {
+        function collectServerSlashCommands(server, targetChannelId = null) {
             if (!server) return { sources: [], commands: [] };
 
             const sName = server.name || 'Server';
             const sIcon = server.icon || '';
-            const sInitial = (sName.charAt(0) || 'S').toUpperCase();
-
             const sourcesMap = new Map();
             const commandsList = [];
 
-            // 1. Current Server Source
-            sourcesMap.set('server_main', {
-                id: 'server_main',
-                name: sName,
-                icon: sIcon,
-                initial: sInitial,
-                isServer: true,
-                count: 0
-            });
-
-            // Built-in commands for the server
-            const builtIns = [
-                {
-                    name: '/help',
-                    desc: 'List active server bots and commands',
-                    icon: sIcon,
-                    initial: sInitial,
-                    sourceId: 'server_main',
-                    sourceName: sName,
-                    isBuiltIn: true
-                },
-                {
-                    name: '/ping',
-                    desc: 'Check server bot latency response',
-                    icon: sIcon,
-                    initial: sInitial,
-                    sourceId: 'server_main',
-                    sourceName: sName,
-                    isBuiltIn: true
-                },
-                {
-                    name: '/roll',
-                    desc: 'Roll a random number from 1 to 100',
-                    icon: sIcon,
-                    initial: sInitial,
-                    sourceId: 'server_main',
-                    sourceName: sName,
-                    isBuiltIn: true
-                },
-                {
-                    name: '/clear',
-                    desc: 'Clear messages in this channel',
-                    icon: sIcon,
-                    initial: sInitial,
-                    sourceId: 'server_main',
-                    sourceName: sName,
-                    isBuiltIn: true
-                }
-            ];
-
-            builtIns.forEach(c => {
-                commandsList.push(c);
-                sourcesMap.get('server_main').count++;
-            });
-
-            // 2. Custom Bots in this server (only active/invited bots)
+            // Custom Bots in this server (only invited bots that are allowed in this server and channel)
             if (Array.isArray(server.bots)) {
                 server.bots.forEach(bot => {
                     if (!bot.isInvited) return; // Only show commands for bots that are in the server!
+                    // Check if bot is locked to a specific server
+                    if (bot.assignedServerId && bot.assignedServerId !== 'all' && bot.assignedServerId !== server.id) {
+                        return;
+                    }
+                    // Check if bot is locked to a specific channel
+                    if (targetChannelId && bot.assignedChannelId && bot.assignedChannelId !== 'all' && bot.assignedChannelId !== targetChannelId) {
+                        return;
+                    }
+
                     const bId = 'bot_' + bot.id;
                     const bName = bot.name || 'Bot';
                     const bIcon = bot.icon || sIcon;
                     const bInitial = (bName.charAt(0) || 'B').toUpperCase();
 
-                    sourcesMap.set(bId, {
-                        id: bId,
-                        name: bName,
-                        icon: bIcon,
-                        initial: bInitial,
-                        isBot: true,
-                        count: 0
-                    });
+                    let botCommandCountInChannel = 0;
 
-                    // Search linked files for event_command blocks
+                    // Search linked files for event_command blocks and JS/TS script commands
                     const filesToSearch = Array.isArray(bot.files) ? bot.files : [];
                     filesToSearch.forEach(file => {
-                        // Check if main or linked
                         if (file.name !== 'main.blocks' && file.isLinked === false) return;
+
+                        // Script commands from JS/TS code
+                        if (file.type === 'script' || file.name.endsWith('.js') || file.name.endsWith('.ts') || file.code) {
+                            const scriptCode = file.code || '';
+                            if (scriptCode) {
+                                const res = compileAndRunBotScript(bot, scriptCode, server);
+                                if (res.success && res.commands) {
+                                    for (const [, cmdObj] of res.commands.entries()) {
+                                        // Channel check: if command is restricted to a specific channel, only show in that channel!
+                                        if (targetChannelId && cmdObj.allowedChannelId && cmdObj.allowedChannelId !== 'all' && cmdObj.allowedChannelId !== targetChannelId) {
+                                            continue;
+                                        }
+                                        if (targetChannelId && cmdObj.channel) {
+                                            const cleanAllowed = cmdObj.channel.replace(/^#/, '').trim().toLowerCase();
+                                            const allowedChanObj = (server.channels || []).find(c => c.name.toLowerCase() === cleanAllowed || c.id === cleanAllowed);
+                                            if (allowedChanObj && allowedChanObj.id !== targetChannelId) {
+                                                continue;
+                                            }
+                                        }
+
+                                        let allowedChannelName = null;
+                                        if (cmdObj.allowedChannelId && cmdObj.allowedChannelId !== 'all') {
+                                            const ac = (server.channels || []).find(c => c.id === cmdObj.allowedChannelId);
+                                            if (ac) allowedChannelName = ac.name;
+                                        } else if (cmdObj.channel) {
+                                            allowedChannelName = cmdObj.channel.replace(/^#/, '').trim();
+                                        } else if (bot.assignedChannelId && bot.assignedChannelId !== 'all') {
+                                            const ac = (server.channels || []).find(c => c.id === bot.assignedChannelId);
+                                            if (ac) allowedChannelName = ac.name;
+                                        }
+
+                                        commandsList.push({
+                                            name: cmdObj.name.startsWith('/') ? cmdObj.name : ('/' + cmdObj.name),
+                                            desc: cmdObj.description || 'Custom JavaScript command',
+                                            icon: bIcon,
+                                            initial: bInitial,
+                                            sourceId: bId,
+                                            sourceName: bName,
+                                            botId: bot.id,
+                                            isScript: true,
+                                            fileId: file.id,
+                                            requiredRole: cmdObj.requiredRole || null,
+                                            allowedChannelName: allowedChannelName,
+                                            targetServerName: cmdObj.targetServer || null
+                                        });
+
+                                        botCommandCountInChannel++;
+                                    }
+                                }
+                            }
+                        }
+
                         if (!Array.isArray(file.blocks)) return;
 
                         file.blocks.forEach(blk => {
                             if (blk.type === 'event_command') {
+                                // Channel check: if command is restricted to a specific channel, only show in that channel!
+                                if (targetChannelId && blk.allowedChannelId && blk.allowedChannelId !== 'all' && blk.allowedChannelId !== targetChannelId) {
+                                    return;
+                                }
+                                if (targetChannelId && blk.allowedChannel) {
+                                    const cleanAllowed = blk.allowedChannel.replace(/^#/, '').trim().toLowerCase();
+                                    const allowedChanObj = (server.channels || []).find(c => c.name.toLowerCase() === cleanAllowed || c.id === cleanAllowed);
+                                    if (allowedChanObj && allowedChanObj.id !== targetChannelId) {
+                                        return;
+                                    }
+                                }
+
                                 const cmdNameRaw = (blk.param || 'hello').trim();
                                 const formattedCmd = cmdNameRaw.startsWith('/') ? cmdNameRaw : ('/' + cmdNameRaw);
 
                                 // Find connected reply description
                                 let previewDesc = 'Execute bot logic';
+                                let targetServerName = null;
                                 if (blk.connectedTo) {
                                     const nextBlk = file.blocks.find(b => b.id === blk.connectedTo);
-                                    if (nextBlk && nextBlk.type === 'action_reply' && nextBlk.param) {
+                                    if (nextBlk && (nextBlk.type === 'action_reply' || nextBlk.type === 'action_send_server') && nextBlk.param) {
                                         previewDesc = nextBlk.param.length > 50 ? (nextBlk.param.slice(0, 50) + '...') : nextBlk.param;
                                     }
+                                    if (nextBlk && nextBlk.targetServerId && nextBlk.targetServerId !== server.id) {
+                                        const ts = (serversList || []).find(s => s.id === nextBlk.targetServerId);
+                                        if (ts) targetServerName = ts.name;
+                                    }
+                                }
+
+                                let allowedChannelName = null;
+                                if (blk.allowedChannelId && blk.allowedChannelId !== 'all') {
+                                    const ac = (server.channels || []).find(c => c.id === blk.allowedChannelId);
+                                    if (ac) allowedChannelName = ac.name;
+                                } else if (blk.allowedChannel) {
+                                    allowedChannelName = blk.allowedChannel.replace(/^#/, '').trim();
+                                } else if (bot.assignedChannelId && bot.assignedChannelId !== 'all') {
+                                    const ac = (server.channels || []).find(c => c.id === bot.assignedChannelId);
+                                    if (ac) allowedChannelName = ac.name;
                                 }
 
                                 commandsList.push({
@@ -21470,13 +22940,27 @@
                                     sourceId: bId,
                                     sourceName: bName,
                                     botId: bot.id,
-                                    blockId: blk.id
+                                    blockId: blk.id,
+                                    requiredRole: blk.requiredRole || null,
+                                    allowedChannelName: allowedChannelName,
+                                    targetServerName: targetServerName
                                 });
 
-                                sourcesMap.get(bId).count++;
+                                botCommandCountInChannel++;
                             }
                         });
                     });
+
+                    if (botCommandCountInChannel > 0) {
+                        sourcesMap.set(bId, {
+                            id: bId,
+                            name: bName,
+                            icon: bIcon,
+                            initial: bInitial,
+                            isBot: true,
+                            count: botCommandCountInChannel
+                        });
+                    }
                 });
             }
 
@@ -21513,26 +22997,30 @@
             const server = getActiveServerObject();
             if (!server) return;
 
-            const data = collectServerSlashCommands(server);
+            const data = collectServerSlashCommands(server, activeChannelId);
             const sourcesContainer = document.getElementById('serverSlashCommandsSources');
             const listContainer = document.getElementById('serverSlashCommandsList');
             if (!sourcesContainer || !listContainer) return;
 
             // Render Sources List on Left
             let sourcesHtml = '';
-            data.sources.forEach(src => {
-                const isActive = (activeSlashFilter === src.id) || (activeSlashFilter === 'all' && src.isServer);
-                const iconStyle = src.icon ? `background-image: url('${escapeHtml(src.icon)}');` : '';
-                sourcesHtml += `
-                    <div class="slash-source-item ${isActive ? 'active' : ''}" data-source-id="${escapeHtml(src.id)}">
-                        <div class="slash-source-icon" style="${iconStyle}">
-                            ${src.icon ? '' : escapeHtml(src.initial)}
+            if (data.sources.length === 0) {
+                sourcesHtml = '<div style="padding: 12px 10px; font-size: 0.74rem; color: #949ba4;">No active bots in this server.</div>';
+            } else {
+                data.sources.forEach(src => {
+                    const isActive = (activeSlashFilter === src.id) || (activeSlashFilter === 'all');
+                    const iconStyle = src.icon ? `background-image: url('${escapeHtml(src.icon)}');` : '';
+                    sourcesHtml += `
+                        <div class="slash-source-item ${isActive ? 'active' : ''}" data-source-id="${escapeHtml(src.id)}">
+                            <div class="slash-source-icon" style="${iconStyle}">
+                                ${src.icon ? '' : escapeHtml(src.initial)}
+                            </div>
+                            <span class="slash-source-name" title="${escapeHtml(src.name)}">${escapeHtml(src.name)}</span>
+                            <span class="slash-source-badge">${src.count}</span>
                         </div>
-                        <span class="slash-source-name" title="${escapeHtml(src.name)}">${escapeHtml(src.name)}</span>
-                        <span class="slash-source-badge">${src.count}</span>
-                    </div>
-                `;
-            });
+                    `;
+                });
+            }
             sourcesContainer.innerHTML = sourcesHtml;
 
             // Bind click to filter by source on the left
@@ -21546,7 +23034,7 @@
 
             // Filter commands
             let filtered = data.commands;
-            if (activeSlashFilter && activeSlashFilter !== 'all' && activeSlashFilter !== 'server_main') {
+            if (activeSlashFilter && activeSlashFilter !== 'all') {
                 filtered = filtered.filter(c => c.sourceId === activeSlashFilter);
             }
 
@@ -21564,12 +23052,24 @@
 
             // Render Commands List on Right
             if (filtered.length === 0) {
-                listContainer.innerHTML = `
-                    <div class="slash-command-empty">
-                        <div style="font-size: 1.1rem; margin-bottom: 4px;">🔍</div>
-                        <div>No commands found matching <strong>/${escapeHtml(query)}</strong></div>
-                    </div>
-                `;
+                const currentChanObj = (server.channels || []).find(c => c.id === activeChannelId);
+                const currentChanName = currentChanObj ? currentChanObj.name : 'channel';
+                if (data.commands.length === 0) {
+                    listContainer.innerHTML = `
+                        <div class="slash-command-empty">
+                            <div style="font-size: 1.3rem; margin-bottom: 6px;">🤖</div>
+                            <div style="font-weight: 600; color: #ffffff; margin-bottom: 4px;">No Commands for #${escapeHtml(currentChanName)}</div>
+                            <div>No bot commands are available in this channel. Configure allowed channels in <strong>Server Settings &gt; Bots</strong>.</div>
+                        </div>
+                    `;
+                } else {
+                    listContainer.innerHTML = `
+                        <div class="slash-command-empty">
+                            <div style="font-size: 1.1rem; margin-bottom: 4px;">🔍</div>
+                            <div>No commands found matching <strong>/${escapeHtml(query)}</strong> in #${escapeHtml(currentChanName)}</div>
+                        </div>
+                    `;
+                }
                 return;
             }
 
@@ -21577,6 +23077,10 @@
             filtered.forEach((cmd, idx) => {
                 const isSelected = idx === selectedSlashIndex;
                 const iconStyle = cmd.icon ? `background-image: url('${escapeHtml(cmd.icon)}');` : '';
+                const channelBadge = cmd.allowedChannelName ? `<span class="slash-channel-badge"># ${escapeHtml(cmd.allowedChannelName)}</span>` : '';
+                const roleBadge = cmd.requiredRole ? `<span class="slash-role-badge">🛡️ ${escapeHtml(cmd.requiredRole)}</span>` : '';
+                const serverBadge = cmd.targetServerName ? `<span class="slash-server-badge">🌐 → ${escapeHtml(cmd.targetServerName)}</span>` : '';
+
                 commandsHtml += `
                     <div class="slash-command-item ${isSelected ? 'active' : ''}" data-index="${idx}" data-cmd="${escapeHtml(cmd.name)}">
                         <div class="slash-command-left">
@@ -21584,6 +23088,9 @@
                                 ${cmd.icon ? '' : escapeHtml(cmd.initial)}
                             </div>
                             <span class="slash-command-name">${escapeHtml(cmd.name)}</span>
+                            ${channelBadge}
+                            ${roleBadge}
+                            ${serverBadge}
                         </div>
                         <div class="slash-command-right">
                             <span class="slash-command-desc">${escapeHtml(cmd.desc)}</span>
@@ -21677,44 +23184,24 @@
             }
         });
 
-        // Bot Trigger Execution Engine
-        async function executeServerBotTriggers(server, channelId, rawText, userMsg) {
-            if (!server || !rawText) return;
-            const text = rawText.trim();
-            const lower = text.toLowerCase();
-            const isSlash = lower.startsWith('/');
-            const cleanCmd = (isSlash ? lower.slice(1) : lower).trim();
-            const cmdParts = cleanCmd.split(/\s+/);
-            const cmdWord = cmdParts[0];
-            const cmdArg = cmdParts.slice(1).join(' ');
+        // Helper to post a message to a target server and channel
+        function postTargetServerReply(targetServer, targetChannelId, botName, botAvatar, replyText, isBot = true) {
+            if (!targetServer) return;
+            const botMsg = {
+                id: 'smsg_bot_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                author: botName,
+                authorId: 'bot_' + botName.toLowerCase().replace(/[^a-z0-9]/g, '_'),
+                avatar: botAvatar || '',
+                isBot: isBot,
+                time: formatCurrentTime(),
+                createdAt: Date.now(),
+                text: replyText,
+                images: [],
+                replyTo: null,
+                reactions: {}
+            };
 
-            const authorName = userMsg ? userMsg.author : 'User';
-            const serverName = server.name || 'Server';
-            const activeChan = Array.isArray(server.channels) ? server.channels.find(c => c.id === channelId) : null;
-            const channelName = activeChan ? activeChan.name : 'general';
-
-            // Helper to post a message from a bot or system
-            function postBotReply(botName, botAvatar, replyText, isBot = true) {
-                const botMsg = {
-                    id: 'smsg_bot_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-                    author: botName,
-                    authorId: 'bot_' + botName.toLowerCase().replace(/[^a-z0-9]/g, '_'),
-                    avatar: botAvatar || '',
-                    isBot: isBot,
-                    time: formatCurrentTime(),
-                    createdAt: Date.now(),
-                    text: replyText,
-                    images: [],
-                    replyTo: userMsg ? {
-                        id: userMsg.id,
-                        author: userMsg.author,
-                        authorId: userMsg.authorId,
-                        avatar: userMsg.avatar,
-                        text: userMsg.text
-                    } : null,
-                    reactions: {}
-                };
-
+            if (targetServer.id === activeServerId && targetChannelId === activeChannelId) {
                 currentServerMessages.push(botMsg);
                 renderServerMessage(botMsg);
                 scrollServerChatToBottom();
@@ -21727,53 +23214,259 @@
                 } catch (e) {
                     console.warn('RTDB sync bot reply error:', e);
                 }
+            } else {
+                // Post to target server/channel
+                const storageKey = `talky_channel_msgs_${targetServer.id}_${targetChannelId}`;
+                try {
+                    const stored = localStorage.getItem(storageKey);
+                    const list = stored ? JSON.parse(stored) : [];
+                    list.push(botMsg);
+                    safeStorageSet(storageKey, JSON.stringify(list));
+                } catch (e) {}
+
+                try {
+                    set(ref(rtdb, `server_messages/${targetServer.id}/${targetChannelId}/${botMsg.id}`), botMsg);
+                } catch (e) {}
+
+                const destChan = Array.isArray(targetServer.channels) ? targetServer.channels.find(c => c.id === targetChannelId) : null;
+                const destChanName = destChan ? destChan.name : 'channel';
+                showBotEditorToast(`🌐 ${botName} sent a message to ${targetServer.name} #${destChanName}!`);
             }
+        }
 
-            // 1. Built-in Slash Commands Handling
-            if (isSlash) {
-                if (cmdWord === 'ping') {
-                    const latency = Math.floor(Math.random() * 16) + 12;
-                    setTimeout(() => {
-                        postBotReply(serverName, server.icon || '', `Pong! 🏓 Latency: ${latency}ms`);
-                    }, 250);
-                    return;
-                }
+        // Bot Trigger Execution Engine
+        async function executeServerBotTriggers(server, channelId, rawText, userMsg) {
+            if (!server || !rawText) return;
+            const text = rawText.trim();
+            const lower = text.toLowerCase();
+            const isSlash = lower.startsWith('/');
+            const cleanCmd = (isSlash ? lower.slice(1) : lower).trim();
+            const cmdParts = cleanCmd.split(/\s+/);
+            const cmdWord = cmdParts[0];
+            const cmdArg = cmdParts.slice(1).join(' ');
 
-                if (cmdWord === 'roll') {
-                    const num = Math.floor(Math.random() * 100) + 1;
-                    setTimeout(() => {
-                        postBotReply(serverName, server.icon || '', `🎲 @${authorName} rolled a **${num}** (1-100)!`);
-                    }, 250);
-                    return;
-                }
+            const authorName = userMsg ? userMsg.author : (currentUser ? (currentUser.displayName || currentUser.username || 'User') : 'User');
+            const authorId = userMsg ? userMsg.authorId : (currentUser ? currentUser.id : '');
+            const activeChan = Array.isArray(server.channels) ? server.channels.find(c => c.id === channelId) : null;
+            const channelName = activeChan ? activeChan.name : 'general';
 
-                if (cmdWord === 'clear') {
-                    currentServerMessages = [];
-                    renderAllServerMessages();
-                    saveServerChannelMessages();
-                    showBotEditorToast(`Cleared channel messages`);
-                    return;
-                }
-
-                if (cmdWord === 'help') {
-                    setTimeout(() => {
-                        const botNames = (server.bots || []).filter(b => b.isInvited).map(b => b.name).join(', ') || 'None';
-                        const helpText = `📋 **Available Server Commands**:\n• \`/ping\` - Test latency response\n• \`/roll\` - Roll random number 1-100\n• \`/clear\` - Clear chat messages\n• **Active Bots in Server**: ${botNames}\n💡 Type any configured bot command (e.g. \`/hello\`) to trigger your custom bots!`;
-                        postBotReply(serverName, server.icon || '', helpText);
-                    }, 300);
-                    return;
-                }
-            }
-
-            // 2. Custom Server Bots Handling (Event Blocks)
             if (!Array.isArray(server.bots)) return;
+
+            let matchedAnyCommand = false;
 
             for (const bot of server.bots) {
                 if (!bot.isInvited) continue; // Bot must be invited to the server to run
 
+                // Check server assignment lock: if assigned to a specific server, only run in that server!
+                if (bot.assignedServerId && bot.assignedServerId !== 'all' && bot.assignedServerId !== server.id) {
+                    continue;
+                }
+
                 const files = Array.isArray(bot.files) ? bot.files : [];
                 for (const file of files) {
                     if (file.name !== 'main.blocks' && file.isLinked === false) continue;
+
+                    // Real JavaScript Script Bot Execution
+                    if (file.type === 'script' || file.name.endsWith('.js') || file.name.endsWith('.ts') || file.code) {
+                        const scriptCode = file.code || '';
+                        if (scriptCode) {
+                            const res = compileAndRunBotScript(bot, scriptCode, server);
+                            if (res.success) {
+                                // 1. Check if command matches registered script commands
+                                let matchedCmdObj = null;
+                                let invokedCmdName = '';
+                                if (res.commands) {
+                                    if (res.commands.has(cmdWord)) {
+                                        matchedCmdObj = res.commands.get(cmdWord);
+                                        invokedCmdName = cmdWord;
+                                    } else if (cmdWord === 'bot' && res.commands.has(cmdArg.split(/\s+/)[0])) {
+                                        invokedCmdName = cmdArg.split(/\s+/)[0];
+                                        matchedCmdObj = res.commands.get(invokedCmdName);
+                                    } else if (res.commands.has(cleanCmd)) {
+                                        matchedCmdObj = res.commands.get(cleanCmd);
+                                        invokedCmdName = cleanCmd;
+                                    }
+                                }
+
+                                if (matchedCmdObj) {
+                                    matchedAnyCommand = true;
+
+                                    // Bot assigned channel lock
+                                    if (bot.assignedChannelId && bot.assignedChannelId !== 'all' && bot.assignedChannelId !== channelId) {
+                                        const targetCh = (server.channels || []).find(c => c.id === bot.assignedChannelId);
+                                        const targetChName = targetCh ? targetCh.name : 'assigned channel';
+                                        postTargetServerReply(server, channelId, bot.name, bot.icon || '', `⚠️ @${authorName}, ${bot.name} is only allowed to speak in **#${targetChName}**!`);
+                                        return;
+                                    }
+
+                                    // Command allowed channel lock
+                                    if (matchedCmdObj.allowedChannelId && matchedCmdObj.allowedChannelId !== 'all' && matchedCmdObj.allowedChannelId !== channelId) {
+                                        const targetCh = (server.channels || []).find(c => c.id === matchedCmdObj.allowedChannelId);
+                                        const targetChName = targetCh ? targetCh.name : 'assigned channel';
+                                        postTargetServerReply(server, channelId, bot.name, bot.icon || '', `⚠️ @${authorName}, **/${invokedCmdName}** can only be used in **#${targetChName}**!`);
+                                        return;
+                                    }
+                                    if (matchedCmdObj.channel) {
+                                        const cleanAllowed = matchedCmdObj.channel.replace(/^#/, '').trim().toLowerCase();
+                                        const allowedChanObj = (server.channels || []).find(c => c.name.toLowerCase() === cleanAllowed || c.id === cleanAllowed);
+                                        if (allowedChanObj && allowedChanObj.id !== channelId) {
+                                            postTargetServerReply(server, channelId, bot.name, bot.icon || '', `⚠️ @${authorName}, **/${invokedCmdName}** can only be used in **#${allowedChanObj.name}**!`);
+                                            return;
+                                        }
+                                    }
+
+                                    // Role permission check
+                                    if (matchedCmdObj.requiredRole) {
+                                        const req = matchedCmdObj.requiredRole.trim();
+                                        if (req && req.toLowerCase() !== 'everyone' && req.toLowerCase() !== '@everyone') {
+                                            const hasRole = checkUserHasRole(server, authorId, req);
+                                            if (!hasRole) {
+                                                postTargetServerReply(server, channelId, bot.name, bot.icon || '', `⛔ @${authorName}, you need the **${req}** role to use **/${invokedCmdName}**!`);
+                                                return;
+                                            }
+                                        }
+                                    }
+
+                                    // Build real execution context
+                                    const parsedArgs = (invokedCmdName === cmdWord) ? cmdParts.slice(1) : cleanCmd.slice(invokedCmdName.length).trim().split(/\s+/).filter(Boolean);
+                                    const ctx = {
+                                        bot: bot,
+                                        user: {
+                                            id: authorId,
+                                            name: authorName,
+                                            avatar: userMsg ? userMsg.avatar : (currentUser ? currentUser.avatar : '')
+                                        },
+                                        server: server,
+                                        channel: {
+                                            id: channelId,
+                                            name: channelName
+                                        },
+                                        args: parsedArgs,
+                                        rawArgs: parsedArgs.join(' '),
+                                        message: rawText,
+                                        reply: async (msg) => {
+                                            postTargetServerReply(server, channelId, bot.name, bot.icon || '', String(msg), true);
+                                        },
+                                        send: async (channelRef, msg) => {
+                                            let targetChanId = channelId;
+                                            if (channelRef) {
+                                                const clean = String(channelRef).replace(/^#/, '').trim().toLowerCase();
+                                                const found = (server.channels || []).find(c => c.id === clean || c.name.toLowerCase() === clean);
+                                                if (found) targetChanId = found.id;
+                                            }
+                                            postTargetServerReply(server, targetChanId, bot.name, bot.icon || '', String(msg), true);
+                                        },
+                                        sendServer: async (srvRef, channelRef, msg) => {
+                                            let targetSrv = server;
+                                            if (srvRef) {
+                                                const cleanSrv = String(srvRef).trim().toLowerCase();
+                                                const foundS = (serversList || []).find(s => s.id === cleanSrv || s.name.toLowerCase() === cleanSrv);
+                                                if (foundS) targetSrv = foundS;
+                                            }
+                                            let destChanId = null;
+                                            if (channelRef && Array.isArray(targetSrv.channels)) {
+                                                const clean = String(channelRef).replace(/^#/, '').trim().toLowerCase();
+                                                const foundC = targetSrv.channels.find(c => c.id === clean || c.name.toLowerCase() === clean);
+                                                if (foundC) destChanId = foundC.id;
+                                            }
+                                            if (!destChanId && Array.isArray(targetSrv.channels) && targetSrv.channels.length > 0) {
+                                                destChanId = targetSrv.channels[0].id;
+                                            }
+                                            postTargetServerReply(targetSrv, destChanId, bot.name, bot.icon || '', String(msg), true);
+                                        },
+                                        react: async (emoji) => {
+                                            if (userMsg && userMsg.id && !userMsg.isCommand) {
+                                                toggleServerMessageReaction(userMsg.id, emoji);
+                                            }
+                                        },
+                                        dm: async (msg) => {
+                                            showBotEditorToast(`✉️ Direct Message from ${bot.name}: "${msg}"`);
+                                        },
+                                        sleep: (ms) => new Promise(r => setTimeout(r, Math.min(ms || 1000, 5000)))
+                                    };
+
+                                    try {
+                                        await matchedCmdObj.handler(ctx);
+                                    } catch (handlerErr) {
+                                        console.error('Bot script error:', handlerErr);
+                                        postTargetServerReply(server, channelId, bot.name, bot.icon || '', `❌ Error executing **/${invokedCmdName}**: ${handlerErr.message || String(handlerErr)}`);
+                                    }
+                                }
+
+                                // 2. Check if normal message matches client.on('message', ...)
+                                if (!isSlash && res.eventHandlers && Array.isArray(res.eventHandlers.message) && res.eventHandlers.message.length > 0) {
+                                    if (bot.assignedChannelId && bot.assignedChannelId !== 'all' && bot.assignedChannelId !== channelId) {
+                                        continue;
+                                    }
+
+                                    const msgCtx = {
+                                        bot: bot,
+                                        user: {
+                                            id: authorId,
+                                            name: authorName,
+                                            avatar: userMsg ? userMsg.avatar : (currentUser ? currentUser.avatar : '')
+                                        },
+                                        server: server,
+                                        channel: {
+                                            id: channelId,
+                                            name: channelName
+                                        },
+                                        args: cmdParts,
+                                        rawArgs: rawText,
+                                        message: rawText,
+                                        reply: async (msg) => {
+                                            postTargetServerReply(server, channelId, bot.name, bot.icon || '', String(msg), true);
+                                        },
+                                        send: async (channelRef, msg) => {
+                                            let targetChanId = channelId;
+                                            if (channelRef) {
+                                                const clean = String(channelRef).replace(/^#/, '').trim().toLowerCase();
+                                                const found = (server.channels || []).find(c => c.id === clean || c.name.toLowerCase() === clean);
+                                                if (found) targetChanId = found.id;
+                                            }
+                                            postTargetServerReply(server, targetChanId, bot.name, bot.icon || '', String(msg), true);
+                                        },
+                                        sendServer: async (srvRef, channelRef, msg) => {
+                                            let targetSrv = server;
+                                            if (srvRef) {
+                                                const cleanSrv = String(srvRef).trim().toLowerCase();
+                                                const foundS = (serversList || []).find(s => s.id === cleanSrv || s.name.toLowerCase() === cleanSrv);
+                                                if (foundS) targetSrv = foundS;
+                                            }
+                                            let destChanId = null;
+                                            if (channelRef && Array.isArray(targetSrv.channels)) {
+                                                const clean = String(channelRef).replace(/^#/, '').trim().toLowerCase();
+                                                const foundC = targetSrv.channels.find(c => c.id === clean || c.name.toLowerCase() === clean);
+                                                if (foundC) destChanId = foundC.id;
+                                            }
+                                            if (!destChanId && Array.isArray(targetSrv.channels) && targetSrv.channels.length > 0) {
+                                                destChanId = targetSrv.channels[0].id;
+                                            }
+                                            postTargetServerReply(targetSrv, destChanId, bot.name, bot.icon || '', String(msg), true);
+                                        },
+                                        react: async (emoji) => {
+                                            if (userMsg && userMsg.id && !userMsg.isCommand) {
+                                                toggleServerMessageReaction(userMsg.id, emoji);
+                                            }
+                                        },
+                                        dm: async (msg) => {
+                                            showBotEditorToast(`✉️ Direct Message from ${bot.name}: "${msg}"`);
+                                        },
+                                        sleep: (ms) => new Promise(r => setTimeout(r, Math.min(ms || 1000, 5000)))
+                                    };
+
+                                    for (const handlerFn of res.eventHandlers.message) {
+                                        try {
+                                            await handlerFn(msgCtx);
+                                        } catch (hErr) {
+                                            console.error('Bot message event listener error:', hErr);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     if (!Array.isArray(file.blocks)) continue;
 
                     for (const blk of file.blocks) {
@@ -21784,6 +23477,7 @@
                             const targetCmd = (blk.param || 'hello').trim().toLowerCase().replace(/^\//, '');
                             if (
                                 cleanCmd === targetCmd ||
+                                cleanCmd.startsWith(targetCmd + ' ') ||
                                 cleanCmd === 'bot ' + targetCmd ||
                                 (cmdWord === 'bot' && cmdArg === targetCmd) ||
                                 (cmdWord === targetCmd)
@@ -21800,64 +23494,115 @@
                             }
                         }
 
-                        if (isMatched && blk.connectedTo) {
-                            // Execute sequence of blocks
-                            executeBotActionSequence(bot, file, blk.connectedTo, userMsg, server, authorName, channelName);
+                        if (isMatched) {
+                            matchedAnyCommand = true;
+
+                            // Channel Restriction Check for Bot Lock
+                            if (bot.assignedChannelId && bot.assignedChannelId !== 'all' && bot.assignedChannelId !== channelId) {
+                                const targetCh = (server.channels || []).find(c => c.id === bot.assignedChannelId);
+                                const targetChName = targetCh ? targetCh.name : 'assigned channel';
+                                postTargetServerReply(server, channelId, bot.name, bot.icon || '', `⚠️ @${authorName}, ${bot.name} is only allowed to speak in **#${targetChName}**!`);
+                                return;
+                            }
+
+                            // Channel Restriction Check on Command Trigger
+                            if (blk.type === 'event_command') {
+                                if (blk.allowedChannelId && blk.allowedChannelId !== 'all' && blk.allowedChannelId !== channelId) {
+                                    const targetCh = (server.channels || []).find(c => c.id === blk.allowedChannelId);
+                                    const targetChName = targetCh ? targetCh.name : 'assigned channel';
+                                    postTargetServerReply(server, channelId, bot.name, bot.icon || '', `⚠️ @${authorName}, **/${(blk.param || 'command').replace(/^\//, '')}** can only be used in **#${targetChName}**!`);
+                                    return;
+                                }
+                                if (blk.allowedChannel) {
+                                    const cleanAllowed = blk.allowedChannel.replace(/^#/, '').trim().toLowerCase();
+                                    const allowedChanObj = (server.channels || []).find(c => c.name.toLowerCase() === cleanAllowed || c.id === cleanAllowed);
+                                    if (allowedChanObj && allowedChanObj.id !== channelId) {
+                                        postTargetServerReply(server, channelId, bot.name, bot.icon || '', `⚠️ @${authorName}, **/${(blk.param || 'command').replace(/^\//, '')}** can only be used in **#${allowedChanObj.name}**!`);
+                                        return;
+                                    }
+                                }
+                            }
+
+                            // Role Permission Check on Command Trigger
+                            if (blk.type === 'event_command' && blk.requiredRole) {
+                                const req = blk.requiredRole.trim();
+                                if (req && req.toLowerCase() !== 'everyone' && req.toLowerCase() !== '@everyone') {
+                                    const hasRole = checkUserHasRole(server, authorId, req);
+                                    if (!hasRole) {
+                                        postTargetServerReply(server, channelId, bot.name, bot.icon || '', `⛔ @${authorName}, you need the **${req}** role to use **/${(blk.param || 'command').replace(/^\//, '')}**!`);
+                                        return;
+                                    }
+                                }
+                            }
+
+                            if (blk.connectedTo) {
+                                executeBotActionSequence(bot, file, blk.connectedTo, userMsg, server, authorName, channelName, channelId);
+                            }
                         }
                     }
                 }
             }
+
+            // If user typed a slash command that no bot registered
+            if (isSlash && !matchedAnyCommand) {
+                showBotEditorToast(`⚠️ Unknown command "/${cmdWord}". Check Server Settings > Bots.`);
+            }
         }
 
-        async function executeBotActionSequence(bot, startFile, startBlockId, userMsg, server, authorName, channelName) {
+        async function executeBotActionSequence(bot, startFile, startBlockId, userMsg, server, authorName, channelName, currentChannelId) {
             let currentBlkId = startBlockId;
             let currentFile = startFile;
+            const authorId = userMsg ? userMsg.authorId : (currentUser ? currentUser.id : '');
 
             while (currentBlkId) {
                 const blk = currentFile.blocks.find(b => b.id === currentBlkId);
                 if (!blk) break;
 
-                if (blk.type === 'action_reply') {
+                // 1. Role verification control block
+                if (blk.type === 'control_if_role') {
+                    const reqRole = (blk.param || 'Admin').trim();
+                    const hasRole = checkUserHasRole(server, authorId, reqRole);
+                    if (!hasRole) {
+                        postTargetServerReply(server, currentChannelId, bot.name, bot.icon || '', `⛔ @${authorName}, you need the **${reqRole}** role to proceed!`);
+                        return; // Halt execution
+                    }
+                } else if (blk.type === 'action_reply' || blk.type === 'action_send_server') {
                     let replyText = (blk.param || 'Hello! 👋')
                         .replace(/{user}/gi, `@${authorName}`)
                         .replace(/{server}/gi, server.name || 'Server')
                         .replace(/{channel}/gi, '#' + channelName);
 
-                    const botMsg = {
-                        id: 'smsg_bot_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-                        author: bot.name,
-                        authorId: bot.id,
-                        avatar: bot.icon || '',
-                        isBot: true,
-                        time: formatCurrentTime(),
-                        createdAt: Date.now(),
-                        text: replyText,
-                        images: [],
-                        replyTo: userMsg ? {
-                            id: userMsg.id,
-                            author: userMsg.author,
-                            authorId: userMsg.authorId,
-                            avatar: userMsg.avatar,
-                            text: userMsg.text
-                        } : null,
-                        reactions: {}
-                    };
-
-                    currentServerMessages.push(botMsg);
-                    renderServerMessage(botMsg);
-                    scrollServerChatToBottom();
-                    saveServerChannelMessages();
-
-                    try {
-                        if (activeServerId && activeChannelId) {
-                            set(ref(rtdb, `server_messages/${activeServerId}/${activeChannelId}/${botMsg.id}`), botMsg);
-                        }
-                    } catch (e) {
-                        console.warn('RTDB sync bot reply error:', e);
+                    // Determine destination server
+                    let targetServer = server;
+                    let targetServerId = blk.targetServerId || server.id;
+                    if (targetServerId && targetServerId !== server.id) {
+                        const foundServer = (serversList || []).find(s => s.id === targetServerId || s.name.toLowerCase() === targetServerId.toLowerCase());
+                        if (foundServer) targetServer = foundServer;
                     }
+
+                    // Determine destination channel
+                    let destChannelId = currentChannelId;
+                    let destChannelName = channelName;
+                    if (blk.targetChannel) {
+                        const cleanChanName = blk.targetChannel.replace(/^#/, '').trim().toLowerCase();
+                        const foundChan = Array.isArray(targetServer.channels) ? targetServer.channels.find(c => c.name.toLowerCase() === cleanChanName || c.id === cleanChanName) : null;
+                        if (foundChan) {
+                            destChannelId = foundChan.id;
+                            destChannelName = foundChan.name;
+                        } else if (Array.isArray(targetServer.channels) && targetServer.channels.length > 0) {
+                            destChannelId = targetServer.channels[0].id;
+                            destChannelName = targetServer.channels[0].name;
+                        }
+                    } else if (targetServer.id !== server.id && Array.isArray(targetServer.channels) && targetServer.channels.length > 0) {
+                        destChannelId = targetServer.channels[0].id;
+                        destChannelName = targetServer.channels[0].name;
+                    }
+
+                    postTargetServerReply(targetServer, destChannelId, bot.name, bot.icon || '', replyText, true);
+
                 } else if (blk.type === 'action_react') {
                     const emoji = (blk.param || '👍').trim();
-                    if (userMsg && userMsg.id) {
+                    if (userMsg && userMsg.id && !userMsg.isCommand) {
                         toggleServerMessageReaction(userMsg.id, emoji);
                     }
                 } else if (blk.type === 'action_dm') {
@@ -22014,6 +23759,26 @@
 
         // Initialize Servers on Page Load
         loadServers();
+
+        // Handle URL parameters for joined server or direct server landing
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetServerId = urlParams.get('server');
+        const isJoined = urlParams.get('joined') === 'true';
+
+        if (targetServerId) {
+            const checkAndOpenServer = () => {
+                const s = serversList.find(svr => svr.id === targetServerId || (svr.id && svr.id.toLowerCase() === targetServerId.toLowerCase()));
+                if (s) {
+                    openServer(s.id);
+                    if (isJoined) {
+                        showBotEditorToast(`🎉 Welcome to ${s.name}!`);
+                    }
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            };
+            setTimeout(checkAndOpenServer, 150);
+            setTimeout(checkAndOpenServer, 600);
+        }
     </script>
 <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"eabd7e6de1a549b6ad06164702093359","spa":2}' crossorigin="anonymous"></script>
 </body>

@@ -327,14 +327,15 @@
                 <h2>Welcome back!</h2>
                 <p>We're so excited to see you again!</p>
             </div>
+            <div id="loginError" style="display: none; background: rgba(242, 63, 67, 0.15); border: 1px solid rgba(242, 63, 67, 0.45); color: #f23f43; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; margin-bottom: 14px; text-align: left;"></div>
             <form id="loginForm">
                 <div class="form-group">
                     <label>Email or Username <span class="required">*</span></label>
-                    <input type="text" class="glass-input" id="loginIdentifier" required>
+                    <input type="text" class="glass-input" id="loginIdentifier" required autocomplete="username">
                 </div>
                 <div class="form-group">
                     <label>Password <span class="required">*</span></label>
-                    <input type="password" class="glass-input" id="loginPassword" required>
+                    <input type="password" class="glass-input" id="loginPassword" required autocomplete="current-password">
                 </div>
                 <button type="submit" class="glass-submit-btn">Log In</button>
                 <div class="auth-footer">
@@ -348,18 +349,23 @@
             <div class="auth-header">
                 <h2>Create an account</h2>
             </div>
+            <div id="signupError" style="display: none; background: rgba(242, 63, 67, 0.15); border: 1px solid rgba(242, 63, 67, 0.45); color: #f23f43; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; margin-bottom: 14px; text-align: left;"></div>
             <form id="signupForm">
                 <div class="form-group">
                     <label>Email <span class="required">*</span></label>
-                    <input type="email" class="glass-input" id="signupEmail" required>
+                    <input type="email" class="glass-input" id="signupEmail" required autocomplete="email" placeholder="name@example.com">
                 </div>
                 <div class="form-group">
-                    <label>Username <span class="required">*</span></label>
-                    <input type="text" class="glass-input" id="signupUsername" required>
+                    <label>Display Name <span class="required">*</span> <span style="font-size: 0.72rem; color: #949ba4; font-weight: normal; text-transform: none;">(Min 3 chars, max 1 space, only letters, numbers, _ and .)</span></label>
+                    <input type="text" class="glass-input" id="signupUsername" required autocomplete="username" placeholder="e.g. Alex_Miller">
+                </div>
+                <div class="form-group">
+                    <label>User Handle <span class="required">*</span> <span style="font-size: 0.72rem; color: #949ba4; font-weight: normal; text-transform: none;">(3–12 chars, no spaces, only letters, numbers, _ and .)</span></label>
+                    <input type="text" class="glass-input" id="signupHandle" required placeholder="e.g. alex.m" maxlength="12">
                 </div>
                 <div class="form-group">
                     <label>Password <span class="required">*</span></label>
-                    <input type="password" class="glass-input" id="signupPassword" required>
+                    <input type="password" class="glass-input" id="signupPassword" required autocomplete="new-password">
                 </div>
                 
                 <div class="form-group">
@@ -440,9 +446,50 @@
             }
         }
 
+        // Helper to query all users from localStorage and Firebase RTDB
+        async function getAllRegisteredUsers() {
+            const userMap = new Map();
+            try {
+                const localUsers = JSON.parse(localStorage.getItem('talky_users') || '[]');
+                localUsers.forEach(u => {
+                    if (u && (u.id || u.email || u.username || u.handle)) {
+                        userMap.set(u.id || (u.email || u.username), u);
+                    }
+                });
+            } catch (e) {}
+
+            try {
+                const snap = await get(ref(rtdb, 'users'));
+                if (snap.exists()) {
+                    const fbUsers = snap.val();
+                    Object.values(fbUsers).forEach(u => {
+                        if (u && (u.id || u.email || u.username || u.handle)) {
+                            const key = u.id || (u.email || u.username);
+                            const existing = userMap.get(key);
+                            if (existing) {
+                                const merged = { ...existing, ...u };
+                                if (!merged.password && existing.password) merged.password = existing.password;
+                                userMap.set(key, merged);
+                            } else {
+                                userMap.set(key, u);
+                            }
+                        }
+                    });
+                }
+            } catch (fbErr) {
+                console.warn('Could not query Firebase users:', fbErr);
+            }
+            return Array.from(userMap.values());
+        }
+
         function switchTab(tab) {
             const loginPanel = document.getElementById('loginPanel');
             const signupPanel = document.getElementById('signupPanel');
+            const loginError = document.getElementById('loginError');
+            const signupError = document.getElementById('signupError');
+            if (loginError) loginError.style.display = 'none';
+            if (signupError) signupError.style.display = 'none';
+
             if (tab === 'login') {
                 loginPanel.classList.add('active');
                 signupPanel.classList.remove('active');
@@ -499,21 +546,147 @@
             }
         });
 
+        // Auto-sync handle suggestion from display name if not edited
+        const signupUsernameInput = document.getElementById('signupUsername');
+        const signupHandleInput = document.getElementById('signupHandle');
+        let userEditedHandleManually = false;
+
+        if (signupHandleInput) {
+            signupHandleInput.addEventListener('input', () => {
+                userEditedHandleManually = true;
+            });
+        }
+        if (signupUsernameInput && signupHandleInput) {
+            signupUsernameInput.addEventListener('input', () => {
+                if (!userEditedHandleManually) {
+                    const clean = signupUsernameInput.value.toLowerCase().replace(/ /g, '_').replace(/[^a-z0-9_.]/g, '').slice(0, 12);
+                    signupHandleInput.value = clean;
+                }
+            });
+        }
+
         // Form Submission Handlers
         document.getElementById('signupForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const errorEl = document.getElementById('signupError');
+            if (errorEl) errorEl.style.display = 'none';
+
             const email = document.getElementById('signupEmail').value.trim();
-            const username = document.getElementById('signupUsername').value.trim();
+            const displayName = document.getElementById('signupUsername').value.trim();
+            const handleEl = document.getElementById('signupHandle');
+            const rawHandle = (handleEl ? handleEl.value : displayName).trim().replace(/^@/, '');
             const password = document.getElementById('signupPassword').value;
 
-            const cleanHandle = username.toLowerCase().replace(/[^a-z0-9_]/g, '') || 'user';
+            if (!email || !displayName || !rawHandle || !password) {
+                if (errorEl) {
+                    errorEl.textContent = 'Please fill in all required fields.';
+                    errorEl.style.display = 'block';
+                }
+                return;
+            }
+
+            // --- 1. DISPLAY NAME VALIDATION ---
+            // Must be at least 3 letters
+            if (displayName.length < 3) {
+                if (errorEl) {
+                    errorEl.textContent = '⚠️ Display name must be at least 3 characters long.';
+                    errorEl.style.display = 'block';
+                }
+                document.getElementById('signupUsername').focus();
+                return;
+            }
+
+            // Max 1 space allowed
+            const spaceCount = (displayName.match(/ /g) || []).length;
+            if (spaceCount > 1) {
+                if (errorEl) {
+                    errorEl.textContent = '⚠️ Display name can contain at most 1 space.';
+                    errorEl.style.display = 'block';
+                }
+                document.getElementById('signupUsername').focus();
+                return;
+            }
+
+            // Only letters, numbers, underscores (_), dots (.), and spaces allowed (no special characters!)
+            if (!/^[a-zA-Z0-9_. ]+$/.test(displayName)) {
+                if (errorEl) {
+                    errorEl.textContent = '⚠️ Display name can only contain letters, numbers, underscores (_), dots (.), and up to 1 space. No special characters allowed.';
+                    errorEl.style.display = 'block';
+                }
+                document.getElementById('signupUsername').focus();
+                return;
+            }
+
+            // --- 2. HANDLE VALIDATION ---
+            // No spaces allowed in handle
+            if (rawHandle.includes(' ')) {
+                if (errorEl) {
+                    errorEl.textContent = '⚠️ Handle cannot contain spaces.';
+                    errorEl.style.display = 'block';
+                }
+                if (handleEl) handleEl.focus();
+                return;
+            }
+
+            // Length must be between 3 and 12 characters (min 3, max 12)
+            if (rawHandle.length < 3 || rawHandle.length > 12) {
+                if (errorEl) {
+                    errorEl.textContent = '⚠️ Handle must be between 3 and 12 characters long.';
+                    errorEl.style.display = 'block';
+                }
+                if (handleEl) handleEl.focus();
+                return;
+            }
+
+            // Only letters, numbers, underscores (_), and dots (.) allowed in handle
+            if (!/^[a-zA-Z0-9_.]+$/.test(rawHandle)) {
+                if (errorEl) {
+                    errorEl.textContent = '⚠️ Handle can only contain letters, numbers, underscores (_), and dots (.). No spaces or special characters.';
+                    errorEl.style.display = 'block';
+                }
+                if (handleEl) handleEl.focus();
+                return;
+            }
+
+            const cleanHandle = rawHandle.toLowerCase();
+            const lowerEmail = email.toLowerCase();
+            const lowerDisplayName = displayName.toLowerCase();
+
+            // Check existing registered users
+            const existingUsers = await getAllRegisteredUsers();
+
+            // 1. Check if email is already taken
+            const emailTaken = existingUsers.some(u => u.email && u.email.toLowerCase() === lowerEmail);
+            if (emailTaken) {
+                if (errorEl) {
+                    errorEl.textContent = '⚠️ An account with this email address is already registered. Please log in.';
+                    errorEl.style.display = 'block';
+                }
+                document.getElementById('signupEmail').focus();
+                return;
+            }
+
+            // 2. Check if handle is already taken
+            const handleTaken = existingUsers.some(u => 
+                (u.handle && u.handle.toLowerCase() === cleanHandle) || 
+                (u.username && u.username.toLowerCase() === cleanHandle)
+            );
+            if (handleTaken) {
+                if (errorEl) {
+                    errorEl.textContent = `⚠️ The handle "@${cleanHandle}" is already taken by another account. Please choose another handle.`;
+                    errorEl.style.display = 'block';
+                }
+                if (handleEl) handleEl.focus();
+                return;
+            }
 
             const userObj = {
                 id: 'user_' + Date.now(),
                 email: email,
-                username: username,
-                displayName: username,
+                username: displayName,
+                displayName: displayName,
                 handle: cleanHandle,
+                password: password,
                 handleLastChanged: null,
                 pronouns: '',
                 bio: '',
@@ -549,66 +722,73 @@
 
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const errorEl = document.getElementById('loginError');
+            if (errorEl) errorEl.style.display = 'none';
+
             const identifier = document.getElementById('loginIdentifier').value.trim();
+            const password = document.getElementById('loginPassword').value;
 
-            let users = [];
-            try {
-                users = JSON.parse(localStorage.getItem('talky_users') || '[]');
-            } catch(e) {
-                users = [];
-            }
-
-            let match = users.find(u => (u.email && u.email.toLowerCase() === identifier.toLowerCase()) || (u.username && u.username.toLowerCase() === identifier.toLowerCase()));
-
-            // Also check Firebase RTDB for registered users across devices
-            if (!match) {
-                try {
-                    const snap = await get(ref(rtdb, 'users'));
-                    if (snap.exists()) {
-                        const fbUsers = snap.val();
-                        const list = Object.values(fbUsers);
-                        match = list.find(u => (u.email && u.email.toLowerCase() === identifier.toLowerCase()) || (u.username && u.username.toLowerCase() === identifier.toLowerCase()) || (u.handle && u.handle.toLowerCase() === identifier.toLowerCase()));
-                    }
-                } catch (fbErr) {
-                    console.warn('Could not query Firebase users:', fbErr);
+            if (!identifier || !password) {
+                if (errorEl) {
+                    errorEl.textContent = 'Please enter both your email/username and password.';
+                    errorEl.style.display = 'block';
                 }
+                return;
             }
 
+            const lowerId = identifier.toLowerCase();
+            const existingUsers = await getAllRegisteredUsers();
+
+            // Match by email, username, or handle
+            const match = existingUsers.find(u => 
+                (u.email && u.email.toLowerCase() === lowerId) || 
+                (u.username && u.username.toLowerCase() === lowerId) || 
+                (u.handle && u.handle.toLowerCase() === lowerId)
+            );
+
+            // 1. If username / email does not exist: block login!
             if (!match) {
-                // If account doesn't exist, create one so login is frictionless
-                const cleanHandle = identifier.toLowerCase().replace(/[^a-z0-9_]/g, '') || 'user';
-                match = {
-                    id: 'user_' + Date.now(),
-                    email: identifier.includes('@') ? identifier : `${identifier}@talky.app`,
-                    username: identifier,
-                    displayName: identifier,
-                    handle: cleanHandle,
-                    handleLastChanged: null,
-                    pronouns: '',
-                    bio: '',
-                    links: [],
-                    avatar: '',
-                    banner: '',
-                    accentColor: '#ffffff',
-                    secondaryColor: '#2b2d31',
-                    borderStartColor: '#ffffff',
-                    borderEndColor: '#80848e',
-                    createdAt: Date.now()
-                };
-                users.push(match);
-                try { localStorage.setItem('talky_users', JSON.stringify(users)); } catch(e) {}
+                if (errorEl) {
+                    errorEl.textContent = '⚠️ Incorrect email/username or password.';
+                    errorEl.style.display = 'block';
+                }
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('loginIdentifier').focus();
+                return;
             }
 
-            // Save in Firebase RTDB
+            // 2. Strict password verification: block login if password does not match!
+            if (!match.password || match.password !== password) {
+                if (errorEl) {
+                    errorEl.textContent = '⚠️ Incorrect email/username or password.';
+                    errorEl.style.display = 'block';
+                }
+                document.getElementById('loginPassword').value = '';
+                document.getElementById('loginPassword').focus();
+                return;
+            }
+
+            // Save in localStorage and Firebase RTDB
+            try {
+                let users = JSON.parse(localStorage.getItem('talky_users') || '[]');
+                const idx = users.findIndex(u => u.id === match.id);
+                if (idx >= 0) {
+                    users[idx] = match;
+                } else {
+                    users.push(match);
+                }
+                localStorage.setItem('talky_users', JSON.stringify(users));
+                localStorage.setItem('talky_current_user', JSON.stringify(match));
+            } catch (err) {
+                console.warn('Quota error in login:', err);
+                try { localStorage.setItem('talky_current_user', JSON.stringify(match)); } catch(e) {}
+            }
+
+            // Sync to Firebase RTDB
             try {
                 await set(ref(rtdb, 'users/' + match.id), match);
             } catch (e) {}
 
-            try {
-                localStorage.setItem('talky_current_user', JSON.stringify(match));
-            } catch (err) {
-                console.warn('Quota error in login:', err);
-            }
             window.location.href = 'app.html';
         });
 

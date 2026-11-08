@@ -847,19 +847,49 @@
             checkProfileUnsavedChanges();
         });
 
-        // 5-Day Handle Cooldown Handler
+        // 5-Day Handle Cooldown & Format Handler
         const FIVE_DAYS_MS = 5 * 24 * 60 * 60 * 1000;
 
         saveHandleBtn.addEventListener('click', () => {
-            const rawNewHandle = handleInput.value.trim().replace(/^@/, '').toLowerCase().replace(/[^a-z0-9_]/g, '');
-            if (!rawNewHandle) {
-                handleNotice.textContent = 'Handle must contain at least one valid character.';
+            const rawInput = handleInput.value.trim().replace(/^@/, '');
+            
+            if (!rawInput) {
+                handleNotice.textContent = 'Handle must contain at least 3 valid characters.';
                 handleNotice.className = 'handle-notice error';
                 return;
             }
 
-            if (rawNewHandle === currentUser.handle) {
+            if (rawInput.includes(' ')) {
+                handleNotice.textContent = 'Handle cannot contain spaces.';
+                handleNotice.className = 'handle-notice error';
+                return;
+            }
+
+            if (rawInput.length < 3 || rawInput.length > 12) {
+                handleNotice.textContent = 'Handle must be between 3 and 12 characters long.';
+                handleNotice.className = 'handle-notice error';
+                return;
+            }
+
+            if (!/^[a-zA-Z0-9_.]+$/.test(rawInput)) {
+                handleNotice.textContent = 'Handle can only contain letters, numbers, underscores (_), and dots (.). No special characters.';
+                handleNotice.className = 'handle-notice error';
+                return;
+            }
+
+            const cleanHandle = rawInput.toLowerCase();
+
+            if (cleanHandle === currentUser.handle) {
                 handleNotice.textContent = 'This is already your current handle.';
+                handleNotice.className = 'handle-notice error';
+                return;
+            }
+
+            let usersList = [];
+            try { usersList = JSON.parse(localStorage.getItem('talky_users') || '[]'); } catch(e) {}
+            const handleIsTaken = usersList.some(u => u.id !== currentUser.id && u.handle && u.handle.toLowerCase() === cleanHandle);
+            if (handleIsTaken) {
+                handleNotice.textContent = `The handle "@${cleanHandle}" is already taken by another account.`;
                 handleNotice.className = 'handle-notice error';
                 return;
             }
@@ -884,12 +914,13 @@
                 return;
             }
 
-            currentUser.handle = rawNewHandle;
+            currentUser.handle = cleanHandle;
             currentUser.handleLastChanged = now;
             saveUserData();
 
-            previewHandle.textContent = '@' + rawNewHandle;
-            barHandle.textContent = '@' + rawNewHandle;
+            previewHandle.textContent = '@' + cleanHandle;
+            barHandle.textContent = '@' + cleanHandle;
+            handleInput.value = cleanHandle;
 
             handleNotice.textContent = 'Handle changed successfully! Cooldown active for 5 days.';
             handleNotice.className = 'handle-notice success';

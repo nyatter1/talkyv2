@@ -52,6 +52,8 @@ export default defineConfig(() => {
               req.url = '/authentication.html' + search;
             } else if (url === '/app' || url === '/app/') {
               req.url = '/app.html' + search;
+            } else if (url === '/invite' || url === '/invite/') {
+              req.url = '/invite.html' + search;
             }
             next();
           });
@@ -79,6 +81,8 @@ export default defineConfig(() => {
               req.url = '/authentication.html' + search;
             } else if (url === '/app' || url === '/app/') {
               req.url = '/app.html' + search;
+            } else if (url === '/invite' || url === '/invite/') {
+              req.url = '/invite.html' + search;
             }
             next();
           });
@@ -96,6 +100,7 @@ export default defineConfig(() => {
           main: path.resolve(import.meta.dirname, 'index.html'),
           authentication: path.resolve(import.meta.dirname, 'authentication.html'),
           app: path.resolve(import.meta.dirname, 'app.html'),
+          invite: path.resolve(import.meta.dirname, 'invite.html'),
         },
       },
     },
