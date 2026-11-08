@@ -11256,35 +11256,31 @@
             if (stored) {
                 try {
                     currentUser = JSON.parse(stored);
+                    if (currentUser && currentUser.id === 'user_default') {
+                        currentUser = null;
+                        localStorage.removeItem('talky_current_user');
+                    }
                 } catch(e) {
                     currentUser = null;
                 }
             }
 
             if (!currentUser) {
-                const usersList = JSON.parse(localStorage.getItem('talky_users') || '[]');
-                if (usersList.length > 0) {
-                    currentUser = usersList[usersList.length - 1];
-                    safeStorageSet('talky_current_user', JSON.stringify(currentUser));
-                } else {
-                    currentUser = {
-                        id: 'user_default',
-                        email: 'user@talky.app',
-                        username: 'User',
-                        displayName: 'User',
-                        handle: 'user',
-                        handleLastChanged: null,
-                        pronouns: '',
-                        bio: '',
-                        links: [],
-                        avatar: '',
-                        banner: '',
-                        accentColor: '#ffffff',
-                        secondaryColor: '#2b2d31',
-                        borderStartColor: '#ffffff',
-                        borderEndColor: '#80848e'
-                    };
-                    saveUserData();
+                let validUserFound = false;
+                try {
+                    const usersList = JSON.parse(localStorage.getItem('talky_users') || '[]');
+                    const validUsers = usersList.filter(u => u && u.id && u.id !== 'user_default');
+                    if (validUsers.length > 0) {
+                        currentUser = validUsers[validUsers.length - 1];
+                        safeStorageSet('talky_current_user', JSON.stringify(currentUser));
+                        validUserFound = true;
+                    }
+                } catch (e) {}
+
+                if (!validUserFound) {
+                    // User has no registered account: redirect to signup page!
+                    window.location.href = 'authentication.html?tab=signup';
+                    return;
                 }
             }
 

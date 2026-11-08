@@ -435,15 +435,32 @@
     <script type="module">
         import { rtdb, ref, set, get, child } from './firebase.ts';
 
-        // Auto-login check if already logged in (unless URL has ?logout=true)
+        // Auto-login check if already logged in (unless URL has ?logout=true or ?tab=signup)
         const urlParams = new URLSearchParams(window.location.search);
+        const requestedTab = urlParams.get('tab');
         if (urlParams.get('logout') === 'true') {
             localStorage.removeItem('talky_current_user');
-        } else {
-            const currentUser = localStorage.getItem('talky_current_user');
-            if (currentUser) {
-                window.location.href = 'app.html';
+        } else if (requestedTab !== 'signup' && requestedTab !== 'register') {
+            const stored = localStorage.getItem('talky_current_user');
+            if (stored && stored !== 'null') {
+                try {
+                    const parsed = JSON.parse(stored);
+                    if (parsed && parsed.id && parsed.id !== 'user_default') {
+                        window.location.href = 'app.html';
+                    } else {
+                        localStorage.removeItem('talky_current_user');
+                    }
+                } catch(e) {
+                    localStorage.removeItem('talky_current_user');
+                }
             }
+        }
+
+        // If explicitly requested signup tab or if user has no account, switch to signup
+        if (requestedTab === 'signup' || requestedTab === 'register') {
+            setTimeout(() => {
+                if (typeof switchTab === 'function') switchTab('signup');
+            }, 0);
         }
 
         // Helper to query all users from localStorage and Firebase RTDB
