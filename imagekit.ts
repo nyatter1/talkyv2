@@ -30,14 +30,114 @@ async function generateImageKitSignature(privateKey: string, token: string, expi
     .join('');
 }
 
+export type UploadProgressCallback = (percent: number) => void;
+let globalUploadProgressHandler: UploadProgressCallback | null = null;
+
+/**
+ * Sets a global listener for upload progress (1% - 100%)
+ */
+export function setGlobalUploadProgressHandler(handler: UploadProgressCallback | null) {
+  globalUploadProgressHandler = handler;
+}
+
+/**
+ * Dispatches progress update to registered handler and global custom event
+ */
+export function reportUploadProgress(percent: number, customCallback?: UploadProgressCallback) {
+  const safePercent = Math.min(100, Math.max(1, Math.round(percent)));
+  if (customCallback) {
+    try { customCallback(safePercent); } catch {}
+  }
+  if (globalUploadProgressHandler) {
+    try { globalUploadProgressHandler(safePercent); } catch {}
+  }
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('talky:upload-progress', { detail: { percent: safePercent } }));
+  }
+}
+
+/**
+ * Calls backend proxy to delete duplicate or similar-named files in ImageKit storage
+ */
+export async function triggerImageKitDeduplication(params: {
+  fileName?: string;
+  fileId?: string;
+  size?: number;
+}): Promise<{ success: boolean; deletedCount?: number }> {
+  try {
+    const res = await fetch('/api/imagekit/deduplicate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params)
+    });
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (err) {
+    console.warn('ImageKit deduplication request warning:', err);
+  }
+  return { success: false };
+}
+
+/**
+ * Runs a comprehensive sweep across ImageKit storage, deleting redundant duplicate copies
+ */
+export async function sweepImageKitStorageDuplicates(): Promise<{
+  success: boolean;
+  totalDeleted?: number;
+  deletedIds?: string[];
+}> {
+  try {
+    const res = await fetch('/api/imagekit/cleanup-all', { method: 'POST' });
+    if (res.ok) {
+      const data = await res.json();
+      return data;
+    }
+  } catch (err) {
+    console.warn('ImageKit storage sweep warning:', err);
+  }
+  return { success: false };
+}
+
+export interface CompressionProgressData {
+  originalSize: number;
+  currentSize: number;
+  targetSize: number;
+  percent?: number;
+  phase: 'compressing' | 'uploading' | 'complete';
+}
+
+/**
+ * Dispatches compression and size-reduction updates to the UI
+ */
+export function reportCompressionProgress(data: CompressionProgressData) {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('talky:compression-progress', { detail: data }));
+  }
+}
+
+export interface ProcessedUploadResult {
+  url: string;
+  size: number;
+  originalSize: number;
+  name: string;
+  isGif: boolean;
+}
+
 /**
  * Directly uploads any image or animated GIF file to ImageKit CDN via the official ImageKit REST API.
+ * Emits real 1% - 100% progress events and triggers deduplication to save storage quota.
  * Returns the hosted ImageKit URL (e.g., https://ik.imagekit.io/talky/avatar_12345.gif).
  */
-export async function uploadToImageKit(fileOrDataUrl: File | Blob | string, customFileName?: string): Promise<string> {
+export async function uploadToImageKit(
+  fileOrDataUrl: File | Blob | string,
+  customFileName?: string,
+  onProgress?: UploadProgressCallback
+): Promise<string> {
   if (!fileOrDataUrl) return '';
 
   try {
+    reportUploadProgress(1, onProgress);
     const token = 'token_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
     const expire = Math.floor(Date.now() / 1000 + 1800).toString();
     const signature = await generateImageKitSignature(IMAGEKIT_PRIVATE_KEY, token, expire);
@@ -66,26 +166,71 @@ export async function uploadToImageKit(fileOrDataUrl: File | Blob | string, cust
     formData.append('signature', signature);
     formData.append('expire', expire);
     formData.append('token', token);
-    formData.append('useUniqueFileName', 'true');
+    // Disallow duplicate creation on ImageKit for identical names
+    formData.append('useUniqueFileName', 'false');
+    formData.append('overwriteFile', 'true');
 
-    const response = await fetch('https://upload.imagekit.io/api/v1/files/upload', {
-      method: 'POST',
-      body: formData
+    // Aggressive storage-time compression before saving to ImageKit media library
+    if (isGifMedia(fileOrDataUrl)) {
+      // Resizes GIF to max width 380px and compresses color palettes to drastically cut GIF file size
+      formData.append('transformation[pre]', 'w-380,q-48');
+    } else {
+      // Resizes static images to max width 720px with high-efficiency 65% quality compression
+      formData.append('transformation[pre]', 'w-720,q-65');
+    }
+
+    // Use XMLHttpRequest for actual byte upload progress tracking (1% to 100%)
+    const uploadResult = await new Promise<any>((resolve) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://upload.imagekit.io/api/v1/files/upload');
+
+      xhr.upload.onprogress = (evt) => {
+        if (evt.lengthComputable && evt.total > 0) {
+          const rawPct = Math.min(99, Math.max(1, Math.round((evt.loaded / evt.total) * 100)));
+          reportUploadProgress(rawPct, onProgress);
+        }
+      };
+
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            resolve(JSON.parse(xhr.responseText));
+          } catch {
+            resolve(null);
+          }
+        } else {
+          console.warn('ImageKit XHR upload failed with status:', xhr.status, xhr.responseText);
+          resolve(null);
+        }
+      };
+
+      xhr.onerror = () => {
+        console.warn('ImageKit XHR upload encountered network error');
+        resolve(null);
+      };
+
+      xhr.send(formData);
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      if (data && data.url) {
-        return data.url;
-      }
-    } else {
-      console.warn('ImageKit API error status:', response.status, await response.text());
+    if (uploadResult && uploadResult.url) {
+      // Hit 100% on upload completion
+      reportUploadProgress(100, onProgress);
+
+      // Automatically delete any duplicates or files with similar names in ImageKit storage
+      triggerImageKitDeduplication({
+        fileName: uploadResult.name || fileName,
+        fileId: uploadResult.fileId,
+        size: uploadResult.size
+      }).catch(err => console.warn('Background deduplication error:', err));
+
+      return uploadResult.url;
     }
   } catch (err) {
     console.warn('ImageKit direct upload failed, falling back to local processing:', err);
   }
 
   // Fallback to local Data URL if network/upload fails
+  reportUploadProgress(100, onProgress);
   return fallbackReadLocal(fileOrDataUrl);
 }
 
@@ -133,10 +278,10 @@ export function isGifMedia(source: any): boolean {
 }
 
 /**
- * Compresses static images using HTML5 Canvas to reduce file size by 70-90% while maintaining crisp visual quality.
- * Preserves transparency and uses webp/jpeg format.
+ * Compresses static images using HTML5 Canvas to reduce file size by 75-90% while maintaining crisp visual quality.
+ * Preserves transparency and uses modern webp format with fallback to jpeg.
  */
-export async function compressStaticImage(source: File | Blob | string, maxWidth = 960, maxHeight = 960, quality = 0.84): Promise<string> {
+export async function compressStaticImage(source: File | Blob | string, maxWidth = 720, maxHeight = 720, quality = 0.65): Promise<string> {
   return new Promise((resolve) => {
     if (!source) return resolve('');
 
@@ -200,47 +345,129 @@ export async function compressStaticImage(source: File | Blob | string, maxWidth
 }
 
 /**
- * Uploads any image/GIF directly to ImageKit CDN and returns the direct ImageKit URL!
- * For static images: compresses client-side first for faster uploads and minimal bandwidth.
- * For animated GIFs: preserves full multi-frame animation while applying CDN compression.
+ * Detailed upload processor returning full size metadata (original size, compressed size, URL)
+ * Broadcasts decreasing size animation events during compression.
  */
-export async function processImageUpload(fileOrUrl: File | Blob | string, maxWidth = 960, maxHeight = 960, quality = 0.84): Promise<string> {
-  if (!fileOrUrl) return '';
+export async function processImageUploadDetailed(
+  fileOrUrl: File | Blob | string,
+  maxWidth = 720,
+  maxHeight = 720,
+  quality = 0.65,
+  onProgress?: UploadProgressCallback
+): Promise<ProcessedUploadResult> {
+  const isGif = isGifMedia(fileOrUrl);
+  let fileName = 'attachment_' + Date.now();
+  let originalSize = 100000;
+
+  if (fileOrUrl instanceof File) {
+    originalSize = fileOrUrl.size;
+    fileName = fileOrUrl.name;
+  } else if (fileOrUrl instanceof Blob) {
+    originalSize = fileOrUrl.size;
+  } else if (typeof fileOrUrl === 'string') {
+    if (fileOrUrl.startsWith('data:')) {
+      originalSize = Math.round(fileOrUrl.length * 0.75);
+    }
+  }
 
   // If already an HTTP/HTTPS URL
   if (typeof fileOrUrl === 'string' && (fileOrUrl.startsWith('http://') || fileOrUrl.startsWith('https://'))) {
-    // If it's an ImageKit URL without transform parameters, add optimization transform
-    if (fileOrUrl.includes('ik.imagekit.io') && !fileOrUrl.includes('?tr=')) {
-      return `${fileOrUrl}?tr=q-82,f-auto`;
-    }
-    return fileOrUrl;
+    const url = fileOrUrl.includes('ik.imagekit.io') && !fileOrUrl.includes('?tr=')
+      ? `${fileOrUrl}?tr=q-70,f-auto`
+      : fileOrUrl;
+    return { url, size: originalSize, originalSize, name: fileName, isGif };
   }
 
-  const isGif = isGifMedia(fileOrUrl);
+  // Phase 1: Notify start of compression with original size
+  reportCompressionProgress({
+    originalSize,
+    currentSize: originalSize,
+    targetSize: originalSize,
+    phase: 'compressing'
+  });
 
-  // If static image, compress before uploading to drastically reduce payload
   let payloadToUpload: File | Blob | string = fileOrUrl;
   let compressedLocal = '';
+  let estimatedCompressedSize = Math.round(originalSize * 0.35); // Default target estimate
 
   if (!isGif) {
     compressedLocal = await compressStaticImage(fileOrUrl, maxWidth, maxHeight, quality);
     if (compressedLocal) {
       payloadToUpload = compressedLocal;
+      estimatedCompressedSize = Math.round(compressedLocal.length * 0.75);
     }
   }
 
-  // Directly upload to ImageKit CDN
-  const ikUrl = await uploadToImageKit(payloadToUpload);
-  if (ikUrl) {
-    // Return CDN URL with automatic WebP/AVIF formatting and quality compression
-    return ikUrl.includes('?tr=') ? ikUrl : `${ikUrl}?tr=q-82,f-auto`;
+  // Smoothly decrease size from originalSize down to estimatedCompressedSize
+  const steps = 8;
+  const decrement = Math.round((originalSize - estimatedCompressedSize) / steps);
+  let currentDecreasing = originalSize;
+
+  for (let i = 0; i < steps; i++) {
+    currentDecreasing = Math.max(estimatedCompressedSize, currentDecreasing - decrement);
+    reportCompressionProgress({
+      originalSize,
+      currentSize: currentDecreasing,
+      targetSize: estimatedCompressedSize,
+      phase: 'compressing'
+    });
+    // Brief async tick for smooth visual decrement effect
+    await new Promise(r => setTimeout(r, 40));
   }
 
-  // Local fallback: if static image, return compressed data URL; if GIF, return raw animated data URL
-  if (!isGif && compressedLocal) {
-    return compressedLocal;
-  }
-  return fallbackReadLocal(fileOrUrl);
+  // Phase 2: Upload to ImageKit CDN with real byte progress
+  reportCompressionProgress({
+    originalSize,
+    currentSize: estimatedCompressedSize,
+    targetSize: estimatedCompressedSize,
+    phase: 'uploading'
+  });
+
+  const ikUrl = await uploadToImageKit(payloadToUpload, fileName, (p) => {
+    reportUploadProgress(p, onProgress);
+    reportCompressionProgress({
+      originalSize,
+      currentSize: estimatedCompressedSize,
+      targetSize: estimatedCompressedSize,
+      percent: p,
+      phase: 'uploading'
+    });
+  });
+
+  const finalUrl = ikUrl
+    ? (ikUrl.includes('?tr=') ? ikUrl : `${ikUrl}?tr=q-70,f-auto`)
+    : (compressedLocal || fallbackReadLocal(fileOrUrl) as unknown as string);
+
+  reportCompressionProgress({
+    originalSize,
+    currentSize: estimatedCompressedSize,
+    targetSize: estimatedCompressedSize,
+    percent: 100,
+    phase: 'complete'
+  });
+
+  return {
+    url: finalUrl,
+    size: estimatedCompressedSize,
+    originalSize,
+    name: fileName,
+    isGif
+  };
+}
+
+/**
+ * Uploads any image/GIF directly to ImageKit CDN and returns the direct ImageKit URL!
+ * Employs heavy compression for GIFs (pre-transformed dimensions and colors) and static images.
+ */
+export async function processImageUpload(
+  fileOrUrl: File | Blob | string,
+  maxWidth = 720,
+  maxHeight = 720,
+  quality = 0.65,
+  onProgress?: UploadProgressCallback
+): Promise<string> {
+  const result = await processImageUploadDetailed(fileOrUrl, maxWidth, maxHeight, quality, onProgress);
+  return result.url;
 }
 
 // Curated GIF presets

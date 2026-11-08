@@ -1114,19 +1114,52 @@
 
         .attachment-thumb-item {
             position: relative;
-            width: 68px;
-            height: 68px;
-            border-radius: 6px;
+            width: 76px;
+            border-radius: 8px;
             overflow: hidden;
-            background: #1e1f22;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #18191c;
+            border: 1px solid rgba(255, 255, 255, 0.14);
             flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.12s ease, border-color 0.15s ease;
+        }
+
+        .attachment-thumb-item:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .attachment-thumb-img-wrap {
+            position: relative;
+            width: 76px;
+            height: 64px;
+            overflow: hidden;
+            background: #111214;
         }
 
         .attachment-thumb-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
+        }
+
+        .attachment-thumb-size-label {
+            width: 100%;
+            padding: 3px 4px;
+            text-align: center;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #949ba4;
+            background: #111214;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            user-select: none;
+            letter-spacing: 0.02em;
         }
 
         .attachment-thumb-remove {
@@ -1135,8 +1168,8 @@
             right: 3px;
             width: 18px;
             height: 18px;
-            background: rgba(0, 0, 0, 0.75);
-            border: none;
+            background: rgba(0, 0, 0, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
             border-radius: 50%;
             cursor: pointer;
@@ -1144,11 +1177,13 @@
             align-items: center;
             justify-content: center;
             padding: 0;
-            transition: background 0.15s;
+            transition: background 0.15s, transform 0.1s;
+            z-index: 2;
         }
 
         .attachment-thumb-remove:hover {
             background: #f23f43;
+            transform: scale(1.1);
         }
 
         .attachment-thumb-remove svg {
@@ -3259,44 +3294,111 @@
         .font-style-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+            gap: 8px;
             margin-top: 6px;
         }
         .font-style-btn {
-            padding: 8px 10px;
+            padding: 9px 12px;
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            color: #949ba4;
-            font-size: 0.8rem;
+            border-radius: 8px;
+            color: #b5bac1;
             cursor: pointer;
-            text-align: center;
-            transition: all 0.15s ease;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            text-align: left;
+            transition: all 0.16s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
         .font-style-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
             border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
         }
         .font-style-btn.active {
-            background: rgba(88, 101, 242, 0.25);
+            background: rgba(88, 101, 242, 0.2);
             border-color: #5865f2;
             color: #fff;
-            box-shadow: 0 0 10px rgba(88, 101, 242, 0.35);
+            box-shadow: 0 0 12px rgba(88, 101, 242, 0.35);
         }
+        .font-style-btn .font-preview-name {
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.2;
+            color: inherit;
+        }
+        .font-style-btn .font-preview-sub {
+            font-size: 0.68rem;
+            color: #80848e;
+            line-height: 1.1;
+        }
+        .font-style-btn.active .font-preview-sub {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .divider-style-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        .divider-style-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 12px 14px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.16s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .divider-style-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+        .divider-style-card.active {
+            background: rgba(88, 101, 242, 0.15);
+            border-color: #5865F2;
+            box-shadow: 0 0 12px rgba(88, 101, 242, 0.28);
+        }
+        .divider-style-card .style-card-icon {
+            font-size: 1.1rem;
+            color: #ffffff;
+            line-height: 1;
+            margin-bottom: 2px;
+        }
+        .divider-style-card .style-card-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .divider-style-card .style-card-desc {
+            font-size: 0.72rem;
+            color: #949ba4;
+        }
+
         .hierarchy-list-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: rgba(18, 19, 23, 0.65);
+            gap: 14px;
+            background: rgba(22, 24, 30, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 10px 14px;
-            transition: all 0.15s ease;
+            border-radius: 10px;
+            padding: 12px 16px;
+            transition: all 0.16s ease;
             user-select: none;
+        }
+        .hierarchy-list-item:hover {
+            background: rgba(28, 31, 38, 0.88);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .hierarchy-list-item.is-divider-row {
+            background: rgba(18, 20, 26, 0.85);
+            border-left: 3px solid #5865f2;
         }
         .hierarchy-list-item[draggable="true"] {
             cursor: grab;
@@ -4907,6 +5009,50 @@
             transform: translateY(-4px);
             border-color: rgba(255, 255, 255, 0.22);
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+        }
+
+        .lobby-card-enter-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.78);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            z-index: 10;
+        }
+
+        .explore-server-card:hover .lobby-card-enter-overlay {
+            opacity: 1;
+        }
+
+        .enter-badge-btn {
+            background: #ffffff;
+            color: #0b0c10;
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            padding: 10px 24px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 28px rgba(255, 255, 255, 0.3), 0 4px 14px rgba(0, 0, 0, 0.6);
+            transform: translateY(6px);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s, color 0.2s;
+            user-select: none;
+        }
+
+        .explore-server-card:hover .enter-badge-btn {
+            transform: translateY(0);
+        }
+
+        .enter-badge-btn:hover {
+            background: #f2f3f5;
+            transform: scale(1.05) translateY(-2px);
         }
 
         .explore-card-banner {
@@ -7052,6 +7198,91 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
+        /* ---------------------------------------------------------
+           MINIMALIST UPLOAD PROGRESS OVERLAY (Pure text, blurred backdrop)
+           --------------------------------------------------------- */
+        .talky-upload-progress-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.42);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease;
+        }
+
+        .talky-upload-progress-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .talky-upload-progress-overlay.fading-out {
+            opacity: 0;
+            visibility: visible;
+            pointer-events: none;
+            transition: opacity 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .talky-upload-progress-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 10px;
+        }
+
+        .talky-upload-progress-text {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 850;
+            letter-spacing: -0.04em;
+            color: #ffffff;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
+            text-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 45px rgba(255, 255, 255, 0.2);
+            user-select: none;
+            line-height: 1;
+            transform: scale(1);
+            transition: transform 0.15s ease-out;
+        }
+
+        .talky-upload-progress-sub {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.75);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .talky-upload-progress-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: rgba(35, 165, 90, 0.2);
+            color: #23a55a;
+            border: 1px solid rgba(35, 165, 90, 0.35);
+        }
+
+        .talky-upload-progress-overlay.fading-out .talky-upload-progress-content {
+            transform: scale(1.04);
+            filter: blur(2px);
+            transition: transform 0.38s ease-out, filter 0.38s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -7159,6 +7390,11 @@
             <div class="server-dropdown-item" id="serverDropdownCopyIdBtn">
                 <span>Copy Server ID</span>
                 <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+            </div>
+            <div class="server-dropdown-divider danger-divider"></div>
+            <div class="server-dropdown-item danger" id="serverDropdownDeleteBtn" style="color: #f23f43;">
+                <span>Delete Server</span>
+                <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
             </div>
         </div>
 
@@ -7797,8 +8033,10 @@
         <div class="settings-nav">
             <div class="settings-header-title" id="serverSettingsNavTitle">Server Settings</div>
             <div class="settings-item active" data-server-tab="overview" id="serverSettingsTabOverview">Overview</div>
+            <div class="settings-item" data-server-tab="lobby" id="serverSettingsTabLobby">Lobby</div>
             <div class="settings-item" data-server-tab="roles" id="serverSettingsTabRoles">Roles</div>
-            <div class="settings-item" data-server-tab="channels" id="serverSettingsTabChannels">Channels</div>
+            <div class="settings-item" data-server-tab="channels" id="serverSettingsTabChannels">Channels & Hierarchy</div>
+            <div class="settings-item" data-server-tab="dividers" id="serverSettingsTabDividers">Category & Dividers</div>
             <div class="settings-divider" style="height: 1px; background: rgba(255,255,255,0.08); margin: 8px 0;"></div>
             <button type="button" class="settings-item delete" id="serverSettingsDeleteBtn" style="color: #f23f43; background: transparent; border: none; text-align: left; width: 100%; cursor: pointer;">
                 Delete Server
@@ -7881,6 +8119,96 @@
                             <input type="file" id="serverSettingsBackgroundInput" accept="image/*" style="display: none;">
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Lobby Content -->
+            <div class="settings-tab-panel" id="serverSettingsPanelLobby" style="display: none; position: absolute; inset: 0; background: #111214; z-index: 10; overflow-y: auto; overflow-x: hidden; width: 100%; height: 100%;">
+                <div id="lobbyMainWrapper" style="width: 100%; min-height: 100%; transition: opacity 0.3s ease, transform 0.3s ease; opacity: 1; transform: scale(1); display: flex; flex-direction: column;">
+                    
+                    <!-- Screen 1: Centered Server Card View -->
+                    <div id="lobbyCardView" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100%; flex: 1; width: 100%; padding: 40px 20px; text-align: center; margin: 0 auto;">
+                        <div style="margin-bottom: 24px; text-align: center;">
+                            <h2 class="settings-content-heading" style="font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 6px; letter-spacing: -0.02em; text-align: center;">Server Lobby</h2>
+                            <p style="font-size: 0.85rem; color: #949ba4; text-align: center;">Hover over your server card and click Enter to view full server details.</p>
+                        </div>
+                        <div id="lobbyServerCardContainer" style="width: 100%; max-width: 440px; display: flex; justify-content: center; align-items: center; margin: 0 auto;">
+                            <!-- Server card rendered dynamically here -->
+                        </div>
+                    </div>
+
+                    <!-- Screen 2: Detailed Server Showcase View -->
+                    <div id="lobbyShowcaseView" style="display: none; width: 100%; min-height: 100%; position: relative; padding-bottom: 40px;">
+                        
+                        <!-- Full Width Server Banner stretching left-to-right (No gaps on top/left/right, blurry, faded on left & right) -->
+                        <div id="lobbyShowcaseBanner" style="width: 100%; height: 230px; position: relative; overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%); mask-image: linear-gradient(to right, transparent 0%, black 14%, black 86%, transparent 100%); margin-bottom: -54px; border-radius: 0;">
+                            <div id="lobbyShowcaseBannerBg" style="position: absolute; inset: -12px; background-size: cover; background-position: center; filter: blur(8px) brightness(0.88); transform: scale(1.08);"></div>
+                            <div style="position: absolute; inset: 0; background: linear-gradient(90deg, #111214 0%, transparent 20%, transparent 80%, #111214 100%), linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(17,18,20,0.92) 100%);"></div>
+                        </div>
+
+                        <!-- Centered Server Icon -->
+                        <div id="lobbyShowcaseIcon" style="width: 108px; height: 108px; border-radius: 28px; border: 4px solid #111214; background: #1e1f22; background-size: cover; background-position: center; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 800; color: #fff; position: relative; z-index: 10; box-shadow: 0 14px 36px rgba(0,0,0,0.75);">
+                        </div>
+
+                        <!-- Centered Server Name -->
+                        <h2 id="lobbyShowcaseName" style="text-align: center; font-size: 1.75rem; font-weight: 800; color: #ffffff; margin-top: 14px; margin-bottom: 26px; letter-spacing: -0.02em;">
+                            Server Name
+                        </h2>
+
+                        <!-- Details Cards Stack -->
+                        <div style="max-width: 560px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; padding: 0 20px;">
+                            
+                            <!-- Card 1: Server Description (Pure text, left aligned) -->
+                            <div style="background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px 22px; text-align: left;">
+                                <div style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">
+                                    Server Description
+                                </div>
+                                <div id="lobbyShowcaseDescText" style="font-size: 0.95rem; color: #dbdee1; line-height: 1.55; white-space: pre-wrap; font-family: inherit;">
+                                    No description provided.
+                                </div>
+                            </div>
+
+                            <!-- Card 2: Online Status / People -->
+                            <div style="background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px 22px; text-align: left; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+                                <div>
+                                    <div style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px;">
+                                        Community Activity
+                                    </div>
+                                    <div id="lobbyShowcaseOnlineText" style="font-size: 1.05rem; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+                                        <span style="width: 10px; height: 10px; border-radius: 50%; background: #23a55a; display: inline-block; box-shadow: 0 0 10px rgba(35, 165, 89, 0.6);"></span>
+                                        <span>1 Member Online</span>
+                                    </div>
+                                </div>
+                                <div id="lobbyShowcaseTotalMembersTag" style="font-size: 0.8rem; color: #b5bac1; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-weight: 600;">
+                                    1 Member
+                                </div>
+                            </div>
+
+                            <!-- Card 3: Server Owner -->
+                            <div style="background: rgba(255, 255, 255, 0.035); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 18px 22px; text-align: left;">
+                                <div style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;">
+                                    Server Owner
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <div id="lobbyShowcaseOwnerAvatar" style="width: 44px; height: 44px; border-radius: 50%; background: #1e1f22; border: 1px solid rgba(255,255,255,0.15); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 1.1rem; flex-shrink: 0;">
+                                            👑
+                                        </div>
+                                        <div>
+                                            <div id="lobbyShowcaseOwnerName" style="font-size: 0.95rem; font-weight: 700; color: #ffffff;">Owner</div>
+                                            <div id="lobbyShowcaseOwnerHandle" style="font-size: 0.78rem; color: #949ba4;">@owner</div>
+                                        </div>
+                                    </div>
+                                    <div style="background: rgba(246, 219, 102, 0.12); border: 1px solid rgba(246, 219, 102, 0.3); color: #f6db66; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                                        <span>👑</span>
+                                        <span>Owner</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -8040,169 +8368,35 @@
                 </div>
             </div>
 
-            <!-- Server Channels & Dividers Content -->
-            <div class="settings-tab-panel" id="serverSettingsPanelChannels" style="display: none; max-width: 640px;">
-                <!-- Main Header -->
-                <div style="margin-bottom: 24px;">
-                    <h2 class="settings-content-heading" style="font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Category Dividers & Channels</h2>
-                    <p style="font-size: 0.84rem; color: #949ba4; margin: 0;">Customize multi-color gradients, fonts, and reorder server hierarchy with drag-and-drop.</p>
-                </div>
-
-                <!-- Section 1: Category Header & Divider Customization Card -->
-                <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 22px; margin-bottom: 28px;">
-                    <!-- Category Title Input -->
-                    <div class="profile-field-group" style="margin-bottom: 20px;">
-                        <label class="profile-field-label">CATEGORY HEADER TITLE</label>
-                        <input type="text" id="categoryTitleInput" class="profile-input" placeholder="TEXT CHANNELS" maxlength="32">
-                    </div>
-
-                    <!-- Divider Style Segmented Selector -->
-                    <div class="profile-field-group" style="margin-bottom: 20px;">
-                        <label class="profile-field-label">DIVIDER STYLE</label>
-                        <div class="divider-style-pills">
-                            <button type="button" class="divider-style-pill-btn active" id="divStyleTabMinimal" data-style="minimal">Minimal Line</button>
-                            <button type="button" class="divider-style-pill-btn" id="divStyleTabGradient" data-style="gradient">Gradient Line</button>
-                            <button type="button" class="divider-style-pill-btn" id="divStyleTabRibbon" data-style="ribbon">Glass Ribbon</button>
-                            <button type="button" class="divider-style-pill-btn" id="divStyleTabBanner" data-style="banner">Banner Graphic</button>
-                        </div>
-                    </div>
-
-                    <!-- Enhanced Gradient Controls (2 to 5 colors + Rotation Angle) -->
-                    <div id="catGradientControls" style="display: none; margin-bottom: 22px;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                            <label class="profile-field-label" style="margin-bottom: 0;">GRADIENT COLORS (2 TO 5)</label>
-                            <span id="catColorsCountBadge" style="font-size: 0.72rem; color: #949ba4;">2 / 5 colors</span>
-                        </div>
-                        <div class="gradient-stops-container" id="catGradientStopsList">
-                            <!-- Populated with color stop rows -->
-                        </div>
-                        <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between;">
-                            <button type="button" class="role-btn-secondary small" id="catAddColorStopBtn" style="font-size: 0.75rem; padding: 5px 12px;">
-                                + Add Color Stop
-                            </button>
-                            <span style="font-size: 0.7rem; color: #80848e;">Max 5 color stops</span>
-                        </div>
-
-                        <!-- Gradient Presets -->
-                        <div style="margin-top: 14px;">
-                            <span style="font-size: 0.72rem; font-weight: 600; color: #949ba4; text-transform: uppercase; letter-spacing: 0.04em;">Gradient Presets</span>
-                            <div class="role-gradient-presets-row" id="catGradientPresetsRow" style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
-                                <button type="button" class="angle-preset-btn" data-preset="talky" style="background: linear-gradient(90deg, #5865F2, #EB459E); color: #fff; border: none;">Talky Glow</button>
-                                <button type="button" class="angle-preset-btn" data-preset="cyber" style="background: linear-gradient(90deg, #00F2FE, #4FACFE, #9D00FF); color: #fff; border: none;">Cyberpunk</button>
-                                <button type="button" class="angle-preset-btn" data-preset="sunset" style="background: linear-gradient(90deg, #FF416C, #8A2387, #FFAA00); color: #fff; border: none;">Sunset</button>
-                                <button type="button" class="angle-preset-btn" data-preset="emerald" style="background: linear-gradient(90deg, #11998E, #38EF7D); color: #fff; border: none;">Emerald</button>
-                                <button type="button" class="angle-preset-btn" data-preset="prism" style="background: linear-gradient(90deg, #FF0055, #FFAA00, #00FF88, #00BFFF, #9D00FF); color: #fff; border: none;">Prism Rainbow (5)</button>
-                            </div>
-                        </div>
-
-                        <!-- Gradient Rotation / Angle Control -->
-                        <div style="margin-top: 16px;">
-                            <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <label class="profile-field-label" style="margin-bottom: 0;">ROTATION ANGLE</label>
-                                <span class="angle-degree-badge" id="catGradientAngleBadge">135°</span>
-                            </div>
-                            <div class="angle-slider-control">
-                                <input type="range" id="catGradientAngleSlider" min="0" max="360" step="5" value="135">
-                            </div>
-                            <div class="angle-presets-row" id="catAnglePresetsRow">
-                                <button type="button" class="angle-preset-btn" data-angle="0">0° ↑</button>
-                                <button type="button" class="angle-preset-btn" data-angle="45">45° ↗</button>
-                                <button type="button" class="angle-preset-btn" data-angle="90">90° →</button>
-                                <button type="button" class="angle-preset-btn active" data-angle="135">135° ↘</button>
-                                <button type="button" class="angle-preset-btn" data-angle="180">180° ↓</button>
-                                <button type="button" class="angle-preset-btn" data-angle="270">270° ←</button>
-                            </div>
-                        </div>
-
-                        <!-- Font Family Grid for Category Divider -->
-                        <div style="margin-top: 16px;">
-                            <label class="profile-field-label">CATEGORY FONT FAMILY</label>
-                            <div class="font-style-grid" id="catFontGrid">
-                                <button type="button" class="font-style-btn active" data-font="default">Default</button>
-                                <button type="button" class="font-style-btn" data-font="orbitron" style="font-family: 'Orbitron', sans-serif;">Orbitron</button>
-                                <button type="button" class="font-style-btn" data-font="mono" style="font-family: monospace;">Mono</button>
-                                <button type="button" class="font-style-btn" data-font="silkscreen" style="font-family: 'Silkscreen', cursive;">Pixel</button>
-                                <button type="button" class="font-style-btn" data-font="cinzel" style="font-family: 'Cinzel', serif;">Cinzel</button>
-                                <button type="button" class="font-style-btn" data-font="audiowide" style="font-family: 'Audiowide', sans-serif;">Audiowide</button>
-                            </div>
-                        </div>
-
-                        <!-- Text Color Mode -->
-                        <div style="margin-top: 16px;">
-                            <label class="profile-field-label">TEXT COLOR MODE</label>
-                            <div style="display: flex; gap: 8px; margin-top: 4px;">
-                                <button type="button" class="divider-style-pill-btn active" id="catTextColorModeGrad" style="flex: 1;">Use Gradient</button>
-                                <button type="button" class="divider-style-pill-btn" id="catTextColorModeSolid" style="flex: 1;">Custom Solid</button>
-                            </div>
-                            <div id="catSolidColorWrap" style="display: none; align-items: center; gap: 10px; margin-top: 8px;">
-                                <div class="gradient-stop-swatch" id="catSolidColorSwatch" style="background-color: #FFFFFF;">
-                                    <input type="color" id="catSolidColorInput" value="#FFFFFF">
-                                </div>
-                                <input type="text" id="catSolidColorHex" class="gradient-stop-hex" value="#FFFFFF" maxlength="7">
-                                <span style="font-size: 0.74rem; color: #949ba4;">Solid text color with gradient bar</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Banner Graphic Upload -->
-                    <div id="catBannerControls" style="display: none; margin-bottom: 22px;">
-                        <label class="profile-field-label">BANNER IMAGE</label>
-                        <input type="file" id="categoryBannerFileInput" accept="image/*" style="display: none;">
-                        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-                            <button type="button" class="role-btn-shiny small" id="uploadCategoryBannerBtn">
-                                Upload Banner Image
-                            </button>
-                            <button type="button" class="role-btn-secondary small" id="removeCategoryBannerBtn" style="display: none; color: #f23f43; border-color: rgba(242, 63, 67, 0.3);">
-                                Remove Banner
-                            </button>
-                            <span style="font-size: 0.74rem; color: #80848e;">Recommended: 240 × 40 px</span>
-                        </div>
-                    </div>
-
-                    <!-- Live Sidebar Preview -->
-                    <div style="margin-bottom: 20px;">
-                        <label class="profile-field-label">SIDEBAR PREVIEW</label>
-                        <div style="background: #111214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px 10px; max-width: 280px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);">
-                            <div id="categoryLivePreviewWrap" style="transition: all 0.2s ease;">
-                                <!-- Live Category Preview Rendered Here -->
-                            </div>
-                            <div style="display: flex; flex-direction: column; gap: 2px; margin-top: 6px;">
-                                <div style="display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 4px; background: rgba(255,255,255,0.07); color: #fff; font-size: 0.88rem; font-weight: 500;">
-                                    <span style="color: #949ba4; font-weight: 700;">#</span>
-                                    <span>general</span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 4px; color: #949ba4; font-size: 0.88rem; font-weight: 500;">
-                                    <span style="color: #6d737b; font-weight: 700;">#</span>
-                                    <span>announcements</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Actions -->
-                    <div style="display: flex; align-items: center; gap: 12px; margin-top: 24px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
-                        <button type="button" class="role-btn-shiny" id="saveCategoryDividerBtn">
-                            Save Divider Styling
-                        </button>
-                        <button type="button" class="role-btn-secondary" id="resetCategoryDividerBtn">
-                            Reset to Default
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Section 2: Channels & Dividers Hierarchy Manager -->
-                <div style="margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+            <!-- Server Channels & Hierarchy Content -->
+            <div class="settings-tab-panel" id="serverSettingsPanelChannels" style="display: none; max-width: 840px;">
+                <!-- Main Header with Actions -->
+                <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px; flex-wrap: wrap;">
                     <div>
-                        <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff; margin: 0 0 4px 0;">Channel Hierarchy & Customization</h3>
-                        <p style="font-size: 0.8rem; color: #949ba4; margin: 0;">Drag rows to reorder server structure. Click Customize to edit fonts, gradients, and icons.</p>
+                        <h2 class="settings-content-heading" style="font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: 4px;">Channels & Structure</h2>
+                        <p style="font-size: 0.86rem; color: #949ba4; margin: 0;">Reorder, rename and customize text channels and section dividers with drag-and-drop.</p>
                     </div>
-                    <div style="display: flex; gap: 8px;">
-                        <button type="button" class="role-btn-secondary small" id="serverSettingsAddChannelBtn" style="white-space: nowrap;">
-                            + Channel
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <button type="button" class="role-btn-secondary small" id="serverSettingsAddChannelBtn" style="white-space: nowrap; padding: 7px 14px; font-size: 0.84rem;">
+                            + New Channel
                         </button>
-                        <button type="button" class="role-btn-shiny small" id="addSectionDividerBtn" style="white-space: nowrap;">
+                        <button type="button" class="role-btn-shiny small" id="addSectionDividerBtn" style="white-space: nowrap; padding: 7px 14px; font-size: 0.84rem;">
                             + Section Divider
                         </button>
+                    </div>
+                </div>
+
+                <!-- Search & Status Strip -->
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; background: rgba(22, 24, 30, 0.6); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.07);">
+                    <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 220px;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="#949ba4"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                        <input type="text" id="serverChannelsSearchInput" placeholder="Filter channels or dividers..." style="background: transparent; border: none; outline: none; color: #ffffff; font-size: 0.86rem; width: 100%;">
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
+                        <span id="serverChannelsCountBadge" style="font-size: 0.76rem; font-weight: 600; color: #b5bac1; background: rgba(255, 255, 255, 0.08); padding: 3px 8px; border-radius: 4px;">
+                            0 Channels
+                        </span>
+                        <span style="font-size: 0.74rem; color: #80848e;">Drag ⋮⋮ handles to reorder</span>
                     </div>
                 </div>
 
@@ -8210,8 +8404,185 @@
                 <input type="file" id="channelCustomIconFileInput" accept="image/*" style="display: none;">
 
                 <!-- Channel List with Drag & Drop Hierarchy -->
-                <div id="serverSettingsChannelsList" style="display: flex; flex-direction: column; gap: 8px;">
+                <div id="serverSettingsChannelsList" style="display: flex; flex-direction: column; gap: 10px;">
                     <!-- Dynamically populated with draggable rows -->
+                </div>
+            </div>
+
+            <!-- Dedicated Category & Dividers Studio Panel -->
+            <div class="settings-tab-panel" id="serverSettingsPanelDividers" style="display: none; max-width: 900px;">
+                <!-- Main Header -->
+                <div style="margin-bottom: 24px;">
+                    <h2 class="settings-content-heading" style="font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: 6px;">Category & Divider Studio</h2>
+                    <p style="font-size: 0.86rem; color: #949ba4; margin: 0;">Customize the global category header, multi-stop gradients, typography, and section divider visual styles.</p>
+                </div>
+
+                <div class="divider-studio-layout" style="display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, 1fr); gap: 24px; align-items: start;">
+                    <!-- Left: Studio Form Controls -->
+                    <div class="divider-studio-controls" style="background: rgba(22, 24, 30, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 22px;">
+                        
+                        <!-- Category Title -->
+                        <div class="profile-field-group">
+                            <label class="profile-field-label">CATEGORY HEADER TITLE</label>
+                            <input type="text" id="categoryTitleInput" class="profile-input" placeholder="TEXT CHANNELS" maxlength="32">
+                        </div>
+
+                        <!-- Divider Style Cards -->
+                        <div class="profile-field-group">
+                            <label class="profile-field-label">DIVIDER STYLE</label>
+                            <div class="divider-style-cards-grid">
+                                <button type="button" class="divider-style-card active" id="divStyleTabMinimal" data-style="minimal">
+                                    <div class="style-card-icon">⎯</div>
+                                    <div class="style-card-title">Minimal Line</div>
+                                    <div class="style-card-desc">Subtle hairline divider</div>
+                                </button>
+                                <button type="button" class="divider-style-card" id="divStyleTabGradient" data-style="gradient">
+                                    <div class="style-card-icon" style="background: linear-gradient(90deg, #5865F2, #EB459E); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">━</div>
+                                    <div class="style-card-title">Gradient Line</div>
+                                    <div class="style-card-desc">Vibrant multi-stop bar</div>
+                                </button>
+                                <button type="button" class="divider-style-card" id="divStyleTabRibbon" data-style="ribbon">
+                                    <div class="style-card-icon">✦</div>
+                                    <div class="style-card-title">Glass Ribbon</div>
+                                    <div class="style-card-desc">Frosted gradient pill</div>
+                                </button>
+                                <button type="button" class="divider-style-card" id="divStyleTabBanner" data-style="banner">
+                                    <div class="style-card-icon">🖼️</div>
+                                    <div class="style-card-title">Banner Graphic</div>
+                                    <div class="style-card-desc">Custom image / GIF</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Gradient Controls (2 to 5 colors + rotation) -->
+                        <div id="catGradientControls" style="display: none; background: rgba(15, 16, 20, 0.55); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 16px;">
+                            <div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                                    <label class="profile-field-label" style="margin-bottom: 0;">GRADIENT COLORS (2 TO 5)</label>
+                                    <span id="catColorsCountBadge" style="font-size: 0.74rem; font-weight: 600; color: #b5bac1;">2 / 5 colors</span>
+                                </div>
+                                <div class="gradient-stops-container" id="catGradientStopsList">
+                                    <!-- Populated with color stop rows -->
+                                </div>
+                                <div style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
+                                    <button type="button" class="role-btn-secondary small" id="catAddColorStopBtn" style="font-size: 0.78rem; padding: 6px 14px;">
+                                        + Add Color Stop
+                                    </button>
+                                    <span style="font-size: 0.72rem; color: #80848e;">Max 5 color stops</span>
+                                </div>
+                            </div>
+
+                            <!-- Gradient Presets -->
+                            <div>
+                                <label class="profile-field-label">DESIGNER COLOR PRESETS</label>
+                                <div class="role-gradient-presets-row" id="catGradientPresetsRow" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <button type="button" class="angle-preset-btn" data-preset="talky" style="background: linear-gradient(90deg, #5865F2, #EB459E); color: #fff; border: none;">Talky Glow</button>
+                                    <button type="button" class="angle-preset-btn" data-preset="cyber" style="background: linear-gradient(90deg, #00F2FE, #4FACFE, #9D00FF); color: #fff; border: none;">Cyberpunk</button>
+                                    <button type="button" class="angle-preset-btn" data-preset="sunset" style="background: linear-gradient(90deg, #FF416C, #8A2387, #FFAA00); color: #fff; border: none;">Sunset</button>
+                                    <button type="button" class="angle-preset-btn" data-preset="emerald" style="background: linear-gradient(90deg, #11998E, #38EF7D); color: #fff; border: none;">Emerald</button>
+                                    <button type="button" class="angle-preset-btn" data-preset="prism" style="background: linear-gradient(90deg, #FF0055, #FFAA00, #00FF88, #00BFFF, #9D00FF); color: #fff; border: none;">Prism (5)</button>
+                                </div>
+                            </div>
+
+                            <!-- Rotation Angle -->
+                            <div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                                    <label class="profile-field-label" style="margin-bottom: 0;">ROTATION ANGLE</label>
+                                    <span class="angle-degree-badge" id="catGradientAngleBadge">135°</span>
+                                </div>
+                                <div class="angle-slider-control">
+                                    <input type="range" id="catGradientAngleSlider" min="0" max="360" step="5" value="135">
+                                </div>
+                                <div class="angle-presets-row" id="catAnglePresetsRow">
+                                    <button type="button" class="angle-preset-btn" data-angle="0">0° ↑</button>
+                                    <button type="button" class="angle-preset-btn" data-angle="45">45° ↗</button>
+                                    <button type="button" class="angle-preset-btn" data-angle="90">90° →</button>
+                                    <button type="button" class="angle-preset-btn active" data-angle="135">135° ↘</button>
+                                    <button type="button" class="angle-preset-btn" data-angle="180">180° ↓</button>
+                                    <button type="button" class="angle-preset-btn" data-angle="270">270° ←</button>
+                                </div>
+                            </div>
+
+                            <!-- Category Font Family -->
+                            <div>
+                                <label class="profile-field-label">CATEGORY FONT FAMILY</label>
+                                <div class="font-style-grid" id="catFontGrid">
+                                    <button type="button" class="font-style-btn active" data-font="default"><span class="font-preview-name">Default</span><span class="font-preview-sub">Clean Sans</span></button>
+                                    <button type="button" class="font-style-btn" data-font="orbitron" style="font-family: 'Orbitron', sans-serif;"><span class="font-preview-name">Orbitron</span><span class="font-preview-sub">Futuristic</span></button>
+                                    <button type="button" class="font-style-btn" data-font="mono" style="font-family: monospace;"><span class="font-preview-name">Mono</span><span class="font-preview-sub">Code</span></button>
+                                    <button type="button" class="font-style-btn" data-font="silkscreen" style="font-family: 'Silkscreen', cursive;"><span class="font-preview-name">Pixel</span><span class="font-preview-sub">Retro 8-Bit</span></button>
+                                    <button type="button" class="font-style-btn" data-font="cinzel" style="font-family: 'Cinzel', serif;"><span class="font-preview-name">Cinzel</span><span class="font-preview-sub">Classic Serif</span></button>
+                                    <button type="button" class="font-style-btn" data-font="audiowide" style="font-family: 'Audiowide', sans-serif;"><span class="font-preview-name">Audiowide</span><span class="font-preview-sub">Modern Tech</span></button>
+                                </div>
+                            </div>
+
+                            <!-- Text Color Mode -->
+                            <div>
+                                <label class="profile-field-label">TEXT COLOR MODE</label>
+                                <div class="divider-style-pills" style="margin-top: 4px;">
+                                    <button type="button" class="divider-style-pill-btn active" id="catTextColorModeGrad" style="flex: 1;">Use Gradient</button>
+                                    <button type="button" class="divider-style-pill-btn" id="catTextColorModeSolid" style="flex: 1;">Custom Solid</button>
+                                </div>
+                                <div id="catSolidColorWrap" style="display: none; align-items: center; gap: 10px; margin-top: 8px;">
+                                    <div class="gradient-stop-swatch" id="catSolidColorSwatch" style="background-color: #FFFFFF;">
+                                        <input type="color" id="catSolidColorInput" value="#FFFFFF">
+                                    </div>
+                                    <input type="text" id="catSolidColorHex" class="gradient-stop-hex" value="#FFFFFF" maxlength="7">
+                                    <span style="font-size: 0.74rem; color: #949ba4;">Solid text color with gradient bar</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Banner Graphic Upload -->
+                        <div id="catBannerControls" style="display: none; background: rgba(15, 16, 20, 0.55); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 18px;">
+                            <label class="profile-field-label">BANNER IMAGE</label>
+                            <input type="file" id="categoryBannerFileInput" accept="image/*" style="display: none;">
+                            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                                <button type="button" class="role-btn-shiny small" id="uploadCategoryBannerBtn">
+                                    Upload Banner Image
+                                </button>
+                                <button type="button" class="role-btn-secondary small" id="removeCategoryBannerBtn" style="display: none; color: #f23f43; border-color: rgba(242, 63, 67, 0.3);">
+                                    Remove Banner
+                                </button>
+                                <span style="font-size: 0.74rem; color: #80848e;">Recommended: 240 × 40 px</span>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div style="display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                            <button type="button" class="role-btn-shiny" id="saveCategoryDividerBtn">
+                                Save Divider Styling
+                            </button>
+                            <button type="button" class="role-btn-secondary" id="resetCategoryDividerBtn">
+                                Reset to Default
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Sticky Live Sidebar Preview -->
+                    <div class="divider-studio-preview" style="position: sticky; top: 0;">
+                        <label class="profile-field-label">LIVE SIDEBAR PREVIEW</label>
+                        <div style="background: #111214; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px; padding: 16px 14px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);">
+                            <div style="font-size: 0.72rem; font-weight: 700; color: #6d737b; text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em;">Channels List Preview</div>
+                            <div id="categoryLivePreviewWrap" style="transition: all 0.2s ease;">
+                                <!-- Live Category Preview Rendered Here -->
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
+                                <div style="display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; background: rgba(255,255,255,0.08); color: #fff; font-size: 0.88rem; font-weight: 500;">
+                                    <span style="color: #949ba4; font-weight: 700;">#</span>
+                                    <span>general</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; color: #949ba4; font-size: 0.88rem; font-weight: 500;">
+                                    <span style="color: #6d737b; font-weight: 700;">#</span>
+                                    <span>announcements</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; color: #949ba4; font-size: 0.88rem; font-weight: 500;">
+                                    <span style="color: #6d737b; font-weight: 700;">🔊</span>
+                                    <span>voice-hangout</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -8537,146 +8908,194 @@
         </button>
     </div>
 
+    <!-- Floating Custom Context Menu for Sidebar Server Icons -->
+    <div class="custom-context-menu" id="sidebarServerContextMenu" style="display: none;">
+        <div class="ctx-menu-header" id="serverCtxMenuHeader">
+            <span id="serverCtxMenuIcon">🏠</span>
+            <span id="serverCtxMenuTitle">Server Name</span>
+        </div>
+        <button type="button" class="ctx-menu-item" id="serverCtxMenuSettingsBtn">
+            <span>Server Settings</span>
+            <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6-3.6z"/></svg>
+        </button>
+        <button type="button" class="ctx-menu-item" id="serverCtxMenuCopyIdBtn">
+            <span>Copy Server ID</span>
+            <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+        </button>
+        <div class="ctx-menu-divider"></div>
+        <button type="button" class="ctx-menu-item danger" id="serverCtxMenuDeleteBtn" style="color: #f23f43;">
+            <span>Delete Server</span>
+            <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+        </button>
+    </div>
+
     <!-- Channel Settings Modal -->
     <div class="talky-modal-overlay" id="channelEditSettingsModal" style="display: none;">
-        <div class="talky-modal-container small" style="max-width: 480px; max-height: 90vh; overflow-y: auto;">
-            <div class="modal-header">
-                <h2 class="modal-title" id="channelEditModalTitle">Channel Settings</h2>
-                <p class="modal-subtitle" id="channelEditModalSubtitle">Customize channel icon, typography, colors and name</p>
+        <div class="talky-modal-container" style="max-width: 640px; width: 100%; max-height: 88vh; overflow-y: auto;">
+            <div class="modal-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 14px; margin-bottom: 18px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h2 class="modal-title" id="channelEditModalTitle" style="font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em;">Channel Settings</h2>
+                        <p class="modal-subtitle" id="channelEditModalSubtitle" style="font-size: 0.85rem; color: #949ba4; margin-top: 4px;">Customize channel identity, typography, text colors and sidebar icon</p>
+                    </div>
+                    <span style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 6px; background: rgba(88, 101, 242, 0.12); color: #5865F2; border: 1px solid rgba(88, 101, 242, 0.25);">Channel Studio</span>
+                </div>
             </div>
             <form id="channelEditSettingsForm">
-                <div class="modal-form-body">
-                    <!-- Channel Name Field -->
-                    <label class="modal-field-label">CHANNEL NAME <span class="required">*</span></label>
-                    <div class="channel-name-input-wrapper">
-                        <span class="channel-input-hash" id="channelEditPrefixHash">#</span>
-                        <input type="text" class="modal-text-input" id="channelEditNameInput" placeholder="channel-name" required maxlength="32">
+                <div class="modal-form-body" style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Section 1: Channel Identity & Live Preview -->
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 16px;">
+                        <label class="modal-field-label" style="font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em; margin-bottom: 8px;">CHANNEL NAME <span class="required">*</span></label>
+                        <div class="channel-name-input-wrapper">
+                            <span class="channel-input-hash" id="channelEditPrefixHash">#</span>
+                            <input type="text" class="modal-text-input" id="channelEditNameInput" placeholder="channel-name" required maxlength="32">
+                        </div>
+
+                        <!-- Live Sidebar Preview -->
+                        <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+                            <span style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em;">Sidebar Appearance Preview</span>
+                            <div id="channelModalLivePreviewBox" style="margin-top: 8px; background: #111214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 4px;">
+                                <!-- Active preview -->
+                                <div id="channelModalLiveActive" style="display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); color: #fff;">
+                                    <span id="channelModalPreviewIconActive">#</span>
+                                    <span id="channelModalPreviewNameActive">channel-name</span>
+                                </div>
+                                <!-- Inactive preview -->
+                                <div id="channelModalLiveInactive" style="display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; color: #949ba4;">
+                                    <span id="channelModalPreviewIconInactive">#</span>
+                                    <span id="channelModalPreviewNameInactive">channel-name</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Channel Typography / Font Family -->
-                    <div style="margin-top: 18px;">
-                        <label class="modal-field-label">CHANNEL FONT</label>
+                    <!-- Section 2: Channel Typography -->
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 16px;">
+                        <label class="modal-field-label" style="font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em; margin-bottom: 8px;">TYPOGRAPHY & FONT FAMILY</label>
                         <div class="font-style-grid" id="channelFontGrid">
-                            <button type="button" class="font-style-btn active" data-font="default">Default</button>
-                            <button type="button" class="font-style-btn" data-font="orbitron" style="font-family: 'Orbitron', sans-serif;">Orbitron</button>
-                            <button type="button" class="font-style-btn" data-font="mono" style="font-family: monospace;">Mono</button>
-                            <button type="button" class="font-style-btn" data-font="silkscreen" style="font-family: 'Silkscreen', cursive;">Pixel</button>
-                            <button type="button" class="font-style-btn" data-font="cinzel" style="font-family: 'Cinzel', serif;">Cinzel</button>
-                            <button type="button" class="font-style-btn" data-font="audiowide" style="font-family: 'Audiowide', sans-serif;">Audiowide</button>
+                            <button type="button" class="font-style-btn active" data-font="default">
+                                <span class="font-preview-name">Default</span>
+                                <span class="font-preview-sub">Inter Clean</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="orbitron">
+                                <span class="font-preview-name" style="font-family: 'Orbitron', sans-serif;">Orbitron</span>
+                                <span class="font-preview-sub">Futuristic Sci-Fi</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="mono">
+                                <span class="font-preview-name" style="font-family: monospace;">Mono</span>
+                                <span class="font-preview-sub">Code / Hacker</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="silkscreen">
+                                <span class="font-preview-name" style="font-family: 'Silkscreen', cursive;">Pixel</span>
+                                <span class="font-preview-sub">Retro 8-Bit</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="cinzel">
+                                <span class="font-preview-name" style="font-family: 'Cinzel', serif;">Cinzel</span>
+                                <span class="font-preview-sub">Serif Elegant</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="audiowide">
+                                <span class="font-preview-name" style="font-family: 'Audiowide', sans-serif;">Audiowide</span>
+                                <span class="font-preview-sub">Modern Techno</span>
+                            </button>
                         </div>
-                    </div>
 
-                    <!-- Channel Text Color & Gradient -->
-                    <div style="margin-top: 18px;">
-                        <label class="modal-field-label">TEXT APPEARANCE & COLORS</label>
-                        <div class="divider-style-pills" id="channelColorModePills" style="margin-top: 4px;">
-                            <button type="button" class="divider-style-pill-btn active" data-colormode="default">Default Gray</button>
-                            <button type="button" class="divider-style-pill-btn" data-colormode="solid">Solid Color</button>
-                            <button type="button" class="divider-style-pill-btn" data-colormode="gradient">Gradient Text</button>
-                        </div>
-
-                        <!-- Solid Color Picker Wrap -->
-                        <div id="channelSolidColorWrap" style="display: none; align-items: center; gap: 10px; margin-top: 10px; background: rgba(18, 19, 23, 0.6); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
-                            <div class="gradient-stop-swatch" id="channelSolidColorSwatch" style="background-color: #5865F2;">
-                                <input type="color" id="channelSolidColorInput" value="#5865F2">
+                        <!-- Channel Text Color & Gradient -->
+                        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+                            <label class="modal-field-label" style="font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em; margin-bottom: 8px;">TEXT COLOR & GRADIENTS</label>
+                            <div class="divider-style-pills" id="channelColorModePills" style="margin-top: 4px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+                                <button type="button" class="divider-style-pill-btn active" data-colormode="default" style="justify-content: center; padding: 8px;">Default Slate</button>
+                                <button type="button" class="divider-style-pill-btn" data-colormode="solid" style="justify-content: center; padding: 8px;">Solid Color</button>
+                                <button type="button" class="divider-style-pill-btn" data-colormode="gradient" style="justify-content: center; padding: 8px;">Gradient Text</button>
                             </div>
-                            <input type="text" id="channelSolidColorHex" class="gradient-stop-hex" value="#5865F2" maxlength="7">
-                            <span style="font-size: 0.74rem; color: #949ba4;">Custom channel text color</span>
-                        </div>
 
-                        <!-- Gradient Text Controls Wrap -->
-                        <div id="channelGradientWrap" style="display: none; margin-top: 10px; background: rgba(18, 19, 23, 0.6); padding: 12px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
-                            <div style="display: flex; gap: 10px; align-items: center;">
-                                <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                    <span style="font-size: 0.72rem; color: #949ba4;">From:</span>
-                                    <div class="gradient-stop-swatch" id="channelGradSwatch1" style="background-color: #5865F2;">
-                                        <input type="color" id="channelGradColor1" value="#5865F2">
+                            <!-- Solid Color Picker Wrap -->
+                            <div id="channelSolidColorWrap" style="display: none; align-items: center; gap: 12px; margin-top: 12px; background: rgba(18, 19, 23, 0.6); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
+                                <div class="gradient-stop-swatch" id="channelSolidColorSwatch" style="background-color: #5865F2;">
+                                    <input type="color" id="channelSolidColorInput" value="#5865F2">
+                                </div>
+                                <input type="text" id="channelSolidColorHex" class="gradient-stop-hex" value="#5865F2" maxlength="7">
+                                <span style="font-size: 0.76rem; color: #949ba4;">Custom text color applied to channel title</span>
+                            </div>
+
+                            <!-- Gradient Text Controls Wrap -->
+                            <div id="channelGradientWrap" style="display: none; margin-top: 12px; background: rgba(18, 19, 23, 0.6); padding: 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: center;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="font-size: 0.74rem; font-weight: 600; color: #949ba4;">Start:</span>
+                                        <div class="gradient-stop-swatch" id="channelGradSwatch1" style="background-color: #5865F2;">
+                                            <input type="color" id="channelGradColor1" value="#5865F2">
+                                        </div>
+                                        <input type="text" id="channelGradHex1" class="gradient-stop-hex" value="#5865F2" maxlength="7" style="width: 76px;">
                                     </div>
-                                    <input type="text" id="channelGradHex1" class="gradient-stop-hex" value="#5865F2" maxlength="7" style="width: 72px;">
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
-                                    <span style="font-size: 0.72rem; color: #949ba4;">To:</span>
-                                    <div class="gradient-stop-swatch" id="channelGradSwatch2" style="background-color: #EB459E;">
-                                        <input type="color" id="channelGradColor2" value="#EB459E">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="font-size: 0.74rem; font-weight: 600; color: #949ba4;">End:</span>
+                                        <div class="gradient-stop-swatch" id="channelGradSwatch2" style="background-color: #EB459E;">
+                                            <input type="color" id="channelGradColor2" value="#EB459E">
+                                        </div>
+                                        <input type="text" id="channelGradHex2" class="gradient-stop-hex" value="#EB459E" maxlength="7" style="width: 76px;">
                                     </div>
-                                    <input type="text" id="channelGradHex2" class="gradient-stop-hex" value="#EB459E" maxlength="7" style="width: 72px;">
                                 </div>
-                            </div>
-                            <!-- Gradient Rotation for Channel -->
-                            <div style="margin-top: 10px;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 0.72rem; color: #949ba4;">Gradient Angle</span>
-                                    <span class="angle-degree-badge" id="channelGradAngleBadge" style="padding: 2px 6px; font-size: 0.75rem;">135°</span>
-                                </div>
-                                <div class="angle-slider-control" style="margin-top: 4px;">
-                                    <input type="range" id="channelGradAngleSlider" min="0" max="360" step="5" value="135">
+                                <!-- Gradient Rotation for Channel -->
+                                <div style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-size: 0.72rem; color: #949ba4; font-weight: 600;">Gradient Rotation</span>
+                                        <span class="angle-degree-badge" id="channelGradAngleBadge" style="padding: 2px 8px; font-size: 0.75rem;">135°</span>
+                                    </div>
+                                    <div class="angle-slider-control" style="margin-top: 6px;">
+                                        <input type="range" id="channelGradAngleSlider" min="0" max="360" step="5" value="135">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Channel Icon Section -->
-                    <label class="modal-field-label" style="margin-top: 18px;">CHANNEL ICON</label>
-                    <div style="display: flex; align-items: center; gap: 14px; margin-top: 4px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px;">
-                        <div id="channelEditIconPreviewBox" style="width: 44px; height: 44px; border-radius: 8px; background: #1e1f22; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #ffffff; flex-shrink: 0; overflow: hidden;">
-                            <span id="channelEditIconPreviewText">#</span>
-                            <img id="channelEditIconPreviewImg" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;" alt="" />
-                        </div>
-                        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
-                            <div style="display: flex; gap: 8px;">
-                                <button type="button" class="role-btn-shiny small" id="channelEditUploadIconBtn" style="padding: 6px 12px; font-size: 0.8rem;">
-                                    Upload Image / GIF
-                                </button>
-                                <button type="button" class="role-btn-secondary small" id="channelEditResetIconBtn" style="padding: 6px 10px; font-size: 0.8rem;">
-                                    Reset to #
-                                </button>
+                    <!-- Section 3: Channel Icon & Quick Presets -->
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 16px;">
+                        <label class="modal-field-label" style="font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em; margin-bottom: 8px;">CUSTOM ICON OR ANIMATED GIF</label>
+                        <div style="display: flex; align-items: center; gap: 16px; background: rgba(18, 19, 23, 0.5); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 12px;">
+                            <div id="channelEditIconPreviewBox" style="width: 48px; height: 48px; border-radius: 8px; background: #1e1f22; border: 1px solid rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: #ffffff; flex-shrink: 0; overflow: hidden;">
+                                <span id="channelEditIconPreviewText">#</span>
+                                <img id="channelEditIconPreviewImg" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;" alt="" />
                             </div>
-                            <span style="font-size: 0.72rem; color: #949ba4;">Upload any icon or animated GIF (compressed seamlessly).</span>
-                        </div>
-                    </div>
-
-                    <!-- Quick Icon / Emoji Presets -->
-                    <div style="margin-top: 14px;">
-                        <label class="modal-field-label">QUICK ICONS & EMOJIS</label>
-                        <div class="icon-preset-picker-grid" id="channelIconPresetGrid">
-                            <button type="button" class="icon-preset-btn" data-icon="#">#</button>
-                            <button type="button" class="icon-preset-btn" data-icon="💬">💬</button>
-                            <button type="button" class="icon-preset-btn" data-icon="📢">📢</button>
-                            <button type="button" class="icon-preset-btn" data-icon="🔊">🔊</button>
-                            <button type="button" class="icon-preset-btn" data-icon="🎮">🎮</button>
-                            <button type="button" class="icon-preset-btn" data-icon="✨">✨</button>
-                            <button type="button" class="icon-preset-btn" data-icon="🔥">🔥</button>
-                            <button type="button" class="icon-preset-btn" data-icon="⚡">⚡</button>
-                            <button type="button" class="icon-preset-btn" data-icon="🚀">🚀</button>
-                            <button type="button" class="icon-preset-btn" data-icon="💡">💡</button>
-                            <button type="button" class="icon-preset-btn" data-icon="📌">📌</button>
-                            <button type="button" class="icon-preset-btn" data-icon="🏆">🏆</button>
-                            <button type="button" class="icon-preset-btn" data-icon="❤️">❤️</button>
-                            <button type="button" class="icon-preset-btn" data-icon="🎉">🎉</button>
-                            <button type="button" class="icon-preset-btn" data-icon="🛡️">🛡️</button>
-                            <button type="button" class="icon-preset-btn" data-icon="🤖">🤖</button>
-                        </div>
-                    </div>
-
-                    <!-- Live Channel Preview -->
-                    <div style="margin-top: 18px;">
-                        <label class="modal-field-label">SIDEBAR PREVIEW</label>
-                        <div id="channelModalLivePreviewBox" style="background: #111214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 4px;">
-                            <!-- Active preview -->
-                            <div id="channelModalLiveActive" style="display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; background: rgba(255, 255, 255, 0.08); color: #fff;">
-                                <span id="channelModalPreviewIconActive">#</span>
-                                <span id="channelModalPreviewNameActive">channel-name</span>
+                            <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+                                <div style="display: flex; gap: 8px;">
+                                    <button type="button" class="role-btn-shiny small" id="channelEditUploadIconBtn" style="padding: 6px 14px; font-size: 0.8rem;">
+                                        Upload Image / GIF
+                                    </button>
+                                    <button type="button" class="role-btn-secondary small" id="channelEditResetIconBtn" style="padding: 6px 12px; font-size: 0.8rem;">
+                                        Reset to #
+                                    </button>
+                                </div>
+                                <span style="font-size: 0.72rem; color: #949ba4;">Upload any custom PNG, SVG, or animated GIF</span>
                             </div>
-                            <!-- Inactive preview -->
-                            <div id="channelModalLiveInactive" style="display: flex; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; color: #949ba4;">
-                                <span id="channelModalPreviewIconInactive">#</span>
-                                <span id="channelModalPreviewNameInactive">channel-name</span>
+                        </div>
+
+                        <!-- Quick Icon / Emoji Presets -->
+                        <div style="margin-top: 14px;">
+                            <span style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em;">Quick Icon Presets</span>
+                            <div class="icon-preset-picker-grid" id="channelIconPresetGrid" style="margin-top: 8px;">
+                                <button type="button" class="icon-preset-btn" data-icon="#">#</button>
+                                <button type="button" class="icon-preset-btn" data-icon="💬">💬</button>
+                                <button type="button" class="icon-preset-btn" data-icon="📢">📢</button>
+                                <button type="button" class="icon-preset-btn" data-icon="🔊">🔊</button>
+                                <button type="button" class="icon-preset-btn" data-icon="🎮">🎮</button>
+                                <button type="button" class="icon-preset-btn" data-icon="✨">✨</button>
+                                <button type="button" class="icon-preset-btn" data-icon="🔥">🔥</button>
+                                <button type="button" class="icon-preset-btn" data-icon="⚡">⚡</button>
+                                <button type="button" class="icon-preset-btn" data-icon="🚀">🚀</button>
+                                <button type="button" class="icon-preset-btn" data-icon="💡">💡</button>
+                                <button type="button" class="icon-preset-btn" data-icon="📌">📌</button>
+                                <button type="button" class="icon-preset-btn" data-icon="🏆">🏆</button>
+                                <button type="button" class="icon-preset-btn" data-icon="❤️">❤️</button>
+                                <button type="button" class="icon-preset-btn" data-icon="🎉">🎉</button>
+                                <button type="button" class="icon-preset-btn" data-icon="🛡️">🛡️</button>
+                                <button type="button" class="icon-preset-btn" data-icon="🤖">🤖</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="modal-footer split" style="margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: space-between;">
+                <div class="modal-footer split" style="margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: space-between;">
                     <button type="button" class="role-btn-secondary" id="channelEditDeleteBtn" style="color: #f23f43; border-color: rgba(242, 63, 67, 0.35);">
                         Delete Channel
                     </button>
@@ -8692,66 +9111,97 @@
 
     <!-- Divider Settings Modal -->
     <div class="talky-modal-overlay" id="dividerEditSettingsModal" style="display: none;">
-        <div class="talky-modal-container small" style="max-width: 480px; max-height: 90vh; overflow-y: auto;">
-            <div class="modal-header">
-                <h2 class="modal-title" id="dividerEditModalTitle">Divider Settings</h2>
-                <p class="modal-subtitle" id="dividerEditModalSubtitle">Customize divider name, gradient colors, rotation and style</p>
+        <div class="talky-modal-container" style="max-width: 680px; width: 100%; max-height: 88vh; overflow-y: auto;">
+            <div class="modal-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 14px; margin-bottom: 18px;">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <div>
+                        <h2 class="modal-title" id="dividerEditModalTitle" style="font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em;">Category Divider Settings</h2>
+                        <p class="modal-subtitle" id="dividerEditModalSubtitle" style="font-size: 0.85rem; color: #949ba4; margin-top: 4px;">Customize divider title, visual layout, multi-stop gradient, and typography</p>
+                    </div>
+                    <span style="font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 6px; background: rgba(235, 69, 158, 0.12); color: #EB459E; border: 1px solid rgba(235, 69, 158, 0.25);">Divider Studio</span>
+                </div>
             </div>
             <form id="dividerEditSettingsForm">
-                <div class="modal-form-body">
-                    <!-- Divider Name Field -->
-                    <label class="modal-field-label">DIVIDER NAME / TITLE <span class="required">*</span></label>
-                    <input type="text" class="modal-text-input" id="dividerEditNameInput" placeholder="SECTION NAME" required maxlength="32">
+                <div class="modal-form-body" style="display: flex; flex-direction: column; gap: 20px;">
+                    <!-- Section 1: Divider Title & Live Preview -->
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 16px;">
+                        <label class="modal-field-label" style="font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em; margin-bottom: 8px;">DIVIDER TITLE <span class="required">*</span></label>
+                        <input type="text" class="modal-text-input" id="dividerEditNameInput" placeholder="SECTION NAME" required maxlength="32">
 
-                    <!-- Divider Style Field -->
-                    <div style="margin-top: 16px;">
-                        <label class="modal-field-label">DIVIDER STYLE</label>
-                        <div class="divider-style-pills" id="dividerEditStylePills">
-                            <button type="button" class="divider-style-pill-btn active" data-style="minimal">Minimal</button>
-                            <button type="button" class="divider-style-pill-btn" data-style="gradient">Gradient</button>
-                            <button type="button" class="divider-style-pill-btn" data-style="ribbon">Ribbon</button>
-                            <button type="button" class="divider-style-pill-btn" data-style="banner">Banner</button>
+                        <!-- Live Preview in Divider Modal -->
+                        <div style="margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+                            <span style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em;">Live Appearance Preview</span>
+                            <div id="dividerModalLivePreviewBox" style="margin-top: 8px; background: #111214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 14px; min-height: 52px; display: flex; align-items: center;">
+                                <!-- Rendered dynamically -->
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Divider Gradient Section (shown when Gradient style active) -->
-                    <div id="dividerEditGradientSection" style="margin-top: 16px; display: none;">
-                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                            <label class="modal-field-label" style="margin-bottom: 0;">GRADIENT COLORS (2 TO 5)</label>
-                            <span id="dividerColorsCountBadge" style="font-size: 0.72rem; color: #949ba4;">2 / 5 colors</span>
+                    <!-- Section 2: Visual Style Cards -->
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 16px;">
+                        <label class="modal-field-label" style="font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em; margin-bottom: 10px;">CHOOSE DIVIDER STYLE</label>
+                        <div class="divider-style-cards-grid" id="dividerEditStylePills">
+                            <button type="button" class="divider-style-card divider-style-pill-btn active" data-style="minimal">
+                                <div class="style-icon-preview" style="background: rgba(255, 255, 255, 0.05); color: #949ba4;">— Aa —</div>
+                                <div class="style-name">Minimal</div>
+                                <div class="style-desc">Clean subtle category label</div>
+                            </button>
+                            <button type="button" class="divider-style-card divider-style-pill-btn" data-style="gradient">
+                                <div class="style-icon-preview" style="background: linear-gradient(90deg, #5865F2, #EB459E); color: #fff;">🌈 Line</div>
+                                <div class="style-name">Gradient Bar</div>
+                                <div class="style-desc">Accent bar with gradient title</div>
+                            </button>
+                            <button type="button" class="divider-style-card divider-style-pill-btn" data-style="ribbon">
+                                <div class="style-icon-preview" style="background: linear-gradient(135deg, rgba(88,101,242,0.3), rgba(235,69,158,0.3)); color: #fff;">🎗️ Badge</div>
+                                <div class="style-name">Ribbon Pill</div>
+                                <div class="style-desc">Soft frosted gradient badge</div>
+                            </button>
+                            <button type="button" class="divider-style-card divider-style-pill-btn" data-style="banner">
+                                <div class="style-icon-preview" style="background: #2b2d31; color: #fff;">🖼️ Banner</div>
+                                <div class="style-name">Full Banner</div>
+                                <div class="style-desc">Custom image or animated GIF</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: Divider Gradient Controls (shown when Gradient/Ribbon style active) -->
+                    <div id="dividerEditGradientSection" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 16px; display: none;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                            <label class="modal-field-label" style="margin-bottom: 0; font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em;">GRADIENT STOPS (2 TO 5 COLORS)</label>
+                            <span id="dividerColorsCountBadge" style="font-size: 0.72rem; color: #5865F2; font-weight: 600;">2 / 5 colors</span>
                         </div>
                         <div class="gradient-stops-container" id="dividerGradientStopsList">
                             <!-- Dynamic 2-5 stops -->
                         </div>
-                        <div style="margin-top: 8px; display: flex; align-items: center; justify-content: space-between;">
-                            <button type="button" class="role-btn-secondary small" id="dividerAddColorStopBtn" style="font-size: 0.75rem; padding: 5px 12px;">
+                        <div style="margin-top: 10px; display: flex; align-items: center; justify-content: space-between;">
+                            <button type="button" class="role-btn-secondary small" id="dividerAddColorStopBtn" style="font-size: 0.78rem; padding: 6px 14px;">
                                 + Add Color Stop
                             </button>
-                            <span style="font-size: 0.7rem; color: #80848e;">Choose 2 to 5 colors</span>
+                            <span style="font-size: 0.72rem; color: #80848e;">Up to 5 gradient color points</span>
                         </div>
 
                         <!-- Quick Presets -->
-                        <div style="margin-top: 12px;">
-                            <span style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase;">Color Presets</span>
-                            <div style="display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap;" id="dividerGradientPresetsGrid">
-                                <button type="button" class="angle-preset-btn" data-preset="talky" style="background: linear-gradient(90deg, #5865F2, #EB459E); color: #fff; border: none;">Talky Glow</button>
-                                <button type="button" class="angle-preset-btn" data-preset="cyber" style="background: linear-gradient(90deg, #00F2FE, #4FACFE, #9D00FF); color: #fff; border: none;">Cyberpunk</button>
-                                <button type="button" class="angle-preset-btn" data-preset="sunset" style="background: linear-gradient(90deg, #FF416C, #8A2387, #FFAA00); color: #fff; border: none;">Sunset</button>
-                                <button type="button" class="angle-preset-btn" data-preset="emerald" style="background: linear-gradient(90deg, #11998E, #38EF7D); color: #fff; border: none;">Emerald</button>
-                                <button type="button" class="angle-preset-btn" data-preset="prism" style="background: linear-gradient(90deg, #FF0055, #FFAA00, #00FF88, #00BFFF, #9D00FF); color: #fff; border: none;">Prism Rainbow (5)</button>
+                        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+                            <span style="font-size: 0.72rem; font-weight: 700; color: #949ba4; text-transform: uppercase; letter-spacing: 0.06em;">Gradient Presets</span>
+                            <div style="display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;" id="dividerGradientPresetsGrid">
+                                <button type="button" class="angle-preset-btn" data-preset="talky" style="background: linear-gradient(90deg, #5865F2, #EB459E); color: #fff; border: none; padding: 6px 12px;">Talky Glow</button>
+                                <button type="button" class="angle-preset-btn" data-preset="cyber" style="background: linear-gradient(90deg, #00F2FE, #4FACFE, #9D00FF); color: #fff; border: none; padding: 6px 12px;">Cyberpunk</button>
+                                <button type="button" class="angle-preset-btn" data-preset="sunset" style="background: linear-gradient(90deg, #FF416C, #8A2387, #FFAA00); color: #fff; border: none; padding: 6px 12px;">Sunset</button>
+                                <button type="button" class="angle-preset-btn" data-preset="emerald" style="background: linear-gradient(90deg, #11998E, #38EF7D); color: #fff; border: none; padding: 6px 12px;">Emerald</button>
+                                <button type="button" class="angle-preset-btn" data-preset="prism" style="background: linear-gradient(90deg, #FF0055, #FFAA00, #00FF88, #00BFFF, #9D00FF); color: #fff; border: none; padding: 6px 12px;">Rainbow Prism</button>
                             </div>
                         </div>
 
                         <!-- Gradient Rotation / Angle -->
-                        <div style="margin-top: 16px;">
+                        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06);">
                             <div style="display: flex; align-items: center; justify-content: space-between;">
-                                <label class="modal-field-label" style="margin-bottom: 0;">ROTATION ANGLE</label>
+                                <label class="modal-field-label" style="margin-bottom: 0; font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em;">ROTATION ANGLE</label>
                                 <span class="angle-degree-badge" id="dividerGradientAngleBadge">135°</span>
                             </div>
-                            <div class="angle-slider-control">
+                            <div class="angle-slider-control" style="margin-top: 6px;">
                                 <input type="range" id="dividerGradientAngleSlider" min="0" max="360" step="5" value="135">
                             </div>
-                            <div class="angle-presets-row" id="dividerAnglePresetsRow">
+                            <div class="angle-presets-row" id="dividerAnglePresetsRow" style="margin-top: 8px;">
                                 <button type="button" class="angle-preset-btn" data-angle="0">0° ↑</button>
                                 <button type="button" class="angle-preset-btn" data-angle="45">45° ↗</button>
                                 <button type="button" class="angle-preset-btn" data-angle="90">90° →</button>
@@ -8761,57 +9211,68 @@
                             </div>
                         </div>
 
-                        <!-- Font Style & Font Color -->
-                        <div style="margin-top: 16px;">
-                            <label class="modal-field-label">FONT FAMILY</label>
-                            <div class="font-style-grid" id="dividerFontGrid">
-                                <button type="button" class="font-style-btn active" data-font="default">Default</button>
-                                <button type="button" class="font-style-btn" data-font="orbitron" style="font-family: 'Orbitron', sans-serif;">Orbitron</button>
-                                <button type="button" class="font-style-btn" data-font="mono" style="font-family: monospace;">Mono</button>
-                                <button type="button" class="font-style-btn" data-font="silkscreen" style="font-family: 'Silkscreen', cursive;">Pixel</button>
-                                <button type="button" class="font-style-btn" data-font="cinzel" style="font-family: 'Cinzel', serif;">Cinzel</button>
-                                <button type="button" class="font-style-btn" data-font="audiowide" style="font-family: 'Audiowide', sans-serif;">Audiowide</button>
+                        <!-- Divider Text Color -->
+                        <div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06);">
+                            <label class="modal-field-label" style="font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em;">DIVIDER TEXT COLOR</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
+                                <button type="button" class="divider-style-pill-btn active" id="dividerTextColorModeGrad" style="justify-content: center; padding: 8px;">Use Gradient</button>
+                                <button type="button" class="divider-style-pill-btn" id="dividerTextColorModeSolid" style="justify-content: center; padding: 8px;">Custom Solid</button>
                             </div>
-                        </div>
-
-                        <div style="margin-top: 16px;">
-                            <label class="modal-field-label">DIVIDER TEXT COLOR</label>
-                            <div style="display: flex; gap: 8px; margin-top: 4px;">
-                                <button type="button" class="divider-style-pill-btn active" id="dividerTextColorModeGrad" style="flex: 1;">Use Gradient</button>
-                                <button type="button" class="divider-style-pill-btn" id="dividerTextColorModeSolid" style="flex: 1;">Custom Solid</button>
-                            </div>
-                            <div id="dividerSolidColorWrap" style="display: none; align-items: center; gap: 10px; margin-top: 8px;">
+                            <div id="dividerSolidColorWrap" style="display: none; align-items: center; gap: 10px; margin-top: 10px; background: rgba(18, 19, 23, 0.6); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08);">
                                 <div class="gradient-stop-swatch" id="dividerSolidColorSwatch" style="background-color: #FFFFFF;">
                                     <input type="color" id="dividerSolidColorInput" value="#FFFFFF">
                                 </div>
                                 <input type="text" id="dividerSolidColorHex" class="gradient-stop-hex" value="#FFFFFF" maxlength="7">
-                                <span style="font-size: 0.74rem; color: #949ba4;">Solid text color with gradient bar</span>
+                                <span style="font-size: 0.74rem; color: #949ba4;">Solid text color paired with gradient accents</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Divider Banner Section (shown when Banner style active) -->
-                    <div id="dividerEditBannerSection" style="margin-top: 14px; display: none;">
-                        <label class="modal-field-label">BANNER IMAGE / GIF</label>
-                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 4px;">
-                            <div id="dividerEditBannerPreview" style="height: 48px; flex: 1; border-radius: 6px; background: #1e1f22; border: 1px dashed rgba(255, 255, 255, 0.2); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #949ba4;">
+                    <!-- Section 4: Typography -->
+                    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 16px;">
+                        <label class="modal-field-label" style="font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em; margin-bottom: 8px;">DIVIDER FONT FAMILY</label>
+                        <div class="font-style-grid" id="dividerFontGrid">
+                            <button type="button" class="font-style-btn active" data-font="default">
+                                <span class="font-preview-name">Default</span>
+                                <span class="font-preview-sub">Inter Clean</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="orbitron">
+                                <span class="font-preview-name" style="font-family: 'Orbitron', sans-serif;">Orbitron</span>
+                                <span class="font-preview-sub">Futuristic Sci-Fi</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="mono">
+                                <span class="font-preview-name" style="font-family: monospace;">Mono</span>
+                                <span class="font-preview-sub">Code / Hacker</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="silkscreen">
+                                <span class="font-preview-name" style="font-family: 'Silkscreen', cursive;">Pixel</span>
+                                <span class="font-preview-sub">Retro 8-Bit</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="cinzel">
+                                <span class="font-preview-name" style="font-family: 'Cinzel', serif;">Cinzel</span>
+                                <span class="font-preview-sub">Serif Elegant</span>
+                            </button>
+                            <button type="button" class="font-style-btn" data-font="audiowide">
+                                <span class="font-preview-name" style="font-family: 'Audiowide', sans-serif;">Audiowide</span>
+                                <span class="font-preview-sub">Modern Techno</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Section 5: Divider Banner (shown when Banner style active) -->
+                    <div id="dividerEditBannerSection" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 16px; display: none;">
+                        <label class="modal-field-label" style="font-size: 0.76rem; font-weight: 700; color: #949ba4; letter-spacing: 0.06em; margin-bottom: 8px;">BANNER IMAGE / ANIMATED GIF</label>
+                        <div style="display: flex; align-items: center; gap: 14px; margin-top: 6px;">
+                            <div id="dividerEditBannerPreview" style="height: 52px; flex: 1; border-radius: 8px; background: #1e1f22; border: 1px dashed rgba(255, 255, 255, 0.2); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #949ba4;">
                                 No banner image set
                             </div>
                             <button type="button" class="role-btn-shiny small" id="dividerEditUploadBannerBtn">Upload</button>
                             <button type="button" class="role-btn-secondary small" id="dividerEditRemoveBannerBtn" style="display: none;">Remove</button>
                         </div>
                     </div>
-
-                    <!-- Live Preview in Divider Modal -->
-                    <div style="margin-top: 18px;">
-                        <label class="modal-field-label">LIVE PREVIEW</label>
-                        <div id="dividerModalLivePreviewBox" style="background: #111214; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 12px; min-height: 46px; display: flex; align-items: center;">
-                            <!-- Rendered dynamically -->
-                        </div>
-                    </div>
                 </div>
 
-                <div class="modal-footer split" style="margin-top: 20px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: space-between;">
+                <div class="modal-footer split" style="margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: space-between;">
                     <button type="button" class="role-btn-secondary" id="dividerEditDeleteBtn" style="color: #f23f43; border-color: rgba(242, 63, 67, 0.35);">
                         Delete Divider
                     </button>
@@ -8824,9 +9285,17 @@
         </div>
     </div>
 
+    <!-- Minimalist Centered Upload Progress Overlay (Pure text with blurred backdrop) -->
+    <div id="talkyUploadProgressOverlay" class="talky-upload-progress-overlay" aria-hidden="true">
+        <div class="talky-upload-progress-content">
+            <div id="talkyUploadProgressText" class="talky-upload-progress-text">1%</div>
+            <div id="talkyUploadProgressSub" class="talky-upload-progress-sub" style="display: none;"></div>
+        </div>
+    </div>
+
     <script type="module">
         import { rtdb, ref, set, get, onValue, push, update, remove, child, onDisconnect, serverTimestamp } from './firebase.ts';
-        import { IMAGEKIT_ID, IMAGEKIT_ENDPOINT, GIF_PRESETS, normalizeImageKitUrl, isGifMedia, processImageUpload } from './imagekit.ts';
+        import { IMAGEKIT_ID, IMAGEKIT_ENDPOINT, GIF_PRESETS, normalizeImageKitUrl, isGifMedia, processImageUpload, processImageUploadDetailed, sweepImageKitStorageDuplicates } from './imagekit.ts';
 
         // Global Application & Server State
         let currentUser = null;
@@ -8837,8 +9306,122 @@
         let pendingServerImages = [];
         let currentServerMessages = [];
 
+        // Global Byte Formatter (e.g., 2.8 MB, 420 KB)
+        function formatBytes(bytes, decimals = 1) {
+            if (!bytes || bytes <= 0) return '0 B';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+
+        // Minimalist Centered Upload & Compression Progress Manager (Pure text with blurred backdrop)
+        const uploadProgressOverlay = document.getElementById('talkyUploadProgressOverlay');
+        const uploadProgressText = document.getElementById('talkyUploadProgressText');
+        const uploadProgressSub = document.getElementById('talkyUploadProgressSub');
+        let uploadFadeTimeout = null;
+
+        function showUploadProgress(percent, subMessage = '') {
+            if (!uploadProgressOverlay || !uploadProgressText) return;
+            if (uploadFadeTimeout) {
+                clearTimeout(uploadFadeTimeout);
+                uploadFadeTimeout = null;
+            }
+
+            const target = Math.min(100, Math.max(1, Math.round(percent)));
+            uploadProgressText.textContent = `${target}%`;
+
+            if (uploadProgressSub) {
+                if (subMessage) {
+                    uploadProgressSub.style.display = 'flex';
+                    uploadProgressSub.innerHTML = subMessage;
+                } else {
+                    uploadProgressSub.style.display = 'none';
+                }
+            }
+
+            uploadProgressOverlay.classList.remove('fading-out');
+            uploadProgressOverlay.classList.add('active');
+
+            if (target >= 100) {
+                // When it hits 100%, show briefly, then smoothly fade out
+                uploadFadeTimeout = setTimeout(() => {
+                    uploadProgressOverlay.classList.add('fading-out');
+                    uploadProgressOverlay.classList.remove('active');
+                    uploadFadeTimeout = setTimeout(() => {
+                        uploadProgressOverlay.classList.remove('fading-out');
+                        if (uploadProgressSub) uploadProgressSub.style.display = 'none';
+                    }, 400);
+                }, 280);
+            }
+        }
+
+        // Listens to real-time byte decrease during compression
+        window.addEventListener('talky:compression-progress', (e) => {
+            if (!uploadProgressOverlay || !uploadProgressText) return;
+            const detail = e.detail;
+            if (!detail) return;
+
+            if (uploadFadeTimeout) {
+                clearTimeout(uploadFadeTimeout);
+                uploadFadeTimeout = null;
+            }
+
+            uploadProgressOverlay.classList.remove('fading-out');
+            uploadProgressOverlay.classList.add('active');
+
+            if (detail.phase === 'compressing') {
+                // Large text displays the decreasing file size
+                uploadProgressText.textContent = formatBytes(detail.currentSize);
+                if (uploadProgressSub) {
+                    uploadProgressSub.style.display = 'flex';
+                    const origFormatted = formatBytes(detail.originalSize);
+                    const savedRatio = detail.originalSize > detail.currentSize
+                        ? Math.round((1 - detail.currentSize / detail.originalSize) * 100)
+                        : 0;
+                    uploadProgressSub.innerHTML = savedRatio > 0
+                        ? `Compressing • Original ${origFormatted} <span class="talky-upload-progress-pill">-${savedRatio}%</span>`
+                        : `Compressing file • ${origFormatted}`;
+                }
+            } else if (detail.phase === 'uploading') {
+                if (typeof detail.percent === 'number') {
+                    uploadProgressText.textContent = `${Math.min(99, Math.max(1, Math.round(detail.percent)))}%`;
+                }
+                if (uploadProgressSub) {
+                    uploadProgressSub.style.display = 'flex';
+                    uploadProgressSub.innerHTML = `Uploading optimized asset • ${formatBytes(detail.targetSize || detail.currentSize)}`;
+                }
+            } else if (detail.phase === 'complete') {
+                uploadProgressText.textContent = `100%`;
+                if (uploadProgressSub) {
+                    uploadProgressSub.style.display = 'flex';
+                    uploadProgressSub.innerHTML = `Complete • ${formatBytes(detail.targetSize || detail.currentSize)}`;
+                }
+                uploadFadeTimeout = setTimeout(() => {
+                    uploadProgressOverlay.classList.add('fading-out');
+                    uploadProgressOverlay.classList.remove('active');
+                    uploadFadeTimeout = setTimeout(() => {
+                        uploadProgressOverlay.classList.remove('fading-out');
+                        if (uploadProgressSub) uploadProgressSub.style.display = 'none';
+                    }, 400);
+                }, 280);
+            }
+        });
+
+        window.addEventListener('talky:upload-progress', (e) => {
+            if (e.detail && typeof e.detail.percent === 'number') {
+                showUploadProgress(e.detail.percent);
+            }
+        });
+
+        // Background ImageKit duplicate sweep: clean up any redundant duplicates to protect storage
+        setTimeout(() => {
+            sweepImageKitStorageDuplicates().catch(() => {});
+        }, 3200);
+
         // Image & Animated GIF Processor (preserves raw binary frames for GIFs, compresses static images)
-        function compressImage(source, maxWidth, maxHeight, quality = 0.82) {
+        function compressImage(source, maxWidth = 720, maxHeight = 720, quality = 0.68) {
             return processImageUpload(source, maxWidth, maxHeight, quality);
         }
 
@@ -10865,8 +11448,15 @@
 
                 for (const file of files) {
                     if (file.type.startsWith('image/')) {
-                        const compressed = await compressImage(file, 960, 960, 0.80);
-                        if (compressed) pendingImages.push(compressed);
+                        const detailed = await processImageUploadDetailed(file, 720, 720, 0.65);
+                        if (detailed && detailed.url) {
+                            pendingImages.push({
+                                url: detailed.url,
+                                size: detailed.size,
+                                originalSize: detailed.originalSize,
+                                name: detailed.name
+                            });
+                        }
                     }
                 }
                 renderAttachmentTray();
@@ -10886,18 +11476,24 @@
             dmMessageForm.classList.add('has-attachments');
             attachmentPreviewTray.innerHTML = '';
 
-            pendingImages.forEach((imgUrl, index) => {
+            pendingImages.forEach((entry, index) => {
+                const imgUrl = typeof entry === 'object' ? entry.url : entry;
+                const sizeBytes = typeof entry === 'object' ? entry.size : 0;
                 const item = document.createElement('div');
                 item.className = 'attachment-thumb-item';
                 item.style.cursor = 'pointer';
                 item.innerHTML = `
-                    <img src="${imgUrl}" alt="Attachment preview" title="Click to view full image">
-                    <button type="button" class="attachment-thumb-remove" title="Remove image">
-                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                    </button>
+                    <div class="attachment-thumb-img-wrap">
+                        <img src="${imgUrl}" alt="Attachment preview" title="Click to view full image">
+                        <button type="button" class="attachment-thumb-remove" title="Remove image">
+                            <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                        </button>
+                    </div>
+                    <div class="attachment-thumb-size-label">${sizeBytes ? formatBytes(sizeBytes) : 'Image'}</div>
                 `;
                 item.querySelector('img').addEventListener('click', () => {
-                    openLightboxWithImages(pendingImages, index);
+                    const urlList = pendingImages.map(p => typeof p === 'object' ? p.url : p);
+                    openLightboxWithImages(urlList, index);
                 });
                 item.querySelector('.attachment-thumb-remove').addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -10923,7 +11519,7 @@
                 const authorName = currentUser ? (currentUser.displayName || currentUser.username || 'User') : 'User';
                 const authorAvatar = currentUser && currentUser.avatar ? currentUser.avatar : '';
                 const time = formatCurrentTime();
-                const imagesToSend = [...pendingImages];
+                const imagesToSend = pendingImages.map(p => typeof p === 'object' ? p.url : p);
 
                 const newMsg = {
                     id: 'msg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
@@ -12164,35 +12760,7 @@
                 serversList = [];
             }
 
-            if (serversList.length === 0) {
-                const userName = currentUser ? (currentUser.displayName || currentUser.username) : 'User';
-                const userAvatar = currentUser ? (currentUser.avatar || '') : '';
-                const userBanner = currentUser ? (currentUser.banner || '') : '';
-                const defaultServer = {
-                    id: 'srv_main_hub',
-                    name: `${userName}'s Community Hub`,
-                    description: `Official community created by ${userName} on Talky! Hang out, chat, and meet members.`,
-                    icon: userAvatar,
-                    banner: userBanner,
-                    backgroundImage: '',
-                    ownerId: currentUser ? currentUser.id : 'user_default',
-                    ownerName: userName,
-                    ownerHandle: currentUser ? ('@' + (currentUser.handle || 'user')) : '@user',
-                    category: 'Community',
-                    channels: [
-                        { id: 'chan_general', name: 'general', type: 'text' },
-                        { id: 'chan_announcements', name: 'announcements', type: 'text' }
-                    ],
-                    members: [
-                        { id: currentUser ? currentUser.id : 'user_default', name: userName, handle: currentUser ? currentUser.handle : 'user' },
-                        { id: 'bot_talky', name: 'Talky BOT', handle: 'talkybot' }
-                    ],
-                    createdAt: Date.now()
-                };
-                serversList.push(defaultServer);
-                safeStorageSet('talky_servers', JSON.stringify(serversList));
-            }
-
+            // No premade default server is created. Users start with an empty server list.
             renderServerSidebarIcons();
             initRealtimeServersSync();
         }
@@ -12205,29 +12773,28 @@
                     const data = snapshot.val();
                     if (data) {
                         const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
-                        if (list.length > 0) {
-                            serversList = list;
-                            safeStorageSet('talky_servers', JSON.stringify(serversList));
-                            renderServerSidebarIcons();
+                        serversList = list;
+                    } else {
+                        serversList = [];
+                    }
+                    safeStorageSet('talky_servers', JSON.stringify(serversList));
+                    renderServerSidebarIcons();
 
-                            if (activeServerId) {
-                                const current = serversList.find(s => s.id === activeServerId);
-                                if (current) {
-                                    renderChannelsList(current);
-                                    renderServerMembersList(current);
-                                    updateActiveServerBackground();
-                                }
-                            }
+                    if (activeServerId) {
+                        const current = serversList.find(s => s.id === activeServerId);
+                        if (current) {
+                            renderChannelsList(current);
+                            renderServerMembersList(current);
+                            updateActiveServerBackground();
+                        } else {
+                            // Active server was permanently deleted from RTDB
+                            activeServerId = null;
+                            closeServerSettings();
+                            closeServerDropdown();
+                            openFriendsView();
                         }
-                    } else if (!isInitialServerSyncDone) {
-                        // Seed RTDB if database is currently empty
-                        if (Array.isArray(serversList) && serversList.length > 0) {
-                            serversList.forEach(s => {
-                                if (s && s.id) {
-                                    set(ref(rtdb, 'servers/' + s.id), s);
-                                }
-                            });
-                        }
+                    } else if (serversList.length === 0) {
+                        openFriendsView();
                     }
                     isInitialServerSyncDone = true;
                 });
@@ -12250,6 +12817,39 @@
                 }
             } catch (fbErr) {
                 console.warn('Firebase saveServers sync error:', fbErr);
+            }
+        }
+
+        // Permanent Server Deletion from Firebase Realtime Database and Local State
+        async function deleteServerPermanently(serverId) {
+            if (!serverId) return;
+            const targetServer = serversList.find(s => s.id === serverId);
+            const serverName = targetServer ? targetServer.name : 'this server';
+
+            if (!confirm(`Are you sure you want to permanently delete "${serverName}"? This action will permanently erase the server from the Realtime Database for all users and cannot be undone.`)) {
+                return;
+            }
+
+            // 1. Remove from local array state & localStorage
+            serversList = serversList.filter(s => s.id !== serverId);
+            safeStorageSet('talky_servers', JSON.stringify(serversList));
+
+            // 2. Remove permanently from Firebase Realtime Database
+            try {
+                await remove(ref(rtdb, 'servers/' + serverId));
+            } catch (err) {
+                console.warn('Firebase RTDB remove server error:', err);
+            }
+
+            // 3. Re-render UI
+            renderServerSidebarIcons();
+
+            // 4. If active server was deleted, switch back to Friends / DMs view
+            if (activeServerId === serverId) {
+                activeServerId = null;
+                closeServerSettings();
+                closeServerDropdown();
+                openFriendsView();
             }
         }
 
@@ -12299,6 +12899,12 @@
 
                 wrapper.addEventListener('click', () => {
                     openServer(server.id);
+                });
+
+                wrapper.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openServerContextMenu(e.clientX, e.clientY, server);
                 });
 
                 serverIconsList.appendChild(wrapper);
@@ -12541,9 +13147,87 @@
             customItemContextMenu.style.top = `${posY}px`;
         }
 
+        // Server Context Menu (Sidebar Icons)
+        function openServerContextMenu(x, y, server) {
+            closeCustomContextMenu();
+            const menu = document.getElementById('sidebarServerContextMenu');
+            if (!menu) return;
+
+            const titleEl = document.getElementById('serverCtxMenuTitle');
+            const iconEl = document.getElementById('serverCtxMenuIcon');
+            if (titleEl) titleEl.textContent = server.name;
+            if (iconEl) {
+                if (server.icon) {
+                    iconEl.innerHTML = `<img src="${server.icon}" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover;">`;
+                } else {
+                    iconEl.textContent = '🏠';
+                }
+            }
+
+            const isOwner = currentUser ? isUserServerOwner(currentUser, server) : false;
+
+            const settingsBtn = document.getElementById('serverCtxMenuSettingsBtn');
+            const copyIdBtn = document.getElementById('serverCtxMenuCopyIdBtn');
+            const deleteBtn = document.getElementById('serverCtxMenuDeleteBtn');
+
+            if (settingsBtn) {
+                settingsBtn.style.display = isOwner ? 'flex' : 'none';
+                settingsBtn.onclick = () => {
+                    closeServerContextMenu();
+                    openServer(server.id);
+                    openServerSettings('overview');
+                };
+            }
+
+            if (copyIdBtn) {
+                copyIdBtn.onclick = () => {
+                    closeServerContextMenu();
+                    if (navigator.clipboard && server.id) {
+                        navigator.clipboard.writeText(server.id);
+                    }
+                };
+            }
+
+            if (deleteBtn) {
+                deleteBtn.style.display = isOwner ? 'flex' : 'none';
+                deleteBtn.onclick = () => {
+                    closeServerContextMenu();
+                    deleteServerPermanently(server.id);
+                };
+            }
+
+            menu.style.display = 'block';
+
+            const menuWidth = 200;
+            const menuHeight = menu.offsetHeight || 150;
+            const maxX = window.innerWidth - menuWidth - 12;
+            const maxY = window.innerHeight - menuHeight - 12;
+
+            const posX = Math.max(10, Math.min(x, maxX));
+            const posY = Math.max(10, Math.min(y, maxY));
+
+            menu.style.left = `${posX}px`;
+            menu.style.top = `${posY}px`;
+        }
+
+        function closeServerContextMenu() {
+            const menu = document.getElementById('sidebarServerContextMenu');
+            if (menu) menu.style.display = 'none';
+        }
+
         // Global Right-Click Prevention across the entire app
         document.addEventListener('contextmenu', (e) => {
             e.preventDefault();
+
+            const serverWrapper = e.target.closest('.server-item-wrapper');
+            if (serverWrapper && serverWrapper.dataset.serverId) {
+                const sId = serverWrapper.dataset.serverId;
+                const sObj = serversList.find(s => s.id === sId);
+                if (sObj) {
+                    openServerContextMenu(e.clientX, e.clientY, sObj);
+                    return;
+                }
+            }
 
             const chanEl = e.target.closest('.channel-item');
             const divEl = e.target.closest('.channel-divider-item');
@@ -12570,8 +13254,9 @@
                 }
             }
 
-            // Right-clicked anywhere else (or user is not the server owner): close menu and do not show anything
+            // Right-clicked anywhere else: close context menus
             closeCustomContextMenu();
+            closeServerContextMenu();
         });
 
         // Close context menu on left click anywhere
@@ -12579,12 +13264,17 @@
             if (customItemContextMenu && !customItemContextMenu.contains(e.target)) {
                 closeCustomContextMenu();
             }
+            const sidebarMenu = document.getElementById('sidebarServerContextMenu');
+            if (sidebarMenu && !sidebarMenu.contains(e.target)) {
+                closeServerContextMenu();
+            }
         });
 
         // Close on escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeCustomContextMenu();
+                closeServerContextMenu();
                 closeChannelEditModal();
                 closeDividerEditModal();
             }
@@ -15363,6 +16053,197 @@
                     if (removeBgBtn) removeBgBtn.style.display = 'none';
                 }
             }
+
+            if (document.getElementById('serverSettingsPanelLobby')?.style.display === 'flex') {
+                renderLobbyServerCard();
+            }
+        }
+
+        // Render Lobby Server Card in Center
+        function renderLobbyServerCard() {
+            const cardView = document.getElementById('lobbyCardView');
+            const showcaseView = document.getElementById('lobbyShowcaseView');
+            if (cardView) cardView.style.display = 'flex';
+            if (showcaseView) showcaseView.style.display = 'none';
+
+            const container = document.getElementById('lobbyServerCardContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const server = serversList.find(s => s.id === activeServerId);
+            if (!server) {
+                container.innerHTML = `<div style="color: #949ba4; font-size: 0.92rem;">No active server selected.</div>`;
+                return;
+            }
+
+            const name = (serverDraftState && serverDraftState.name) ? serverDraftState.name : (server.name || 'Talky Server');
+            const description = (serverDraftState && serverDraftState.description !== undefined) ? (serverDraftState.description || 'Welcome to our server lobby! Connect, chat, and hangout with our community.') : (server.description || 'Welcome to our server lobby! Connect, chat, and hangout with our community.');
+            const icon = (serverDraftState && serverDraftState.icon !== undefined) ? serverDraftState.icon : (server.icon || '');
+            const banner = (serverDraftState && serverDraftState.banner !== undefined) ? serverDraftState.banner : (server.banner || '');
+
+            const membersCountNum = (server.members && server.members.length) ? server.members.length : 1;
+            const ownerName = server.ownerName || (currentUser ? (currentUser.displayName || currentUser.username) : 'Server Owner');
+            const ownerHandle = server.ownerHandle || (currentUser ? (currentUser.handle || 'owner') : 'owner');
+            const category = server.category || 'Community';
+
+            const cardData = {
+                id: server.id,
+                name: name,
+                description: description,
+                category: category,
+                icon: icon,
+                banner: banner,
+                ownerName: ownerName,
+                ownerHandle: ownerHandle,
+                membersCount: `${membersCountNum} ${membersCountNum === 1 ? 'Member' : 'Members'}`,
+                membersCountNum: membersCountNum
+            };
+
+            const cardEl = createGlobalServerCard(cardData);
+            cardEl.style.margin = '0 auto';
+            cardEl.style.width = '100%';
+            cardEl.style.maxWidth = '400px';
+            cardEl.style.boxShadow = '0 20px 50px rgba(0, 0, 0, 0.65), 0 0 30px rgba(255, 255, 255, 0.08)';
+            cardEl.style.transition = 'all 0.25s ease';
+            cardEl.style.position = 'relative';
+
+            // Hover overlay with "Enter" button
+            const hoverOverlay = document.createElement('div');
+            hoverOverlay.className = 'lobby-card-enter-overlay';
+            hoverOverlay.innerHTML = `
+                <div class="enter-badge-btn">
+                    <span>Enter</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </div>
+            `;
+
+            cardEl.addEventListener('click', (e) => {
+                e.stopPropagation();
+                triggerLobbyEnterTransition();
+            });
+
+            cardEl.appendChild(hoverOverlay);
+            container.appendChild(cardEl);
+        }
+
+        // Animated Fade Out / Fade In to Detailed Showcase
+        function triggerLobbyEnterTransition() {
+            const mainWrapper = document.getElementById('lobbyMainWrapper');
+            if (!mainWrapper) return;
+
+            mainWrapper.style.opacity = '0';
+            mainWrapper.style.transform = 'scale(0.96)';
+
+            setTimeout(() => {
+                const cardView = document.getElementById('lobbyCardView');
+                const showcaseView = document.getElementById('lobbyShowcaseView');
+
+                if (cardView) cardView.style.display = 'none';
+                if (showcaseView) showcaseView.style.display = 'block';
+
+                renderLobbyShowcaseView();
+
+                mainWrapper.style.opacity = '1';
+                mainWrapper.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        // Render Detailed Showcase View
+        function renderLobbyShowcaseView() {
+            const server = serversList.find(s => s.id === activeServerId);
+            if (!server) return;
+
+            const name = (serverDraftState && serverDraftState.name) ? serverDraftState.name : (server.name || 'Talky Server');
+            const description = (serverDraftState && serverDraftState.description !== undefined && serverDraftState.description !== '') ? serverDraftState.description : (server.description || 'Welcome to our server lobby! Connect, chat, and hangout with our community.');
+            const icon = (serverDraftState && serverDraftState.icon !== undefined) ? serverDraftState.icon : (server.icon || '');
+            const banner = (serverDraftState && serverDraftState.banner !== undefined) ? serverDraftState.banner : (server.banner || '');
+
+            const membersCountNum = (server.members && server.members.length) ? server.members.length : 1;
+            const ownerName = server.ownerName || (currentUser ? (currentUser.displayName || currentUser.username) : 'Server Owner');
+            const ownerHandle = server.ownerHandle || (currentUser ? (currentUser.handle || 'owner') : 'owner');
+
+            // 1. Full width Blurry Faded Banner
+            const bannerBgEl = document.getElementById('lobbyShowcaseBannerBg');
+            if (bannerBgEl) {
+                if (banner) {
+                    bannerBgEl.style.backgroundImage = `url('${banner}')`;
+                } else {
+                    bannerBgEl.style.backgroundImage = 'linear-gradient(135deg, rgba(88, 101, 242, 0.6) 0%, rgba(235, 69, 158, 0.6) 100%), #1e1f22';
+                }
+            }
+
+            // 2. Centered Icon at top
+            const iconEl = document.getElementById('lobbyShowcaseIcon');
+            if (iconEl) {
+                if (icon) {
+                    iconEl.style.backgroundImage = `url('${icon}')`;
+                    iconEl.textContent = '';
+                } else {
+                    iconEl.style.backgroundImage = 'none';
+                    const initials = name.split(/\s+/).map(w => w.charAt(0).toUpperCase()).slice(0, 2).join('') || 'S';
+                    iconEl.textContent = initials;
+                }
+            }
+
+            // 3. Centered Server Name
+            const nameEl = document.getElementById('lobbyShowcaseName');
+            if (nameEl) nameEl.textContent = name;
+
+            // 4. Pure Text Description Card
+            const descEl = document.getElementById('lobbyShowcaseDescText');
+            if (descEl) descEl.textContent = description;
+
+            // 5. Online Status Card
+            const onlineEl = document.getElementById('lobbyShowcaseOnlineText');
+            const totalMembersEl = document.getElementById('lobbyShowcaseTotalMembersTag');
+            if (onlineEl) {
+                onlineEl.innerHTML = `
+                    <span style="width: 10px; height: 10px; border-radius: 50%; background: #23a55a; display: inline-block; box-shadow: 0 0 10px rgba(35, 165, 89, 0.6);"></span>
+                    <span>1 Member Online</span>
+                `;
+            }
+            if (totalMembersEl) {
+                totalMembersEl.textContent = `${membersCountNum} ${membersCountNum === 1 ? 'Total Member' : 'Total Members'}`;
+            }
+
+            // 6. Server Owner Card
+            const ownerAvatarEl = document.getElementById('lobbyShowcaseOwnerAvatar');
+            const ownerNameEl = document.getElementById('lobbyShowcaseOwnerName');
+            const ownerHandleEl = document.getElementById('lobbyShowcaseOwnerHandle');
+
+            if (ownerNameEl) ownerNameEl.textContent = ownerName;
+            if (ownerHandleEl) ownerHandleEl.textContent = `@${ownerHandle}`;
+            if (ownerAvatarEl) {
+                if (currentUser && currentUser.avatar) {
+                    ownerAvatarEl.style.backgroundImage = `url('${currentUser.avatar}')`;
+                    ownerAvatarEl.textContent = '';
+                } else {
+                    ownerAvatarEl.style.backgroundImage = 'none';
+                    ownerAvatarEl.textContent = '👑';
+                }
+            }
+        }
+
+        // Animated Fade Out / Fade In Back to Lobby Card View
+        function triggerLobbyBackTransition() {
+            const mainWrapper = document.getElementById('lobbyMainWrapper');
+            if (!mainWrapper) return;
+
+            mainWrapper.style.opacity = '0';
+            mainWrapper.style.transform = 'scale(0.96)';
+
+            setTimeout(() => {
+                const cardView = document.getElementById('lobbyCardView');
+                const showcaseView = document.getElementById('lobbyShowcaseView');
+
+                if (showcaseView) showcaseView.style.display = 'none';
+                if (cardView) cardView.style.display = 'flex';
+
+                renderLobbyServerCard();
+
+                mainWrapper.style.opacity = '1';
+                mainWrapper.style.transform = 'scale(1)';
+            }, 300);
         }
 
         // Server Settings Modal Controls
@@ -15563,12 +16444,12 @@
         }
 
         function updateCategoryDividerStylePills(style) {
-            const pills = document.querySelectorAll('.divider-style-pill-btn[data-style]');
+            const pills = document.querySelectorAll('.divider-style-pill-btn[data-style], .divider-style-card[data-style]');
             pills.forEach(p => p.classList.toggle('active', p.dataset.style === style));
 
             const gradControls = document.getElementById('catGradientControls');
             const bannerControls = document.getElementById('catBannerControls');
-            if (gradControls) gradControls.style.display = (style === 'gradient') ? 'block' : 'none';
+            if (gradControls) gradControls.style.display = (style === 'gradient' || style === 'ribbon') ? 'flex' : 'none';
             if (bannerControls) bannerControls.style.display = (style === 'banner') ? 'block' : 'none';
 
             const removeBannerBtn = document.getElementById('removeCategoryBannerBtn');
@@ -15684,16 +16565,47 @@
             }
         }
 
-        // Render Channels & Dividers Hierarchy with Drag-and-Drop and In-Place Customization
+        // Render Channels & Dividers Hierarchy with Search Filtering, Counters, and Drag-and-Drop
         function renderServerSettingsChannelsList(server) {
             const listEl = document.getElementById('serverSettingsChannelsList');
             if (!listEl) return;
             listEl.innerHTML = '';
 
-            if (!Array.isArray(server.channels) || server.channels.length === 0) {
+            if (!Array.isArray(server.channels)) {
+                server.channels = [];
+            }
+
+            const searchInput = document.getElementById('serverChannelsSearchInput');
+            const searchQuery = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+            const totalChannels = server.channels.filter(c => c.type !== 'divider').length;
+            const totalDividers = server.channels.filter(c => c.type === 'divider').length;
+
+            const countBadge = document.getElementById('serverChannelsCountBadge');
+            if (countBadge) {
+                countBadge.textContent = `${totalChannels} ${totalChannels === 1 ? 'Channel' : 'Channels'} • ${totalDividers} ${totalDividers === 1 ? 'Divider' : 'Dividers'}`;
+            }
+
+            if (server.channels.length === 0) {
                 listEl.innerHTML = `
-                    <div style="background: rgba(18, 19, 23, 0.7); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 28px 20px; text-align: center; color: #949ba4; font-size: 0.88rem;">
-                        No channels found in this server.
+                    <div style="background: rgba(22, 24, 30, 0.7); border: 1px dashed rgba(255, 255, 255, 0.14); border-radius: 10px; padding: 36px 20px; text-align: center; color: #949ba4;">
+                        <div style="font-size: 1.6rem; margin-bottom: 8px;">📁</div>
+                        <div style="font-size: 0.96rem; font-weight: 600; color: #fff; margin-bottom: 4px;">No channels found</div>
+                        <div style="font-size: 0.82rem; color: #80848e; margin-bottom: 16px;">Create your first channel or section divider above to start building your server.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            const displayedItems = searchQuery
+                ? server.channels.filter(c => (c.name || '').toLowerCase().includes(searchQuery) || (c.type || '').toLowerCase().includes(searchQuery))
+                : server.channels;
+
+            if (displayedItems.length === 0) {
+                listEl.innerHTML = `
+                    <div style="background: rgba(22, 24, 30, 0.7); border: 1px dashed rgba(255, 255, 255, 0.12); border-radius: 10px; padding: 28px 20px; text-align: center; color: #949ba4;">
+                        <div style="font-size: 0.92rem; font-weight: 600; color: #dbdee1; margin-bottom: 4px;">No matching items found</div>
+                        <div style="font-size: 0.8rem; color: #80848e;">No channels or dividers match "${escapeHtml(searchQuery)}".</div>
                     </div>
                 `;
                 return;
@@ -15701,11 +16613,11 @@
 
             const isOwner = isUserServerOwner(currentUser, server);
 
-            server.channels.forEach((chan) => {
+            displayedItems.forEach((chan) => {
                 const row = document.createElement('div');
-                row.className = 'hierarchy-list-item';
+                row.className = 'hierarchy-list-item' + (chan.type === 'divider' ? ' is-divider-row' : '');
                 row.dataset.itemId = chan.id;
-                row.draggable = isOwner;
+                row.draggable = isOwner && !searchQuery;
 
                 if (chan.type === 'divider') {
                     // Section Divider Hierarchy Row
@@ -15728,26 +16640,32 @@
                     }
 
                     row.innerHTML = `
-                        <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
-                            <span class="hierarchy-drag-handle" title="Drag to reorder hierarchy">⋮⋮</span>
-                            <div style="width: 30px; height: 30px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: #b5bac1; flex-shrink: 0;">
+                        <div style="display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1;">
+                            <span class="hierarchy-drag-handle" title="${searchQuery ? 'Clear filter to reorder' : 'Drag to reorder hierarchy'}">⋮⋮</span>
+                            <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(88, 101, 242, 0.15); border: 1px solid rgba(88, 101, 242, 0.35); display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #5865f2; flex-shrink: 0;">
                                 ✦
                             </div>
                             <div style="min-width: 0; flex: 1;">
-                                <div style="font-size: 0.92rem; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ${titleStyle}">
-                                    ${escapeHtml(chan.name)}
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 0.94rem; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ${titleStyle}">
+                                        ${escapeHtml(chan.name)}
+                                    </span>
+                                    <span style="font-size: 0.68rem; font-weight: 700; background: rgba(255, 255, 255, 0.08); color: #b5bac1; padding: 2px 6px; border-radius: 4px; text-transform: uppercase;">
+                                        Divider
+                                    </span>
                                 </div>
-                                <div style="font-size: 0.72rem; color: #949ba4; margin-top: 2px;">
-                                    Section Divider • <span style="text-transform: capitalize;">${escapeHtml(divStyle)} Style</span>
-                                    ${divStyle === 'gradient' ? ` • ${divColors.length} Colors • ${divAngle}°` : ''}
+                                <div style="font-size: 0.74rem; color: #949ba4; margin-top: 3px; display: flex; align-items: center; gap: 8px;">
+                                    <span style="text-transform: capitalize;">${escapeHtml(divStyle)} Style</span>
+                                    ${divStyle === 'gradient' ? `<span style="color: #6d737b;">•</span><span>${divColors.length} Colors</span><span style="color: #6d737b;">•</span><span>${divAngle}°</span>` : ''}
+                                    ${chan.fontFamily && chan.fontFamily !== 'default' ? `<span style="color: #6d737b;">•</span><span>${chan.fontFamily}</span>` : ''}
                                 </div>
                             </div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
-                            <button type="button" class="role-btn-shiny small customize-divider-btn" data-divider-id="${escapeHtml(chan.id)}">
+                            <button type="button" class="role-btn-secondary small customize-divider-btn" data-divider-id="${escapeHtml(chan.id)}" style="padding: 6px 14px; font-size: 0.82rem;">
                                 Customize
                             </button>
-                            <button type="button" class="role-btn-secondary small remove-divider-btn" data-divider-id="${escapeHtml(chan.id)}" style="color: #f23f43; border-color: rgba(242,63,67,0.3);">
+                            <button type="button" class="role-btn-secondary small remove-divider-btn" data-divider-id="${escapeHtml(chan.id)}" style="padding: 6px 10px; font-size: 0.82rem; color: #f23f43; border-color: rgba(242,63,67,0.3);">
                                 Delete
                             </button>
                         </div>
@@ -15790,38 +16708,43 @@
                     let iconDisplay = '';
                     if (chan.icon) {
                         if (chan.icon.startsWith('http://') || chan.icon.startsWith('https://') || chan.icon.startsWith('data:image')) {
-                            iconDisplay = `<img src="${escapeHtml(chan.icon)}" style="width: 30px; height: 30px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,255,255,0.25);" alt="" />`;
+                            iconDisplay = `<img src="${escapeHtml(chan.icon)}" style="width: 34px; height: 34px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(255,255,255,0.25);" alt="" />`;
                         } else {
-                            iconDisplay = `<div style="width: 30px; height: 30px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;">${escapeHtml(chan.icon)}</div>`;
+                            iconDisplay = `<div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 1.15rem;">${escapeHtml(chan.icon)}</div>`;
                         }
                     } else {
                         iconDisplay = `
-                            <div style="width: 30px; height: 30px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; color: #949ba4;">
+                            <div style="width: 34px; height: 34px; border-radius: 8px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); display: flex; align-items: center; justify-content: center; font-size: 1.15rem; font-weight: 700; color: #949ba4;">
                                 #
                             </div>
                         `;
                     }
 
                     row.innerHTML = `
-                        <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
-                            <span class="hierarchy-drag-handle" title="Drag to reorder hierarchy">⋮⋮</span>
+                        <div style="display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1;">
+                            <span class="hierarchy-drag-handle" title="${searchQuery ? 'Clear filter to reorder' : 'Drag to reorder hierarchy'}">⋮⋮</span>
                             <div class="channel-icon-trigger" style="cursor: pointer;" title="Click to customize">
                                 ${iconDisplay}
                             </div>
                             <div style="min-width: 0; flex: 1;">
-                                <div style="font-size: 0.94rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ${nameStyle}">
-                                    #${escapeHtml(chan.name)}
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 0.96rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; ${nameStyle}">
+                                        #${escapeHtml(chan.name)}
+                                    </span>
                                 </div>
-                                <div style="font-size: 0.74rem; color: #949ba4; margin-top: 2px;">
-                                    ${chan.fontFamily ? `${chan.fontFamily.toUpperCase()} Font` : 'Default Font'} • ${chan.textColorMode === 'gradient' ? 'Gradient Text' : (chan.textColorMode === 'solid' ? 'Custom Color' : 'Default Gray')}
+                                <div style="font-size: 0.74rem; color: #949ba4; margin-top: 3px; display: flex; align-items: center; gap: 8px;">
+                                    <span>${chan.fontFamily && chan.fontFamily !== 'default' ? `${chan.fontFamily.toUpperCase()} Font` : 'Default Font'}</span>
+                                    <span style="color: #6d737b;">•</span>
+                                    <span>${chan.textColorMode === 'gradient' ? 'Gradient Text' : (chan.textColorMode === 'solid' ? 'Custom Color' : 'Default Gray')}</span>
+                                    ${chan.icon && !chan.icon.startsWith('http') ? `<span style="color: #6d737b;">•</span><span>Icon: ${escapeHtml(chan.icon)}</span>` : ''}
                                 </div>
                             </div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
-                            <button type="button" class="role-btn-shiny small customize-chan-btn" data-chan-id="${escapeHtml(chan.id)}">
+                            <button type="button" class="role-btn-secondary small customize-chan-btn" data-chan-id="${escapeHtml(chan.id)}" style="padding: 6px 14px; font-size: 0.82rem;">
                                 Customize
                             </button>
-                            <button type="button" class="role-btn-secondary small remove-chan-btn" data-chan-id="${escapeHtml(chan.id)}" style="color: #f23f43; border-color: rgba(242,63,67,0.3);">
+                            <button type="button" class="role-btn-secondary small remove-chan-btn" data-chan-id="${escapeHtml(chan.id)}" style="padding: 6px 10px; font-size: 0.82rem; color: #f23f43; border-color: rgba(242,63,67,0.3);">
                                 Delete
                             </button>
                         </div>
@@ -15856,8 +16779,8 @@
                     }
                 }
 
-                // In-Panel Drag & Drop Reordering
-                if (isOwner) {
+                // In-Panel Drag & Drop Reordering (enabled when not filtering)
+                if (isOwner && !searchQuery) {
                     row.addEventListener('dragstart', (e) => {
                         draggedServerItemId = chan.id;
                         row.classList.add('is-dragging');
@@ -15912,18 +16835,32 @@
 
         function switchServerSettingsTab(tabName) {
             const tabOverview = document.getElementById('serverSettingsTabOverview');
+            const tabLobby = document.getElementById('serverSettingsTabLobby');
             const tabRoles = document.getElementById('serverSettingsTabRoles');
             const tabChannels = document.getElementById('serverSettingsTabChannels');
+            const tabDividers = document.getElementById('serverSettingsTabDividers');
+
             const panelOverview = document.getElementById('serverSettingsPanelOverview');
+            const panelLobby = document.getElementById('serverSettingsPanelLobby');
             const panelRoles = document.getElementById('serverSettingsPanelRoles');
             const panelChannels = document.getElementById('serverSettingsPanelChannels');
+            const panelDividers = document.getElementById('serverSettingsPanelDividers');
             const noticeBar = document.getElementById('serverSaveNoticeBar');
 
             if (tabOverview) tabOverview.classList.toggle('active', tabName === 'overview');
+            if (tabLobby) tabLobby.classList.toggle('active', tabName === 'lobby');
             if (tabRoles) tabRoles.classList.toggle('active', tabName === 'roles');
             if (tabChannels) tabChannels.classList.toggle('active', tabName === 'channels');
+            if (tabDividers) tabDividers.classList.toggle('active', tabName === 'dividers');
 
             if (panelOverview) panelOverview.style.display = (tabName === 'overview') ? 'block' : 'none';
+            if (panelLobby) {
+                panelLobby.style.display = (tabName === 'lobby') ? 'flex' : 'none';
+                if (tabName === 'lobby') {
+                    if (noticeBar) noticeBar.classList.remove('show');
+                    renderLobbyServerCard();
+                }
+            }
             if (panelRoles) {
                 panelRoles.style.display = (tabName === 'roles') ? 'block' : 'none';
                 if (tabName === 'roles') {
@@ -15937,8 +16874,17 @@
                     if (noticeBar) noticeBar.classList.remove('show');
                     const server = serversList.find(s => s.id === activeServerId);
                     if (server) {
-                        initCategoryDividerDraft(server);
                         renderServerSettingsChannelsList(server);
+                    }
+                }
+            }
+            if (panelDividers) {
+                panelDividers.style.display = (tabName === 'dividers') ? 'block' : 'none';
+                if (tabName === 'dividers') {
+                    if (noticeBar) noticeBar.classList.remove('show');
+                    const server = serversList.find(s => s.id === activeServerId);
+                    if (server) {
+                        initCategoryDividerDraft(server);
                     }
                 }
             }
@@ -15955,6 +16901,8 @@
         const serverDropdownInviteBtn = document.getElementById('serverDropdownInviteBtn');
         const serverDropdownCopyIdBtn = document.getElementById('serverDropdownCopyIdBtn');
 
+        const serverDropdownDeleteBtn = document.getElementById('serverDropdownDeleteBtn');
+
         function toggleServerDropdown(e) {
             if (e) e.stopPropagation();
             if (!serverDropdownMenu) return;
@@ -15968,6 +16916,7 @@
                 if (serverDropdownCreateChannelBtn) serverDropdownCreateChannelBtn.style.display = isOwner ? 'flex' : 'none';
                 if (serverDropdownCreateDividerBtn) serverDropdownCreateDividerBtn.style.display = isOwner ? 'flex' : 'none';
                 if (serverDropdownCategoryDividerBtn) serverDropdownCategoryDividerBtn.style.display = isOwner ? 'flex' : 'none';
+                if (serverDropdownDeleteBtn) serverDropdownDeleteBtn.style.display = isOwner ? 'flex' : 'none';
 
                 const dividers = serverDropdownMenu.querySelectorAll('.server-dropdown-divider');
                 dividers.forEach(div => {
@@ -16056,7 +17005,7 @@
             serverDropdownCategoryDividerBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 closeServerDropdown();
-                openServerSettings('channels');
+                openServerSettings('dividers');
             });
         }
 
@@ -16078,6 +17027,16 @@
             });
         }
 
+        if (serverDropdownDeleteBtn) {
+            serverDropdownDeleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeServerDropdown();
+                if (activeServerId) {
+                    deleteServerPermanently(activeServerId);
+                }
+            });
+        }
+
         // Server Settings Modal Event Handlers
         const closeServerSettingsBtn = document.getElementById('closeServerSettingsBtn');
         if (closeServerSettingsBtn) closeServerSettingsBtn.addEventListener('click', closeServerSettings);
@@ -16085,6 +17044,11 @@
         const serverSettingsTabOverview = document.getElementById('serverSettingsTabOverview');
         if (serverSettingsTabOverview) {
             serverSettingsTabOverview.addEventListener('click', () => switchServerSettingsTab('overview'));
+        }
+
+        const serverSettingsTabLobby = document.getElementById('serverSettingsTabLobby');
+        if (serverSettingsTabLobby) {
+            serverSettingsTabLobby.addEventListener('click', () => switchServerSettingsTab('lobby'));
         }
 
         const serverSettingsTabRoles = document.getElementById('serverSettingsTabRoles');
@@ -16095,6 +17059,19 @@
         const serverSettingsTabChannels = document.getElementById('serverSettingsTabChannels');
         if (serverSettingsTabChannels) {
             serverSettingsTabChannels.addEventListener('click', () => switchServerSettingsTab('channels'));
+        }
+
+        const serverSettingsTabDividers = document.getElementById('serverSettingsTabDividers');
+        if (serverSettingsTabDividers) {
+            serverSettingsTabDividers.addEventListener('click', () => switchServerSettingsTab('dividers'));
+        }
+
+        const serverChannelsSearchInput = document.getElementById('serverChannelsSearchInput');
+        if (serverChannelsSearchInput) {
+            serverChannelsSearchInput.addEventListener('input', () => {
+                const server = serversList.find(s => s.id === activeServerId);
+                if (server) renderServerSettingsChannelsList(server);
+            });
         }
 
         const serverSettingsAddChannelBtn = document.getElementById('serverSettingsAddChannelBtn');
@@ -16117,7 +17094,7 @@
             });
         }
 
-        const divStylePillBtns = document.querySelectorAll('.divider-style-pill-btn[data-style]');
+        const divStylePillBtns = document.querySelectorAll('.divider-style-pill-btn[data-style], .divider-style-card[data-style]');
         divStylePillBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 const style = btn.dataset.style;
@@ -16485,11 +17462,8 @@
         const serverSettingsDeleteBtn = document.getElementById('serverSettingsDeleteBtn');
         if (serverSettingsDeleteBtn) {
             serverSettingsDeleteBtn.addEventListener('click', () => {
-                if (confirm('Are you sure you want to delete this server? This action cannot be undone.')) {
-                    serversList = serversList.filter(s => s.id !== activeServerId);
-                    saveServers();
-                    closeServerSettings();
-                    openFriendsView();
+                if (activeServerId) {
+                    deleteServerPermanently(activeServerId);
                 }
             });
         }
@@ -17192,8 +18166,15 @@
 
                 for (const file of files) {
                     if (file.type.startsWith('image/')) {
-                        const compressed = await compressImage(file, 960, 960, 0.80);
-                        if (compressed) pendingServerImages.push(compressed);
+                        const detailed = await processImageUploadDetailed(file, 720, 720, 0.65);
+                        if (detailed && detailed.url) {
+                            pendingServerImages.push({
+                                url: detailed.url,
+                                size: detailed.size,
+                                originalSize: detailed.originalSize,
+                                name: detailed.name
+                            });
+                        }
                     }
                 }
                 renderServerAttachmentTray();
@@ -17214,18 +18195,24 @@
             serverMessageForm.classList.add('has-attachments');
             serverAttachmentTray.innerHTML = '';
 
-            pendingServerImages.forEach((imgUrl, index) => {
+            pendingServerImages.forEach((entry, index) => {
+                const imgUrl = typeof entry === 'object' ? entry.url : entry;
+                const sizeBytes = typeof entry === 'object' ? entry.size : 0;
                 const item = document.createElement('div');
                 item.className = 'attachment-thumb-item';
                 item.style.cursor = 'pointer';
                 item.innerHTML = `
-                    <img src="${imgUrl}" alt="Attachment preview" title="Click to view full image">
-                    <button type="button" class="attachment-thumb-remove" title="Remove image">
-                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                    </button>
+                    <div class="attachment-thumb-img-wrap">
+                        <img src="${imgUrl}" alt="Attachment preview" title="Click to view full image">
+                        <button type="button" class="attachment-thumb-remove" title="Remove image">
+                            <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                        </button>
+                    </div>
+                    <div class="attachment-thumb-size-label">${sizeBytes ? formatBytes(sizeBytes) : 'Image'}</div>
                 `;
                 item.querySelector('img').addEventListener('click', () => {
-                    openLightboxWithImages(pendingServerImages, index);
+                    const urlList = pendingServerImages.map(p => typeof p === 'object' ? p.url : p);
+                    openLightboxWithImages(urlList, index);
                 });
                 item.querySelector('.attachment-thumb-remove').addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -17248,7 +18235,7 @@
                 const authorName = currentUser ? (currentUser.displayName || currentUser.username || 'User') : 'User';
                 const authorAvatar = currentUser && currentUser.avatar ? currentUser.avatar : '';
                 const time = formatCurrentTime();
-                const imagesToSend = [...pendingServerImages];
+                const imagesToSend = pendingServerImages.map(p => typeof p === 'object' ? p.url : p);
 
                 const newMsg = {
                     id: 'smsg_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
