@@ -47,6 +47,24 @@ export default defineConfig(() => {
               return;
             }
 
+            // Android APK download endpoint with proper APK mime type
+            if (url === '/talky-v2.apk') {
+              const apkFilePath = path.resolve(import.meta.dirname, 'public/talky-v2.apk');
+              try {
+                const fs = await import('fs');
+                if (fs.existsSync(apkFilePath)) {
+                  const stat = fs.statSync(apkFilePath);
+                  res.setHeader('Content-Type', 'application/vnd.android.package-archive');
+                  res.setHeader('Content-Length', stat.size);
+                  res.setHeader('Content-Disposition', 'attachment; filename="talky-v2.apk"');
+                  fs.createReadStream(apkFilePath).pipe(res);
+                  return;
+                }
+              } catch (e) {
+                console.error('Error serving APK:', e);
+              }
+            }
+
             // Clean URLs routing
             if (url === '/authentication' || url === '/authentication/') {
               req.url = '/authentication.html' + search;
@@ -75,6 +93,23 @@ export default defineConfig(() => {
               res.setHeader('Content-Type', 'application/json');
               res.end(JSON.stringify(result));
               return;
+            }
+
+            if (url === '/talky-v2.apk') {
+              const apkFilePath = path.resolve(import.meta.dirname, 'public/talky-v2.apk');
+              try {
+                const fs = await import('fs');
+                if (fs.existsSync(apkFilePath)) {
+                  const stat = fs.statSync(apkFilePath);
+                  res.setHeader('Content-Type', 'application/vnd.android.package-archive');
+                  res.setHeader('Content-Length', stat.size);
+                  res.setHeader('Content-Disposition', 'attachment; filename="talky-v2.apk"');
+                  fs.createReadStream(apkFilePath).pipe(res);
+                  return;
+                }
+              } catch (e) {
+                console.error('Error serving preview APK:', e);
+              }
             }
 
             if (url === '/authentication' || url === '/authentication/') {

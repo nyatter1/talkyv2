@@ -2,11 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Talky V2</title>
     <meta name="description" content="A modern, minimalist communication platform featuring voice channels, text messaging, and server communities.">
     <meta property="og:title" content="Talky V2">
     <meta property="og:description" content="A modern, minimalist communication platform featuring voice channels, text messaging, and server communities.">
+    
+    <!-- PWA & Mobile Web App Meta -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#0b0c10">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Talky">
+    <link rel="icon" type="image/png" href="/pwa-192x192.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <style>
         :root {
             --bg-color: #0b0c10;
@@ -294,46 +304,246 @@
         }
 
         @media (max-width: 600px) {
-            .shiny-title { font-size: 3rem; }
-            .tagline { font-size: 1.1rem; }
+            .shiny-title { font-size: 2.6rem; }
+            .tagline { font-size: 1rem; padding: 0 1rem; }
+            header { gap: 0.5rem; }
+            .install-app-btn { font-size: 0.8rem; padding: 0.5rem 0.9rem; }
+            .login-btn { font-size: 0.85rem; padding: 0.5rem 1rem; }
+            .hero-actions { flex-direction: column; width: 100%; max-width: 320px; margin: 1.5rem auto 0 auto; }
+            .hero-actions button, .hero-actions a { width: 100%; justify-content: center; }
+        }
+
+        /* Install Modal Styles */
+        .install-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .install-modal-card {
+            background: #18191c;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 480px;
+            padding: 1.8rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 24px rgba(255, 255, 255, 0.08);
+            position: relative;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .install-modal-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #949ba4;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .install-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .install-modal-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            margin: 0 auto 12px auto;
+            display: block;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            background: #0b0c10;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .install-modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .install-modal-sub {
+            font-size: 0.88rem;
+            color: #949ba4;
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+        }
+
+        .install-options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .install-option-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 12px 14px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .install-option-card.recommended {
+            border-color: rgba(35, 165, 89, 0.6);
+            background: rgba(35, 165, 89, 0.06);
+        }
+
+        .install-option-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            background: #23a55a;
+            color: #ffffff;
+            padding: 2px 7px;
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+
+        .install-option-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 3px;
+        }
+
+        .install-option-desc {
+            font-size: 0.78rem;
+            color: #949ba4;
+            line-height: 1.35;
+            margin-bottom: 10px;
+        }
+
+        .install-action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .install-action-btn.primary {
+            background: #ffffff;
+            color: #0b0c10;
+        }
+
+        .install-action-btn.primary:hover {
+            background: #e2e4e8;
+            transform: translateY(-1px);
+        }
+
+        .install-action-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .install-action-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .ios-install-hint {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 0.8rem;
+            color: #949ba4;
         }
     </style>
 </head>
 <body data-theme="dark">
 
     <header>
+        <a href="index.html" style="text-decoration:none; display:flex; align-items:center; gap:10px; margin-right:auto;">
+            <img src="/pwa-192x192.png" alt="Talky Logo" style="width:34px; height:34px; object-fit:contain; border-radius:8px;">
+            <span style="font-size:1.15rem; font-weight:800; letter-spacing:-0.02em; color:var(--text-main);">Talky V2</span>
+        </a>
+        <button class="glass-btn install-app-btn" id="openInstallModalBtn" title="Download Android APK / Install App" style="padding:0.55rem 1.1rem; font-size:0.88rem; font-weight:600; gap:6px;">
+            <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+            <span>App (APK)</span>
+        </button>
         <button class="glass-btn theme-toggle" id="themeToggle" aria-label="Toggle Theme">
             <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
         </button>
-        <a href="authentication.html?tab=signup" id="openTalkyBtn" class="login-btn glass-btn">Open Talky</a>
+        <a href="authentication.html?mode=signup" class="login-btn glass-btn" id="openTalkyHeaderBtn">Open Talky</a>
     </header>
 
     <div class="ticker-banner">
         <div class="ticker-track">
             <div class="ticker-set">
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">TALK</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">CONNECT</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">CHAT</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">VOICE</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">COMMUNITY</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">STREAM</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">HANG OUT</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">TALK</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">CONNECT</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">CHAT</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">VOICE</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">COMMUNITY</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">STREAM</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">HANG OUT</div>
             </div>
             <div class="ticker-set">
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">TALK</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">CONNECT</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">CHAT</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">VOICE</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">COMMUNITY</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">STREAM</div>
-                <div class="ticker-item"><img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="ticker-logo">HANG OUT</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">TALK</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">CONNECT</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">CHAT</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">VOICE</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">COMMUNITY</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">STREAM</div>
+                <div class="ticker-item"><img src="/pwa-192x192.png" class="ticker-logo">HANG OUT</div>
             </div>
         </div>
     </div>
 
     <main>
+        <div class="mobile-badge" style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:30px; padding:6px 14px; font-size:0.8rem; font-weight:600; color:#dbdee1; margin-bottom:1.25rem;">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#23a55a;"></span>
+            Mobile Discord UI & Android APK Available
+        </div>
         <h1 class="shiny-title">Talky V2</h1>
-        <p class="tagline">Imagine a place without noise. Just your communities, voice channels, and text.</p>
+        <p class="tagline">Imagine a place without noise. Just your communities, voice channels, and text on desktop and mobile.</p>
+
+        <div class="hero-actions" style="display:flex; justify-content:center; align-items:center; gap:12px; margin-top:2rem; flex-wrap:wrap;">
+            <button class="glass-btn hero-apk-btn" id="heroInstallBtn" style="padding:0.85rem 1.8rem; font-size:1rem; font-weight:700; background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.35); gap:8px;">
+                <svg viewBox="0 0 24 24" style="width:20px; height:20px; fill:currentColor;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                Download Mobile App (APK)
+            </button>
+            <a href="authentication.html?mode=signup" class="glass-btn hero-browser-btn" id="openTalkyHeroBtn" style="padding:0.85rem 1.8rem; font-size:1rem; font-weight:600; color:var(--text-sub);">
+                Open in Browser &rarr;
+            </a>
+        </div>
     </main>
 
     <section class="faq-section">
@@ -341,10 +551,18 @@
         
         <div class="faq-item">
             <div class="faq-question">
-                <span>What makes Talky V2 different?</span>
+                <span>Can I use Talky on my phone like Discord Mobile?</span>
                 <span class="faq-indicator">&rarr;</span>
             </div>
-            <div class="faq-answer">It’s built for simplicity. Zero bloat, ultra-low latency voice, and an immersive minimalistic interface.</div>
+            <div class="faq-answer">Yes! Talky V2 has complete mobile support designed like Discord mobile with smooth drawer navigation, bottom tab bar, mobile voice channels, and full touch support.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How do I download the Android APK?</span>
+                <span class="faq-indicator">&rarr;</span>
+            </div>
+            <div class="faq-answer">Click "Download App (APK)" at the top or in the hero banner. You can 1-tap install the native WebAPK directly onto your home screen with the Talky logo, or download the standalone .apk file!</div>
         </div>
 
         <div class="faq-item">
@@ -357,14 +575,129 @@
 
         <div class="faq-item">
             <div class="faq-question">
-                <span>How do I get started?</span>
+                <span>What makes Talky V2 different?</span>
                 <span class="faq-indicator">&rarr;</span>
             </div>
-            <div class="faq-answer">Click the glass button at the top right to log in or launch Talky directly in your browser.</div>
+            <div class="faq-answer">It’s built for simplicity. Zero bloat, ultra-low latency voice, and an immersive minimalistic interface with 25 dynamic themes.</div>
         </div>
     </section>
 
+    <!-- PWA & Android APK Installation Modal -->
+    <div id="installModalOverlay" class="install-modal-overlay" style="display:none;">
+        <div class="install-modal-card">
+            <button type="button" class="install-modal-close" id="closeInstallModalBtn" aria-label="Close modal">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+            <div class="install-modal-header">
+                <img src="/pwa-192x192.png" alt="Talky Logo" class="install-modal-logo">
+                <h3 class="install-modal-title">Get Talky V2 Mobile App</h3>
+                <p class="install-modal-sub">Experience Talky natively on Android & iOS with zero lag, instant notifications, and full-screen voice channels.</p>
+            </div>
+
+            <div class="install-options-container">
+                <!-- Option 1: 1-Tap Native Install (WebAPK) -->
+                <div class="install-option-card recommended">
+                    <div class="install-option-badge">RECOMMENDED (1-TAP)</div>
+                    <div class="install-option-info">
+                        <div class="install-option-title">1-Tap Install (WebAPK)</div>
+                        <div class="install-option-desc">Immediately adds Talky V2 to your phone's Home Screen & App Launcher with the Talky Logo app icon. Full standalone window without browser bars!</div>
+                    </div>
+                    <button type="button" class="install-action-btn primary" id="triggerPwaInstallBtn">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                        <span id="pwaInstallBtnText">Install App</span>
+                    </button>
+                </div>
+
+                <!-- Option 2: Direct APK Download -->
+                <div class="install-option-card">
+                    <div class="install-option-info">
+                        <div class="install-option-title">Download Android APK Package (.apk)</div>
+                        <div class="install-option-desc">Direct .apk download for manual sideloading or distribution on Android devices with custom icon.</div>
+                    </div>
+                    <a href="/talky-v2.apk" download="talky-v2.apk" class="install-action-btn secondary">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6 18c0 .55.45 1 1 1h1v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h4v3.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zm-4.97-4.84l1.3-1.3c.2-.2.2-.51 0-.71-.2-.2-.51-.2-.71 0l-1.48 1.48C13.85 2.23 12.95 2 12 2c-.96 0-1.86.23-2.66.63L7.85 1.15c-.2-.2-.51-.2-.71 0-.2.2-.2.51 0 .71l1.31 1.31C6.97 4.26 6 6.01 6 8h12c0-1.99-.97-3.75-2.47-4.84zM10 5H9V4h1v1zm5 0h-1V4h1v1z"/></svg>
+                        Download talky-v2.apk (49 KB)
+                    </a>
+                </div>
+
+                <!-- Option 3: iOS Guide -->
+                <div class="ios-install-hint" id="iosGuideSection">
+                    <div style="font-weight:700; color:#ffffff; margin-bottom:4px; font-size:0.85rem;">Installing on iPhone / iPad (iOS Safari):</div>
+                    <div style="font-size:0.8rem; color:#949ba4; line-height:1.4;">
+                        1. Tap the <strong>Share</strong> button <svg style="display:inline; vertical-align:middle; width:13px; height:13px; fill:currentColor;" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg> in your Safari toolbar.<br>
+                        2. Scroll down and tap <strong>Add to Home Screen</strong> with the Talky logo.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Register Service Worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('SW registration note:', err);
+                });
+            });
+        }
+
+        // PWA Install Prompt handling
+        let deferredPrompt = null;
+        const installModalOverlay = document.getElementById('installModalOverlay');
+        const openInstallModalBtn = document.getElementById('openInstallModalBtn');
+        const heroInstallBtn = document.getElementById('heroInstallBtn');
+        const closeInstallModalBtn = document.getElementById('closeInstallModalBtn');
+        const triggerPwaInstallBtn = document.getElementById('triggerPwaInstallBtn');
+        const pwaInstallBtnText = document.getElementById('pwaInstallBtnText');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (pwaInstallBtnText) pwaInstallBtnText.textContent = 'Install App (1-Tap)';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            deferredPrompt = null;
+            if (pwaInstallBtnText) pwaInstallBtnText.textContent = 'Installed ✓';
+            setTimeout(() => {
+                if (installModalOverlay) installModalOverlay.style.display = 'none';
+            }, 1000);
+        });
+
+        function showInstallModal() {
+            if (installModalOverlay) installModalOverlay.style.display = 'flex';
+        }
+        function hideInstallModal() {
+            if (installModalOverlay) installModalOverlay.style.display = 'none';
+        }
+
+        if (openInstallModalBtn) openInstallModalBtn.addEventListener('click', showInstallModal);
+        if (heroInstallBtn) heroInstallBtn.addEventListener('click', showInstallModal);
+        if (closeInstallModalBtn) closeInstallModalBtn.addEventListener('click', hideInstallModal);
+
+        if (installModalOverlay) {
+            installModalOverlay.addEventListener('click', (e) => {
+                if (e.target === installModalOverlay) hideInstallModal();
+            });
+        }
+
+        if (triggerPwaInstallBtn) {
+            triggerPwaInstallBtn.addEventListener('click', async () => {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    if (outcome === 'accepted') {
+                        deferredPrompt = null;
+                        pwaInstallBtnText.textContent = 'Installing...';
+                    }
+                } else {
+                    // If beforeinstallprompt didn't trigger, download APK directly as reliable fallback
+                    window.location.href = '/talky-v2.apk';
+                }
+            });
+        }
+
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const body = document.body;
@@ -393,31 +726,18 @@
             });
         });
 
-        // Smart Open Talky button redirection
-        const openTalkyBtn = document.getElementById('openTalkyBtn');
-        if (openTalkyBtn) {
-            try {
-                const storedUser = localStorage.getItem('talky_current_user');
-                if (storedUser && storedUser !== 'null') {
-                    const parsed = JSON.parse(storedUser);
-                    if (parsed && parsed.id && parsed.id !== 'user_default') {
-                        openTalkyBtn.href = 'app.html';
-                    } else {
-                        openTalkyBtn.href = 'authentication.html?tab=signup';
-                    }
-                } else {
-                    openTalkyBtn.href = 'authentication.html?tab=signup';
-                }
-            } catch (e) {
-                openTalkyBtn.href = 'authentication.html?tab=signup';
-            }
-        }
-
         // Disable right clicking globally
         document.addEventListener('contextmenu', (e) => {
             e.preventDefault();
         });
-    </script>
 
+        // Redirect logged-in users directly to app.html, otherwise to signup
+        const currentUser = localStorage.getItem('talky_current_user');
+        const targetHref = currentUser ? 'app.html' : 'authentication.html?mode=signup';
+        const openTalkyHeaderBtn = document.getElementById('openTalkyHeaderBtn');
+        const openTalkyHeroBtn = document.getElementById('openTalkyHeroBtn');
+        if (openTalkyHeaderBtn) openTalkyHeaderBtn.href = targetHref;
+        if (openTalkyHeroBtn) openTalkyHeroBtn.href = targetHref;
+    </script>
 </body>
 </html>
