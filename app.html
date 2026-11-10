@@ -334,6 +334,161 @@
             border: 2px solid #0f1016;
         }
 
+        .dm-status-dot.online {
+            background: #23a55a;
+        }
+
+        .dm-status-dot.offline {
+            background: #80848e;
+        }
+
+        .dm-search-input {
+            width: 100%;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 0 10px;
+            color: #ffffff;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.15s, background 0.15s;
+        }
+
+        .dm-search-input:focus {
+            border-color: rgba(255, 255, 255, 0.28);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .dm-search-input::placeholder {
+            color: #80848e;
+        }
+
+        .friends-list-wrapper {
+            width: 100%;
+            height: 100%;
+            padding: 16px 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .friends-section-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #949ba4;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .friend-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: background 0.15s, border-color 0.15s;
+        }
+
+        .friend-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.16);
+        }
+
+        .friend-user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .friend-avatar-wrapper {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .friend-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #1e1f22;
+        }
+
+        .friend-avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .friend-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .friend-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .friend-handle {
+            font-size: 0.8rem;
+            color: #949ba4;
+        }
+
+        .friend-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .friend-action-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.15s, border-color 0.15s, transform 0.15s;
+        }
+
+        .friend-action-btn:hover {
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .friend-action-btn.primary {
+            background: #5865f2;
+            border-color: #5865f2;
+        }
+
+        .friend-action-btn.primary:hover {
+            background: #4752c4;
+            border-color: #4752c4;
+        }
+
         .dm-user-details {
             flex: 1;
             min-width: 0;
@@ -2686,6 +2841,35 @@
         .server-header-bar:hover .server-header-chevron,
         .server-header-bar.active .server-header-chevron {
             fill: #ffffff;
+        }
+
+        .server-header-settings-btn {
+            background: transparent;
+            border: none;
+            color: #949ba4;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.15s, background 0.15s, transform 0.15s;
+            padding: 0;
+            outline: none;
+            margin-right: 2px;
+        }
+
+        .server-header-settings-btn svg {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+        }
+
+        .server-header-settings-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.12);
+            transform: rotate(20deg);
         }
 
         /* Server Banner (directly under server name header) */
@@ -9514,15 +9698,15 @@
 
     <div class="dms-sidebar" id="dmsSidebar">
         <div class="search-bar-container">
-            <div class="wireframe-search">Find or start a conversation</div>
+            <input type="text" class="dm-search-input" id="dmSidebarSearchInput" placeholder="Find or start a conversation..." autocomplete="off" />
         </div>
 
-        <div class="dms-list">
+        <div class="dms-list" id="dmsList">
             <div class="dms-header">Direct Messages</div>
-            <div class="dm-item" id="talkyBotDmBtn" title="Talky BOT">
+            <div class="dm-item active" id="talkyBotDmBtn" title="Talky BOT">
                 <div class="dm-avatar-wrapper">
                     <img src="https://i.ibb.co/n8wmbW1N/image-removebg-preview.png" class="dm-avatar" alt="Talky BOT">
-                    <span class="dm-status-dot"></span>
+                    <span class="dm-status-dot online"></span>
                 </div>
                 <div class="dm-user-details">
                     <div class="dm-name-row">
@@ -9532,6 +9716,7 @@
                     <div class="dm-subtitle">Direct Message</div>
                 </div>
             </div>
+            <div id="dynamicDmsContainer" class="dynamic-dms-container" style="display: flex; flex-direction: column; gap: 4px; width: 100%;"></div>
         </div>
 
         <div class="user-controls-bar">
@@ -9552,7 +9737,12 @@
     <div class="server-channels-sidebar" id="serverChannelsSidebar" style="display: none;">
         <div class="server-header-bar" id="serverHeaderBar">
             <h3 class="server-header-name" id="serverHeaderName">Talky Server</h3>
-            <svg class="server-header-chevron" id="serverHeaderChevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            <div class="server-header-actions" style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+                <button class="server-header-settings-btn" id="serverHeaderSettingsBtn" title="Server Settings" aria-label="Server Settings" type="button">
+                    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                </button>
+                <svg class="server-header-chevron" id="serverHeaderChevron" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+            </div>
         </div>
 
         <!-- Discord Server Dropdown Menu -->
@@ -9706,19 +9896,17 @@
                     <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                     Friends
                 </div>
-                <div class="friends-tabs">
-                    <button class="friends-tab active">Online</button>
-                    <button class="friends-tab">All</button>
-                    <button class="friends-tab">Pending</button>
-                    <button class="friends-tab">Blocked</button>
-                    <button class="friends-tab add-friend-tab">Add Friend</button>
+                <div class="friends-tabs" id="friendsHeaderTabs">
+                    <button type="button" class="friends-tab active" data-tab="online">Online</button>
+                    <button type="button" class="friends-tab" data-tab="all">All</button>
+                    <button type="button" class="friends-tab" data-tab="pending">Pending</button>
+                    <button type="button" class="friends-tab" data-tab="blocked">Blocked</button>
+                    <button type="button" class="friends-tab add-friend-tab" data-tab="add">Add Friend</button>
                 </div>
             </div>
 
-            <div class="content-body">
-                <div class="wireframe-box">
-                    <p>No friends added yet.</p>
-                </div>
+            <div class="content-body" id="friendsContentBody" style="display: block; width: 100%; height: calc(100% - 48px); overflow-y: auto;">
+                <!-- Friends list rendered dynamically -->
             </div>
         </div>
 
@@ -12453,6 +12641,16 @@
                 return;
             }
 
+            // Ensure dev@gmail.com is attached if this is the dev account
+            if (currentUser) {
+                const curHandle = (currentUser.handle || '').toLowerCase().replace(/^@/, '');
+                const curName = (currentUser.displayName || currentUser.username || '').toLowerCase();
+                if (!currentUser.email && (curHandle === 'venticyt' || curHandle === 'dev' || curName === 'venticyt')) {
+                    currentUser.email = 'dev@gmail.com';
+                    safeStorageSet('talky_current_user', JSON.stringify(currentUser));
+                }
+            }
+
             if (currentUser && !Array.isArray(currentUser.links)) {
                 currentUser.links = [];
             }
@@ -12510,7 +12708,18 @@
 
             // Sync user profile & presence live to Firebase Realtime Database
             try {
-                if (currentUser.id) {
+                if (currentUser && currentUser.id) {
+                    if (window.isInitialUsersLoaded && window.validUserIds && !window.validUserIds.has(String(currentUser.id))) {
+                        // Check if current user is dev account before logging out
+                        const isDev = isDevUser(currentUser);
+                        if (!isDev) {
+                            console.warn('[Talky] Current user does not exist in Realtime Database. Deleting local session...');
+                            localStorage.removeItem('talky_current_user');
+                            currentUser = null;
+                            window.location.href = 'authentication.html?mode=signup';
+                            return;
+                        }
+                    }
                     set(ref(rtdb, 'users/' + currentUser.id), currentUser);
                     set(ref(rtdb, 'presence/' + currentUser.id), {
                         id: currentUser.id,
@@ -12527,31 +12736,181 @@
         }
 
         // Live Global Users Store Sync via Firebase RTDB
-        window.globalUsersMap = window.globalUsersMap || {};
+        window.globalUsersMap = {};
+        window.validUserIds = new Set();
+        window.validHandles = new Set();
+        window.isInitialUsersLoaded = false;
         let isGlobalUsersSyncInitialized = false;
+
+        function syncAndPruneUsers(data) {
+            const rawUsers = data || {};
+            const validUserMap = {};
+            const validIds = new Set();
+            const validHandles = new Set();
+
+            Object.keys(rawUsers).forEach(uid => {
+                const u = rawUsers[uid];
+                if (u && (u.id || uid)) {
+                    const resolvedId = String(u.id || uid);
+                    validUserMap[resolvedId] = { ...u, id: resolvedId };
+                    validIds.add(resolvedId);
+                    if (u.id) validIds.add(String(u.id));
+                    if (uid) validIds.add(String(uid));
+                    if (u.handle) {
+                        const h = String(u.handle).toLowerCase().replace(/^@/, '').trim();
+                        if (h) validHandles.add(h);
+                    }
+                    if (u.username) {
+                        const un = String(u.username).toLowerCase().trim();
+                        if (un) validHandles.add(un);
+                    }
+                    if (u.email) {
+                        const em = String(u.email).toLowerCase().trim();
+                        validIds.add(em);
+                        if (em === 'dev@gmail.com') {
+                            validHandles.add('venticyt');
+                            validHandles.add('dev');
+                        }
+                    }
+                }
+            });
+
+            window.globalUsersMap = validUserMap;
+            window.validUserIds = validIds;
+            window.validHandles = validHandles;
+            window.isInitialUsersLoaded = true;
+
+            // Keep localStorage talky_users strictly in sync with database users
+            safeStorageSet('talky_users', JSON.stringify(Object.values(validUserMap)));
+
+            // If current logged-in user is dev@gmail.com, bind to matching database account
+            if (currentUser) {
+                const isDev = isDevUser(currentUser);
+                if (isDev) {
+                    const devMatch = Object.values(validUserMap).find(u => 
+                        (u.email && u.email.toLowerCase() === 'dev@gmail.com') ||
+                        (u.handle && u.handle.toLowerCase().replace(/^@/, '') === 'venticyt')
+                    );
+                    if (devMatch) {
+                        currentUser = { ...currentUser, ...devMatch };
+                        safeStorageSet('talky_current_user', JSON.stringify(currentUser));
+                    }
+                } else if (currentUser.id && !validIds.has(String(currentUser.id))) {
+                    console.warn('[Talky] Current user does not exist in Realtime Database. Deleting local session...');
+                    try {
+                        remove(ref(rtdb, 'presence/' + currentUser.id));
+                    } catch(e) {}
+                    localStorage.removeItem('talky_current_user');
+                    currentUser = null;
+                    window.location.href = 'authentication.html?mode=signup';
+                    return;
+                }
+            }
+
+            // Prune all servers in serversList to remove any human member not in validIds
+            if (Array.isArray(serversList)) {
+                let anyServerChanged = false;
+                serversList.forEach(server => {
+                    let serverModified = false;
+                    if (Array.isArray(server.members)) {
+                        const prevCount = server.members.length;
+                        server.members = server.members.filter(m => {
+                            if (!m) return false;
+                            // Keep Talky BOT and custom bots
+                            if (m.isBot || m.id === 'bot_talky' || String(m.id).startsWith('bot_')) {
+                                return true;
+                            }
+                            // Human user must exist in the database!
+                            const mId = String(m.id || '');
+                            const mHandle = String(m.handle || '').toLowerCase().replace(/^@/, '').trim();
+                            const mEmail = String(m.email || '').toLowerCase().trim();
+                            const isValid = validIds.has(mId) || 
+                                            (mHandle && validHandles.has(mHandle)) || 
+                                            (mEmail && validIds.has(mEmail)) ||
+                                            (currentUser && (mId === String(currentUser.id) || (currentUser.email === 'dev@gmail.com' && isDevUser(m))));
+                            return isValid;
+                        });
+                        if (server.members.length !== prevCount) {
+                            serverModified = true;
+                        }
+                    }
+
+                    // Also prune roles so deleted members are removed from assigned roles
+                    if (Array.isArray(server.roles)) {
+                        server.roles.forEach(role => {
+                            if (Array.isArray(role.members)) {
+                                const prevRoleCount = role.members.length;
+                                role.members = role.members.filter(mId => {
+                                    if (mId === 'bot_talky' || String(mId).startsWith('bot_')) return true;
+                                    const strId = String(mId);
+                                    const strClean = strId.toLowerCase().replace(/^@/, '').trim();
+                                    return validIds.has(strId) || validHandles.has(strClean);
+                                });
+                                if (role.members.length !== prevRoleCount) {
+                                    serverModified = true;
+                                }
+                            }
+                        });
+                    }
+
+                    if (serverModified) {
+                        anyServerChanged = true;
+                        try {
+                            set(ref(rtdb, 'servers/' + server.id), server);
+                        } catch (e) {}
+                    }
+                });
+
+                if (anyServerChanged) {
+                    safeStorageSet('talky_servers', JSON.stringify(serversList));
+                }
+            }
+
+            // Clean up any stale presence records in RTDB for users that no longer exist
+            try {
+                get(ref(rtdb, 'presence')).then(presenceSnap => {
+                    if (presenceSnap.exists()) {
+                        const presenceData = presenceSnap.val() || {};
+                        Object.keys(presenceData).forEach(pUid => {
+                            if (!validIds.has(String(pUid))) {
+                                remove(ref(rtdb, 'presence/' + pUid)).catch(() => {});
+                            }
+                        });
+                    }
+                }).catch(() => {});
+            } catch(e) {}
+
+            // Re-render server members list, DM sidebar users, friends list, and messages
+            if (activeServerId && Array.isArray(serversList)) {
+                const server = serversList.find(s => s.id === activeServerId);
+                if (server && typeof renderServerMembersList === 'function') {
+                    renderServerMembersList(server);
+                }
+                if (typeof renderAllServerMessages === 'function') {
+                    renderAllServerMessages();
+                }
+            }
+            if (typeof renderDmSidebarUsers === 'function') {
+                renderDmSidebarUsers();
+            }
+            if (typeof renderFriendsList === 'function') {
+                renderFriendsList();
+            }
+        }
 
         function initGlobalUsersSync() {
             if (isGlobalUsersSyncInitialized) return;
             isGlobalUsersSyncInitialized = true;
             try {
+                get(ref(rtdb, 'users')).then(snap => {
+                    if (snap.exists()) {
+                        syncAndPruneUsers(snap.val());
+                    }
+                }).catch(() => {});
+
                 onValue(ref(rtdb, 'users'), (snapshot) => {
                     const data = snapshot.val();
-                    if (data) {
-                        Object.keys(data).forEach(uid => {
-                            if (data[uid]) {
-                                window.globalUsersMap[uid] = data[uid];
-                            }
-                        });
-                        if (activeServerId) {
-                            const server = serversList.find(s => s.id === activeServerId);
-                            if (server && typeof renderServerMembersList === 'function') {
-                                renderServerMembersList(server);
-                            }
-                            if (typeof renderAllServerMessages === 'function') {
-                                renderAllServerMessages();
-                            }
-                        }
-                    }
+                    syncAndPruneUsers(data);
                 });
             } catch (err) {
                 console.warn('Global users sync error:', err);
@@ -12581,37 +12940,39 @@
                         const onlineList = Object.values(data);
                         onlineList.forEach(ou => {
                             if (ou && ou.id) {
-                                if (!window.globalUsersMap[ou.id]) {
-                                    window.globalUsersMap[ou.id] = {
-                                        id: ou.id,
-                                        displayName: ou.name || 'User',
-                                        handle: ou.handle || 'user',
-                                        avatar: ou.avatar || ''
-                                    };
-                                } else {
-                                    if (ou.avatar) window.globalUsersMap[ou.id].avatar = ou.avatar;
-                                    if (ou.name) window.globalUsersMap[ou.id].displayName = ou.name;
+                                // If user is not in database, delete presence record and ignore
+                                if (window.isInitialUsersLoaded && window.validUserIds && !window.validUserIds.has(String(ou.id))) {
+                                    try {
+                                        remove(ref(rtdb, 'presence/' + ou.id));
+                                    } catch(e) {}
+                                    return;
+                                }
+
+                                if (window.validUserIds && window.validUserIds.has(String(ou.id))) {
+                                    if (!window.globalUsersMap[ou.id]) {
+                                        window.globalUsersMap[ou.id] = {
+                                            id: ou.id,
+                                            displayName: ou.name || 'User',
+                                            handle: ou.handle || 'user',
+                                            avatar: ou.avatar || ''
+                                        };
+                                    } else {
+                                        if (ou.avatar) window.globalUsersMap[ou.id].avatar = ou.avatar;
+                                        if (ou.name) window.globalUsersMap[ou.id].displayName = ou.name;
+                                    }
                                 }
                             }
                         });
-                        if (activeServerId) {
+
+                        if (activeServerId && window.isInitialUsersLoaded) {
                             const server = serversList.find(s => s.id === activeServerId);
                             if (server && Array.isArray(server.members)) {
                                 onlineList.forEach(ou => {
-                                    if (ou && ou.id) {
+                                    if (ou && ou.id && window.validUserIds && window.validUserIds.has(String(ou.id))) {
                                         const existing = server.members.find(m => String(m.id) === String(ou.id));
                                         if (existing) {
                                             existing.avatar = ou.avatar || existing.avatar;
                                             existing.name = ou.name || existing.name;
-                                        } else {
-                                            server.members.push({
-                                                id: ou.id,
-                                                name: ou.name || 'User',
-                                                handle: ou.handle || 'user',
-                                                avatar: ou.avatar || '',
-                                                isOwner: false,
-                                                isBot: false
-                                            });
                                         }
                                     }
                                 });
@@ -14111,11 +14472,54 @@
             }
         }
 
-        function openDmChat() {
+        let currentDmUnsubscribe = null;
+
+        function openDmChat(targetUser) {
+            if (!targetUser || targetUser.id === 'bot_talky' || targetUser.isBot) {
+                activeDmUser = typeof talkyBotProfile !== 'undefined' ? talkyBotProfile : { id: 'bot_talky', displayName: 'Talky BOT', handle: 'talkybot', isBot: true };
+            } else {
+                activeDmUser = targetUser;
+            }
+
             if (friendsView && dmChatView) {
                 friendsView.style.display = 'none';
                 dmChatView.style.display = 'flex';
-                if (talkyBotDmBtn) talkyBotDmBtn.classList.add('active');
+
+                if (talkyBotDmBtn) {
+                    talkyBotDmBtn.classList.toggle('active', activeDmUser.id === 'bot_talky');
+                }
+                if (typeof renderDmSidebarUsers === 'function') {
+                    renderDmSidebarUsers();
+                }
+
+                // Update DM Chat Header
+                const chatHeaderName = document.querySelector('#dmChatView .chat-header-name');
+                const chatHeaderAt = document.querySelector('#dmChatView .chat-header-at');
+                const chatHeaderBotTag = document.querySelector('#dmChatView .chat-header-user .bot-tag');
+                const chatIntroTitle = document.getElementById('chatIntroTitle');
+                const chatIntroSub = document.getElementById('chatIntroSub');
+                const chatIntroAvatar = document.querySelector('.chat-intro-avatar');
+
+                const targetName = activeDmUser.displayName || activeDmUser.username || 'User';
+                const targetHandle = activeDmUser.handle || 'user';
+
+                if (chatHeaderName) chatHeaderName.textContent = targetName;
+                if (chatHeaderAt) chatHeaderAt.textContent = '@';
+                if (chatHeaderBotTag) chatHeaderBotTag.style.display = activeDmUser.isBot ? 'inline-block' : 'none';
+
+                if (chatIntroTitle) chatIntroTitle.textContent = targetName;
+                if (chatIntroSub) chatIntroSub.innerHTML = `This is the start of your direct message history with <strong>@${escapeHtml(targetHandle)}</strong>.`;
+
+                if (chatIntroAvatar) {
+                    if (activeDmUser.avatar) {
+                        chatIntroAvatar.innerHTML = `<img src="${escapeHtml(activeDmUser.avatar)}" alt="${escapeHtml(targetName)}">`;
+                    } else {
+                        const initial = targetName.charAt(0).toUpperCase();
+                        const accent = activeDmUser.accentColor || '#5865F2';
+                        chatIntroAvatar.innerHTML = `<div style="width: 48px; height: 48px; border-radius: 50%; background: ${accent}; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: bold; color: #fff;">${initial}</div>`;
+                    }
+                }
+
                 if (typeof closeMobileNavDrawer === 'function') {
                     closeMobileNavDrawer();
                     closeMobileMembersDrawer();
@@ -14124,13 +14528,17 @@
                 if (typeof updateMobileTabActive === 'function') {
                     updateMobileTabActive('dms');
                 }
-                setTimeout(scrollToBottom, 50);
+
+                loadDmMessagesForUser(activeDmUser);
+                setTimeout(scrollToBottom, 60);
             }
         }
         // Note: full openFriendsView defined below to also handle server sidebar state
 
         if (talkyBotDmBtn) {
-            talkyBotDmBtn.addEventListener('click', openDmChat);
+            talkyBotDmBtn.addEventListener('click', () => {
+                openDmChat(talkyBotProfile);
+            });
         }
 
         if (serverDmsBtn) {
@@ -14405,8 +14813,85 @@
             }
         }
 
+        function loadDmMessagesForUser(targetUser) {
+            if (currentDmUnsubscribe) {
+                try { currentDmUnsubscribe(); } catch(e) {}
+                currentDmUnsubscribe = null;
+            }
+
+            if (!targetUser || targetUser.id === 'bot_talky' || targetUser.isBot) {
+                loadDmMessages();
+                return;
+            }
+
+            const currentId = currentUser ? currentUser.id : 'user_default';
+            const targetId = targetUser.id;
+            const dmRoomId = [String(currentId), String(targetId)].sort().join('_');
+
+            // Load initial from local storage
+            const stored = localStorage.getItem('talky_dm_' + dmRoomId);
+            if (stored) {
+                try {
+                    const msgs = JSON.parse(stored);
+                    if (Array.isArray(msgs) && msgs.length > 0) {
+                        dmMessagesList = msgs.map(m => ({
+                            id: m.id || ('msg_' + Math.random().toString(36).substr(2, 9)),
+                            author: m.author || 'User',
+                            authorId: m.authorId || m.userId || '',
+                            avatar: m.avatar || '',
+                            isBot: !!m.isBot,
+                            time: m.time || '',
+                            text: m.text || '',
+                            images: Array.isArray(m.images) ? m.images : [],
+                            replyTo: m.replyTo || null,
+                            reactions: (m.reactions && typeof m.reactions === 'object') ? m.reactions : {}
+                        }));
+                        if (chatMessagesList) {
+                            chatMessagesList.innerHTML = '';
+                            dmMessagesList.forEach(m => renderChatMessage(m));
+                            scrollToBottom();
+                        }
+                    } else {
+                        dmMessagesList = [];
+                        if (chatMessagesList) chatMessagesList.innerHTML = '';
+                    }
+                } catch(e) {
+                    dmMessagesList = [];
+                    if (chatMessagesList) chatMessagesList.innerHTML = '';
+                }
+            } else {
+                dmMessagesList = [];
+                if (chatMessagesList) chatMessagesList.innerHTML = '';
+            }
+
+            // Realtime Firebase RTDB listener for human-to-human DMs
+            try {
+                const dmRef = ref(rtdb, 'dms/' + dmRoomId);
+                currentDmUnsubscribe = onValue(dmRef, (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
+                        list.sort((a, b) => (a.createdAt || a.timestamp || 0) - (b.createdAt || b.timestamp || 0));
+                        dmMessagesList = list;
+                        safeStorageSet('talky_dm_' + dmRoomId, JSON.stringify(dmMessagesList));
+                        if (chatMessagesList) {
+                            chatMessagesList.innerHTML = '';
+                            dmMessagesList.forEach(m => renderChatMessage(m));
+                            scrollToBottom();
+                        }
+                    }
+                });
+            } catch (err) {
+                console.warn('Firebase RTDB human DM listener error:', err);
+            }
+        }
+
         // Load Persisted Chat Messages with Firebase RTDB Live Sync
         function loadDmMessages() {
+            if (currentDmUnsubscribe) {
+                try { currentDmUnsubscribe(); } catch(e) {}
+                currentDmUnsubscribe = null;
+            }
             const storedMsgs = localStorage.getItem('talky_bot_messages');
             if (storedMsgs) {
                 try {
@@ -14435,7 +14920,7 @@
 
             // Realtime Firebase RTDB listener for DMs
             try {
-                onValue(ref(rtdb, 'talky_bot_messages'), (snapshot) => {
+                currentDmUnsubscribe = onValue(ref(rtdb, 'talky_bot_messages'), (snapshot) => {
                     const data = snapshot.val();
                     if (data) {
                         const list = Array.isArray(data) ? data.filter(Boolean) : Object.values(data);
@@ -14568,11 +15053,18 @@
                 cancelReply();
                 closeEmojiBoard();
                 scrollToBottom();
-                saveDmMessages();
 
                 // Live Sync DM to Firebase Realtime Database
                 try {
-                    set(ref(rtdb, `talky_bot_messages/${newMsg.id}`), newMsg);
+                    if (!activeDmUser || activeDmUser.id === 'bot_talky' || activeDmUser.isBot) {
+                        saveDmMessages();
+                        set(ref(rtdb, `talky_bot_messages/${newMsg.id}`), newMsg);
+                    } else {
+                        const currentId = currentUser ? currentUser.id : 'user_default';
+                        const dmRoomId = [String(currentId), String(activeDmUser.id)].sort().join('_');
+                        safeStorageSet('talky_dm_' + dmRoomId, JSON.stringify(dmMessagesList));
+                        set(ref(rtdb, `dms/${dmRoomId}/${newMsg.id}`), newMsg);
+                    }
                 } catch (fbErr) {
                     console.warn('Firebase RTDB DM send error:', fbErr);
                 }
@@ -15803,6 +16295,46 @@
                     } else {
                         serversList = [];
                     }
+
+                    // Prune any deleted human members from servers
+                    if (window.isInitialUsersLoaded && window.validUserIds) {
+                        let serversModified = false;
+                        serversList.forEach(s => {
+                            if (Array.isArray(s.members)) {
+                                const origLen = s.members.length;
+                                s.members = s.members.filter(m => {
+                                    if (!m) return false;
+                                    if (m.isBot || m.id === 'bot_talky' || String(m.id).startsWith('bot_')) return true;
+                                    const mId = String(m.id || '');
+                                    const mHandle = String(m.handle || '').toLowerCase().replace(/^@/, '').trim();
+                                    const mEmail = String(m.email || '').toLowerCase().trim();
+                                    return window.validUserIds.has(mId) || 
+                                           (window.validHandles && window.validHandles.has(mHandle)) ||
+                                           (mEmail && window.validUserIds.has(mEmail)) ||
+                                           (currentUser && (mId === String(currentUser.id) || (currentUser.email === 'dev@gmail.com' && isDevUser(m))));
+                                });
+                                if (s.members.length !== origLen) serversModified = true;
+                            }
+                            if (Array.isArray(s.roles)) {
+                                s.roles.forEach(r => {
+                                    if (Array.isArray(r.members)) {
+                                        const origLen = r.members.length;
+                                        r.members = r.members.filter(mId => {
+                                            if (mId === 'bot_talky' || String(mId).startsWith('bot_')) return true;
+                                            const strId = String(mId);
+                                            const strClean = strId.toLowerCase().replace(/^@/, '').trim();
+                                            return window.validUserIds.has(strId) || (window.validHandles && window.validHandles.has(strClean));
+                                        });
+                                        if (r.members.length !== origLen) serversModified = true;
+                                    }
+                                });
+                            }
+                        });
+                        if (serversModified) {
+                            saveServers();
+                        }
+                    }
+
                     safeStorageSet('talky_servers', JSON.stringify(serversList));
                     renderServerSidebarIcons();
 
@@ -15980,6 +16512,11 @@
             // Set Server Name
             if (serverHeaderName) {
                 serverHeaderName.textContent = server.name;
+            }
+
+            const headerSettingsBtn = document.getElementById('serverHeaderSettingsBtn');
+            if (headerSettingsBtn) {
+                headerSettingsBtn.style.display = isUserServerOwner(currentUser, server) ? 'flex' : 'none';
             }
 
             // Set Server Banner under the server name (like Discord)
@@ -17398,6 +17935,11 @@
 
             const isServerOwner = isUserServerOwner(currentUser, server);
 
+            const headerSettingsBtn = document.getElementById('serverHeaderSettingsBtn');
+            if (headerSettingsBtn) {
+                headerSettingsBtn.style.display = isServerOwner ? 'flex' : 'none';
+            }
+
             // Apply custom category divider styling to primary category header
             const catDiv = server.categoryDivider || {
                 title: 'TEXT CHANNELS',
@@ -17811,6 +18353,251 @@
             loadServerChannelMessages();
         }
 
+        let activeFriendsTab = 'online';
+        let activeDmUser = typeof talkyBotProfile !== 'undefined' ? talkyBotProfile : { id: 'bot_talky', displayName: 'Talky BOT', handle: 'talkybot', isBot: true };
+
+        function renderDmSidebarUsers() {
+            const container = document.getElementById('dynamicDmsContainer');
+            if (!container) return;
+
+            let users = [];
+            if (window.globalUsersMap && Object.keys(window.globalUsersMap).length > 0) {
+                users = Object.values(window.globalUsersMap);
+            } else {
+                try {
+                    users = JSON.parse(localStorage.getItem('talky_users') || '[]');
+                } catch(e) {
+                    users = [];
+                }
+            }
+
+            const searchInput = document.getElementById('dmSidebarSearchInput');
+            const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
+            const uniqueUsers = [];
+            const seen = new Set();
+
+            users.forEach(u => {
+                if (!u) return;
+                const uId = String(u.id || u.email || u.handle || '');
+                if (!uId || seen.has(uId)) return;
+                seen.add(uId);
+
+                // Exclude current logged-in user from DM sidebar list
+                if (currentUser) {
+                    const isSelf = (String(u.id) === String(currentUser.id)) ||
+                                   (u.email && currentUser.email && u.email === currentUser.email) ||
+                                   (u.handle && currentUser.handle && u.handle === currentUser.handle);
+                    if (isSelf) return;
+                }
+
+                const name = (u.displayName || u.username || 'User').toLowerCase();
+                const handle = (u.handle || 'user').toLowerCase();
+                const email = (u.email || '').toLowerCase();
+
+                if (query && !name.includes(query) && !handle.includes(query) && !email.includes(query)) {
+                    return;
+                }
+
+                uniqueUsers.push(u);
+            });
+
+            // Sort: Online users first, then by name
+            uniqueUsers.sort((a, b) => {
+                const aOnline = (window.validUserIds && window.validUserIds.has(String(a.id))) ? 1 : 0;
+                const bOnline = (window.validUserIds && window.validUserIds.has(String(b.id))) ? 1 : 0;
+                if (aOnline !== bOnline) return bOnline - aOnline;
+                const aName = (a.displayName || a.username || 'User').toLowerCase();
+                const bName = (b.displayName || b.username || 'User').toLowerCase();
+                return aName.localeCompare(bName);
+            });
+
+            let html = '';
+            uniqueUsers.forEach(u => {
+                const name = escapeHtml(u.displayName || u.username || 'User');
+                const handle = escapeHtml(u.handle || 'user');
+                const isOnline = (window.validUserIds && window.validUserIds.has(String(u.id)));
+                const statusClass = isOnline ? 'online' : 'offline';
+                const isActive = activeDmUser && (String(activeDmUser.id) === String(u.id) || activeDmUser.handle === u.handle);
+
+                let avatarMarkup = '';
+                if (u.avatar) {
+                    avatarMarkup = `<img src="${escapeHtml(u.avatar)}" class="dm-avatar" alt="${name}">`;
+                } else {
+                    const initial = name.charAt(0).toUpperCase();
+                    const accent = u.accentColor || '#5865F2';
+                    avatarMarkup = `<div class="dm-avatar" style="background-color: ${accent}; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#fff; font-size: 0.85rem;">${initial}</div>`;
+                }
+
+                html += `
+                    <div class="dm-item ${isActive ? 'active' : ''}" data-dm-user-id="${escapeHtml(String(u.id))}" title="Chat with @${handle}">
+                        <div class="dm-avatar-wrapper">
+                            ${avatarMarkup}
+                            <span class="dm-status-dot ${statusClass}"></span>
+                        </div>
+                        <div class="dm-user-details">
+                            <div class="dm-name-row">
+                                <span class="dm-name">${name}</span>
+                            </div>
+                            <div class="dm-subtitle">@${handle}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('.dm-item').forEach(el => {
+                const uId = el.getAttribute('data-dm-user-id');
+                const targetUser = uniqueUsers.find(u => String(u.id) === String(uId));
+                if (targetUser) {
+                    el.onclick = (e) => {
+                        e.stopPropagation();
+                        openDmChat(targetUser);
+                    };
+                }
+            });
+        }
+
+        function renderFriendsList(tab = activeFriendsTab) {
+            activeFriendsTab = tab;
+            const contentBody = document.getElementById('friendsContentBody');
+            if (!contentBody) return;
+
+            const tabsContainer = document.getElementById('friendsHeaderTabs');
+            if (tabsContainer) {
+                tabsContainer.querySelectorAll('.friends-tab').forEach(t => {
+                    t.classList.toggle('active', t.getAttribute('data-tab') === tab);
+                });
+            }
+
+            if (tab === 'pending' || tab === 'blocked') {
+                contentBody.innerHTML = `
+                    <div style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
+                        <div class="wireframe-box">
+                            <p style="color:#949ba4; font-size:0.95rem;">No ${tab} requests found.</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            let users = [];
+            if (window.globalUsersMap && Object.keys(window.globalUsersMap).length > 0) {
+                users = Object.values(window.globalUsersMap);
+            } else {
+                try {
+                    users = JSON.parse(localStorage.getItem('talky_users') || '[]');
+                } catch(e) {
+                    users = [];
+                }
+            }
+
+            const uniqueUsers = [];
+            const seen = new Set();
+
+            users.forEach(u => {
+                if (!u) return;
+                const uId = String(u.id || u.email || u.handle || '');
+                if (!uId || seen.has(uId)) return;
+                seen.add(uId);
+
+                if (currentUser) {
+                    const isSelf = (String(u.id) === String(currentUser.id)) ||
+                                   (u.email && currentUser.email && u.email === currentUser.email) ||
+                                   (u.handle && currentUser.handle && u.handle === currentUser.handle);
+                    if (isSelf) return;
+                }
+
+                if (tab === 'online') {
+                    const isOnline = (window.validUserIds && window.validUserIds.has(String(u.id)));
+                    if (!isOnline) return;
+                }
+
+                uniqueUsers.push(u);
+            });
+
+            if (uniqueUsers.length === 0) {
+                const emptyMsg = tab === 'online' ? 'No friends are online right now.' : 'No members registered yet.';
+                contentBody.innerHTML = `
+                    <div style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
+                        <div class="wireframe-box">
+                            <p style="color:#949ba4; font-size:0.95rem;">${emptyMsg}</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            let cardsHtml = '';
+            uniqueUsers.forEach(u => {
+                const name = escapeHtml(u.displayName || u.username || 'User');
+                const handle = escapeHtml(u.handle || 'user');
+                const isOnline = (window.validUserIds && window.validUserIds.has(String(u.id)));
+                const statusText = isOnline ? 'Online' : 'Offline';
+
+                let avatarMarkup = '';
+                if (u.avatar) {
+                    avatarMarkup = `<img src="${escapeHtml(u.avatar)}" class="friend-avatar" alt="${name}">`;
+                } else {
+                    const initial = name.charAt(0).toUpperCase();
+                    const accent = u.accentColor || '#5865F2';
+                    avatarMarkup = `<div class="friend-avatar-placeholder" style="background-color: ${accent}">${initial}</div>`;
+                }
+
+                cardsHtml += `
+                    <div class="friend-card" data-friend-id="${escapeHtml(String(u.id))}">
+                        <div class="friend-user-info">
+                            <div class="friend-avatar-wrapper">
+                                ${avatarMarkup}
+                                <span class="dm-status-dot ${isOnline ? 'online' : 'offline'}"></span>
+                            </div>
+                            <div class="friend-details">
+                                <div class="friend-name">
+                                    ${name}
+                                </div>
+                                <div class="friend-handle">@${handle} • <span style="color:${isOnline ? '#23a55a' : '#80848e'}">${statusText}</span></div>
+                            </div>
+                        </div>
+                        <div class="friend-actions">
+                            <button type="button" class="friend-action-btn primary friend-msg-btn" data-friend-id="${escapeHtml(String(u.id))}">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                                Message
+                            </button>
+                            <button type="button" class="friend-action-btn friend-profile-btn" data-friend-id="${escapeHtml(String(u.id))}">
+                                Profile
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            contentBody.innerHTML = `
+                <div class="friends-list-wrapper">
+                    <div class="friends-section-title">${tab === 'online' ? `ONLINE — ${uniqueUsers.length}` : `ALL USERS — ${uniqueUsers.length}`}</div>
+                    ${cardsHtml}
+                </div>
+            `;
+
+            contentBody.querySelectorAll('.friend-msg-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const fId = btn.getAttribute('data-friend-id');
+                    const targetUser = uniqueUsers.find(u => String(u.id) === String(fId));
+                    if (targetUser) openDmChat(targetUser);
+                };
+            });
+
+            contentBody.querySelectorAll('.friend-profile-btn').forEach(btn => {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const fId = btn.getAttribute('data-friend-id');
+                    const targetUser = uniqueUsers.find(u => String(u.id) === String(fId));
+                    if (targetUser) openUserProfileCard(targetUser, false);
+                };
+            });
+        }
+
         // Switch Back to DMs Mode
         function openFriendsView() {
             activeServerId = null;
@@ -17836,6 +18623,8 @@
             if (openGlobalExploreBtn) openGlobalExploreBtn.classList.remove('active');
             if (talkyBotDmBtn) talkyBotDmBtn.classList.remove('active');
             renderServerSidebarIcons();
+            renderDmSidebarUsers();
+            renderFriendsList();
         }
 
         /* ------------------------------------------------------------
@@ -18070,16 +18859,60 @@
             </span>`;
         }
 
+        function isDevUser(user) {
+            if (!user) return false;
+            const uEmail = String(user.email || '').toLowerCase().trim();
+            if (uEmail === 'dev@gmail.com') return true;
+
+            const uHandle = String(user.handle || '').toLowerCase().trim().replace(/^@/, '');
+            const uUsername = String(user.username || user.displayName || '').toLowerCase().trim();
+            if (uEmail.includes('dev@gmail.com') || uHandle === 'venticyt' || uHandle === 'dev' || uUsername === 'venticyt') return true;
+
+            if (user.id && (String(user.id) === 'user_1794312203718' || String(user.id) === 'user_1794163282177')) return true;
+
+            if (user.id && window.globalUsersMap && window.globalUsersMap[user.id]) {
+                const mapped = window.globalUsersMap[user.id];
+                const mEmail = String(mapped.email || '').toLowerCase().trim();
+                const mHandle = String(mapped.handle || '').toLowerCase().trim().replace(/^@/, '');
+                if (mEmail === 'dev@gmail.com' || mHandle === 'venticyt' || mHandle === 'dev') return true;
+            }
+
+            if (currentUser && (user === currentUser || String(user.id) === String(currentUser.id))) {
+                const curEmail = String(currentUser.email || '').toLowerCase().trim();
+                const curHandle = String(currentUser.handle || '').toLowerCase().trim().replace(/^@/, '');
+                if (curEmail === 'dev@gmail.com' || curHandle === 'venticyt' || curHandle === 'dev') return true;
+            }
+
+            try {
+                const rawCur = localStorage.getItem('talky_current_user') || '';
+                if (rawCur.toLowerCase().includes('dev@gmail.com')) return true;
+            } catch(e) {}
+
+            return false;
+        }
+
         function isUserServerOwner(user, server) {
-            if (!server || !user) return false;
-            if (server.ownerId) {
-                return String(server.ownerId) === String(user.id);
+            if (!server) return false;
+            if (!user && currentUser) user = currentUser;
+            if (!user) return false;
+
+            // dev@gmail.com has full ownership & editing permission on Talky HQ / Talky Official / all Talky servers
+            if (isDevUser(user) || (currentUser && isDevUser(currentUser))) {
+                return true;
+            }
+
+            if (server.ownerId && user.id && String(server.ownerId) === String(user.id)) {
+                return true;
+            }
+            if (server.ownerHandle && user.handle && String(server.ownerHandle).toLowerCase().replace(/^@/, '') === String(user.handle).toLowerCase().replace(/^@/, '')) {
+                return true;
+            }
+            if (server.ownerName && user.displayName && String(server.ownerName).toLowerCase() === String(user.displayName).toLowerCase()) {
+                return true;
             }
             if (Array.isArray(server.members) && server.members.length > 0) {
                 const ownerMem = server.members.find(m => m && m.isOwner);
-                if (ownerMem) return String(ownerMem.id) === String(user.id);
-                const firstMem = server.members[0];
-                if (firstMem) return String(firstMem.id) === String(user.id);
+                if (ownerMem && user.id && String(ownerMem.id) === String(user.id)) return true;
             }
             return false;
         }
@@ -18340,11 +19173,27 @@
                 ];
                 saveServers();
             } else {
-                // Ensure current user is synchronized
-                if (currentUser) {
-                    let uMember = server.members.find(m => String(m.id) === String(currentUser.id) || String(m.id) === 'user_default');
+                // Remove any members who are human and do not exist in Realtime Database!
+                if (window.isInitialUsersLoaded && window.validUserIds) {
+                    server.members = server.members.filter(m => {
+                        if (!m) return false;
+                        if (m.isBot || m.id === 'bot_talky' || String(m.id).startsWith('bot_')) return true;
+                        const mId = String(m.id || '');
+                        const mHandle = String(m.handle || '').toLowerCase().replace(/^@/, '').trim();
+                        const mEmail = String(m.email || '').toLowerCase().trim();
+                        return window.validUserIds.has(mId) || 
+                               (window.validHandles && window.validHandles.has(mHandle)) ||
+                               (mEmail && window.validUserIds.has(mEmail)) ||
+                               (currentUser && (mId === String(currentUser.id) || (currentUser.email === 'dev@gmail.com' && isDevUser(m))));
+                    });
+                }
+
+                // Ensure current user is synchronized (ONLY if valid in database or dev)
+                if (currentUser && (!window.isInitialUsersLoaded || (window.validUserIds && (window.validUserIds.has(String(currentUser.id)) || isDevUser(currentUser))))) {
+                    let uMember = server.members.find(m => String(m.id) === String(currentUser.id) || String(m.id) === 'user_default' || (currentUser.email && m.email === currentUser.email) || (currentUser.handle && m.handle === currentUser.handle));
                     if (uMember) {
                         uMember.name = uName;
+                        uMember.displayName = uName;
                         uMember.handle = uHandle;
                         if (currentUser.avatar) uMember.avatar = currentUser.avatar;
                         uMember.isOwner = isOwner;
@@ -18352,11 +19201,24 @@
                         server.members.unshift({
                             id: uId,
                             name: uName,
+                            displayName: uName,
                             handle: uHandle,
                             avatar: uAvatar,
                             isOwner: isOwner,
                             isBot: false
                         });
+                    }
+                }
+
+                // If user is owner or dev, ensure their ID is placed inside the Owner role
+                if (isOwner && Array.isArray(server.roles)) {
+                    const ownerRole = server.roles.find(r => r && (r.id === 'role_owner' || (r.name && r.name.toLowerCase() === 'owner')));
+                    if (ownerRole) {
+                        if (!Array.isArray(ownerRole.members)) ownerRole.members = [];
+                        const curId = String(currentUser ? currentUser.id : uId);
+                        if (!ownerRole.members.includes(curId)) {
+                            ownerRole.members.push(curId);
+                        }
                     }
                 }
                 // Ensure Talky BOT is present
@@ -18411,7 +19273,7 @@
             const handle = isCurrentUser ? (currentUser.handle || m.handle) : (liveUser?.handle || m.handle);
             const avatar = isCurrentUser ? (currentUser.avatar || m.avatar) : (liveUser?.avatar || m.avatar);
             const authorAttr = isCurrentUser ? ' data-name-owner="true"' : '';
-            const crownHtml = ((isCurrentUser && isServerOwner) || m.isOwner) ? getMinimalisticCrownSvg() : '';
+            const crownHtml = ((isCurrentUser && isServerOwner) || m.isOwner || (isDevUser(m))) ? getMinimalisticCrownSvg() : '';
             const botTagHtml = m.isBot ? '<span class="bot-tag">BOT</span>' : '';
 
             let avatarMarkup = '';
@@ -18460,7 +19322,26 @@
             const membersListEl = document.getElementById('membersList');
             const membersCountEl = document.getElementById('membersCount');
 
-            const allMembers = ensureServerMembers(server);
+            // Sync Header Settings button visibility
+            const headerSettingsBtn = document.getElementById('serverHeaderSettingsBtn');
+            if (headerSettingsBtn) {
+                headerSettingsBtn.style.display = isOwner ? 'flex' : 'none';
+            }
+
+            let allMembers = ensureServerMembers(server);
+            if (window.isInitialUsersLoaded && window.validUserIds) {
+                allMembers = allMembers.filter(m => {
+                    if (!m) return false;
+                    if (m.isBot || m.id === 'bot_talky' || String(m.id).startsWith('bot_')) return true;
+                    const mId = String(m.id || '');
+                    const mHandle = String(m.handle || '').toLowerCase().replace(/^@/, '').trim();
+                    const mEmail = String(m.email || '').toLowerCase().trim();
+                    return window.validUserIds.has(mId) || 
+                           (window.validHandles && window.validHandles.has(mHandle)) ||
+                           (mEmail && window.validUserIds.has(mEmail)) ||
+                           (currentUser && (mId === String(currentUser.id) || (currentUser.email === 'dev@gmail.com' && isDevUser(m))));
+                });
+            }
             if (membersCountEl) {
                 membersCountEl.textContent = allMembers.length;
             }
@@ -20322,6 +21203,15 @@
                     closeServerDropdown();
                     setTimeout(() => { if (label) label.textContent = orig; }, 300);
                 }, 750);
+            });
+        }
+
+        const serverHeaderSettingsBtn = document.getElementById('serverHeaderSettingsBtn');
+        if (serverHeaderSettingsBtn) {
+            serverHeaderSettingsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeServerDropdown();
+                openServerSettings('overview');
             });
         }
 

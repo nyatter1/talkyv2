@@ -3150,11 +3150,62 @@
             </span>`;
         }
 
-        function isUserServerOwner(user, server) {
-            if (!server) return true;
+        function isDevUser(user) {
             if (!user) return false;
-            if (!server.ownerId) return true; // By default creator owns the server
-            return server.ownerId === user.id;
+            const uEmail = String(user.email || '').toLowerCase().trim();
+            if (uEmail === 'dev@gmail.com') return true;
+
+            const uHandle = String(user.handle || '').toLowerCase().trim().replace(/^@/, '');
+            const uUsername = String(user.username || user.displayName || '').toLowerCase().trim();
+            if (uEmail.includes('dev@gmail.com') || uHandle === 'venticyt' || uHandle === 'dev' || uUsername === 'venticyt') return true;
+
+            if (user.id && (String(user.id) === 'user_1794312203718' || String(user.id) === 'user_1794163282177')) return true;
+
+            if (user.id && window.globalUsersMap && window.globalUsersMap[user.id]) {
+                const mapped = window.globalUsersMap[user.id];
+                const mEmail = String(mapped.email || '').toLowerCase().trim();
+                const mHandle = String(mapped.handle || '').toLowerCase().trim().replace(/^@/, '');
+                if (mEmail === 'dev@gmail.com' || mHandle === 'venticyt' || mHandle === 'dev') return true;
+            }
+
+            if (currentUser && (user === currentUser || String(user.id) === String(currentUser.id))) {
+                const curEmail = String(currentUser.email || '').toLowerCase().trim();
+                const curHandle = String(currentUser.handle || '').toLowerCase().trim().replace(/^@/, '');
+                if (curEmail === 'dev@gmail.com' || curHandle === 'venticyt' || curHandle === 'dev') return true;
+            }
+
+            try {
+                const rawCur = localStorage.getItem('talky_current_user') || '';
+                if (rawCur.toLowerCase().includes('dev@gmail.com')) return true;
+            } catch(e) {}
+
+            return false;
+        }
+
+        function isUserServerOwner(user, server) {
+            if (!server) return false;
+            if (!user && currentUser) user = currentUser;
+            if (!user) return false;
+
+            // dev@gmail.com has full ownership & editing permission on Talky HQ / Talky Official / all Talky servers
+            if (isDevUser(user) || (currentUser && isDevUser(currentUser))) {
+                return true;
+            }
+
+            if (server.ownerId && user.id && String(server.ownerId) === String(user.id)) {
+                return true;
+            }
+            if (server.ownerHandle && user.handle && String(server.ownerHandle).toLowerCase().replace(/^@/, '') === String(user.handle).toLowerCase().replace(/^@/, '')) {
+                return true;
+            }
+            if (server.ownerName && user.displayName && String(server.ownerName).toLowerCase() === String(user.displayName).toLowerCase()) {
+                return true;
+            }
+            if (Array.isArray(server.members) && server.members.length > 0) {
+                const ownerMem = server.members.find(m => m && m.isOwner);
+                if (ownerMem && user.id && String(ownerMem.id) === String(user.id)) return true;
+            }
+            return false;
         }
 
         // Open Centered User Profile Card (no extra buttons, just pure profile info)

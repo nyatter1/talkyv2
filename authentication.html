@@ -444,14 +444,32 @@
     <script type="module">
         import { rtdb, ref, set, get, child } from './firebase.ts';
 
-        // Auto-login check if already logged in (unless URL has ?logout=true)
+        // Auto-login check: verify against Firebase RTDB so deleted users are never auto-logged in
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('logout') === 'true') {
             localStorage.removeItem('talky_current_user');
         } else {
-            const currentUser = localStorage.getItem('talky_current_user');
-            if (currentUser) {
-                window.location.href = 'app.html';
+            const currentUserRaw = localStorage.getItem('talky_current_user');
+            if (currentUserRaw) {
+                try {
+                    const parsedUser = JSON.parse(currentUserRaw);
+                    if (parsedUser && parsedUser.id) {
+                        get(ref(rtdb, 'users/' + parsedUser.id)).then(snap => {
+                            if (snap.exists() && snap.val()) {
+                                window.location.href = 'app.html';
+                            } else {
+                                console.warn('[Talky Auth] Saved user no longer exists in Realtime Database. Cleared session.');
+                                localStorage.removeItem('talky_current_user');
+                            }
+                        }).catch(() => {
+                            window.location.href = 'app.html';
+                        });
+                    } else {
+                        localStorage.removeItem('talky_current_user');
+                    }
+                } catch(e) {
+                    localStorage.removeItem('talky_current_user');
+                }
             }
         }
 
@@ -462,40 +480,30 @@
             setTimeout(() => switchTab('login'), 10);
         }
 
-        // Helper to query all users from localStorage and Firebase RTDB
+        // Helper to query all users: Firebase RTDB is the single source of truth.
+        // If a user was deleted from Realtime Database, they do NOT exist.
         async function getAllRegisteredUsers() {
-            const userMap = new Map();
-            try {
-                const localUsers = JSON.parse(localStorage.getItem('talky_users') || '[]');
-                localUsers.forEach(u => {
-                    if (u && (u.id || u.email || u.username || u.handle)) {
-                        userMap.set(u.id || (u.email || u.username), u);
-                    }
-                });
-            } catch (e) {}
-
             try {
                 const snap = await get(ref(rtdb, 'users'));
-                if (snap.exists()) {
+                if (snap.exists() && snap.val()) {
                     const fbUsers = snap.val();
-                    Object.values(fbUsers).forEach(u => {
-                        if (u && (u.id || u.email || u.username || u.handle)) {
-                            const key = u.id || (u.email || u.username);
-                            const existing = userMap.get(key);
-                            if (existing) {
-                                const merged = { ...existing, ...u };
-                                if (!merged.password && existing.password) merged.password = existing.password;
-                                userMap.set(key, merged);
-                            } else {
-                                userMap.set(key, u);
-                            }
-                        }
-                    });
+                    const validUsers = Object.values(fbUsers).filter(Boolean);
+                    // Sync localStorage talky_users to only match existing database users
+                    localStorage.setItem('talky_users', JSON.stringify(validUsers));
+                    return validUsers;
+                } else {
+                    // All users were deleted from Realtime Database!
+                    localStorage.setItem('talky_users', '[]');
+                    return [];
                 }
             } catch (fbErr) {
                 console.warn('Could not query Firebase users:', fbErr);
+                try {
+                    return JSON.parse(localStorage.getItem('talky_users') || '[]');
+                } catch(e) {
+                    return [];
+                }
             }
-            return Array.from(userMap.values());
         }
 
         function switchTab(tab) {
